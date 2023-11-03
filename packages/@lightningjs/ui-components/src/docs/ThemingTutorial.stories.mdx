@@ -1,0 +1,267 @@
+<!--
+  Copyright 2023 Comcast Cable Communications Management, LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  SPDX-License-Identifier: Apache-2.0
+-->
+
+import { Meta, Description } from '@storybook/addon-docs';
+
+<Meta title="Docs / Theming/ Tutorial" />
+
+# Building an Application with Theming
+
+Before proceeding, read through the [Theming Overview](../?path=/story/docs-theming-overview--page) documentation to understand the basics of a global theme.
+
+You can see the final result of this example tutorial via this [Lightning Playground link](https://lightningjs.io/playground/#N4IgJgpgDhB2mwMYEsIGcQC5QAEA2yA5gBYAusyshAVmgPSID2AThFiGaVGpnQ2LAB0aANYBPKAENEIwZABudfETIUqtBiwg4ATIICMegAwgANCGUlylGvQCuyALRMAtlEaw4pDJg6kuPHyIAsLiUjJyEIqWqjYaDs6Mbh5eGAC+5miIzMhQ3ligeJJ2SMSCtAUgAGbIeGy+RSWIZRXmTJDsADqwAAR9-X3IycykPQCCUFA9VcxJPQDkgnQTUOVo8wDc3QMD2zt9AO6UYIwHgpL+0sQAkrBoMIikLAAUR-CngnhUAJRbsHv7Jh3UaMPLIDxoHoAXh6wDQpEkhAgmFhBxR+gAnDojKYesR0UYABw4nqIOqSZgAYUYeBYKKMAA8jMyWcy0mk-vs+kD4T1JJNoT1PAdxpNnqDSOC7r8ATsTog7C4vIIAEaMMBic6TOBgSnEWpgZ781bwxEQQRI0iUySweSSNDPb4y3r9MzgaA6uAodBYADaICWKzWIAAuhkQEGKthqrV6hHJsG2uq40N3CMegAZFTWKjTWYuBYxHO2TSsTbdVMsUYAUQZkjcdQACma83NFnRa-WoE2zWty-9PAy06NIFVinhRmT7ZCVj0IAzSDrIVmrGpCIIVgREBcpbDZabJYgegB9RcNi4QR17l37VikOzMXrAWVcnrNpEo4A9UgSZE9TsNhA74QD0aQvv0YE3qB3SyseloAGKMAqaAQIa3zXq+d4Pr0pD6mgggIoQzzzMB8zOgMkFpG6kAwPAXqoD4-pFmuGhMKwbpLAB3ZAb2FRhuYXE9kiwbRjUdTsIJPHCa0IDtCmwyjF+ABC9oQLiSl2P4Hi4gAKvOpBKYwDKga2BbzMxcT2E4rjuJ4sDeP2lbpgAVHykLwmIdSQjMbacXWgHAcIP5eX2fzdPOw49KO46TkUaCQpJwFzguS49CpKEYf0B7IEelonseNkpPZABy9aXuhz5QQMWGPgsiVmv2FEwVB2W5RAozHqexAQEqADKwXlZlt7tdhPQeV5nIQc1AytSeZ7dheV6VZhI21ctr79NS9leJ+4EbT0aIHdCAB8B2mHtG34niJ14udVX7dMdQMrt90Pf0YDIKwjxSii8xMHgiqwPMd1va+1B2PCyBVGIW2LvZv2IF4EDMMDF2vhkaNcjpyCkHUL2g1yP4wCiekLoZDKY-sGOvRtAAi6DZLkkoePjBM7ETf6kwZRmUzs1Ns2lmlPLArMC30HMohpWkDgLkFvXLXIK30kH7gih49HlhEOhVF01b0vq81+sBlb92O4xAwM9FIuG-bDypm3U8ygSDD1GybCz01kORgh4lvW1d8x2-Zgie4zPtA87htCu78xS8LfsXAHQekIIce+9BNMhpNyvTf0x52FAYCLTrNNoAXyOCPnhfF9n7N4YIxkwrhyD4eN5ouBShCUAAGrXAzN-hVdF4uDvlX3-QD5XBfDxAofe8zsCOuP4v10PF5p4v5FTTLefTxeo9LRdk-HqPgjW80zzrftQJw6Qv0AOoQHgrggU8PSMA+b5mgAhKjNMDIdSeIpHDfnrm3QQHdmBd1gN3HorkdAu32jUBkqEUSkGYHYNSvMqhPWuGeT8PRIHQMMlpFwaCwEDQIjjOoABZTulASFPALPzB6bcCGLgXP1Tyf55gfXuEUMQOgnZKz5lvHOO8+hr0XHPJmUpD402PjI8OZ8LgXyvhtG+O0FgAAlkZqQOiBNAxBThjSSCBecXY6jfn0nyeAfIegqiFtpPkeA8A9CKMgMA79NI9E0rUZAAAvGw35GAiDgN5fM3jmCgJ6iBMSEBf6II2oA+uwDQEtyCtwiB9CYFwJ6Ag7ByAUFgDQRgrB-9+g4PnHgnqBCiEMMYKQ8hGTwGQC9rIjwdCoENNIZHCpfQ2GwmsZwgav01Qan0MIi6aQxEZ1gnvRcG95GvmPhvFRpA1G80lObX6AB5AA0vMaZsyVZQTgu1RCyFULLK5HrdJg8N610otRD0dEkAMT9BYAgq5LJ0ASIVOy+RzB+UsVJc0bd8J8XDPVYSEKRKgHiRJfy3FApwpknJdgEUqykghKMFUqlBS4ViTdS+exurZnIbEz4kgxAfxTl7CAcBtEuyOGAG2MSlTUtpZpYQ2RGWwHvi7epMDKWcoEXS7J3SYEu22bQnJjCkiivBeECueBCAuzaWHBeXTiGNKYUq4QKrmANwZAyPA3QZkbBebRBA3pGJhnDAiFUPgQCSFcSANIQA).
+
+## Setting up App.js
+
+Similarly to creating a Lightning application without LUI or Theming, you will need to create an `App` class. You can learn more about application setup [here](https://lightningjs.io/docs/#/getting-started/CreateApp/index).
+
+In this example, we will create a single page application using the default Base theme. For more information about setting a custom theme, please refer to [Theming Overview](../?path=/story/docs-theming-overview--page). Additionally, the following example can easily be adapted to complex applicatoins using the [Lightning SDK Router](https://lightningjs.io/docs/#/lightning-sdk-reference/plugins/router/index). If you choose this setup, we recommend setting your theme via the [`boot`](https://lightningjs.io/docs/#/lightning-sdk-reference/plugins/router/configuration?id=boot) key, like this:
+
+```js
+  boot: async () => {
+    await context.setTheme(YourThemeObjectHere);
+  }
+```
+
+In our App.js file, we will define our single page, which will reference a new component type, `ExamplePage`. We will create this `ExamplePage` in the next step.
+
+```js
+import Lightning from '@lightningjs/core';
+import ExamplePage from './ExamplePage.js'
+
+export default class App extends Lightning.Application {
+    static _template() {
+        return {
+            Page: { type: ExamplePage }
+        }
+    }
+
+    _getFocused() {
+        return this.tag('Page');
+    }
+}
+```
+
+## Creating a Page
+
+### Understanding the Base Component
+
+All components in LUI extend a single `Base` component, which you can read about [here]([Theming Overview](../?path=/story/docs-base-component--page). This Base component is wrapped in helpful mixins like [`withThemeStyles`](../?path=/docs/utilities-withthemestyles--with-theme-styles), [`withHandleKey`](../?path=/docs/utilities-withhandlekey--with-handle-key), [`withUpdates`](../?path=/docs/utilities-withupdates--with-updates), and [`withTags`](../?path=/docs/utilities-withtags--with-tags). It is essential to utilize this Base component in your applications in order to get the full benefits of theming.
+
+We will start building our custom `ExamplePage` by extending this `Base` component, like so:
+
+```js
+import { Base } from '@lightningjs/ui-components';
+
+export default class ExamplePage extends Base {
+  static get __componentName() {
+    return 'ExamplePage';
+  }
+}
+```
+
+### Simplifying the static _template
+
+While it is common to set up most of a component in the `static _template`, you will not be able to get the full benefits of a custom theme by using the template alone. This is because our components have a unique `update` lifecycle (via [`withUpdates`](../?path=/docs/utilities-withupdates--with-updates)) that ensures any time a style property is update (whether from a global theme update or a change to an instance of a component), they re-render.
+
+If you reference theme properties inside of the `_template`, which only runs *once*, regardless of theme updates, your custom component will never render with the new custom theme values. For example, if you have a custom theme set for your application, things will run in the following order:
+- Application startup
+- Component creation utilizing the Base theme
+- A new theme is set via the global `context`
+- The component receives an event to update its style
+
+In order to ensure the component always applies the most up-to-date style values, we will keep them out of the template:
+
+ExamplePage.js
+```js
+import { Base, Button, TextBox } from '@lightningjs/ui-components';
+
+export default class ExamplePage extends Base {
+  static get __componentName() {
+    return 'ExamplePage';
+  }
+
+  static _template() {
+    return {
+      Content: {
+        w: w => w,
+        h: h => h,
+        flex: {
+          direction: 'column',
+          justifyContent: 'center'
+        },
+        Title: { type: TextBox },
+        Description: { type: TextBox },
+        Button: { type: Button }
+      }
+    }
+  }
+}
+```
+
+### Leveraging withTags
+
+In order to make our developer lives easier as we write code, we will also add this static `tags` method to create local variable shorthands. For example, instead of `this.tag('Title')`, we can use `this._Title`. For more information, check the `withTags` documentation.
+
+```js
+  static get tags() {
+    return [
+      { name: 'Title', path: 'Content.Title' },
+      { name: 'Description', path: 'Content.Description' },
+      { name: 'Button', path: 'Content.Button' }
+    ];
+  }
+```
+
+### Utilizing the Theme
+
+Now, we will tap into the global theme and update each element (`Title`, `Description`, and `Button`) via the `_update` method.
+
+We start by *supering* `_update` in order to ensure we retain any logic from the Base component we are extending, or any other component that we may have extended along the way. Next, we start tapping into the global theme via the imported `context`. Here, are are setting our `ExamplePage` component to fill the screen's height and width, as well as moving over to the right on the x-axis.
+
+ExamplePage.js
+```js
+import { Base, Button, TextBox, context } from '@lightningjs/ui-components';
+```
+
+Inside the class declaration, after the `_template` and `tags`:
+```js
+  _update() {
+    super._update();
+    this.w = context.theme.layout.screenW;
+    this.h = context.theme.layout.screenH;
+    this.x = context.theme.layout.marginX;
+  }
+```
+
+Next, we can start updating each individual element. Here is an example to update the `Title` element. Make sure you call this new method to the end of `_update`.
+
+```js
+  _updateTitle() {
+    this._Title.patch({
+      content: 'Welcome to our Page!',
+      w: this.w - context.theme.layout.marginX * 2,
+      fixed: true,
+      flexItem: { marginBottom: context.theme.spacer.lg },
+      style: { textStyle: 'display2' }
+    });
+  }
+```
+
+Here, we are referencing the `layout.marginX` token to determine how wide the TextBox can be. This ensures that there is a safe amount of padding on both the left and right side of the screen. Additionally, we are using the `spacer.lg` token as the space between the Title and Description, and the `display2` typography token to set the text size and other font properties.
+
+If you have set a custom theme, these values will reflect that of the new object and dynamically update the component. You can even test this on the fly using the `context.setTheme` method outlined in the [Theming Overview](../?path=/story/docs-theming-overview--page).
+
+Next, we will then repeat this approach with the `Description` and `Button`, ensuring all of our new methods are called from `_update`.
+
+```js
+  _updateDescription() {
+    this._Description.patch({
+      content: 'Here, we show some example text and a button, all laid out utilizing tokens from our theme file!',
+      w: this.w - context.theme.layout.marginX * 2,
+      fixed: true,
+      flexItem: { marginBottom: context.theme.spacer.xxxl },
+      style: { textStyle: 'body1' }
+    });
+  }
+
+  _updateButton() {
+    this._Button.patch({
+      title: 'OK'
+    });
+  }
+```
+
+The final `_update` method should look something like this:
+```js
+  _update() {
+    super._update();
+
+    this.w = context.theme.layout.screenW;
+    this.h = context.theme.layout.screenH;
+    this.x = context.theme.layout.marginX;
+
+    this._updateTitle();
+    this._updateDescription();
+    this._updateButton();
+  }
+```
+
+Additionally, you can pass the focus of the component onto the `Button`:
+```js
+  _getFocused() {
+    return this._Button;
+  }
+```
+
+Here is the code up to this point on the [Lightning Playground](https://lightningjs.io/playground/#N4IgJgpgDhB2mwMYEsIGcQC5QAEA2yA5gBYAusyshAVmgPSID2AThFiGaVGpnQ2LAB0aANYBPKAENEIwZABudfETIUqtBiwg4ATIICMegAwgANCGUlylGvQCuyALRMAtlEaw4pDJg6kuPHyIAsLiUjJyEIqWqjYaDs6Mbh5eGAC+5miIzMhQ3ligeJJ2SMSCtAUgAGbIeGy+RSWIZRXmTJDsADqwAAR9-X3IycykPQCCUFA9VcxJPQDkgnQTUOVo8wDc3QMD2zt9AO6UYIwHgpL+0sQAkrBoMIikLAAUR-CngnhUAJRbsHv7Jh3UaMPLIDxoHoAXh6wDQpEkhAgmFhBxR+gAnDojKYesR0UYABw4nqIOqSZgAYUYeBYKKMAA8jMyWcy0mk-vs+kD4T1JJNoT1PAdxpNnqDSOC7r8ATsTog7C4vIIAEaMMBic6TOBgSnEWpgZ781bwxEQQRI0iUySweSSNDPb4y3r9MzgaA6uAodBYADaICWKzWIAAuhkQEGKthqrV6hHJsG2uq40N3CMegAZFTWKjTWYuBYxHO2TSsTbdVMsUYAUQZkjcdQACma83NFnRa-WoE2zWty-9PAy06NIFVinhRmT7ZCVj0IAzSDrIVmrGpCIIVgREBcpbDZabJYgegB9RcNi4QR17l37VikOzMXrAWVcnrNpEo4A9UgSZE9TsNhA74QD0aQvv0YE3qB3SyseloAGKMAqaAQIa3zXq+d4Pr0pD6mgggIoQzzzMB8zOgMkFpG6kAwPAXqoD4-pFmuGhMKwbpLAB3ZAb2FRhuYXE9kiwbRjUdTsIJPHCa0IDtCmwyjF+ABC9oQLiSl2P4Hi4gAKvOpBKYwDK4kCi4LqBrYFvMzFxPYTiuO4niwN4-bdPOw49KO46TkUaCQpJwFzguS49CpKEYf0B7IEep4QOei5Xs+UEDFhj4Ra+fTUs5XifuBGU9GiBXQgAfAVph5Rl+J4iVeLlcl+XTHUDK5fVDX9GAyCsI8UoovMTB4IqsDzHVbWvtQdjwsgVRiFli7Ob1iBeBAzDDRVr4ZGtXI6cgpB1C1o1cj+MAonpC6GQym37BtrUZQAIug2S5JKHj7QdOxHX+p0GUZl07Ndb2hZpTywK9AN9B9KIaVpA4A5BbVw1yCN9JB+4IoePSWt+iIOuhSWYRA95pb6v1frA9Z-vM227RAw09FIuG9bNypU3U8ygSNDWk+TvX3VkORgh4tP01V8xM85gi849AtDezJNCtzCxQ8DQsXCLYukIISuC9BN0hpyEEwVBx52FAYAXolFVoCby2CMbpvm86FW4cg+EijCpn6QRxBxeaRRiIwmnCNkEBwAA6vr+zO-hxCCh7C5ez7nySP7gd8yHsAABIR+9eGCAysceGZGu4YnfsBxrLgUoQlAABp-E7ud22bi4s5e5GHY3JvNxAkv889sCOtnAxR7bXcXlrA-t8jhsDE3F6txbN0j8ereCPTzTPHjDUe-NCyhxAeCuCBTw9AHzBvmaACEq03QMhUjyKjikoXnsl0qScpxXVe1z0ABUPQ6A5vlGoDJUIolIMwOwalfpVCatcM8n4eiV2YNXWAhktIuBRHHYu3t373GkDbPAhBZa30ij+PasJvz6QAMrkIph1e4fsdBsyRn9KeOtYJj0XL3J6UpF6vmXjw6Wa8Lgby3vlHepBeoZ2WmpAqIE0DEFOD0NASQQLzi7HUKh5kbRgD5D0FUQNtJ8jwHgHoRRkB6PLj0TStRkAAC8bDfkYCIOAkIZhzDPt+XBIExIQGvkAjK99c6P2ftleOb9fbJ3LoIZBqCa5-wAYE18ICwHfkgdA0hfRYHzngXFRBcTKDoKeJgsJRcE54PCDbBkNSzH-QavCMQFCvxF1oU0imaoNT6BYRVNI7CUZGy4RACe-CO4u1thPERpAxG-UlNTXqAB5AA0vMXp-SZ79DggTRCyFUKjNvATbC3jxnHgntnSi1EPR0SQAxP0FgCCrlsnQBIDkUjOQwGGcMCIVQ+BAJIUxIA0hAA).
+
+## Extracting to Local Styles
+
+At this point, your single page application should be running and utilizing theming tokens! This next step shows how we can abstract references like `context.theme.layout.screenW` out into a separate `style` file just for this component.
+
+Here, we are mapping the theme tokens to new variables that can be leveraged directly in the component class.
+
+ExamplePage.styles.js
+```js
+export const base = theme => ({
+  height: theme.layout.screenH,
+  width: theme.layout.screenW,
+  marginX: theme.layout.marginX,
+  titleMarginBottom: theme.spacer.lg,
+  descriptionMarginBottom: theme.spacer.xxxl
+});
+```
+
+In our ExamplePage.js, we need to import this new file:
+```js
+import * as styles from './ExamplePage.styles.js';
+```
+
+Then we will add it to the static `__themeStyle` getter:
+```js
+  static get __themeStyle() {
+    return styles;
+  }
+```
+
+At this point, we can remove the import and all references for the `context` and instead replace it with references to the local `this.style` object. Here are all of the references to update:
+
+- `context.theme.layout.screenH` --> `this.style.height`
+- `context.theme.layout.screenW` --> `this.style.width`
+- `context.theme.layout.marginX` --> `this.style.marginX`
+- `context.theme.spacer.lg` --> `this.style.titleMarginBottom`
+- `context.theme.spacer.xxxl` --> `this.style.descriptionMarginBottom`
+
+### Removing width and height setters
+
+Additionally, the `withThemeStyles` mixin automatically interprets all instaces of `height` and `width` found in the style object and sets the component dimensions to those values. Therefore, we can simplify our `_update` method to the following, completely removing the setters for `.h` and `.w`:
+
+```js
+  _update() {
+    super._update();
+    this.x = this.style.marginX;
+    this._updateTitle();
+    this._updateDescription();
+    this._updateButton();
+  }
+```
+
+## Final Result
+
+Congratulations, you have just created a page using LUI and Theming! You can find the final results of this tutorial via this [Lightning Playground link](https://lightningjs.io/playground/#N4IgJgpgDhB2mwMYEsIGcQC5QAEA2yA5gBYAusyshAVmgPSID2AThFiGaVGpnQ2LAB0aANYBPKAENEIwZABudfETIUqtBiwg4ATIICMegAwgANCGUlylGvQCuyALRMAtlEaw4pDJg6kuPHyIAsLiUjJyEIqWqjYaDs6Mbh5eGAC+5miIzMhQ3ligeJJ2SMSCtAUgAGbIeGy+RSWIZRXmTJDsADqwAAR9-X3IycykPQCCUFA9VcxJPQDkgnQTUOVo8wDc3QMD2zt9AO6UYIwHgpL+0sQAkrBoMIikLAAUR-CngnhUAJRbsHv7Jh3UaMPLIDxoHoAXh6wDQpEkhAgmFhBxR+gAnDojKYesR0UYABw4nqIOqSZgAYUYeBYKKMAA8jMyWcy0mk-vs+kD4T1JJNoT1PAdxpNnqDSOC7r8ATsTog7C4vIIAEaMMBic6TOBgSnEWpgZ781bwxEQQRI0iUySweSSNDPb4y3r9MzgaA6uAodBYADaICWKzWIAAuhkQEGKthqrV6hHJsG2uq40N3CMegAZFTWKjTWYuBYxHO2TSsTbdVMsUYAUQZkjcdQACma83NFnRa-WoE2zWty-9PAy06NIFVinhRmT7ZCVj0IAzSDrIVmrGpCIIVgREBcpbDZabJYgegB9RcNi4QR17l37VikOzMXrAWVcnrNpEo4A9UgSZE9TsNhA74QD0aQvv0YE3qB3SyseloAGKMAqaAQIa3zXq+d4Pr0pD6mgggIoQzzzMB8zOgMkFpG6kAwPAXqoD4-pFmuGhMKwbpLAB3ZAb2FRhuYXE9kiwbRjUdTsIJPHCa0IDtCmwyjF+ABC9oQLiSl2P4Hi4gAKvOpBKYwDKga2BbzMxcT2E4rjuJ4sDeP2lbpgAVHykLwmIdSQjMbacXWgHAcIP5eX2fzdPOw49KO46TkUaCQpJwFzguS49CpKEYf0B7IEelonseNkpPZABy9aXuhz5QQMWGPgsiVmv2FEwVB2W5RAozHqexAQEqADKwXlZlt7tdhPQeV5nIQc1AytSeZ7dheV6VZhI21ctr79NS9leJ+4EbT0aIHdCAB8B2mHtG34niJ14udVX7dMdQMrt90Pf0YDIKwjxSii8xMHgiqwPMd1va+1B2PCyBVGIW2LvZv2IF4EDMMDF2vhkaNcjpyCkHUL2g1yP4wCiekLoZDKY-sGOvRtAAi6DZLkkoePjBM7ETf6kwZRmUzs1Ns2lmlPLArMC30HMohpWkDgLkFvXLXIK30kH7gih49HlhEOhVF01b0vq81+sBlb92O4xAwM9FIuG-bDypm3U8ygSDD1GybCz01kORgh4lvW1d8x2-Zgie4zPtA87htCu78xS8LfsXAHQekIIce+9BNMhpNyvTf0x52FAYCLTrNNoAXyOCPnhfF9n7N4YIxkwrhyD4eN5ouBShCUAAGrXAzN-hVdF4uDvlX3-QD5XBfDxAofe8zsCOuP4v10PF5p4v5FTTLefTxeo9LRdk-HqPgjW80zzrftQJw6Qv0AOoQHgrggU8PSMA+b5mgAhKjNMDIdSeIpHDfnrm3QQHdmBd1gN3HorkdAu32jUBkqEUSkGYHYNSvMqhPWuGeT8PRIHQMMlpFwaCwEDQIjjOoABZTulASFPALPzB6bcCGLgXP1Tyf55gfXuEUMQOgnZKz5lvHOO8+hr0XHPJmUpD402PjI8OZ8LgXyvhtG+O0FgAAlkZqQOiBNAxBThjSSCBecXY6jfn0nyeAfIegqiFtpPkeA8A9CKMgMA79NI9E0rUZAAAvGw35GAiDgN5fM3jmCgJ6iBMSEBf6II2oA+uwDQEtyCtwiB9CYFwJ6Ag7ByAUFgDQRgrB-9+g4PnHgnqBCiEMMYKQ8hGTwGQC9rIjwdCoENNIZHCpfQ2GwmsZwgav01Qan0MIi6aQxEZ1gnvRcG95GvmPhvFRpA1G80lObX6AB5AA0vMaZsyVZQTgu1RCyFULLK5HrdJg8N610otRD0dEkAMT9BYAgq5LJ0ASIVOy+RzB+UsVJc0bd8J8XDPVYSEKRKgHiRJfy3FApwpknJdgEUqykghKMFUqlBS4ViTdS+exurZnIbEz4kgxAfxTl7CAcBtEuyOGAG2MSlTUtpZpYQ2RGWwHvi7epMDKWcoEXS7J3SYEu22bQnJjCkiivBeECueBCAuzaWHBeXTiGNKYUq4QKrmANwZAyPA3QZkbBebRBA3pGJhnDAiFUPgQCSFcSANIQA)!
