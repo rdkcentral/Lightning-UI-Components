@@ -33,9 +33,9 @@ Similarly to creating a Lightning application without LUI or Theming, you will n
 In this example, we will create a single page application using the default Base theme. For more information about setting a custom theme, please refer to [Theming Overview](../?path=/story/docs-theming-overview--page). Additionally, the following example can easily be adapted to complex applications using the [Lightning SDK Router](https://lightningjs.io/docs/#/lightning-sdk-reference/plugins/router/index). If you choose this setup, we recommend setting your theme via the [`boot`](https://lightningjs.io/docs/#/lightning-sdk-reference/plugins/router/configuration?id=boot) key, like this:
 
 ```js
-  boot: async () => {
-    await context.setTheme(YourThemeObjectHere);
-  }
+boot: async () => {
+  await context.setTheme(YourThemeObjectHere);
+}
 ```
 
 In our App.js file, we will define our single page, which will reference a new component type, `ExamplePage`. We will create this `ExamplePage` in the next step.
@@ -45,15 +45,15 @@ import Lightning from '@lightningjs/core';
 import ExamplePage from './ExamplePage.js'
 
 export default class App extends Lightning.Application {
-    static _template() {
-        return {
-            Page: { type: ExamplePage }
-        }
+  static _template() {
+    return {
+      Page: { type: ExamplePage }
     }
+  }
 
-    _getFocused() {
-        return this.tag('Page');
-    }
+  _getFocused() {
+    return this.tag('Page');
+  }
 }
 ```
 
@@ -119,13 +119,13 @@ export default class ExamplePage extends Base {
 In order to make our lives easier as we write code, we will also add this static `tags` method to create local variable shorthands. For example, instead of `this.tag('Title')`, we can use `this._Title`. For more information, check the `withTags` documentation.
 
 ```js
-  static get tags() {
-    return [
-      { name: 'Title', path: 'Content.Title' },
-      { name: 'Description', path: 'Content.Description' },
-      { name: 'Button', path: 'Content.Button' }
-    ];
-  }
+static get tags() {
+  return [
+    { name: 'Title', path: 'Content.Title' },
+    { name: 'Description', path: 'Content.Description' },
+    { name: 'Button', path: 'Content.Button' }
+  ];
+}
 ```
 
 ### Utilizing the Theme
@@ -141,26 +141,26 @@ import { Base, Button, TextBox, context } from '@lightningjs/ui-components';
 
 Inside the class declaration, after the `_template` and `tags`:
 ```js
-  _update() {
-    super._update();
-    this.w = context.theme.layout.screenW;
-    this.h = context.theme.layout.screenH;
-    this.x = context.theme.layout.marginX;
-  }
+_update() {
+  super._update();
+  this.w = context.theme.layout.screenW;
+  this.h = context.theme.layout.screenH;
+  this.x = context.theme.layout.marginX;
+}
 ```
 
 Next, we can start updating each individual element. Here is an example to update the `Title` element. Make sure you call this new method to the end of `_update`.
 
 ```js
-  _updateTitle() {
-    this._Title.patch({
-      content: 'Welcome to our Page!',
-      w: this.w - context.theme.layout.marginX * 2,
-      fixed: true,
-      flexItem: { marginBottom: context.theme.spacer.lg },
-      style: { textStyle: 'display2' }
-    });
-  }
+_updateTitle() {
+  this._Title.patch({
+    content: 'Welcome to our Page!',
+    w: this.w - context.theme.layout.marginX * 2,
+    fixed: true,
+    flexItem: { marginBottom: context.theme.spacer.lg },
+    style: { textStyle: 'display2' }
+  });
+}
 ```
 
 Here, we are referencing the `layout.marginX` token to determine how wide the TextBox can be. This ensures that there is a safe amount of padding on both the left and right side of the screen. Additionally, we are using the `spacer.lg` token as the space between the Title and Description, and the `display2` typography token to set the text size and other font properties.
@@ -170,43 +170,43 @@ If you have set a custom theme, these values will reflect that of the new object
 Next, we will then repeat this approach with the `Description` and `Button`, ensuring all of our new methods are called from `_update`.
 
 ```js
-  _updateDescription() {
-    this._Description.patch({
-      content: 'Here, we show some example text and a button, all laid out utilizing tokens from our theme file!',
-      w: this.w - context.theme.layout.marginX * 2,
-      fixed: true,
-      flexItem: { marginBottom: context.theme.spacer.xxxl },
-      style: { textStyle: 'body1' }
-    });
-  }
+_updateDescription() {
+  this._Description.patch({
+    content: 'Here, we show some example text and a button, all laid out utilizing tokens from our theme file!',
+    w: this.w - context.theme.layout.marginX * 2,
+    fixed: true,
+    flexItem: { marginBottom: context.theme.spacer.xxxl },
+    style: { textStyle: 'body1' }
+  });
+}
 
-  _updateButton() {
-    this._Button.patch({
-      title: 'OK'
-    });
-  }
+_updateButton() {
+  this._Button.patch({
+    title: 'OK'
+  });
+}
 ```
 
 The final `_update` method should look something like this:
 ```js
-  _update() {
-    super._update();
+_update() {
+  super._update();
 
-    this.w = context.theme.layout.screenW;
-    this.h = context.theme.layout.screenH;
-    this.x = context.theme.layout.marginX;
+  this.w = context.theme.layout.screenW;
+  this.h = context.theme.layout.screenH;
+  this.x = context.theme.layout.marginX;
 
-    this._updateTitle();
-    this._updateDescription();
-    this._updateButton();
-  }
+  this._updateTitle();
+  this._updateDescription();
+  this._updateButton();
+}
 ```
 
 Additionally, you can pass the focus of the component onto the `Button`:
 ```js
-  _getFocused() {
-    return this._Button;
-  }
+_getFocused() {
+  return this._Button;
+}
 ```
 
 Here is the code up to this point on the [Lightning Playground](https://lightningjs.io/playground/#zGGwPs5JFWap).
@@ -235,9 +235,9 @@ import * as styles from './ExamplePage.styles.js';
 
 Then we will add it to the static `__themeStyle` getter:
 ```js
-  static get __themeStyle() {
-    return styles;
-  }
+static get __themeStyle() {
+  return styles;
+}
 ```
 
 At this point, we can remove the import and all references for the `context` and instead replace it with references to the local `this.style` object. Here are all of the references to update:
@@ -253,13 +253,13 @@ At this point, we can remove the import and all references for the `context` and
 Additionally, the `withThemeStyles` mixin automatically interprets all instaces of `height` and `width` found in the style object and sets the component dimensions to those values. Therefore, we can simplify our `_update` method to the following, completely removing the setters for `.h` and `.w`:
 
 ```js
-  _update() {
-    super._update();
-    this.x = this.style.marginX;
-    this._updateTitle();
-    this._updateDescription();
-    this._updateButton();
-  }
+_update() {
+  super._update();
+  this.x = this.style.marginX;
+  this._updateTitle();
+  this._updateDescription();
+  this._updateButton();
+}
 ```
 
 ## Final Result
