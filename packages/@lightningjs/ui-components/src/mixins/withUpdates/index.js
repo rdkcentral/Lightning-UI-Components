@@ -47,6 +47,7 @@ function getPropertyDescriptor(name, key) {
           this[key] !== null &&
           this[key].style
         ) {
+          // If the property is for a nested component, recursively combine it with the component's existing styles, ensuring that any styles defined in componentConfig are also applied.
           const style = clone(this[key].style, value.style || {});
           newValue.style = style;
         }

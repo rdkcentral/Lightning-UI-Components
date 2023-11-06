@@ -368,6 +368,54 @@ export function generatePayload(
 }
 
 /**
+ * Recursively searches for and returns all the property keys nested within the specified key in the object.
+ *
+ * @param {Object} obj - The object to search through.
+ * @param {string} keyToFind - The key whose nested keys are to be found.
+ * @returns {string[]} An array containing all nested property keys under the specified key.
+ */
+function findNestedKeys(obj, keyToFind) {
+  const nestedKeys = [];
+
+  /**
+   * Inner function to recursively search for nested keys.
+   *
+   * @param {Object} obj - The nested object to search through.
+   */
+  function searchNestedKeys(obj) {
+    if (typeof obj === 'object' && obj !== null) {
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          nestedKeys.push(key); // Add the nested key to the array
+        }
+      }
+    }
+  }
+
+  /**
+   * Outer function to initiate search when the specified key is found.
+   *
+   * @param {Object} obj - The object to search through.
+   */
+  function searchForKey(obj) {
+    if (typeof obj === 'object' && obj !== null) {
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          if (key === keyToFind) {
+            searchNestedKeys(obj[key]); // Start searching for nested keys
+            break; // Once the specified key is found, we don't need to look further at this level
+          }
+          searchForKey(obj[key]); // Continue searching for the specified key
+        }
+      }
+    }
+  }
+
+  searchForKey(obj); // Initialize the search with the object
+  return nestedKeys; // Return the array of nested keys
+}
+
+/**
  * Generates a solution based on the provided configurations.
  *
  * @param {Object} options - The configuration options for generating the solution.
@@ -377,24 +425,23 @@ export function generatePayload(
  * @param {Object} [options.defaultStyle={}] - Default styles provided by the user.
  * @returns {Object} - The generated solution with shared references and merged identical properties.
  */
-export const generateSolution = ({
-  base = {},
-  tone = {},
-  mode = {},
-  defaultStyle = {}
-}) => {
+export const generateSolution = (
+  { base = {}, tone = {}, mode = {}, defaultStyle = {} },
+  modeKeys = [],
+  toneKeys = []
+) => {
   const solution = {};
 
   const toneProperties = findPropertiesBySubProperty(mode, 'tone');
   const modeProperties = findPropertiesBySubProperty(tone, 'mode');
 
   const uniqueModes = getUniqueProperties(
-    ['unfocused', 'focused', 'disabled'],
+    ['unfocused', 'focused', 'disabled', ...modeKeys],
     mode,
     modeProperties
   );
   const uniqueTones = getUniqueProperties(
-    ['neutral', 'inverse', 'brand'],
+    ['neutral', 'inverse', 'brand', ...toneKeys],
     tone,
     toneProperties
   );
@@ -417,18 +464,7 @@ export const generateSolution = ({
 };
 
 const DEFAULT_KEYS = [
-  'unfocused_neutral',
-  'unfocused_inverse',
-  'unfocused_brand',
-  'focused_neutral',
-  'focused_inverse',
-  'focused_brand',
-  'disabled_neutral',
-  'disabled_inverse',
-  'disabled_brand'
-];
-
-const FALLBACK_ORDER = [
+  // NOTE: ORDER MATTERS
   'unfocused_neutral',
   'unfocused_inverse',
   'unfocused_brand',
@@ -449,11 +485,10 @@ const FALLBACK_ORDER = [
  */
 export function enforceContract(inputObj) {
   const result = {};
-
-  for (const key of DEFAULT_KEYS) {
+  for (const key of [...DEFAULT_KEYS, ...Object.keys(inputObj)]) {
     if (!inputObj.hasOwnProperty(key)) {
       // Find the first fallback property that exists in inputObj
-      const fallbackKey = FALLBACK_ORDER.find(fallback =>
+      const fallbackKey = DEFAULT_KEYS.find(fallback =>
         inputObj.hasOwnProperty(fallback)
       );
       if (fallbackKey) {
@@ -600,13 +635,16 @@ export const generateComponentStyleSource = ({
     tone: inlineStyle?.tone || {}
   };
 
-  const solution = [
-    ...componentDefault,
-    componentConfigSanitized,
-    local
-  ].reduce((acc, style) => {
+  // Merge all the styles together into one array to loop
+  const merged = [...componentDefault, componentConfigSanitized, local];
+
+  // Find all the keys that are nested under mode and tone this will help generate the final solution
+  const modeKeys = findNestedKeys(merged, 'mode');
+  const toneKeys = findNestedKeys(merged, 'tone');
+
+  const solution = merged.reduce((acc, style) => {
     const parsed = executeWithContextRecursive(style, theme);
-    return clone(acc, generateSolution(parsed));
+    return clone(acc, generateSolution(parsed, modeKeys, toneKeys));
   }, {});
 
   const final = formatStyleObj(
@@ -674,10 +712,8 @@ export const colorParser = (targetObject, styleObj) => {
 export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
   const { mode = 'unfocused', tone = 'neutral' } = component;
-
   return (
     componentStyleSource[`${mode}_${tone}`] ||
-    componentStyleSource[`unfocused_${tone}`] ||
     componentStyleSource['unfocused_neutral'] ||
     {}
   );
