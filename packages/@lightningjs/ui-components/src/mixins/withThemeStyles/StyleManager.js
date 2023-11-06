@@ -221,7 +221,6 @@ export default class StyleManager extends lng.EventEmitter {
       if (!style) {
         // Style does not exist so will also need to be generated
         style = generateStyle(this.component, styleSource);
-
         this._addCache(`style_${mode}_${tone}`, style);
       }
       this._props = style.props;

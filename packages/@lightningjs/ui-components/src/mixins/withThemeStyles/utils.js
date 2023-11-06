@@ -675,21 +675,12 @@ export const generateStyle = (component, componentStyleSource = {}) => {
   if (!isPlainObject(component)) return {};
   const { mode = 'unfocused', tone = 'neutral' } = component;
 
-  const style =
+  return (
     componentStyleSource[`${mode}_${tone}`] ||
     componentStyleSource[`unfocused_${tone}`] ||
     componentStyleSource['unfocused_neutral'] ||
-    {};
-
-  const componentStyle = component._componentLevelStyle;
-  if (componentStyle) {
-    return formatStyleObj(
-      clone(style, colorParser(component, componentStyle)),
-      component.constructor.aliasStyles
-    );
-  }
-
-  return formatStyleObj(style, component.constructor.aliasStyles);
+    {}
+  );
 };
 
 /**

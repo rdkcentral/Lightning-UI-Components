@@ -1352,36 +1352,6 @@ describe('generateStyle', () => {
     expect(generatedStyle).toEqual(expectedStyle);
   });
 
-  it('should handle componentStyle and aliasStyles', () => {
-    const component = {
-      mode: 'focused',
-      tone: 'brand',
-      _componentLevelStyle: {
-        fontSize: '24'
-      },
-      constructor: {
-        aliasStyles: [
-          { prev: 'fontSize', curr: 'fs' } // Alias style
-        ]
-      }
-    };
-
-    const componentStyleSource = {
-      focused_brand: {
-        color: 'red'
-      }
-    };
-
-    const generatedStyle = generateStyle(component, componentStyleSource);
-
-    const expectedStyle = {
-      fs: '24', // Alias style applied
-      color: 'red'
-    };
-
-    expect(generatedStyle).toEqual(expectedStyle);
-  });
-
   it('should return an empty object for non-object component', () => {
     const component = 'not an object';
 
