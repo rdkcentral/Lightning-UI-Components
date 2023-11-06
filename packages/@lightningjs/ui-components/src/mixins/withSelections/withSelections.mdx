@@ -17,7 +17,7 @@ limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 \*/}
 
-import { Meta } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/blocks';
 import * as withSelectionsStories from './withSelections.stories';
 
 <Meta of={withSelectionsStories} />
@@ -61,6 +61,12 @@ class Example extends lng.Component {
   }
 }
 ```
+
+<Canvas of={withSelectionsStories.withSelections} />
+
+Take a look at the preview above. The row of modified [Buttons](?path=/docs/components-button--button) has navigation managed by the [Row](?path=/docs/components-row--row) component, which is also wrapped in `withSelections`. Navigate with the arrow keys to see the `focus` state change for each [Button](?path=/docs/components-button--button). Hit the `Enter` key to set the currently focused `Button` to be `isSelected`, giving it an underline. Also notice that underline of the previously selected `Button` is removed.
+
+In this example, `withSelections` is expecting the `Row` component to have a property called `items` which contains components that can handle an `isSelected` property. Fortunately, this describes the `Row` and `UnderlineButton` components perfectly! If your components are working with different property names, they can be customized with the `options` property. See the [Customization](#customization) section for options.
 
 ### Added properties and methods
 
