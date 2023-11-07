@@ -367,15 +367,13 @@ export const generateSolution = (
 ) => {
   const solution = {};
 
-  // const toneProperties = findPropertiesBySubProperty(mode, 'tone');
-  // const modeProperties = findPropertiesBySubProperty(tone, 'mode');
-
   const uniqueModes = getUniqueProperties([
     'unfocused',
     'focused',
     'disabled',
     ...modeKeys
   ]);
+  
   const uniqueTones = getUniqueProperties([
     'neutral',
     'inverse',
