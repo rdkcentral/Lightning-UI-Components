@@ -40,7 +40,19 @@ function getPropertyDescriptor(name, key) {
         if (changeHandler && typeof changeHandler === 'function') {
           value = changeHandler.call(this, value);
         }
-        this[key] = key === 'style' ? clone(this[key], value) : value;
+        const newValue = key === 'style' ? clone(this[key], value) : value;
+
+        if (
+          typeof this[key] === 'object' &&
+          this[key] !== null &&
+          this[key].style
+        ) {
+          // If the property is for a nested component, recursively combine it with the component's existing styles, ensuring that any styles defined in componentConfig are also applied.
+          const style = clone(this[key].style, value.style || {});
+          newValue.style = style;
+        }
+
+        this[key] = newValue;
         this.queueRequestUpdate();
       }
     },
