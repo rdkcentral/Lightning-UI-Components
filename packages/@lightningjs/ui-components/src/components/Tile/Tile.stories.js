@@ -52,8 +52,8 @@ export const Tile = () =>
           },
           artwork: {
             src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg'
-          }
-        }
+          },
+        },
       };
     }
   };

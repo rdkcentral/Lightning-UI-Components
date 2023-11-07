@@ -12,7 +12,6 @@ import {
   getUniqueProperties,
   removeEmptyObjects,
   removeDuplicateObjects,
-  findPropertiesBySubProperty,
   // generateSolution, // TODO: Need a test for this
   enforceContract,
   generateComponentStyleSource,
@@ -408,40 +407,6 @@ describe('removeEmptyObjects', () => {
   });
 });
 
-describe('findPropertiesBySubProperty', () => {
-  const obj = {
-    a: {
-      b: {
-        c: 'value1',
-        d: 'value2'
-      },
-      e: {
-        f: 'value3'
-      }
-    },
-    g: {
-      h: {
-        i: 'value4'
-      }
-    }
-  };
-
-  it('should return an empty array if the object is empty', () => {
-    expect(findPropertiesBySubProperty({}, 'c')).toEqual([]);
-  });
-
-  it('should return an empty array if the subProperty is not found', () => {
-    expect(findPropertiesBySubProperty(obj, 'z')).toEqual([]);
-  });
-
-  it('should return an array of matching properties', () => {
-    expect(findPropertiesBySubProperty(obj, 'c')).toEqual(['value1']);
-    expect(findPropertiesBySubProperty(obj, 'd')).toEqual(['value2']);
-    expect(findPropertiesBySubProperty(obj, 'f')).toEqual(['value3']);
-    expect(findPropertiesBySubProperty(obj, 'i')).toEqual(['value4']);
-  });
-});
-
 describe('createSharedReferences', () => {
   it('should return an empty object if no arguments are passed', () => {
     const result = createSharedReferences();
@@ -491,49 +456,15 @@ describe('createSharedReferences', () => {
 
 describe('getUniqueProperties', () => {
   it('should return unique properties', () => {
-    const defaultProps = ['color', 'size'];
-    const additionalProps = {
-      style: 'bold',
-      theme: 'dark'
-    };
-    const subProps = ['color', 'font'];
-
-    const result = getUniqueProperties(defaultProps, additionalProps, subProps);
-    expect(result).toEqual(['color', 'size', 'style', 'theme', 'font']);
+    const defaultProps = ['color', 'size', 'color'];
+    const result = getUniqueProperties(defaultProps);
+    expect(result).toEqual(['color', 'size']);
   });
 
   it('should throw TypeError when defaultProps is not an array', () => {
     expect(() => getUniqueProperties('notArray')).toThrow(TypeError);
     expect(() => getUniqueProperties('notArray')).toThrow(
       'Expected defaultProps to be an array of strings.'
-    );
-  });
-
-  it('should throw TypeError when additionalProps is not an object', () => {
-    expect(() => getUniqueProperties([], 'notObject')).toThrow(TypeError);
-    expect(() => getUniqueProperties([], 'notObject')).toThrow(
-      'Expected additionalProps to be an object.'
-    );
-  });
-
-  it('should throw TypeError when additionalProps is null', () => {
-    expect(() => getUniqueProperties([], null)).toThrow(TypeError);
-    expect(() => getUniqueProperties([], null)).toThrow(
-      'Expected additionalProps to be an object.'
-    );
-  });
-
-  it('should throw TypeError when additionalProps is an array', () => {
-    expect(() => getUniqueProperties([], [])).toThrow(TypeError);
-    expect(() => getUniqueProperties([], [])).toThrow(
-      'Expected additionalProps to be an object.'
-    );
-  });
-
-  it('should throw TypeError when subProps is not an array', () => {
-    expect(() => getUniqueProperties([], {}, 'notArray')).toThrow(TypeError);
-    expect(() => getUniqueProperties([], {}, 'notArray')).toThrow(
-      'Expected subProps to be an array of strings.'
     );
   });
 

@@ -221,53 +221,6 @@ export function removeEmptyObjects(obj) {
   return obj; // Always return obj, even if it's empty
 }
 
-/**
- * Finds unique property names nested under a specified sub-property within an object.
- * @param {object} obj - The object to search.
- * @param {string} subPropertyName - The sub-property name to search for.
- * @returns {string[]} - An array of unique property names found.
- */
-export const findPropertiesBySubProperty = (obj, subPropertyName) => {
-  // Initialize a Set to store unique property names
-  const result = new Set();
-
-  /**
-   * Recursively traverses the object and extracts property names under the specified sub-property.
-   * @param {object} obj - The object to traverse.
-   */
-  function traverse(obj) {
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        if (typeof obj[key] === 'object') {
-          // If the current key matches the specified sub-property
-          if (key === subPropertyName) {
-            // Loop through the sub-object's keys and add them to the result set
-            for (const subKey in obj[key]) {
-              if (obj[key].hasOwnProperty(subKey)) {
-                result.add(subKey);
-              }
-            }
-          }
-          // Continue recursive traversal
-          traverse(obj[key]);
-        } else {
-          // If the current key matches the specified sub-property
-          if (key === subPropertyName) {
-            // Add the value to the result set
-            result.add(obj[key]);
-          }
-        }
-      }
-    }
-  }
-
-  // Start traversing the object
-  traverse(obj);
-
-  // Convert the Set to an array and return
-  return Array.from(result);
-};
-
 // This map will store hashes of objects to detect duplicates.
 
 export function createSharedReferences(obj = {}) {
@@ -314,30 +267,12 @@ export function createSharedReferences(obj = {}) {
  * @param {string[]} subProps - Sub property names.
  * @returns {string[]} - Array of unique property names.
  */
-export function getUniqueProperties(
-  defaultProps = [],
-  additionalProps = {},
-  subProps = []
-) {
+export function getUniqueProperties(defaultProps = []) {
   if (!Array.isArray(defaultProps)) {
     throw new TypeError('Expected defaultProps to be an array of strings.');
   }
 
-  if (
-    typeof additionalProps !== 'object' ||
-    additionalProps === null ||
-    Array.isArray(additionalProps)
-  ) {
-    throw new TypeError('Expected additionalProps to be an object.');
-  }
-
-  if (!Array.isArray(subProps)) {
-    throw new TypeError('Expected subProps to be an array of strings.');
-  }
-
-  return [
-    ...new Set([...defaultProps, ...Object.keys(additionalProps), ...subProps])
-  ];
+  return [...new Set(defaultProps)];
 }
 
 /**
@@ -432,19 +367,21 @@ export const generateSolution = (
 ) => {
   const solution = {};
 
-  const toneProperties = findPropertiesBySubProperty(mode, 'tone');
-  const modeProperties = findPropertiesBySubProperty(tone, 'mode');
+  // const toneProperties = findPropertiesBySubProperty(mode, 'tone');
+  // const modeProperties = findPropertiesBySubProperty(tone, 'mode');
 
-  const uniqueModes = getUniqueProperties(
-    ['unfocused', 'focused', 'disabled', ...modeKeys],
-    mode,
-    modeProperties
-  );
-  const uniqueTones = getUniqueProperties(
-    ['neutral', 'inverse', 'brand', ...toneKeys],
-    tone,
-    toneProperties
-  );
+  const uniqueModes = getUniqueProperties([
+    'unfocused',
+    'focused',
+    'disabled',
+    ...modeKeys
+  ]);
+  const uniqueTones = getUniqueProperties([
+    'neutral',
+    'inverse',
+    'brand',
+    ...toneKeys
+  ]);
 
   for (const modeItem of uniqueModes) {
     for (const toneItem of uniqueTones) {
