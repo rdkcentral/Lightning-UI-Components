@@ -373,7 +373,7 @@ export const generateSolution = (
     'disabled',
     ...modeKeys
   ]);
-  
+
   const uniqueTones = getUniqueProperties([
     'neutral',
     'inverse',
