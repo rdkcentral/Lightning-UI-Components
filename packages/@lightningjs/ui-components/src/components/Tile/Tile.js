@@ -130,14 +130,13 @@ export default class Tile extends Surface {
 
   /* ------------------------------ Tile ------------------------------ */
 
-  set h(v) {
-    super.h = v;
-  }
-
-  get h() {
+  _getRenderHeight() {
+    // if there is Metadata below the Tile, override _getRenderHeight
+    // in order to return the fully calculated height,
+    // not the height stored in "_h" for just the tile image
     return !this._isInsetMetadata
-      ? super.h + ((this._Metadata && this._Metadata.h) || 0)
-      : super.h;
+      ? this._h + (this._Metadata?.h + this.style.paddingY || 0)
+      : super._getRenderHeight();
   }
 
   get innerH() {
@@ -624,6 +623,11 @@ export default class Tile extends Surface {
   _metadataLoaded() {
     this._animateMetadata();
     this._updateLogo();
+
+    // if the metadata height has changed, the height of the entire Tile has changed
+    // and the inspector must be updated via _getRenderHeight()
+    this._updateDimensions();
+
     // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
     if (!this._isInsetMetadata) {
       this.fireAncestors('$itemChanged');
