@@ -57,9 +57,7 @@ jobs:
         run: cp ./README.md ./packages/@lightningjs/ui-components/README.md
       - name: Semantic Release
         run: |
-          yarn workspace @lightningjs/ui-components-theme-base run semantic-release --no-ci -e semantic-release-monorepo
-          yarn workspace @lightningjs/ui-components run semantic-release --no-ci -e semantic-release-monorepo
-          yarn workspace @lightningjs/ui-components-test-utils run semantic-release --no-ci -e semantic-release-monorepo
+          yarn workspaces foreach --topological-dev --from '{@lightningjs/ui-components-theme-base,@lightningjs/ui-components,@lightningjs/ui-components-test-utils}' run semantic-release --no-ci -e semantic-release-monorepo
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
