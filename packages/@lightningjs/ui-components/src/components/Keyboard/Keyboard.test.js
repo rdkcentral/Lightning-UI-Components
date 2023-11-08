@@ -25,12 +25,12 @@ import KeyboardFullscreen from './KeyboardFullscreen.js';
 import KeyboardEmail from './KeyboardEmail.js';
 import KeyboardSearch from './KeyboardSearch.js';
 const createKeyboard = makeCreateComponent(Keyboard);
+const createKeyboardSearch = makeCreateComponent(KeyboardSearch);
 const createKeyboardInput = makeCreateComponent(KeyboardInput);
 const createKeyboardQwerty = makeCreateComponent(KeyboardQwerty);
 const createKeyboardNumbers = makeCreateComponent(KeyboardNumbers);
 const createKeyboardFullscreen = makeCreateComponent(KeyboardFullscreen);
 const createKeyboardEmail = makeCreateComponent(KeyboardEmail);
-const createKeyboardSearch = makeCreateComponent(KeyboardSearch);
 
 describe('Keyboard', () => {
   let keyboard, testRenderer;
@@ -44,6 +44,8 @@ describe('Keyboard', () => {
 
   afterEach(() => {
     testRenderer.destroy();
+    keyboard = null;
+    testRenderer = null;
   });
 
   it('renders', () => {
