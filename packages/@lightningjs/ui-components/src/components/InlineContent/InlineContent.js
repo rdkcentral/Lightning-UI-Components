@@ -465,7 +465,7 @@ export default class InlineContent extends Base {
   }
 
   get _shouldTruncate() {
-    return this.contentWrap && this.maxLines;
+    return this.contentWrap && this.maxLines !== 0;
   }
 
   set announce(announce) {
