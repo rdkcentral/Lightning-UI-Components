@@ -59,9 +59,7 @@ describe('ControlSmall', () => {
   });
 
   it('renders the correct height from styles', () => {
-    expect(controlSmall.h).toBe(
-      controlSmall.style.textStyle.lineHeight + controlSmall.style.paddingY * 2
-    );
+    expect(controlSmall.h).toBe(controlSmall.style.h);
   });
 
   it('renders the correct height if assigned a height', () => {

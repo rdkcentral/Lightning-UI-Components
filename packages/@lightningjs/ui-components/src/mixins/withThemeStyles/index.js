@@ -21,7 +21,7 @@ import { updateManager } from '../../globals';
 import { context } from '../../globals';
 import { getComponentConfig, getSubTheme } from './utils';
 import { capitalizeFirstLetter } from '../../utils';
-
+import utils from '../../utils';
 /**
  * A higher-order function that returns a class with theme styles.
  * @param {function} Base - The base class to extend.
@@ -43,8 +43,11 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
 
       this._styleManager = new StyleManager({ component: this });
       this._style = this._styleManager.style; // Set the style for the first time. After this is will be updated by events
+
+      this._updatePropDefaults();
       this._styleManager.on('styleUpdate', () => {
         this._style = this._styleManager.style;
+        this._updatePropDefaults();
         this.queueThemeUpdate();
       });
       this._withThemeStylesSetupComplete = true;
@@ -64,6 +67,27 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         this._styleManager.clearStyleCache();
         this._styleManager.clearSourceCache();
         this._styleManager.update();
+      }
+    }
+
+    _updatePropDefaults() {
+      // Add support for properties passed through the theme
+      const componentConfigProps = this._styleManager.props || {};
+      if (
+        Object.keys(componentConfigProps).length &&
+        this.constructor.properties &&
+        this.constructor.properties.length
+      ) {
+        Object.keys(componentConfigProps).forEach(key => {
+          if (this.constructor.properties.includes(key)) {
+            this[`_${key}`] =
+              typeof this[`_${key}`] === 'object' &&
+              this[`_${key}`] !== null &&
+              !Array.isArray(this[`_${key}`])
+                ? utils.clone(this[`_${key}`] || {}, componentConfigProps[key])
+                : componentConfigProps[key];
+          }
+        });
       }
     }
 

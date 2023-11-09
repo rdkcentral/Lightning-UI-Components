@@ -18,6 +18,7 @@
 
 import {
   generateComponentStyleSource,
+  getStyleChainMemoized,
   generateStyle,
   getHash
 } from './utils.js';
@@ -42,6 +43,7 @@ export default class StyleManager extends lng.EventEmitter {
     this.component = component;
     this.setupListeners();
     this._style = {}; // This will be the source of truth for the style manager
+    this._props = {}; // props that are set in componentConfig will be stored here
     // Initial update is not debounced
     this.update();
   }
@@ -199,7 +201,17 @@ export default class StyleManager extends lng.EventEmitter {
 
       if (!styleSource) {
         // Style source does not exist so it will need to be generated. We attempt to run this function only when necessary for optimal performance
-        styleSource = generateComponentStyleSource(this.component);
+        styleSource = generateComponentStyleSource({
+          alias: this.component.constructor.aliasStyles,
+          componentConfig: this.component._componentConfig,
+          inlineStyle: this.component._componentLevelStyle,
+          name:
+            this.component.constructor.__componentName ||
+            this.component.constructor.name,
+          styleChain: getStyleChainMemoized(this.component),
+          theme: this.component.theme
+        });
+
         this._addCache('styleSource', styleSource);
       }
 
@@ -209,9 +221,10 @@ export default class StyleManager extends lng.EventEmitter {
       if (!style) {
         // Style does not exist so will also need to be generated
         style = generateStyle(this.component, styleSource);
-
         this._addCache(`style_${mode}_${tone}`, style);
       }
+      this._props = style.props;
+      delete style.props;
       this._style = style;
       this.emit('styleUpdate', this.style);
     } catch (error) {
@@ -228,6 +241,14 @@ export default class StyleManager extends lng.EventEmitter {
 
   get style() {
     return this._style;
+  }
+
+  set props(v) {
+    context.warn('styleManager: Cannot mutate props directly');
+  }
+
+  get props() {
+    return this._props;
   }
 
   /**
