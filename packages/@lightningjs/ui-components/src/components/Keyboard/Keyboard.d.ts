@@ -40,7 +40,7 @@ type KeyboardFormat = Record<
 declare namespace Keyboard {
   export interface TemplateSpec extends Base.TemplateSpec {
     // properties
-    formats?: KeyboardFormat[];
+    formats?: KeyboardFormat;
     centerKeyboard?: boolean;
     rowWrap?: boolean;
     centerKeys?: boolean;
@@ -74,7 +74,7 @@ declare class Keyboard<
   /**
    * object containing arrays that represent different formats that the keyboard can be presented in. These arrays can contain strings or objects.
    */
-  formats?: KeyboardFormat[];
+  formats?: KeyboardFormat;
 
   /**
    * center the keyboard within it's set width (must set the w property of Keyboard)
@@ -117,9 +117,9 @@ declare class Keyboard<
   // methods
   /**
    * switches the keyboard format used to a newly specified format
-   * @param KeyboardFormat keyboard format to switch to
+   * @param string a key of keyboard format to switch to
    */
-  $toggleKeyboard(next: KeyboardFormat): void;
+  $toggleKeyboard(next: string): void;
 
   /**
    *
