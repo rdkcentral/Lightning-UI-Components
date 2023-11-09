@@ -1,22 +1,23 @@
-<!--
-  Copyright 2023 Comcast Cable Communications Management, LLC
+{/* prettier-ignore */}
+{/*
+Copyright 2023 Comcast Cable Communications Management, LLC
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-  SPDX-License-Identifier: Apache-2.0
--->
+SPDX-License-Identifier: Apache-2.0
+\*/}
 
-import { Meta, Description } from '@storybook/addon-docs';
+import { Meta } from '@storybook/addon-docs';
 
 <Meta title="Docs / Theming/ Tutorial" />
 
@@ -35,20 +36,20 @@ In this example, we will create a single page application using the default Base
 ```js
 boot: async () => {
   await context.setTheme(YourThemeObjectHere);
-}
+};
 ```
 
 In our App.js file, we will define our single page, which will reference a new component type, `ExamplePage`. We will create this `ExamplePage` in the next step.
 
 ```js
 import Lightning from '@lightningjs/core';
-import ExamplePage from './ExamplePage.js'
+import ExamplePage from './ExamplePage.js';
 
 export default class App extends Lightning.Application {
   static _template() {
     return {
       Page: { type: ExamplePage }
-    }
+    };
   }
 
   _getFocused() {
@@ -75,11 +76,12 @@ export default class ExamplePage extends Base {
 }
 ```
 
-### Simplifying the static _template
+### Simplifying the static \_template
 
 While it is common to set up most of a component in the `static _template`, you will not be able to get the full benefits of a custom theme by using the template alone. This is because our components have a unique `update` lifecycle (via [`withUpdates`](../?path=/docs/utilities-withupdates--with-updates)) that ensures any time a style property is updated (whether from a global theme update or a change to an instance of a component), they re-render.
 
-If you reference theme properties inside of the `_template`, which only runs *once*, regardless of theme updates, your custom component will never render with the new custom theme values. For example, if you have a custom theme set for your application, things will run in the following order:
+If you reference theme properties inside of the `_template`, which only runs _once_, regardless of theme updates, your custom component will never render with the new custom theme values. For example, if you have a custom theme set for your application, things will run in the following order:
+
 - Application startup
 - Component creation utilizing the Base theme
 - A new theme is set via the global `context`
@@ -88,6 +90,7 @@ If you reference theme properties inside of the `_template`, which only runs *on
 In order to ensure the component always applies the most up-to-date style values, we will keep them out of the template:
 
 ExamplePage.js
+
 ```js
 import { Base, Button, TextBox } from '@lightningjs/ui-components';
 
@@ -109,7 +112,7 @@ export default class ExamplePage extends Base {
         Description: { type: TextBox },
         Button: { type: Button }
       }
-    }
+    };
   }
 }
 ```
@@ -132,14 +135,16 @@ static get tags() {
 
 Now, we will tap into the global theme and update each element (`Title`, `Description`, and `Button`) via the `_update` method.
 
-We start by *supering* `_update` in order to ensure we retain any logic from the Base component we are extending, or any other component that we may have extended along the way. Next, we start tapping into the global theme via the imported `context`. Here, we are setting our `ExamplePage` component to fill the screen's height and width, as well as moving over to the right on the x-axis.
+We start by _supering_ `_update` in order to ensure we retain any logic from the Base component we are extending, or any other component that we may have extended along the way. Next, we start tapping into the global theme via the imported `context`. Here, we are setting our `ExamplePage` component to fill the screen's height and width, as well as moving over to the right on the x-axis.
 
 ExamplePage.js
+
 ```js
 import { Base, Button, TextBox, context } from '@lightningjs/ui-components';
 ```
 
 Inside the class declaration, after the `_template` and `tags`:
+
 ```js
 _update() {
   super._update();
@@ -188,6 +193,7 @@ _updateButton() {
 ```
 
 The final `_update` method should look something like this:
+
 ```js
 _update() {
   super._update();
@@ -203,6 +209,7 @@ _update() {
 ```
 
 Additionally, you can pass the focus of the component onto the `Button`:
+
 ```js
 _getFocused() {
   return this._Button;
@@ -218,6 +225,7 @@ At this point, your single page application should be running and utilizing them
 Here, we are mapping the theme tokens to new variables that can be leveraged directly in the component class.
 
 ExamplePage.styles.js
+
 ```js
 export const base = theme => ({
   height: theme.layout.screenH,
@@ -229,11 +237,13 @@ export const base = theme => ({
 ```
 
 In our ExamplePage.js, we need to import this new file:
+
 ```js
 import * as styles from './ExamplePage.styles.js';
 ```
 
 Then we will add it to the static `__themeStyle` getter:
+
 ```js
 static get __themeStyle() {
   return styles;
