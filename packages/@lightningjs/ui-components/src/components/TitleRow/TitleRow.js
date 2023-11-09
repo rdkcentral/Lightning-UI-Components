@@ -50,6 +50,10 @@ export default class TitleRow extends Row {
     return [...super.tags, 'Title'];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'rowMarginTop', curr: 'titleMarginBottom' }];
+  }
+
   _titleLoaded() {
     this._updateRow();
   }
@@ -87,7 +91,7 @@ export default class TitleRow extends Row {
 
   _updateRow() {
     this.Items.patch({
-      y: this._Title.finalH + this.style.rowMarginTop
+      y: this._Title.finalH + this.style.titleMarginBottom
     });
   }
 
