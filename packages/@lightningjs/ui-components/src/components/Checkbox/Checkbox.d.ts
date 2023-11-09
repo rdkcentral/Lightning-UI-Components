@@ -28,11 +28,17 @@ type CheckboxStyle = {
   checkColor: Color;
   /** @deprecated */
   checkH: number;
+  /** @deprecated */
   checkHeight: number;
+  iconHeight: number;
   /** @deprecated */
   checkW: number;
+  /** @deprecated */
   checkWidth: number;
+  iconWidth: number;
+  /** @deprecated */
   checkSrc: string;
+  icon: string;
   radius: lng.Tools.CornerRadius;
   strokeColor: Color;
   strokeWidth: number;

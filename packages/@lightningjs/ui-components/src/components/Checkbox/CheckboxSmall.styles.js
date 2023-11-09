@@ -22,8 +22,8 @@ export const base = theme => {
   return {
     width: size,
     height: size,
-    checkWidth: theme.spacer.md,
-    checkHeight: theme.spacer.md + theme.spacer.xxs,
+    iconWidth: theme.spacer.md,
+    iconHeight: theme.spacer.md + theme.spacer.xxs,
     radius: size / 2,
     strokeWidth
   };

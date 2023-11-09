@@ -56,8 +56,11 @@ export default class Checkbox extends Base {
 
   static get aliasStyles() {
     return [
-      { prev: 'checkH', curr: 'checkHeight' },
-      { prev: 'checkW', curr: 'checkWidth' }
+      { prev: 'checkSrc', curr: 'icon' },
+      { prev: 'checkH', curr: 'iconHeight' },
+      { prev: 'checkW', curr: 'iconWidth' },
+      { prev: 'checkHeight', curr: 'iconHeight' },
+      { prev: 'checkWidth', curr: 'iconWidth' }
     ];
   }
 
@@ -74,9 +77,9 @@ export default class Checkbox extends Base {
 
   _updateCheck() {
     this._Check.patch({
-      w: this.style.checkWidth,
-      h: this.style.checkHeight,
-      icon: this.style.checkSrc,
+      w: this.style.iconWidth,
+      h: this.style.iconHeight,
+      icon: this.style.icon,
       style: { color: this.style.checkColor }
     });
 
