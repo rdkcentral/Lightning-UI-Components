@@ -21,7 +21,7 @@ import {
   context,
   utils,
   TextBox
-} from '@lightningjs/ui-components';
+} from '@lightningjs/ui-components/src';
 import { createApp, clearInspector } from '../../../index';
 
 let previousID = null;
@@ -194,7 +194,6 @@ export const withLightning = (
           y: context.theme.spacer.sm,
           onAfterUpdate: ({ y, h }) => {
             if (h > context.theme.layout.marginY) {
-              console.log(y + h + context.theme.spacer.xl);
               app.tag('StoryComponent').y = y + h + context.theme.spacer.xl;
             }
           }

@@ -1,32 +1,26 @@
-﻿<!--
-  Copyright 2023 Comcast Cable Communications Management, LLC
+﻿{/* prettier-ignore */}
+{/*
+Copyright 2023 Comcast Cable Communications Management, LLC
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-  SPDX-License-Identifier: Apache-2.0
--->
-
-import { Meta, Description } from '@storybook/addon-docs';
+SPDX-License-Identifier: Apache-2.0
+\*/}
+import { Meta } from '@storybook/blocks';
 import SubThemingExample from '../assets/images/SubTheming.png';
 import July4thProgressBar from '../assets/images/July4thProgressBar.png';
 import UpdatedJuly4thProgressBar from '../assets/images/UpdatedJuly4thProgressBar.png';
 import MultiSubThemeProgressBars from '../assets/images/MultiSubThemeProgressBars.png';
-
-<style>{`
-.sbdocs.sbdocs-li {
-    color: white !important;
-  }
-`}</style>
 
 <Meta title="Docs / Theming/ Subtheming" />
 
@@ -74,8 +68,9 @@ context.setSubTheme('4thOfJuly', {
       }
     }
   }
-})
+});
 ```
+
 Here we're changing the colors of the existing theme, specifically the `coreNeutral` values and the `textColor` of the `Tile`'s description text, to reflect that of the holiday.
 
 ### 3. Apply the sub-theme to the components in need
@@ -116,11 +111,16 @@ static _template() {
 
 Here we have two `Row` components each containing a set amount of movie `Tiles`. The first `Row` features the 4th of July movies so the '4thOfJuly' `subTheme` with its red, white, and blue values has been applied to it. On the other hand, the second `Row` will only reflect the main theme. The following should be displayed:
 
-<img src={SubThemingExample} alt="Row of Tiles with '4thOfJuly' subTheme and a Row with main theme" width="700" />
+<img
+  src={SubThemingExample}
+  alt="Row of Tiles with '4thOfJuly' subTheme and a Row with main theme"
+  width="700"
+/>
 
 #### Method 2: `subTheme` Getter Method
 
 Another way to apply the sub-theme is by using a `subTheme` getter method that returns the name of the sub-theme to be used.
+
 > **Note:** This will also apply the sub-theme to all LUI components that are children of this component.
 
 For example, let's focus on the `ProgressBar` component. We can include this:
@@ -133,7 +133,11 @@ get subTheme() {
 
 Assuming we are generating a `ProgressBar` component, our resulting `ProgressBar` should display:
 
-<img src={July4thProgressBar} alt="Progress Bar with the 4th of July sub-theme" width="600" />
+<img
+  src={July4thProgressBar}
+  alt="Progress Bar with the 4th of July sub-theme"
+  width="600"
+/>
 
 The `ProgressBar` uses both `coreNeutral` and `coreNeutralTertiary` to define its `progressColor` and `barColor`, respectively. Since our '4thOfJuly' sub-theme updated those values, we see the `progressColor` and `barColor` of the `ProgressBar` reflecting the values set in the sub-theme.
 
@@ -149,7 +153,6 @@ This `ProgressBar` is built off the Base open-source theme. Because the radius w
 Now that we understand how to create and use a sub-theme, let's digest how the component is able to determine how to retrieve the sub-theme. This all lies in the `_getSubTheme` method.
 
 The `_getSubTheme` method is executed on the `_setup` lifecycle event. In this function (displayed below), we can see that each component continuously goes through its parents to check if a sub-theme is applied to that component until there are no more parent components left to check.
-
 
 ```js
 _getSubTheme() {
@@ -178,22 +181,25 @@ For example:
 ```js
 context.updateSubTheme('4thOfJuly', {
   color: {
-    coreNeutral: ['#FAF2E6', 85],
+    coreNeutral: ['#FAF2E6', 85]
   }
-})
+});
 ```
 
 Here, we updated the `coreNeutral` value to white, which will then update the `ProgressBar`'s `progressColor`. This will only affect the `ProgressBar` to which we have applied the sub-theme. All other colors, like `barColor` will remain unchanged.
 
-<img src={UpdatedJuly4thProgressBar} alt="Progress Bar with the 4th of July sub-theme" width="600" />
-
+<img
+  src={UpdatedJuly4thProgressBar}
+  alt="Progress Bar with the 4th of July sub-theme"
+  width="600"
+/>
 
 ### removeSubTheme
 
 The `removeSubTheme` method helps to free up memory when a sub-theme is no longer needed. This can be especially important for devices with limited resources.
 
 ```js
-context.removeSubTheme('4thOfJuly')
+context.removeSubTheme('4thOfJuly');
 ```
 
 ### setSubThemes
@@ -211,14 +217,14 @@ context.setSubThemes({
       coreNeutralTertiary: ['#80A1C2', 85] // blue
     }
   },
-  'sharkWeek': {
+  sharkWeek: {
     color: {
       coreNeutral: ['#0078F0', 85],
       coreNeutralSecondary: ['#A9ABAB', 24],
       coreNeutralTertiary: ['#05C5FF', 27]
     }
   }
-})
+});
 ```
 
 The sub-themes can be applied using the 'Lightning Element' method described in step 3 of 'Steps to Utilizing a Sub-Theme.'
@@ -249,7 +255,11 @@ static _template() {
 
 The above code will render two `ProgressBar` components, each utilizing a different sub-theme, as shown below.
 
-<img src={MultiSubThemeProgressBars} alt="Two Progress Bars using the 4th of July sub-theme and Shark Week sub-theme, respectively" width="600" />
+<img
+  src={MultiSubThemeProgressBars}
+  alt="Two Progress Bars using the 4th of July sub-theme and Shark Week sub-theme, respectively"
+  width="600"
+/>
 
->**Note:** Utilizing `setSubThemes` is a convenient way to add multiple sub-themes at one time.
->It does not provide any performance enhancements over using `setSubTheme` for each individual sub-theme.
+> **Note:** Utilizing `setSubThemes` is a convenient way to add multiple sub-themes at one time.
+> It does not provide any performance enhancements over using `setSubTheme` for each individual sub-theme.

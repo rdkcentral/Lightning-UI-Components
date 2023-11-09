@@ -17,10 +17,11 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useGlobals } from '@storybook/api';
-import { OptionsControl, ColorControl } from '@storybook/components';
+import { useGlobals } from '@storybook/manager-api';
+import { AddonPanel } from '@storybook/components';
+import { OptionsControl, ColorControl } from '@storybook/blocks';
 import { Table, TableRow, NumberRow } from '../components';
-import { utils } from '@lightningjs/ui-components';
+import { utils } from '@lightningjs/ui-components/src';
 import debounce from 'debounce';
 
 import {
@@ -30,6 +31,7 @@ import {
   updateGlobalTheme
 } from '../../utils/themeUtils';
 
+//NOTE: returns string for the control type to use
 function getControlType(value) {
   try {
     if (utils.getValidColor(value)) {
@@ -42,6 +44,7 @@ function getControlType(value) {
   }
 }
 
+//NOTE: called in debouncedUpdateComponentValue(),
 const updateComponentValue = (
   componentName,
   styleProp,
@@ -60,6 +63,7 @@ const updateComponentValue = (
   );
 };
 
+//NOTE: delays processing for # microseconds
 const debouncedUpdateComponentValue = debounce(function (
   componentName,
   prop,
@@ -180,41 +184,47 @@ export default params => {
   }
 
   return (
-    <div key="component-styles-tab" className="component-styles-panel-wrapper">
-      {params.active ? (
-        styleRows && styleRows.length ? (
-          <>
-            <h1>Current Theme: {utils.capitalizeFirstLetter(LUITheme)}</h1>
-            <div>
-              <Table
-                title="Component Level Theme Styles"
-                rows={[
-                  <TableRow
-                    label="tone"
-                    key={`Row-${version}`}
-                    control={
-                      <OptionsControl
-                        name="tones"
-                        type="inline-radio"
-                        value={tone}
-                        options={['neutral', 'inverse', 'brand']}
-                        onChange={val => {
-                          updateToneState(val);
-                        }}
-                      />
-                    }
-                  />,
-                  ...styleRows
-                ].filter(Boolean)}
-              />
-            </div>
-          </>
+    <AddonPanel {...params}>
+      <div
+        key="component-styles-tab"
+        className="component-styles-panel-wrapper"
+      >
+        {params.active ? (
+          styleRows && styleRows.length ? (
+            <>
+              <h1>Current Theme: {utils.capitalizeFirstLetter(LUITheme)}</h1>
+              <div>
+                <Table
+                  title="Component Level Theme Styles"
+                  rows={[
+                    <TableRow
+                      label="tone"
+                      key={`Row-${version}`}
+                      control={
+                        <OptionsControl
+                          name="tones"
+                          key={`Tones-${version}`}
+                          type="inline-radio"
+                          value={tone}
+                          argType={{ options: ['neutral', 'inverse', 'brand'] }}
+                          onChange={val => {
+                            updateToneState(val);
+                          }}
+                        />
+                      }
+                    />,
+                    ...styleRows
+                  ].filter(Boolean)}
+                />
+              </div>
+            </>
+          ) : (
+            <h3>No theme values available on this component.</h3>
+          )
         ) : (
-          <h3>No theme values available on this component.</h3>
-        )
-      ) : (
-        <></>
-      )}
-    </div>
+          <></>
+        )}
+      </div>
+    </AddonPanel>
   );
 };

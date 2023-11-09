@@ -17,21 +17,16 @@
  */
 
 import lng from '@lightningjs/core';
-
 import { Button, TextBox, Row } from '../../components';
-import mdx from './withEditItems.mdx';
 import { default as withEditItemsMixin } from '.';
-import { CATEGORIES } from '../../docs/constants';
+
 /**
  * Shared Args and Arg Types from Row
  */
 import * as RowProps from '../../components/Row/Row.stories.js';
 export default {
-  title: `${CATEGORIES[4]}/withEditItems`,
+  title: 'Utilities/withEditItems',
   parameters: {
-    docs: {
-      page: mdx
-    },
     remountAll: true
   }
 };

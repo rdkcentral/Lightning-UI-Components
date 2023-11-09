@@ -17,7 +17,6 @@
  */
 
 import { getBabelOutputPlugin } from '@rollup/plugin-babel';
-
 import dts from 'rollup-plugin-dts';
 import image from '@rollup/plugin-image';
 import json from '@rollup/plugin-json';

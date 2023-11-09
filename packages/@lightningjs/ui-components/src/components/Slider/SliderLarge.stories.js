@@ -18,19 +18,12 @@
 
 import lng from '@lightningjs/core';
 import Slider from './SliderLarge.js';
-import mdx from './Slider.mdx';
 import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
-import { CATEGORIES } from '../../docs/constants';
 import { useArgs } from '@storybook/client-api';
 
 export default {
-  title: `${CATEGORIES[8]}/SliderLarge`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Slider/SliderLarge'
 };
 
 export const Basic = () => {

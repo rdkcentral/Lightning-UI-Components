@@ -18,16 +18,9 @@
 
 import lng from '@lightningjs/core';
 import { default as GradientComponent } from '.';
-import mdx from './Gradient.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Gradient`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Gradient'
 };
 
 export const Gradient = () =>

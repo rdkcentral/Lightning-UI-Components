@@ -1,25 +1,29 @@
-﻿<!--
-  Copyright 2023 Comcast Cable Communications Management, LLC
+﻿{/* prettier-ignore */}
+{/*
+Copyright 2023 Comcast Cable Communications Management, LLC
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-  SPDX-License-Identifier: Apache-2.0
--->
+SPDX-License-Identifier: Apache-2.0
+\*/}
 
-import { Canvas, Story } from '@storybook/addon-docs';
+import { Meta, Title } from '@storybook/blocks';
 import { DocsLink } from '../../docs/utils';
+import * as FocusManagerStories from './FocusManager.stories';
 
-# FocusManager
+<Meta of={FocusManagerStories} />
+
+<Title />
 
 In Lightning, setting focus on elements and managing it manually is required. `FocusManager` is a component that simplifies focus for elements within a list.
 
@@ -52,10 +56,6 @@ class RowExample extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-focusmanager--column-with-rows" />
-</Canvas>
 
 Set the `direction` property to `row` for left/right or `column` for up/down key handling.
 
@@ -107,16 +107,16 @@ class FancyFocus extends FocusManager {
 
 ### Properties
 
-| name          | type                                                    | default   | description                                                                                                                                                                                                                                                                                                                                            |
-| ------------- | ------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| direction     | 'column'\|'row'                                         | undefined | The navigation direction for focus ('left/right' or 'up/down')                                                                                                                                                                                                                                                                                         |
-| selectedIndex | number                                                  | undefined | The index of the currently selected item.                                                                                                                                                                                                                                                                                                              |
-| items         | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | undefined | Child element or elements of the FocusManager.                                                                                                                                                                                                                                                                                                         |
-| wrapSelected  | boolean                                                 | false     | When wrapSelected is set to true, the focus will loop back to the beginning of the list after reaching the last item, and vice versa. This enables continuous navigation through the list without dead ends. If wrapSelected is set to false (the default value), the focus will stop at the first or last item, depending on the navigation direction |
+| name          | type                                                    | default   | description                                                                                                                                                                                                                                                                                                                                              |
+| ------------- | ------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| direction     | 'column'\|'row'                                         | undefined | The navigation direction for focus \('left/right' or 'up/down'\)                                                                                                                                                                                                                                                                                         |
+| selectedIndex | number                                                  | undefined | The index of the currently selected item.                                                                                                                                                                                                                                                                                                                |
+| items         | <DocsLink id="lng.Component">lng.Component[]</DocsLink> | undefined | Child element or elements of the FocusManager.                                                                                                                                                                                                                                                                                                           |
+| wrapSelected  | boolean                                                 | false     | When wrapSelected is set to true, the focus will loop back to the beginning of the list after reaching the last item, and vice versa. This enables continuous navigation through the list without dead ends. If wrapSelected is set to false \(the default value\), the focus will stop at the first or last item, depending on the navigation direction |
 
 ### Methods
 
-#### appendItems(items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>): void
+#### appendItems\(items: <DocsLink id="lng.Component">lng.Component[]</DocsLink>\): void
 
 This method appends the provided rows to the end of the FocusManager's children
 

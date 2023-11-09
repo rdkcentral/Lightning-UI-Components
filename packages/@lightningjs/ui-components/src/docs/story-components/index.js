@@ -1,1 +1,1 @@
-export { default as SignalButton } from './SignalButton'
+export { default as SignalButton } from './SignalButton';

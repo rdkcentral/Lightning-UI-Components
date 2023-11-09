@@ -18,10 +18,14 @@
 
 import React from 'react';
 import lng from '@lightningjs/core';
-import { ColorControl, NumberControl } from '@storybook/components';
-import { utils } from '@lightningjs/ui-components';
-import { useGlobals } from '@storybook/api';
-import { colorUpdate, getPanelsTheme, updateGlobalTheme } from '../../utils/themeUtils';
+import { ColorControl, NumberControl } from '@storybook/blocks';
+import { utils } from '@lightningjs/ui-components/src';
+import { useGlobals } from '@storybook/manager-api';
+import {
+  colorUpdate,
+  getPanelsTheme,
+  updateGlobalTheme
+} from '../../utils/themeUtils';
 import { Table, TableRow } from '../components';
 
 function Colors() {
@@ -38,7 +42,7 @@ function Colors() {
     const rgbaColor = lng.StageUtils.getRgbaString(color);
     return (
       <TableRow
-      key={LUITheme ? `${LUITheme}-${c}` : c}
+        key={LUITheme ? `${LUITheme}-${c}` : c}
         label={c}
         control={
           <ColorControl
@@ -64,7 +68,7 @@ function Radius() {
   const rows = Object.keys(radius).map(r => {
     return (
       <TableRow
-      key={LUITheme ? `${LUITheme}-${r}` : r}
+        key={LUITheme ? `${LUITheme}-${r}` : r}
         label={r}
         control={
           <NumberControl

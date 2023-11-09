@@ -18,8 +18,6 @@
 
 import lng from '@lightningjs/core';
 import { createModeControl, generateSubStory } from '../../docs/utils';
-import mdx from './Keyboard.mdx';
-import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 import utils from '../../utils';
 import Icon from '../Icon';
@@ -33,12 +31,7 @@ import eye from '../../assets/images/ic_eye_white_48.png';
 import eyeHide from '../../assets/images/ic_eyeHide_white_48.png';
 
 export default {
-  title: `${CATEGORIES[8]}/KeyboardInput`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Keyboard/KeyboardInput'
 };
 
 function getCommponentArray(comps) {

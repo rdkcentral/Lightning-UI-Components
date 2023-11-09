@@ -22,16 +22,9 @@ import circle from '../../assets/images/circle.svg';
 import { getHexColor } from '../../utils';
 import { createModeControl } from '../../docs/utils';
 import { default as MetadataBaseComponent } from '.';
-import mdx from './MetadataBase.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/MetadataBase`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/MetadataBase'
 };
 
 export const MetadataBase = () =>

@@ -1,22 +1,25 @@
-﻿<!--
-  Copyright 2023 Comcast Cable Communications Management, LLC
+﻿{/* prettier-ignore */}
+{/*
+Copyright 2023 Comcast Cable Communications Management, LLC
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-  SPDX-License-Identifier: Apache-2.0
--->
+SPDX-License-Identifier: Apache-2.0
+\*/}
 
-import { Canvas, Story } from '@storybook/addon-docs';
+import { Meta, Title } from '@storybook/blocks';
+
+<Meta title="Components/Keyboard" />
 
 # Keyboard
 
@@ -44,10 +47,6 @@ class Example extends lng.Component {
   }
 }
 ```
-
-<Canvas>
-  <Story id="components-keyboard--keyboard" />
-</Canvas>
 
 To create your own formats, you can pass an object of arrays to represent each format.
 The array can be flat or two dimensional. If the keyboard is passed other params like `columnCount` or `rowCount`, both will auto layout the keyboard.
@@ -117,24 +116,24 @@ All of the following examples will yield the same result.
 
 ### Methods
 
-#### getSelectedKey(): { row:number, column:number }
+#### `getSelectedKey(): { row:number, column:number }`
 
 Returns an object containing the currently selected row and column of the currently focused keyboard.
 
-#### selectKeyOn(keyboard, { row:number, column:number })
+#### `selectKeyOn(keyboard, { row:number, column:number })`
 
 Takes in a keyboard format and a specified row and column and changes focus on the keyboard to that key.
 
 ### Events
 
-#### $onSoftKey: { key:string, toggle:boolean }
+#### `$onSoftKey: { key:string, toggle:boolean }`
 
 Fired when a key is Entered
 
-#### $keyboardFocused: bool
+#### `$keyboardFocused: bool`
 
 Fired when keyboard is focused or unfocused. Can be listened to by an input to know if the input should be listening for softkey events
 
-### $toggleKeyboard: { key:string }
+#### `$toggleKeyboard: { key:string }`
 
 Fired when defaultFormat is toggled between Dialpad and Dialpad extended

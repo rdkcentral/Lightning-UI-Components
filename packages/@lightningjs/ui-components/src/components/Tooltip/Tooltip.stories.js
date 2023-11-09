@@ -19,12 +19,10 @@
 import lng from '@lightningjs/core';
 import Button from '../Button';
 import { createModeControl } from '../../docs/utils';
-import mdx from './Tooltip.mdx';
 import { default as TooltipComponent } from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Tooltip`,
+  title: 'Components/Tooltip',
   args: {
     title: 'Tooltip',
     delayVisible: 0,
@@ -49,11 +47,6 @@ export default {
       description:
         'Start with unfocused mode and set the time value in milliseconds, now change the mode to focused to see the required changes',
       table: { defaultValue: { summary: 'undefined' } }
-    }
-  },
-  parameters: {
-    docs: {
-      page: mdx
     }
   }
 };

@@ -18,19 +18,12 @@
 
 import lng from '@lightningjs/core';
 import TextBox from '.';
-import mdx from './TextBox.mdx';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import { getHexColor } from '../../utils';
 import inlineContentStory from '../InlineContent/InlineContent.stories';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/TextBox`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/TextBox'
 };
 
 const { args: inlineContentArgs, argTypes: inlineContentArgTypes } =

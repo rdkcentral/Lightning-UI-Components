@@ -23,16 +23,11 @@ import Row from '../Row';
 import Tile from '../Tile';
 import Button from '../Button';
 import { default as ColumnComponent } from '.';
-import mdx from './Column.mdx';
-import { CATEGORIES } from '../../docs/constants';
 import { SignalButton } from '../../docs/story-components';
 
 export default {
-  title: `${CATEGORIES[8]}/Column`,
+  title: 'Components/Column',
   parameters: {
-    docs: {
-      page: mdx
-    },
     remountAll: true
   }
 };
@@ -693,7 +688,6 @@ export const AddingItems = args =>
   };
 AddingItems.args = {
   scrollIndex: 0,
-  lazyUpCount: undefined,
   lazyUpCountBuffer: 2
 };
 AddingItems.argTypes = {

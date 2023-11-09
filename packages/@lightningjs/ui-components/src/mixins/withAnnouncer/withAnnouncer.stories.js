@@ -19,17 +19,10 @@
 import lng from '@lightningjs/core';
 import withAnnouncer, { defaultAbbrevConfig } from '.';
 import { Column, Row, Button } from '../../components';
-import mdx from './withAnnouncer.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[4]}/withAnnouncer`,
-  component: withAnnouncer,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withAnnouncer',
+  component: withAnnouncer
 };
 
 const rows = [

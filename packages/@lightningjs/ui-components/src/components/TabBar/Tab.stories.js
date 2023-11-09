@@ -20,16 +20,9 @@ import lng from '@lightningjs/core';
 import { createModeControl } from '../../docs/utils';
 import lngIcon from '../../assets/images/ic_lightning_white_32.png';
 import { default as TabComponent } from './Tab';
-import mdx from './Tab.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Tab`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Tab'
 };
 
 export const Tab = () =>

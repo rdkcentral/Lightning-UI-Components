@@ -19,9 +19,7 @@
 import lng from '@lightningjs/core';
 import { Row as RowBasic } from '../Row/Row.stories.js';
 import Tile from '../Tile';
-import mdx from './TitleRow.mdx';
 import { default as TitleRowComponent } from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 // add remount to all Row argTypes individually since Row uses remountAll
 // TitleRow title prop can be updated without requiring a remount
@@ -34,12 +32,8 @@ const rowArgTypes = Object.keys(RowBasic.argTypes).reduce((acc, key) => {
 }, {});
 
 export default {
-  title: `${CATEGORIES[8]}/TitleRow`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  },
+  title: 'Components/TitleRow',
+
   args: {
     title: 'Row Title',
     ...RowBasic.args

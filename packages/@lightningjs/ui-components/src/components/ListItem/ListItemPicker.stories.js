@@ -18,17 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { default as ListItemPickerComponent } from './ListItemPicker';
-import mdx from './ListItemPicker.mdx';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/ListItemPicker`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/ListItem/ListItemPicker'
 };
 
 export const ListItemPicker = args =>

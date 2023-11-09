@@ -20,19 +20,12 @@ import lng from '@lightningjs/core';
 import { ButtonSmall as ButtonSmallComponent } from '.';
 import Icon from '../Icon';
 import Checkbox from '../Checkbox';
-import mdx from './Button.mdx';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/ButtonSmall`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Button/ButtonSmall'
 };
 
 function getCommponentArray(comps) {

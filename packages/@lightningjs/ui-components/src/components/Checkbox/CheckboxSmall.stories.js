@@ -18,17 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { default as CheckboxSmallComponent } from './CheckboxSmall.js';
-import mdx from './Checkbox.mdx';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/CheckboxSmall`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Checkboxes/CheckboxSmall'
 };
 
 export const CheckboxSmall = () => {

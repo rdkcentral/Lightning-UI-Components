@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { context } from '@lightningjs/ui-components';
+import { context } from '@lightningjs/ui-components/src';
 
 // creates an array of extensions
 // added to the theme by setTheme in themeSelect
@@ -25,7 +25,6 @@ import { context } from '@lightningjs/ui-components';
 export const themeSelectFromMessageEvent = event => {
   themeSelect(event.data.theme);
 };
-
 // called in ThemePicker
 export const themeSelect = theme => {
   if (!theme) return;
