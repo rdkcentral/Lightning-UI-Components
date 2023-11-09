@@ -17,18 +17,11 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './withThemeStyles.mdx';
 import withThemeStylesMixin from './index.js';
-import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 
 export default {
-  title: `${CATEGORIES[4]}/withThemeStyles`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withThemeStyles'
 };
 
 export const withThemeStyles = () => {

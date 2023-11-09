@@ -17,17 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './withUpdates.mdx';
 import withUpdatesMixin from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[4]}/withUpdates`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withUpdates'
 };
 
 export const withUpdates = args =>

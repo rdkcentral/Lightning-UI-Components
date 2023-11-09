@@ -18,17 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { default as ToggleComponent } from '.';
-import mdx from './Toggle.mdx';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Toggle`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Toggle/Toggle'
 };
 
 export const Toggle = () =>

@@ -17,7 +17,7 @@
  */
 
 import baseTheme from '@lightningjs/ui-components-theme-base';
-import { utils } from '@lightningjs/ui-components';
+import { utils } from '@lightningjs/ui-components/src';
 import debounce from 'debounce';
 
 // Component Styles Panel
@@ -49,7 +49,6 @@ export function setGlobalTheme(theme, updateGlobals) {
     document.querySelector('iframe') &&
     document.querySelector('iframe').contentWindow &&
     document.querySelector('iframe').contentWindow.postMessage({ theme });
-  //globalContext().setTheme(THEMES[theme] || {}); // If no theme is found it means that the base theme should be set
   if (updateGlobals) updateGlobals({ LUITheme: theme });
 }
 

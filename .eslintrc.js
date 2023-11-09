@@ -33,7 +33,12 @@ module.exports = {
     '**/*.json'
   ],
   plugins: ['jest', 'prettier'],
-  extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    'prettier',
+    'plugin:mdx/recommended'
+  ],
   rules: {
     'import/no-useless-path-segments': 'error', // Please note this rule has been patched with Yarn to allow imports from npm packages to apply. The open issue can be found here https://github.com/import-js/eslint-plugin-import/issues/1280
     'no-console': 'off',
@@ -113,6 +118,11 @@ module.exports = {
         '@typescript-eslint/no-redeclare': [1, { ignoreDeclarationMerge: true }]
       },
       plugins: ['@typescript-eslint', 'eslint-plugin-import']
+    },
+    {
+      files: '*.mdx',
+      parser: 'eslint-mdx',
+      extends: 'plugin:mdx/recommended'
     }
   ]
 };

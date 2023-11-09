@@ -19,9 +19,7 @@
 import lng from '@lightningjs/core';
 import { Tile, Row } from '../../components';
 import { context } from '../../globals';
-import mdx from './withHandleKey.mdx';
 import withHandleKeyMixin from '.';
-import { CATEGORIES } from '../../docs/constants';
 
 context.config({
   // Inspect console to see - should only be called when pressing enter on first tile.
@@ -32,12 +30,7 @@ context.config({
 });
 
 export default {
-  title: `${CATEGORIES[4]}/withHandleKey`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withHandleKey'
 };
 
 export const withHandleKey = args => {

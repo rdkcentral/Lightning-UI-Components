@@ -16,17 +16,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { setGlobalTheme } from '../../utils/themeUtils';
-import { TabButton, TooltipLinkList, WithTooltip } from '@storybook/components';
-import { THEMEPICKER_ID, THEMES } from '../constants';
-import { useGlobals } from '@storybook/api';
 import React, { useState, useEffect } from 'react';
-import { utils } from '@lightningjs/ui-components';
+import { useGlobals } from '@storybook/manager-api';
+import { TabButton, TooltipLinkList, WithTooltip } from '@storybook/components';
+import { THEMEPICKER_ID } from '../constants';
+import { setGlobalTheme } from '../../utils/themeUtils';
+import { utils } from '@lightningjs/ui-components/src';
 
 export default () => {
   const [{ LUITheme }, updateGlobals] = useGlobals();
   const [tooltipLinks, updateTooltipLinks] = useState([]);
   const [firstLoad, updateFirstLoad] = useState(true);
+
   useEffect(() => {
     if (!LUITheme) return; // LUITheme is not set until the iframe has first been loaded in preview.js
     if (firstLoad && 'custom' === LUITheme) {
@@ -39,7 +40,7 @@ export default () => {
 
     updateFirstLoad(false); // Makes sure the block above only runs once
     updateTooltipLinks(
-      ['base', ...Object.keys(THEMES), 'custom']
+      ['base']
         .filter(theme => ('custom' === LUITheme ? theme : 'custom' !== theme))
         .map((theme, idx) => {
           const active = theme.toLowerCase() === LUITheme;
@@ -54,12 +55,12 @@ export default () => {
         })
     );
   }, [LUITheme]);
-
   return (
     <div>
       <WithTooltip
         placement="bottom"
         trigger="click"
+        closeOnOutsideClick
         tooltip={<TooltipLinkList links={tooltipLinks} />}
       >
         <TabButton key={THEMEPICKER_ID} title="Theme">

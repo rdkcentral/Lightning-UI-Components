@@ -27,12 +27,12 @@ import fs from 'fs';
  * @returns {string} holds the url the user would navigate to when a component is clicked
  */
 export function getStorybookLinks(component, path, name) {
-  // get mdx paths
-  const originalPath = `../${path}/${component}.mdx`;
+  // get stories.js paths
+  const originalPath = `../${path}/${component}.stories.js`;
   let modifiedPath = originalPath;
   if (component != name) {
     // this is incase there are multiple elements nested inside of one folder
-    modifiedPath = `../../${path}/${name}.mdx`;
+    modifiedPath = `../../${path}/${name}.stories.js`;
     if (!fs.existsSync(modifiedPath)) {
       modifiedPath = originalPath; // this is in case there are multiple elements nested inside of one folder but not all of them have .mdx files
     }
@@ -42,22 +42,26 @@ export function getStorybookLinks(component, path, name) {
     return;
   }
   const lrs = new LineReaderSync(modifiedPath);
-  const storyIdString = '<Story id'; // starting point of the line we're searching for
+
   const urlStart = '../?path=/docs/'; // beginning url of component's storybook documentation page
+
+  const urlEnd = '--docs'; // end of url for component's storybook documentation page
   while (true) {
-    // start searching for the storybook url line
+    // start searching for the title in stories.js file
     const line = lrs.readline();
-    if (line.includes(storyIdString)) {
-      const firstQuotation = line.indexOf('"');
-      const firstSubstring = line.substring(
-        firstQuotation + 1,
-        line.length - 1
+    if (line.includes('title:')) {
+      const firstQuotation = line.indexOf("'");
+      const firstDivide = line.indexOf('/');
+      const firstSubstring = line.substring(firstQuotation + 1, firstDivide);
+
+      // creates final url
+      const url = urlStart.concat(
+        firstSubstring.toLowerCase(),
+        '-',
+        component.toLowerCase(),
+        urlEnd
       );
-      const removeCharacters = firstSubstring
-        .replace(' ', '')
-        .replace('"', '')
-        .replace('/', '');
-      const url = urlStart.concat(removeCharacters);
+
       return url;
     }
   }

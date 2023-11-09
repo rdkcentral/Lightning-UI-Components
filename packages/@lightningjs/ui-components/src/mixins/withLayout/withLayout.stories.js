@@ -17,17 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './withLayout.mdx';
 import { Tile } from '../../components';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[4]}/withLayout`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Utilities/withLayout'
 };
 
 export const withLayout = () => {

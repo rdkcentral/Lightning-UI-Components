@@ -30,11 +30,9 @@ import Column from '../Column';
 import { context } from '../../globals';
 import Tab from './Tab.js';
 import TabBarComponent from '.';
-import mdx from './TabBar.mdx';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/TabBar`,
+  title: 'Components/TabBar',
   args: {
     collapse: false,
     alphaSelectedTab: false,
@@ -60,11 +58,6 @@ export default {
       description:
         'Enables wrapping behavior, so selectNext selects the first item if the current item is the last on the list and vice versa',
       table: { defaultValue: { summary: false } }
-    }
-  },
-  parameters: {
-    docs: {
-      page: mdx
     }
   }
 };

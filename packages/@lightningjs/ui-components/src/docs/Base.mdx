@@ -1,24 +1,25 @@
-﻿import { Meta, Description } from '@storybook/addon-docs'; 
+﻿{/* prettier-ignore */}
+{/*
+Copyright 2023 Comcast Cable Communications Management, LLC
 
-<Meta title="Docs / Base Component " />
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-<!--
-  Copyright 2023 Comcast Cable Communications Management, LLC
+http://www.apache.org/licenses/LICENSE-2.0
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-  http://www.apache.org/licenses/LICENSE-2.0
+SPDX-License-Identifier: Apache-2.0
+\*/}
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+import { Meta } from '@storybook/blocks';
 
-  SPDX-License-Identifier: Apache-2.0
--->
+<Meta title="Docs/Base Component" />
 
 # Base Component
 
@@ -37,6 +38,7 @@ import { Base } from '@lightningjs/ui-components';
 
 class MynewComponent extends Base {}
 ```
+
 ### Mixins
 
 The Base component incorporates the following mixins:
@@ -49,7 +51,7 @@ The Base component incorporates the following mixins:
 
 `withLayout`: This mixin provides layout-related functionality, such as centering the component within its parent.
 
-`withThemeStyles`: When this mixin is used, the component can be styled with theme-specific styles. 
+`withThemeStyles`: When this mixin is used, the component can be styled with theme-specific styles.
 
 `withExtensions`: This mixin allows for extending the component with additional functionality. It provides the ability to customize and add new features to the component easily.
 
@@ -64,12 +66,12 @@ class MyComponent extends withMixins(Base) {}
 ### Properties
 
 | name           | type    | required | default | description                                                          |
-| -------------- | ------- | -------- | ------- | -------------------------------------------------------------------  |
+| -------------- | ------- | -------- | ------- | -------------------------------------------------------------------- |
 | centerInParent | boolean | false    | false   | if set to true it places the child component in center of the parent |
 
 ### Methods
 
-#### static get __componentName(): string
+#### static get \_\_componentName(): string
 
 Any component which extends the Base component and uses the `withThemeStyles` mixin requires this static accessor, which returns the name of the component. This name is used by the theme file in order to map component overrides and extensions.
 
@@ -86,6 +88,6 @@ Returns a boolean for whether or not the entirety of the component is rendered w
 
 This method returns the number which is set as focusScale in the theme (context.theme.layout.focusScale). This value can referenced when updating the scale property on the component when it is focused.
 
-#### getUnfocusScale(): number<1>
+#### getUnfocusScale(): number
 
 This method returns a value that can be used to apply a scale property on focus to a component from a themed value. This value can referenced when updating the scale property on the component when it is unfocused.

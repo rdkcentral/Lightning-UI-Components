@@ -23,7 +23,7 @@ import {
   Speech,
   pool,
   context
-} from '@lightningjs/ui-components';
+} from '@lightningjs/ui-components/src';
 import {
   themeSelect,
   themeSelectFromMessageEvent
@@ -108,14 +108,5 @@ export const clearInspector = () => {
   if (document.querySelectorAll('[type=StoryApp]').length > 1) {
     const div = document.querySelector('[type=StoryApp]');
     div && div.parentNode.remove();
-  }
-
-  // Move lightning inspector out of the foreground
-  if (window.top.location.search.indexOf('path=/docs/') > -1) {
-    document.body.classList.remove('canvas');
-    const div = document.querySelector('[type=StoryApp]');
-    div && (div.parentNode.style.zIndex = -1);
-  } else {
-    document.body.classList.add('canvas');
   }
 };

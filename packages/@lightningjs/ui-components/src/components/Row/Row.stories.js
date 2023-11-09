@@ -20,19 +20,14 @@ import lng from '@lightningjs/core';
 import { getWidthByUpCount } from '../../utils';
 import { default as RowComponent } from '.';
 import Column from '../Column';
-import mdx from './Row.mdx';
 import { context } from '../../globals';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 import { SignalButton } from '../../docs/story-components';
 import Button from '../Button';
 
 export default {
-  title: `${CATEGORIES[8]}/Row`,
+  title: 'Components/Row',
   parameters: {
-    docs: {
-      page: mdx
-    },
     remountAll: true
   }
 };
@@ -445,7 +440,6 @@ export const AddingItems = args =>
   };
 AddingItems.args = {
   ...sharedArgs,
-  lazyUpCount: undefined,
   lazyUpCountBuffer: 2
 };
 AddingItems.argTypes = {

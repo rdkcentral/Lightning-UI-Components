@@ -16,30 +16,37 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useCallback } from 'react';
-import { useGlobals } from '@storybook/api';
+import React, { useCallback, memo, useEffect } from 'react';
+import { useGlobals, useStorybookApi } from '@storybook/manager-api';
 import { Icons, IconButton } from '@storybook/components';
-import { STAGECOLOR_ID } from '../constants';
+import { ADDON_ID, STAGECOLOR_ID } from '../constants';
 
-export default () => {
+export const StageColor = memo(function MyAddonSelector() {
   const [{ stageColor }, updateGlobals] = useGlobals();
-
-  const toggleStage = useCallback(
-    () =>
-      updateGlobals({
-        stageColor: !stageColor
-      }),
-    [stageColor]
-  );
+  const api = useStorybookApi();
+  const isActiveStage = [true, 'true'].includes(stageColor);
+  const toggleStage = useCallback(() => {
+    updateGlobals({
+      stageColor: !isActiveStage
+    });
+  }, [isActiveStage]);
+  useEffect(() => {
+    api.setAddonShortcut(ADDON_ID, {
+      label: 'Stage Color Toggle',
+      actionName: 'stage color',
+      showInMenu: false,
+      action: toggleStage
+    });
+  }, [toggleStage, api]);
 
   return (
     <IconButton
       key={STAGECOLOR_ID}
-      active={stageColor}
-      title="Swich stage color"
+      active={isActiveStage}
+      title="Switch stage color"
       onClick={toggleStage}
     >
       <Icons icon="paintbrush" />
     </IconButton>
   );
-};
+});

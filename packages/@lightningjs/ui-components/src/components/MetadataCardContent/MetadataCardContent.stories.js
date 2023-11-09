@@ -18,18 +18,11 @@
 
 import lng from '@lightningjs/core';
 import { default as MetadataCardContentComponent } from '.';
-import mdx from './MetadataCardContent.mdx';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/MetadataCardContent`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/MetadataCardContent'
 };
 
 export const MetadataCardContent = () =>

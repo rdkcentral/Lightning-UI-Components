@@ -17,10 +17,10 @@
  */
 
 import React from 'react';
+import { DOWNLOAD_ID } from '../constants';
 import { Icons, IconButton } from '@storybook/components';
 import { convertNumToHexAlphaArray } from '../../utils/helpers';
-import { utils } from '@lightningjs/ui-components';
-import { DOWNLOAD_ID } from '../constants';
+import { utils } from '@lightningjs/ui-components/src';
 
 export default () => {
   const download = () => {

@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module.exports = (name) => {
+module.exports = name => {
   return `/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
@@ -37,17 +37,11 @@ module.exports = (name) => {
 
 import lng from '@lightningjs/core';
 import ${name} from '.';
-import mdx from './${name}.mdx';
 import { CATEGORIES } from '../../docs/constants';
 
 export default {
   // TODO: replace categoryIndex with key for which category this component's story should be nested in. See CATEGORIES object in packages/apps/lightning-ui-docs/index.js
   title: 'CATEGORIES[categoryIndex]/${name}',
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
 };
 
 export const Basic = () =>

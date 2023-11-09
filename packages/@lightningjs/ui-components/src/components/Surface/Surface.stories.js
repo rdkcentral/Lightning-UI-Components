@@ -18,17 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { default as SurfaceComponent } from '.';
-import mdx from './Surface.mdx';
 import { createModeControl } from '../../docs/utils';
-import { CATEGORIES } from '../../docs/constants';
 
 export default {
-  title: `${CATEGORIES[8]}/Surface`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Surface'
 };
 
 export const Surface = () =>
