@@ -91,7 +91,7 @@ export default class TitleRow extends Row {
 
   _updateRow() {
     this.Items.patch({
-      y: this._Title.finalH + this.style.titleMarginBottom
+      y: this.title ? this._Title.finalH + this.style.titleMarginBottom : 0
     });
   }
 
