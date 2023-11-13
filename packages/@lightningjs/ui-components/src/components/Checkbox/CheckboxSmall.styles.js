@@ -18,13 +18,13 @@
 
 export const base = theme => {
   const strokeWidth = theme.stroke.sm;
-  const size = theme.spacer.xl - strokeWidth * 2;
+  const size = theme.spacer.xl;
   return {
     width: size,
     height: size,
     iconWidth: theme.spacer.md,
-    iconHeight: theme.spacer.md + theme.spacer.xxs,
-    radius: size / 2,
+    iconHeight: theme.spacer.md,
+    radius: theme.radius.xs,
     strokeWidth
   };
 };

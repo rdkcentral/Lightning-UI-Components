@@ -18,7 +18,7 @@
 
 export const base = theme => {
   const strokeWidth = theme.stroke.sm;
-  const size = theme.spacer.xxl - strokeWidth * 2;
+  const size = theme.spacer.xxl;
   return {
     alpha: theme.alpha.primary,
     width: size,
