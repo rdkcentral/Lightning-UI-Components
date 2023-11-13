@@ -16,6 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import Row from '../Row';
 import Tile from '../Tile';
@@ -126,6 +127,41 @@ describe('TabBar', () => {
 
     expect(tabBar._Tabs.items[0].mode).toBe('focused');
     expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
+  });
+
+  it('should propogate key events', () => {
+    const onUp = jest.fn();
+    const onDown = jest.fn();
+    class Wrapper extends lng.Component {
+      static _template() {
+        return {
+          TabBar: {
+            type: TabBar,
+            tabs
+          }
+        };
+      }
+      _handleUp() {
+        onUp();
+      }
+      _handleDown() {
+        onDown();
+      }
+      _getFocused() {
+        return this.tag('TabBar');
+      }
+    }
+    const [, testRenderer] = makeCreateComponent(Wrapper)();
+
+    expect(onUp).not.toHaveBeenCalled();
+    expect(onDown).not.toHaveBeenCalled();
+
+    testRenderer.keyPress('Down');
+    expect(onUp).not.toHaveBeenCalled();
+    expect(onDown).toHaveBeenCalled();
+
+    testRenderer.keyPress('Up');
+    expect(onUp).toHaveBeenCalled();
   });
 
   it('should update the TabBar height if the Tabs height changes', async () => {

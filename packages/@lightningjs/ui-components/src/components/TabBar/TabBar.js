@@ -179,10 +179,12 @@ export default class TabBar extends Base {
       this._updateTabs();
       this._updateTabBarHeight();
     }
+    return false;
   }
 
   _handleUp() {
     this.selectTabs();
+    return false;
   }
 
   _setTabs(tabs) {
