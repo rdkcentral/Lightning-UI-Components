@@ -19,14 +19,14 @@
 export const base = theme => {
   const knobSize = theme.spacer.lg;
   const knobPadding = theme.spacer.xxs;
-  const strokeWeight = theme.stroke.sm;
+  const strokeWidth = theme.stroke.sm;
   return {
-    height: knobSize + (knobPadding + strokeWeight) * 2,
+    height: knobSize + (knobPadding + strokeWidth) * 2,
     knobWidth: knobSize,
     knobHeight: knobSize,
     knobRadius: knobSize / 2,
     knobPadding,
-    strokeWeight,
-    width: (strokeWeight + knobPadding * 2 + knobSize) * 2
+    strokeWidth,
+    width: (strokeWidth + knobPadding * 2 + knobSize) * 2
   };
 };

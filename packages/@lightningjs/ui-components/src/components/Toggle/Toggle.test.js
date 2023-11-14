@@ -26,7 +26,7 @@ const createToggle = makeCreateComponent(Toggle);
 const styles = {
   w: 96,
   strokeRadius: 20,
-  strokeWeight: 2,
+  strokeWidth: 2,
   knobWidth: 36,
   knobHeight: 30,
   knobRadius: 16,
@@ -96,10 +96,10 @@ describe('Toggle', () => {
 
     it('calculates unchecked position if not specified', async () => {
       const uncheckedPosition =
-        styledToggle.style.strokeWeight + styledToggle.style.knobPadding;
+        styledToggle.style.strokeWidth + styledToggle.style.knobPadding;
       const checkedPosition =
         styledToggle.style.w -
-        styledToggle.style.strokeWeight -
+        styledToggle.style.strokeWidth -
         styledToggle.style.knobPadding -
         styledToggle.style.knobWidth;
 

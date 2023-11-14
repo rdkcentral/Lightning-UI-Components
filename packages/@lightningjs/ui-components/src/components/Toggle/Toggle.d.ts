@@ -35,7 +35,9 @@ type ToggleStyle = {
   knobXChecked: number;
   strokeColor: Color;
   strokeRadius: lng.Tools.CornerRadius;
+  /* @deprecated */
   strokeWeight: number;
+  strokeWidth: number;
 };
 
 declare namespace Toggle {
