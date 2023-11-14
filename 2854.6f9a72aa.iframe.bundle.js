@@ -1101,12 +1101,13 @@ var Tile = /*#__PURE__*/function (_Surface) {
 
     /* ------------------------------ Tile ------------------------------ */
   }, {
-    key: "h",
-    get: function get() {
-      return !this._isInsetMetadata ? _get(_getPrototypeOf(Tile.prototype), "h", this) + (this._Metadata && this._Metadata.h || 0) : _get(_getPrototypeOf(Tile.prototype), "h", this);
-    },
-    set: function set(v) {
-      _set(_getPrototypeOf(Tile.prototype), "h", v, this, true);
+    key: "_getRenderHeight",
+    value: function _getRenderHeight() {
+      var _this$_Metadata;
+      // if there is Metadata below the Tile, override _getRenderHeight
+      // in order to return the fully calculated height,
+      // not the height stored in "_h" for just the tile image
+      return !this._isInsetMetadata ? this._h + (((_this$_Metadata = this._Metadata) === null || _this$_Metadata === void 0 ? void 0 : _this$_Metadata.h) + this.style.paddingY || 0) : _get(_getPrototypeOf(Tile.prototype), "_getRenderHeight", this).call(this);
     }
   }, {
     key: "innerH",
@@ -1532,6 +1533,11 @@ var Tile = /*#__PURE__*/function (_Surface) {
     value: function _metadataLoaded() {
       this._animateMetadata();
       this._updateLogo();
+
+      // if the metadata height has changed, the height of the entire Tile has changed
+      // and the inspector must be updated via _getRenderHeight()
+      this._updateDimensions();
+
       // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
       if (!this._isInsetMetadata) {
         this.fireAncestors('$itemChanged');
@@ -1638,4 +1644,4 @@ var Tile = /*#__PURE__*/function (_Surface) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2854.c12a679d.iframe.bundle.js.map
+//# sourceMappingURL=2854.6f9a72aa.iframe.bundle.js.map

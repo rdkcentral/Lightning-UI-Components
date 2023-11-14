@@ -8994,7 +8994,7 @@ function withThemeStyles(Base) {
       key: "h",
       get: function get() {
         var _this$style2;
-        return this._hSetByUser && this._h || ((_this$style2 = this.style) === null || _this$style2 === void 0 ? void 0 : _this$style2.h) || 0;
+        return this._hSetByUser && this._h || ((_this$style2 = this.style) === null || _this$style2 === void 0 ? void 0 : _this$style2.h) || this._h || 0;
       }
 
       /**
@@ -12795,4 +12795,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.267bde54.iframe.bundle.js.map
+//# sourceMappingURL=main.1177b7f7.iframe.bundle.js.map

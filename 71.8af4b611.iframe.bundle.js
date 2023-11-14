@@ -351,14 +351,6 @@ var Button = /*#__PURE__*/function (_Surface) {
       this._Content.patch(this._contentProps);
     }
   }, {
-    key: "h",
-    get: function get() {
-      return _get(_getPrototypeOf(Button.prototype), "h", this) || this.style.textStyle.lineHeight + this.style.paddingY * 2;
-    },
-    set: function set(v) {
-      _set(_getPrototypeOf(Button.prototype), "h", v, this, true);
-    }
-  }, {
     key: "_updateSurfaceDimensions",
     value: function _updateSurfaceDimensions() {
       var newWidth = this.w;
@@ -373,7 +365,15 @@ var Button = /*#__PURE__*/function (_Surface) {
         this.w = newWidth;
       }
 
-      // TODO breaks row resizing if this is wrapped in the above conditional
+      // In order to ensure the "hSetByUser" flag is not set to true,
+      // skip over "set h" by directly updating "_h"
+      // Using the "get h" return statement does not force an update to the inspector,
+      // whereas this will ensure the "height" attribute is updated
+      if (!this._hSetByUser && !this.style.h) {
+        this._h = this.style.textStyle.lineHeight + this.style.paddingY * 2;
+      }
+
+      // TODO breaks row resizing if this is wrapped in the width conditional above
       this.fireAncestors('$itemChanged');
     }
   }, {
@@ -828,4 +828,4 @@ var Surface = /*#__PURE__*/function (_Base) {
 /***/ })
 
 }]);
-//# sourceMappingURL=71.04e87194.iframe.bundle.js.map
+//# sourceMappingURL=71.8af4b611.iframe.bundle.js.map
