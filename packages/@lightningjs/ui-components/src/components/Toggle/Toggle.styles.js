@@ -25,12 +25,9 @@ export const base = theme => {
     knobWidth: knobSize,
     knobHeight: knobSize,
     knobRadius: knobSize / 2,
-    knobPadding: theme.spacer.xs,
-    knobX: theme.spacer.xs,
-    knobXChecked: theme.spacer.xxl,
-    strokeRadius: theme.radius.xl,
+    knobPadding,
     strokeWeight,
-    width: theme.spacer.xxl * 2
+    width: (strokeWeight + knobPadding * 2 + knobSize) * 2
   };
 };
 

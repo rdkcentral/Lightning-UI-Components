@@ -74,14 +74,13 @@ export default class Toggle extends Base {
   }
 
   _updateKnobPosition() {
-    const { knobXChecked, knobX, knobPadding, knobWidth, strokeWeight } =
-      this.style;
-    this._knobX = knobX || strokeWeight + knobPadding;
-    this._knobXChecked =
-      knobXChecked || this.w - strokeWeight - knobPadding - knobWidth;
-    const x = this.checked ? this._knobXChecked : this._knobX;
+    const { knobPadding, knobWidth, strokeWeight } = this.style;
 
-    this.applySmooth(this._Knob, { x });
+    this.applySmooth(this._Knob, {
+      x: this.checked
+        ? this.w - strokeWeight - knobPadding - knobWidth
+        : strokeWeight + knobPadding
+    });
   }
 
   _updateColors() {
@@ -104,23 +103,20 @@ export default class Toggle extends Base {
   _updateContainer() {
     const { knobRadius, knobPadding, strokeRadius, strokeWeight } = this.style;
 
-    let radius;
-    if (strokeRadius !== undefined) {
-      if (strokeRadius === 0) {
-        radius = 0;
-      } else {
-        radius = Math.max(0, strokeRadius - strokeWeight);
-      }
-    } else {
-      radius = Math.max(0, knobRadius + knobPadding + strokeWeight);
-    }
+    const radius =
+      strokeRadius !== undefined
+        ? strokeRadius === 0
+          ? strokeRadius
+          : Math.max(0, strokeRadius - strokeWeight)
+        : Math.max(0, knobRadius + knobPadding + strokeWeight);
 
     this._Container.patch({
       w: this.w,
       h: this.h,
       texture: lng.Tools.getRoundRect(
-        this.w - 2 * strokeWeight,
-        this.h - 2 * strokeWeight,
+        // Compensating for the extra 2 pixels getRoundRect adds
+        this.w - strokeWeight * 2 - 2,
+        this.h - strokeWeight * 2 - 2,
         radius,
         strokeWeight,
         0,
@@ -138,8 +134,9 @@ export default class Toggle extends Base {
       w: this.w,
       h: this.h,
       texture: lng.Tools.getRoundRect(
-        this.w,
-        this.h,
+        // Compensating for the extra 2 pixels getRoundRect adds
+        this.w - 2,
+        this.h - 2,
         strokeRadius !== undefined
           ? strokeRadius
           : knobRadius + knobPadding + strokeWeight,
@@ -153,10 +150,12 @@ export default class Toggle extends Base {
 
   _updateKnob() {
     const { knobHeight, knobWidth, knobRadius } = this.style;
+
     this._Knob.patch({
       zIndex: 2,
       y: (this.h - knobHeight) / 2,
       texture: lng.Tools.getRoundRect(
+        // Compensating for the extra 2 pixels getRoundRect adds
         knobWidth - 2,
         knobHeight - 2,
         knobRadius,
