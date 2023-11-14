@@ -19,7 +19,7 @@ exports[`Checkbox renders 1`] = `
           "enabled": false,
           "flex": false,
           "flexItem": false,
-          "h": 14,
+          "h": 20,
           "hasFinalFocus": false,
           "hasFocus": false,
           "isComponent": true,
