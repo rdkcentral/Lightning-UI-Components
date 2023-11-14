@@ -107,6 +107,14 @@ class Example extends lng.Component {
 
 \* `TabBar` also accepts all properties supported by the [Row](/docs/components-row--basic) component. These properties will be applied to the Row which renders the Tabs
 
+### Signals
+
+- `$tabChanged`: each time the selected tab is changed, a signal named `$tabChanged` is emitted (via `fireAncestors`) with 3 arguments in the following order: the current selected tab, the previously selected tab, and an instance of the TabBar component
+
+```js
+fireAncestors('$tabChanged', selected, prevSelected, this);
+```
+
 ### Style Properties
 
 | name             | type   | description                                  |

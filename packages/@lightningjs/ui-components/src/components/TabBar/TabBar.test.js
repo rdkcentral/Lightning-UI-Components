@@ -129,6 +129,22 @@ describe('TabBar', () => {
     expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
   });
 
+  it('should emit a $tabChanged signal when the selected tab changes', () => {
+    const prevSelected = tabBar.tag('Tabs').selected;
+    jest.spyOn(tabBar, 'fireAncestors');
+    expect(tabBar.fireAncestors).not.toHaveBeenCalled();
+
+    tabBar.tag('Tabs').selectNext();
+    const selected = tabBar.tag('Tabs').selected;
+
+    expect(tabBar.fireAncestors).toHaveBeenCalledWith(
+      '$tabChanged',
+      selected,
+      prevSelected,
+      tabBar
+    );
+  });
+
   it('should propogate key events', () => {
     const onUp = jest.fn();
     const onDown = jest.fn();

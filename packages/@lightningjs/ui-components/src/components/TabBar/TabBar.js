@@ -62,7 +62,8 @@ export default class TabBar extends Base {
     this._isTabsFocused = true;
   }
 
-  _selectedTabChange() {
+  _selectedTabChange(selected, prevSelected) {
+    this.fireAncestors('$tabChanged', selected, prevSelected, this);
     if (
       typeof this._tabContent === 'object' &&
       typeof this._tabContent.then === 'function'
