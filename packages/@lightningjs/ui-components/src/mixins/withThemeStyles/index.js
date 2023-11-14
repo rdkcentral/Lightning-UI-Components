@@ -337,7 +337,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * @return {number}
      */
     get h() {
-      return (this._hSetByUser && this._h) || this.style?.h || 0;
+      return (this._hSetByUser && this._h) || this.style?.h || this._h || 0;
     }
 
     /**

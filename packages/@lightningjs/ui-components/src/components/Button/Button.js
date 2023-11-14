@@ -241,14 +241,6 @@ export default class Button extends Surface {
     this._Content.patch(this._contentProps);
   }
 
-  set h(v) {
-    super.h = v;
-  }
-
-  get h() {
-    return super.h || this.style.textStyle.lineHeight + this.style.paddingY * 2;
-  }
-
   _updateSurfaceDimensions() {
     let newWidth = this.w;
     if (this.fixed) {
@@ -269,7 +261,15 @@ export default class Button extends Surface {
       this.w = newWidth;
     }
 
-    // TODO breaks row resizing if this is wrapped in the above conditional
+    // In order to ensure the "hSetByUser" flag is not set to true,
+    // skip over "set h" by directly updating "_h"
+    // Using the "get h" return statement does not force an update to the inspector,
+    // whereas this will ensure the "height" attribute is updated
+    if (!this._hSetByUser && !this.style.h) {
+      this._h = this.style.textStyle.lineHeight + this.style.paddingY * 2;
+    }
+
+    // TODO breaks row resizing if this is wrapped in the width conditional above
     this.fireAncestors('$itemChanged');
   }
 
