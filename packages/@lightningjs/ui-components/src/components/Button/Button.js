@@ -118,38 +118,50 @@ export default class Button extends Surface {
         };
       }
       this._Content.patch({ Prefix: prefixPatch });
-
-      /**
-       * Repatching all items re-renders all the components in the Prefix Row.
-       * This can cause items to shift while their layout in the Row is re-calculated if
-       * any of the items do not have width or height on their initial render (ex. an Icon
-       * does not have width and height until after its texture loads).
-       * If the contents of the Prefix are the same components and this update was triggered
-       * from something else (ex. a change in mode), only update the styles applied to the
-       * items in the Prefix (ex. updating the color to the value appropriate to the new mode).
-       */
-      const prefixString = JSON.stringify(this.prefix);
-      if (prefixString !== this._prevPrefix) {
-        this._prevPrefix = prefixString;
-        this._Prefix.items = this._addButtonProps(this.prefix);
-      } else {
-        this._updatePrefixStyles();
-      }
+      this._updatePrefixSuffixStyles('prefix');
     } else {
       this._Content.patch({ Prefix: undefined });
     }
   }
 
-  _updatePrefixStyles() {
-    this._Prefix.Items.children.forEach((item, idx) => {
-      item.color = Array.isArray(this.prefix)
-        ? this.prefix[idx].color
-        : this.prefix.color;
-      item.style = {
-        ...item.style,
-        color: this.style.contentColor
-      };
-    });
+  _updatePrefixSuffixStyles(type = 'prefix') {
+    /**
+     * Repatching all items re-renders all the components in the Prefix/Suffix Rows.
+     * This can cause items to shift while their layout in the Row is re-calculated if
+     * any of the items do not have width or height on their initial render (ex. an Icon
+     * does not have width and height until after its texture loads).
+     * If the contents of the Prefix/Suffix are the same components and this update was triggered
+     * from something else (ex. a change in mode), only update the styles applied to the
+     * items in the Prefix (ex. updating the color to the value appropriate to the new mode).
+     */
+    const map = {
+      prefix: {
+        tag: this._Prefix,
+        prop: this.prefix,
+        prevProp: this._prevPrefix
+      },
+      suffix: {
+        tag: this._Suffix,
+        prop: this.suffix,
+        prevProp: this._prevSuffix
+      }
+    };
+    const { tag, prop } = map[type];
+    let { prevProp } = map[type];
+    const propString = JSON.stringify(prop);
+
+    if (propString !== prevProp) {
+      prevProp = propString;
+      tag.items = this._addButtonProps(prop);
+    } else {
+      tag.Items.children.forEach((item, idx) => {
+        item.color = Array.isArray(prop) ? prop[idx].color : prop.color;
+        item.style = {
+          ...item.style,
+          color: this.style.contentColor
+        };
+      });
+    }
   }
 
   _updateTitle() {
@@ -194,7 +206,7 @@ export default class Button extends Surface {
         };
       }
       this._Content.patch({ Suffix: suffixPatch });
-      this._Suffix.items = this._addButtonProps(this.suffix);
+      this._updatePrefixSuffixStyles('suffix');
     } else {
       this._Content.patch({ Suffix: undefined });
     }
