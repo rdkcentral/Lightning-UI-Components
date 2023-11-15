@@ -18,36 +18,36 @@
 
 export const base = theme => {
   const strokeWidth = theme.stroke.sm;
-  const size = theme.spacer.xxl - strokeWidth * 2;
+  const size = theme.spacer.xxl;
   return {
     alpha: theme.alpha.primary,
     width: size,
     height: size,
-    checkWidth: theme.spacer.lg,
-    checkHeight: theme.spacer.md + theme.spacer.xs,
-    checkSrc: theme.asset.check,
-    radius: size / 2,
+    iconWidth: theme.spacer.lg,
+    iconHeight: theme.spacer.lg,
+    icon: theme.asset.check,
+    radius: theme.radius.xs,
     strokeWidth
   };
 };
 
 export const tone = theme => ({
   neutral: {
-    strokeColor: theme.color.strokeInverse,
-    checkColor: theme.color.textInverse,
-    backgroundColor: theme.color.fillNeutralDisabled,
+    strokeColor: theme.color.strokeNeutralSecondary,
+    checkColor: theme.color.fillInverse,
+    backgroundColor: theme.color.fillInverseSecondary,
     backgroundColorChecked: theme.color.fillNeutral
   },
   inverse: {
-    strokeColor: theme.color.strokeNeutral,
-    checkColor: theme.color.textNeutral,
-    backgroundColor: theme.color.fillInverseDisabled,
+    strokeColor: theme.color.strokeInverseSecondary,
+    checkColor: theme.color.fillNeutral,
+    backgroundColor: theme.color.fillNeutralSecondary,
     backgroundColorChecked: theme.color.fillInverse
   },
   brand: {
-    strokeColor: theme.color.strokeNeutral,
-    checkColor: theme.color.textNeutral,
-    backgroundColor: theme.color.fillInverseDisabled,
+    strokeColor: theme.color.strokeNeutralSecondary,
+    checkColor: theme.color.fillInverse,
+    backgroundColor: theme.color.fillNeutralSecondary,
     backgroundColorChecked: theme.color.fillBrand
   }
 });

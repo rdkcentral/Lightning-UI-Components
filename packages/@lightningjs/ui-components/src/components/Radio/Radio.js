@@ -70,13 +70,14 @@ export default class Radio extends Base {
     // if the inner body should be square, a rounded corner radius can still be applied to the stroke
     const radius =
       this.style.radius >= this.w / 2
-        ? (this.w - this.style.strokeWidth) / 2
+        ? (this.w - this.style.strokeWidth - 2) / 2
         : 0;
 
     this._Body.patch({
       texture: lng.Tools.getRoundRect(
-        this.w - this.style.strokeWidth,
-        this.h - this.style.strokeWidth,
+        // Compensating for the extra 2 pixels getRoundRect adds
+        this.w - this.style.strokeWidth * 2 - 2,
+        this.h - this.style.strokeWidth * 2 - 2,
         radius,
         null,
         null,
@@ -88,9 +89,10 @@ export default class Radio extends Base {
 
   _updateStroke() {
     this._Stroke.patch({
+      // Compensating for the extra 2 pixels getRoundRect adds
       texture: lng.Tools.getRoundRect(
-        this.w,
-        this.h,
+        this.w - 2,
+        this.h - 2,
         this.style.radius,
         this.style.strokeWidth,
         this.style.strokeColor,
