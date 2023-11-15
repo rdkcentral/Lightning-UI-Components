@@ -18,6 +18,8 @@
 
 import lng from '@lightningjs/core';
 
+type BaseStyle = object;
+
 declare namespace Base {
   export interface TemplateSpec extends lng.Component.TemplateSpec {
     /**
@@ -122,4 +124,4 @@ declare class Base<
   get _isUnfocusedMode(): boolean;
 }
 
-export default Base;
+export { Base as default, BaseStyle };

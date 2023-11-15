@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import type { StylePartial } from '../../types/lui';
-import FocusManager from '../FocusManager';
+import FocusManager, { FocusManagerStyle } from '../FocusManager';
 
 export type DirectionProps = {
   axis: string;
@@ -28,7 +28,7 @@ export type DirectionProps = {
   innerCrossDimension: string;
 };
 
-export type NavigationManagerStyle = {
+type NavigationManagerStyle = FocusManagerStyle & {
   alwaysScroll: boolean;
   itemSpacing: number;
   itemTransition: lng.types.TransitionSettings;
@@ -190,4 +190,4 @@ declare class NavigationManager<
   shouldScrollDown(): boolean;
 }
 
-export default NavigationManager;
+export { NavigationManager as default, NavigationManagerStyle };
