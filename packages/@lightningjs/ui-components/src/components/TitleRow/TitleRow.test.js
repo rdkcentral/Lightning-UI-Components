@@ -102,12 +102,12 @@ describe('TitleRow', () => {
           spyOnMethods: ['_titleLoaded']
         }
       );
-      expect(titleRow._Items.y).toBe(titleRow.style.rowMarginTop);
+      expect(titleRow._Items.y).toBe(titleRow.style.titleMarginBottom);
 
       await titleRow.__titleLoadedSpyPromise;
 
       expect(titleRow._Items.y).toBe(
-        titleRow._Title.finalH + titleRow.style.rowMarginTop
+        titleRow._Title.finalH + titleRow.style.titleMarginBottom
       );
     });
   });
