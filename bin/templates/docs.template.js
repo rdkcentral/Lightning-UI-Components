@@ -38,7 +38,7 @@ limitations under the License.
 SPDX-License-Identifier: Apache-2.0 */}
 
 import { Meta, Title } from '@storybook/blocks';
-import * ${name}Stories from './${name}.stories';
+import * as ${name}Stories from './${name}.stories';
 
 <Meta of={${name}Stories} />
 
