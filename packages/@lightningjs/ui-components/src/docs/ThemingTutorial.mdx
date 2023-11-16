@@ -23,7 +23,7 @@ import { Meta } from '@storybook/addon-docs';
 
 # Building an Application with Theming
 
-Before proceeding, read through the [Theming Overview](../?path=/story/docs-theming-overview--page) documentation to understand the basics of a global theme.
+Before proceeding, read through the [Theming Overview](../?path=/docs/docs-theming-overview--docs) documentation to understand the basics of a global theme.
 
 You can see the final result of this example tutorial via this [Lightning Playground link](https://lightningjs.io/playground/#gHHjFcXttzK1).
 
@@ -31,7 +31,7 @@ You can see the final result of this example tutorial via this [Lightning Playgr
 
 Similarly to creating a Lightning application without LUI or Theming, you will need to create an `App` class. You can learn more about application setup [here](https://lightningjs.io/docs/#/getting-started/CreateApp/index).
 
-In this example, we will create a single page application using the default Base theme. For more information about setting a custom theme, please refer to [Theming Overview](../?path=/story/docs-theming-overview--page). Additionally, the following example can easily be adapted to complex applications using the [Lightning SDK Router](https://lightningjs.io/docs/#/lightning-sdk-reference/plugins/router/index). If you choose this setup, we recommend setting your theme via the [`boot`](https://lightningjs.io/docs/#/lightning-sdk-reference/plugins/router/configuration?id=boot) key, like this:
+In this example, we will create a single page application using the default Base theme. For more information about setting a custom theme, please refer to [Theming Overview](../?path=/docs/docs-theming-overview--docs). Additionally, the following example can easily be adapted to complex applications using the [Lightning SDK Router](https://lightningjs.io/docs/#/lightning-sdk-reference/plugins/router/index). If you choose this setup, we recommend setting your theme via the [`boot`](https://lightningjs.io/docs/#/lightning-sdk-reference/plugins/router/configuration?id=boot) key, like this:
 
 ```js
 boot: async () => {
@@ -62,7 +62,7 @@ export default class App extends Lightning.Application {
 
 ### Understanding the Base Component
 
-All components in LUI extend a single `Base` component, which you can read about [here](../?path=/story/docs-base-component--page). This Base component is wrapped in helpful mixins like [`withThemeStyles`](../?path=/docs/utilities-withthemestyles--with-theme-styles), [`withHandleKey`](../?path=/docs/utilities-withhandlekey--with-handle-key), [`withUpdates`](../?path=/docs/utilities-withupdates--with-updates), and [`withTags`](../?path=/docs/utilities-withtags--with-tags). It is essential to utilize this Base component in your applications in order to get the full benefits of theming.
+All components in LUI extend a single `Base` component, which you can read about [here](../?path=/docs/docs-base-component--docs). This Base component is wrapped in helpful mixins like [withThemeStyles](../?path=/docs/utilities-withthemestyles--docs), [withHandleKey](../?path=/docs/utilities-withhandlekey--docs), [withUpdates](../?path=/docs/utilities-withupdates--docs), and [withTags](../?path=/docs/utilities-withtags--docs). It is essential to utilize this Base component in your applications in order to get the full benefits of theming.
 
 We will start building our custom `ExamplePage` by extending this `Base` component, like so:
 
@@ -170,7 +170,7 @@ _updateTitle() {
 
 Here, we are referencing the `layout.marginX` token to determine how wide the TextBox can be. This ensures that there is a safe amount of padding on both the left and right side of the screen. Additionally, we are using the `spacer.lg` token as the space between the Title and Description, and the `display2` typography token to set the text size and other font properties.
 
-If you have set a custom theme, these values will reflect that of the new object and dynamically update the component. You can even test this on the fly using the `context.setTheme` method outlined in the [Theming Overview](../?path=/story/docs-theming-overview--page).
+If you have set a custom theme, these values will reflect that of the new object and dynamically update the component. You can even test this on the fly using the `context.setTheme` method outlined in the [Theming Overview](../?path=/docs/docs-theming-overview--docs).
 
 Next, we will then repeat this approach with the `Description` and `Button`, ensuring all of our new methods are called from `_update`.
 
