@@ -205,9 +205,6 @@ export default class StyleManager extends lng.EventEmitter {
           alias: this.component.constructor.aliasStyles,
           componentConfig: this.component._componentConfig,
           inlineStyle: this.component._componentLevelStyle,
-          name:
-            this.component.constructor.__componentName ||
-            this.component.constructor.name,
           styleChain: getStyleChainMemoized(this.component),
           theme: this.component.theme
         });

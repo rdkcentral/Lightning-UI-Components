@@ -368,10 +368,10 @@ export const generateSolution = (
   const solution = {};
 
   const uniqueModes = getUniqueProperties([
-    'unfocused',
     'focused',
     'disabled',
-    ...modeKeys
+    ...modeKeys,
+    'unfocused' // Focused must be at the end for proper fallback since base === 'unfocused' in many cases
   ]);
 
   const uniqueTones = getUniqueProperties([
@@ -573,13 +573,18 @@ export const generateComponentStyleSource = ({
   // Merge all the styles together into one array to loop
   const merged = [...componentDefault, componentConfigSanitized, local];
 
-  // Find all the keys that are nested under mode and tone this will help generate the final solution
-  const modeKeys = findNestedKeys(merged, 'mode');
-  const toneKeys = findNestedKeys(merged, 'tone');
+  // Execute all style functions with the theme
+  const parsedStyles = merged.map(style => {
+    return executeWithContextRecursive(style, theme);
+  });
 
-  const solution = merged.reduce((acc, style) => {
-    const parsed = executeWithContextRecursive(style, theme);
-    return clone(acc, generateSolution(parsed, modeKeys, toneKeys));
+  // Find all the keys that are in mode/tone as well as nested under mode and tone this will help generate the final solution
+  const modeKeys = findNestedKeys(parsedStyles, 'mode');
+  const toneKeys = findNestedKeys(parsedStyles, 'tone');
+
+  // Merge all the styles together into one object
+  const solution = parsedStyles.reduce((acc, style) => {
+    return clone(acc, generateSolution(style, modeKeys, toneKeys));
   }, {});
 
   const final = formatStyleObj(
