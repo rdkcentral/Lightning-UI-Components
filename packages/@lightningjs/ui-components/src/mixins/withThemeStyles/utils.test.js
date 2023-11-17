@@ -672,6 +672,39 @@ describe('generateComponentStyleSource', () => {
     });
   });
 
+  it('will properly incorporate custom modes and tones', () => {
+    const source = generateComponentStyleSource({
+      styleChain: [
+        {
+          style: {
+            base: {
+              color: 'primary'
+            }
+          }
+        },
+        {
+          style: {
+            selected: {
+              color: 'brand'
+            }
+          }
+        }
+      ]
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary', selected: { color: 'brand' } },
+      unfocused_inverse: { color: 'primary', selected: { color: 'brand' } },
+      unfocused_brand: { color: 'primary', selected: { color: 'brand' } },
+      focused_neutral: { color: 'primary', selected: { color: 'brand' } },
+      focused_inverse: { color: 'primary', selected: { color: 'brand' } },
+      focused_brand: { color: 'primary', selected: { color: 'brand' } },
+      disabled_neutral: { color: 'primary', selected: { color: 'brand' } },
+      disabled_inverse: { color: 'primary', selected: { color: 'brand' } },
+      disabled_brand: { color: 'primary', selected: { color: 'brand' } }
+    });
+  });
+
   it('should have all objects in source be pointers to the same object in memory', () => {
     const source = generateComponentStyleSource({
       styleChain: [
