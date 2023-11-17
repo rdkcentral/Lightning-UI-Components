@@ -16,10 +16,16 @@
   SPDX-License-Identifier: Apache-2.0
 -->
 
+<!-- use for style elements in Storybook's UI -->
 <style>
   /* overrides Storybook style to allow controls to scroll completely */
   #panel-tab-content > div:first-child {
     position: relative !important;
+  }
+
+  /* temporary solution for background issue not being recognized by appContentBG */
+  #storybook-preview-iframe {
+    /* background-color: transparent !important; */
   }
 
   .grid-overlay-panel-wrapper,
@@ -66,10 +72,5 @@
   .theme-panel-wrapper tr {
     border: 1px solid rgb(74, 74, 74);
     padding: 10px 20px;
-  }
-
-  /* temporary solution for background issue not being recognized by appContentBG */
-  #storybook-preview-iframe {
-    background-color: transparent !important;
   }
 </style>
