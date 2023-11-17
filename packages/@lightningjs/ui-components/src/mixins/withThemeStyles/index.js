@@ -50,11 +50,6 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         this._updatePropDefaults();
         this.queueThemeUpdate();
       });
-
-      this._whenEnabled = new Promise(resolve => {
-        this._whenEnabledResolver = resolve;
-      });
-
       this._withThemeStylesSetupComplete = true;
     }
 
@@ -73,14 +68,6 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         this._styleManager.clearSourceCache();
         this._styleManager.update();
       }
-    }
-
-    _firstEnable() {
-      this._readyForUpdates = true;
-      this._whenEnabledResolver();
-      updateManager.deleteRequestUpdate(this);
-      this.queueThemeUpdate();
-      super._firstEnable && super._firstEnable();
     }
 
     _updatePropDefaults() {
@@ -181,15 +168,13 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * @returns {void}
      */
     _updateThemeComponent() {
-      if (this._readyForUpdates) {
-        if (!this.style) return;
-        if (!this._isAttached()) return;
-        this._checkDimensionUpdates();
-        this.queueRequestUpdate
-          ? this.queueRequestUpdate()
-          : this._update && this._update();
-        this._updateItemLayout && this._updateItemLayout();
-      }
+      if (!this.style) return;
+      if (!this._isAttached()) return;
+      this._checkDimensionUpdates();
+      this.queueRequestUpdate
+        ? this.queueRequestUpdate()
+        : this._update && this._update();
+      this._updateItemLayout && this._updateItemLayout();
     }
 
     /**
