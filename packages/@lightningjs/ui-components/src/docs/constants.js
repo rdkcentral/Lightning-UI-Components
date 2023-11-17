@@ -45,7 +45,8 @@ export const storySortOrder = [
       'Subtheming',
       'Use in Storybook',
       'Theme Properties',
-      '*'
+      'Hierarchy',
+      'Tutorial'
     ],
     'Unit Testing',
     ['Overview', 'Test Renderer', 'Test Utils', ['makeCreateComponent', '*']]
