@@ -499,4 +499,17 @@ export default class NavigationManager extends FocusManager {
       ? this._scrollIndex
       : this.style.scrollIndex;
   }
+
+  isFullyOnScreen({ offsetX = 0, offsetY = 0 } = {}) {
+    // if the NavigationManager is nested in another Focus Manager
+    // (like a Row inside of a Column),
+    // the `isComponentOnScreen` method needs to account for
+    // how much the Items container is moving as it scrolls
+    const focusmanager = this.parent?.parent;
+    if (focusmanager instanceof FocusManager) {
+      offsetX += focusmanager.Items.transition('x').targetValue || 0;
+      offsetY += focusmanager.Items.transition('y').targetValue || 0;
+    }
+    return super.isFullyOnScreen({ offsetX, offsetY });
+  }
 }
