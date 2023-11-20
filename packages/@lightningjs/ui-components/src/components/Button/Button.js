@@ -233,7 +233,7 @@ export default class Button extends Surface {
     }
 
     if (Object.keys(contentDimensionsPatch).length > 0) {
-      this.applySmooth(this._Content, contentDimensionsPatch);
+      this._Content.patch(contentDimensionsPatch);
     }
   }
 
