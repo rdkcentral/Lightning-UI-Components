@@ -41,7 +41,11 @@ const preview = {
       sort: 'requiredFirst'
     },
     docs: {
-      theme: themes.dark
+      theme: themes.dark,
+      argTypes: {
+        sort: 'alpha',
+        exclude: ['mode']
+      }
     },
     options: {
       /** NOTE:  v7 storySort must be self-contained function & no reference to outside variables

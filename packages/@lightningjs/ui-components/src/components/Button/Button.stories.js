@@ -41,14 +41,16 @@ export default {
       control: 'text',
       description: 'Title text',
       table: {
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'string' }
       }
     },
     fixed: {
       control: 'boolean',
       description: controlDescriptions.fixed,
       table: {
-        defaultValue: { summary: false }
+        defaultValue: { summary: false },
+        type: { summary: 'boolean' }
       }
     },
     w: {

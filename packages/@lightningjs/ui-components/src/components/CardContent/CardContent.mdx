@@ -17,9 +17,10 @@ limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 \*/}
 
-import { Meta, Title } from '@storybook/blocks';
+import { Meta, Title, ArgTypes } from '@storybook/blocks';
+import * as CardStories from '../Card/Card.stories.js';
 
-<Meta title="Components/CardContent" />
+<Meta title="Components/CardContent" />;
 
 # CardContent
 
@@ -71,3 +72,7 @@ class Basic extends lng.Component {
 | metadata          | string \| object | text style for the metadata                                                    |
 | paddingHorizontal | number           | padding on the x-axis between the right and left of the card and its content   |
 | paddingVertical   | number           | padding on the y-axis between the top and bottom of the card and its content   |
+
+### Parent Componet Properties
+
+<ArgTypes of={CardStories} />

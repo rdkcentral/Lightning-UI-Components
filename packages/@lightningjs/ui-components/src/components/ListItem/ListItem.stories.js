@@ -24,8 +24,21 @@ import { default as Checkbox } from '../Checkbox';
 import { default as Radio } from '../Radio';
 import { default as Toggle } from '../Toggle';
 
+/**
+ * ListItem component with the ability to let a user pick from a list of options.
+ */
 export default {
-  title: 'Components/ListItem/ListItem'
+  title: 'Components/ListItem/ListItem',
+  args: {
+    title: 'List Item',
+    shouldCollapse: false,
+    description: 'Description',
+    prefix: null,
+    prefixLogo: 'none',
+    suffix: null,
+    suffixLogo: 'none',
+    mode: 'focused'
+  }
 };
 
 export const ListItem = () =>
@@ -41,31 +54,22 @@ export const ListItem = () =>
 
 ListItem.storyName = 'ListItem';
 
-ListItem.args = {
-  title: 'List Item',
-  shouldCollapse: false,
-  description: 'Description',
-  prefix: null,
-  prefixLogo: 'none',
-  suffix: null,
-  suffixLogo: 'none',
-  mode: 'focused'
-};
-
 ListItem.argTypes = {
-  ...createModeControl({ summaryValue: ListItem.args.mode }),
+  ...createModeControl({ summaryValue: 'focused' }),
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   description: {
     control: 'text',
     description: 'Description text',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   shouldCollapse: {
@@ -73,7 +77,8 @@ ListItem.argTypes = {
     description:
       'When in unfocused or disabled mode, if this flag is true the description will collapse (when focused, it will always be expanded)',
     table: {
-      defaultValue: { summary: false }
+      defaultValue: { summary: false },
+      type: { summary: 'boolean' }
     }
   },
   prefix: {
@@ -81,7 +86,8 @@ ListItem.argTypes = {
     options: [null, 'toggle', 'radio', 'checkbox'],
     description: 'Lightning components to be placed to the left of the title',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'object or array' }
     }
   },
   prefixLogo: {
@@ -90,7 +96,8 @@ ListItem.argTypes = {
     description:
       'Logo to be placed to the left of the title. If prefix and prefixLogo are both set, prefixLogo will take precedence for what is rendered and prefix will be ignored',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   suffix: {
@@ -98,7 +105,8 @@ ListItem.argTypes = {
     options: [null, 'toggle', 'radio', 'checkbox'],
     description: 'Lightning components to be placed to the right of the title',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'object or array' }
     }
   },
   suffixLogo: {
@@ -107,7 +115,8 @@ ListItem.argTypes = {
     description:
       'Logo to be placed to the right of the title. If suffix and suffixLogo are both set, suffixLogo will take precedence for what is rendered and suffix will be ignored',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   }
 };
@@ -155,4 +164,11 @@ const sharedArgActions = {
   }
 };
 
-ListItem.parameters = { argActions: sharedArgActions };
+ListItem.parameters = {
+  argActions: sharedArgActions,
+  docs: {
+    description: {
+      story: 'story tests'
+    }
+  }
+};

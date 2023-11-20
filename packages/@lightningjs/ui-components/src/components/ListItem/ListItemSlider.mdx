@@ -1,11 +1,13 @@
-﻿import { Meta, Title } from '@storybook/blocks';
+﻿import { Meta, Title, ArgTypes, Description } from '@storybook/blocks';
 import * as ListItemSliderStories from './ListItemSlider.stories';
+import * as ListItemStories from './ListItem.stories';
+import * as SliderStories from '../Slider/Slider.stories';
 
 <Meta of={ListItemSliderStories} />
 
 <Title />
 
-A ListItem component with slider functionality
+<Description />
 
 ## Source
 
@@ -33,12 +35,19 @@ class Basic extends lng.Component {
 
 ## API
 
+### Parent Properties
+
+`ListItemSlider` contains all the properties of `ListItem`
+
+<ArgTypes of={ListItemStories.ListItem} />
+
 ### Properties
 
-| name   | type   | required | default   | description                                                                                                |
-| ------ | ------ | -------- | --------- | ---------------------------------------------------------------------------------------------------------- |
-| slider | object | false    | undefined | object containing all properties supported in the [Slider component](?path=/docs/components-slider--basic) |
-| value  | string | false    | undefined | current value of slider                                                                                    |
+<ArgTypes of={ListItemSliderStories.ListItemSlider} />
+
+### Slider Properties
+
+<ArgTypes of={SliderStories.Basic} />
 
 ### Style Properties
 
