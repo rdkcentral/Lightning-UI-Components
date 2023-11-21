@@ -29,7 +29,7 @@ export const base = theme => ({
   fallbackSrc: undefined,
   fillColor: theme.color.overlay,
   gradientColor: theme.color.material,
-  imageScale: 3,
+  imageScale: undefined,
   imageScalePivotX: 0.5,
   imageScalePivotY: 0.5,
   padding: theme.spacer.md,
