@@ -39,7 +39,7 @@ SPDX-License-Identifier: Apache-2.0 */}
 
 import { Meta, Title, ArgTypes, Description } from '@storybook/blocks';
 import * as ${name}Stories from './${name}.stories';
-import * as ${parentName}Stories from '../${parentName}/${parentName}.stories'; //TODO: Make sure the path is correct or removed if not needed
+import * as ${parentName}Stories from '../${parentName}/${parentName}.stories'; {/** TODO: Make sure the path is correct or removed if not needed **/}
 
 <Meta of={${name}Stories} />
 
@@ -70,14 +70,17 @@ class Basic extends lng.Component {
 ## API
 
 ### Parent Properties
+{/** TODO: If you added a parent props table check the appropriate props pulled otherwise delete this section. **/}
 
-//TODO: If you added a parent props table check the appropriate props pulled otherwise delete this section. 
-//Also check the name of the story of the parent component matches the name here.
+{/** TODO: check the path is correct in the url **/}
+${name} has the same properties as [${parentName}](?path=/docs/components-${parentName}--docs)
+
+{/**TODO: check the name of the story of the parent component matches the name here. **/}
 <ArgTypes of={${parentName}Stories.${parentName}} />
 
 ### Properties
-// TODO: if you change the name of the story from Basic to something else, also update then name here 
-<ArgTypes of={${name}Stories.Basic} />
+{/** TODO: if you change the name of the story from Basic to something else, also update then name here **/}
+<ArgTypes of={${name}Stories.Basic} /> 
 
 ### Style Properties
 
