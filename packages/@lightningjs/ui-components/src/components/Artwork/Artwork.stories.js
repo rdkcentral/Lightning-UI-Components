@@ -139,33 +139,33 @@ Artwork.parameters = {
   }
 };
 
-Artwork.parameters = {
-  argActions: {
-    foregroundSrc: (foregroundSrc, component) => {
-      component.tag('Artwork').foregroundSrc =
-        'none' !== foregroundSrc ? foregroundSrc : undefined;
-    },
-    srcCallback: (active, component) => {
-      if (active) {
-        // Accepts a regular function or function that returns a promise
-        component.tag('Artwork').patch({
-          src: 'https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg',
-          srcCallback: () => {
-            return new Promise(resolve => {
-              setTimeout(() => {
-                resolve(
-                  'https://image.tmdb.org/t/p/w500/o7qi2v4uWQ8bZ1tW3KI0Ztn2epk.jpg'
-                );
-              }, 500);
-            });
-          }
-        });
-      } else {
-        component.tag('Artwork').patch({
-          src: 'https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg',
-          srcCallback: undefined
-        });
-      }
-    }
-  }
-};
+// Artwork.parameters = {
+//   argActions: {
+//     foregroundSrc: (foregroundSrc, component) => {
+//       component.tag('Artwork').foregroundSrc =
+//         'none' !== foregroundSrc ? foregroundSrc : undefined;
+//     },
+//     srcCallback: (active, component) => {
+//       if (active) {
+//         // Accepts a regular function or function that returns a promise
+//         component.tag('Artwork').patch({
+//           src: 'https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg',
+//           srcCallback: () => {
+//             return new Promise(resolve => {
+//               setTimeout(() => {
+//                 resolve(
+//                   'https://image.tmdb.org/t/p/w500/o7qi2v4uWQ8bZ1tW3KI0Ztn2epk.jpg'
+//                 );
+//               }, 500);
+//             });
+//           }
+//         });
+//       } else {
+//         component.tag('Artwork').patch({
+//           src: 'https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg',
+//           srcCallback: undefined
+//         });
+//       }
+//     }
+//   }
+// };
