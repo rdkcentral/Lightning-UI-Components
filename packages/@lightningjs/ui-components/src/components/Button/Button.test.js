@@ -150,6 +150,22 @@ describe('Button', () => {
       testRenderer.forceAllUpdates();
       expect(button._Prefix.items.length).toEqual(button.prefix.length);
     });
+
+    it('should render a new preix row when a prefix is toggled between undefined and defined', () => {
+      expect(button._Prefix).toBeUndefined();
+
+      button.prefix = [{ type: Icon }];
+      testRenderer.forceAllUpdates();
+      expect(button._Prefix.items.length).toEqual(button.prefix.length);
+
+      button.prefix = undefined;
+      testRenderer.forceAllUpdates();
+      expect(button._Prefix).toBeUndefined();
+
+      button.prefix = [{ type: Icon }];
+      testRenderer.forceAllUpdates();
+      expect(button._Prefix.items.length).toEqual(button.prefix.length);
+    });
   });
 
   describe('suffix', () => {

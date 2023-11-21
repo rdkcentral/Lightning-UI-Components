@@ -105,6 +105,7 @@ export default class Button extends Surface {
   }
 
   _updatePrefix() {
+    const prefixString = JSON.stringify(this.prefix);
     if (this.prefix) {
       let prefixPatch = {
         style: {
@@ -128,9 +129,7 @@ export default class Button extends Surface {
        * from something else (ex. a change in mode), only update the styles applied to the
        * items in the Prefix (ex. updating the color to the value appropriate to the new mode).
        */
-      const prefixString = JSON.stringify(this.prefix);
       if (prefixString !== this._prevPrefix) {
-        this._prevPrefix = prefixString;
         this._Prefix.items = this._addButtonProps(this.prefix);
       } else {
         this._updatePrefixStyles();
@@ -138,6 +137,7 @@ export default class Button extends Surface {
     } else {
       this._Content.patch({ Prefix: undefined });
     }
+    this._prevPrefix = prefixString;
   }
 
   _updatePrefixStyles() {
