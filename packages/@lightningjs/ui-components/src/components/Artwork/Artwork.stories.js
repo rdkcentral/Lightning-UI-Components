@@ -108,37 +108,6 @@ Artwork.argTypes = {
   }
 };
 
-Artwork.parameters = {
-  argActions: {
-    foregroundSrc: (foregroundSrc, component) => {
-      component.tag('Artwork').foregroundSrc =
-        'none' !== foregroundSrc ? foregroundSrc : undefined;
-    },
-    srcCallback: (active, component) => {
-      if (active) {
-        // Accepts a regular function or function that returns a promise
-        component.tag('Artwork').patch({
-          src: '8501866671289235112',
-          srcCallback: ({ w, closestAspectRatio, src }) => {
-            return new Promise(resolve => {
-              setTimeout(() => {
-                resolve(
-                  `https://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&ratio=${closestAspectRatio}&rule=noTitle`
-                );
-              }, 500);
-            });
-          }
-        });
-      } else {
-        component.tag('Artwork').patch({
-          src: 'https://myriad.merlin.comcast.com/select/image?entityId=8501866671289235112&width=400&ratio=3x4&rule=noTitle',
-          srcCallback: undefined
-        });
-      }
-    }
-  }
-};
-
 // Artwork.parameters = {
 //   argActions: {
 //     foregroundSrc: (foregroundSrc, component) => {
@@ -149,12 +118,12 @@ Artwork.parameters = {
 //       if (active) {
 //         // Accepts a regular function or function that returns a promise
 //         component.tag('Artwork').patch({
-//           src: 'https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg',
-//           srcCallback: () => {
+//           src: '8501866671289235112',
+//           srcCallback: ({ w, closestAspectRatio, src }) => {
 //             return new Promise(resolve => {
 //               setTimeout(() => {
 //                 resolve(
-//                   'https://image.tmdb.org/t/p/w500/o7qi2v4uWQ8bZ1tW3KI0Ztn2epk.jpg'
+//                   `https://myriad.merlin.comcast.com/select/image?entityId=${src}&width=${w}&ratio=${closestAspectRatio}&rule=noTitle`
 //                 );
 //               }, 500);
 //             });
@@ -162,10 +131,41 @@ Artwork.parameters = {
 //         });
 //       } else {
 //         component.tag('Artwork').patch({
-//           src: 'https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg',
+//           src: 'https://myriad.merlin.comcast.com/select/image?entityId=8501866671289235112&width=400&ratio=3x4&rule=noTitle',
 //           srcCallback: undefined
 //         });
 //       }
 //     }
 //   }
 // };
+
+Artwork.parameters = {
+  argActions: {
+    foregroundSrc: (foregroundSrc, component) => {
+      component.tag('Artwork').foregroundSrc =
+        'none' !== foregroundSrc ? foregroundSrc : undefined;
+    },
+    srcCallback: (active, component) => {
+      if (active) {
+        // Accepts a regular function or function that returns a promise
+        component.tag('Artwork').patch({
+          src: 'https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg',
+          srcCallback: () => {
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve(
+                  'https://image.tmdb.org/t/p/w500/o7qi2v4uWQ8bZ1tW3KI0Ztn2epk.jpg'
+                );
+              }, 500);
+            });
+          }
+        });
+      } else {
+        component.tag('Artwork').patch({
+          src: 'https://image.tmdb.org/t/p/w500/sWgBv7LV2PRoQgkxwlibdGXKz1S.jpg',
+          srcCallback: undefined
+        });
+      }
+    }
+  }
+};
