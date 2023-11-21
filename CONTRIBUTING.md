@@ -24,22 +24,30 @@ The following is a set of guidelines for contributing to `@lightningjs/ui-compon
 
 ## Table of Contents
 
-- [I don't want to read this whole thing I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
-- [How Can I Contribute?](#how-can-i-contribute)
-  - [Reporting Bugs](#reporting-bugs)
-  - [Suggesting Enhancements](#suggesting-enhancements)
-  - [Your First Code Contribution](#your-first-code-contribution)
-  - [Pull Requests](#pull-requests)
-- [Style Guides](#style-guides)
-  - [TypeScript](#typescript)
-  - [Git Commit Messages](#git-commit-messages)
-  - [JavaScript Style Guide](#javascript-style-guide)
-  - [Test Style Guide](#test-style-guide)
-  - [Documentation Style Guide](#documentation-style-guide)
-    - [Live Examples](#live-examples)
-    - [Storybook](#storybook)
-    - [Usage Documentation](#usage-documentation)
-    - [API Documentation](#api-documentation)
+- [Contributing to `@lightningjs/ui-components`](#contributing-to-lightningjsui-components)
+  - [Table of Contents](#table-of-contents)
+  - [I don't want to read this whole thing I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
+  - [How Can I Contribute?](#how-can-i-contribute)
+    - [Reporting Bugs](#reporting-bugs)
+      - [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
+    - [Suggesting Enhancements](#suggesting-enhancements)
+      - [Before Submitting An Enhancement Suggestion](#before-submitting-an-enhancement-suggestion)
+      - [How Do I Submit A (Good) Enhancement Suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
+    - [Your First Code Contribution](#your-first-code-contribution)
+  - [Installation](#installation)
+    - [Installing dependencies](#installing-dependencies)
+    - [Starting the project](#starting-the-project)
+  - [New component](#new-component)
+    - [Requirements](#requirements)
+    - [Development](#development)
+    - [Pull Requests](#pull-requests)
+  - [Style Guides](#style-guides)
+    - [TypeScript](#typescript)
+    - [Git Commit Messages](#git-commit-messages)
+    - [JavaScript Style Guide](#javascript-style-guide)
+    - [Test Style Guide](#test-style-guide)
+  - [`spyOnMethods`](#spyonmethods)
+    - [Documentation Style Guide](#documentation-style-guide)
 
 ## I don't want to read this whole thing I just have a question!!!
 
@@ -160,7 +168,7 @@ Before a new component will be reviewed, it must meet the following prerequisite
 If you are creating a new component, you can bootstrap the required file structure with:
 
 ```sh
-yarn createComponent <packageName> <componentName>
+yarn createComponent <packageName> <componentName> <parentName>
 ```
 
 - `packageName`: name of which package the component will be published to (`@lightningjs/ui-components` or `@lightningjs/ui-components`)

@@ -36,5 +36,5 @@ module.exports = name => {
  */
 
 export { default as default } from './${name}';
-`
-}
+`;
+};

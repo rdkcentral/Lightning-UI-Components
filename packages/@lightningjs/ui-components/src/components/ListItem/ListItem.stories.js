@@ -165,10 +165,5 @@ const sharedArgActions = {
 };
 
 ListItem.parameters = {
-  argActions: sharedArgActions,
-  docs: {
-    description: {
-      story: 'story tests'
-    }
-  }
+  argActions: sharedArgActions
 };
