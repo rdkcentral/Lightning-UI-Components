@@ -25,7 +25,7 @@ export const base = theme => ({
     ...theme.typography.headline1,
     textColor: theme.color.textNeutral
   },
-  rowMarginTop: theme.spacer.lg
+  titleMarginBottom: theme.spacer.lg
 });
 
 export const tone = theme => ({

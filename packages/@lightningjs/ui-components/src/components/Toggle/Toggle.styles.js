@@ -16,65 +16,67 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const base = theme => ({
-  height: theme.spacer.xxl,
-  knobWidth: theme.spacer.xl,
-  knobHeight: theme.spacer.xl,
-  knobRadius: theme.radius.sm + theme.radius.xs,
-  knobPadding: theme.spacer.xxs,
-  knobX: theme.spacer.xs,
-  knobXChecked: theme.spacer.xxl + theme.spacer.xs,
-  strokeRadius: theme.radius.md,
-  strokeWeight: theme.stroke.sm,
-  width: theme.spacer.xxl * 2
-});
+export const base = theme => {
+  const knobSize = theme.spacer.xl;
+  const knobPadding = theme.spacer.xs;
+  const strokeWidth = theme.stroke.sm;
+  return {
+    height: knobSize + (knobPadding + strokeWidth) * 2,
+    knobWidth: knobSize,
+    knobHeight: knobSize,
+    knobRadius: knobSize / 2,
+    knobPadding,
+    strokeWidth,
+    width: (strokeWidth + knobPadding * 2 + knobSize) * 2
+  };
+};
 
 export const tone = theme => ({
   neutral: {
-    strokeColor: theme.color.fillInverse,
-    backgroundColor: theme.color.fillNeutralDisabled,
+    strokeColor: theme.color.fillNeutral,
+    backgroundColor: theme.color.fillInverseTertiary,
     backgroundColorChecked: theme.color.fillNeutral,
-    knobColor: theme.color.fillInverse,
+    knobColor: theme.color.fillNeutral,
     knobColorChecked: theme.color.fillInverse,
     mode: {
       disabled: {
-        strokeColor: theme.color.fillInverseDisabled,
-        backgroundColor: theme.color.fillNeutralDisabled,
+        strokeColor: theme.color.fillNeutralDisabled,
+        backgroundColor: theme.color.fillInverselDisabled,
         backgroundColorChecked: theme.color.fillNeutralDisabled,
-        knobColor: theme.color.fillInverseDisabled,
+        knobColor: theme.color.fillNeutralDisabled,
         knobColorChecked: theme.color.fillInverseDisabled
       }
     }
   },
   inverse: {
-    strokeColor: theme.color.fillNeutral,
-    backgroundColor: theme.color.fillInverseDisabled,
+    strokeColor: theme.color.fillInverse,
+    backgroundColor: theme.color.fillNeutralTertiary,
     backgroundColorChecked: theme.color.fillInverse,
-    knobColor: theme.color.fillNeutral,
+    knobColor: theme.color.fillInverse,
     knobColorChecked: theme.color.fillNeutral,
     mode: {
       disabled: {
         strokeColor: theme.color.fillInverseDisabled,
         backgroundColor: theme.color.fillNeutralDisabled,
-        backgroundColorChecked: theme.color.fillNeutralDisabled,
+        backgroundColorChecked: theme.color.fillInverseDisabled,
         knobColor: theme.color.fillInverseDisabled,
-        knobColorChecked: theme.color.fillInverseDisabled
+        knobColorChecked: theme.color.fillNeutralDisabled
       }
     }
   },
   brand: {
-    strokeColor: theme.color.fillNeutral,
-    backgroundColor: theme.color.fillInverseDisabled,
+    strokeColor: theme.color.fillBrand,
+    backgroundColor: theme.color.fillBrandTertiary,
     backgroundColorChecked: theme.color.fillBrand,
-    knobColor: theme.color.fillNeutral,
-    knobColorChecked: theme.color.fillNeutral,
+    knobColor: theme.color.fillBrand,
+    knobColorChecked: theme.color.fillInverse,
     mode: {
       disabled: {
         strokeColor: theme.color.fillNeutralDisabled,
-        backgroundColor: theme.color.fillInverseDisabled,
-        backgroundColorChecked: theme.color.fillInverseDisabled,
+        backgroundColor: theme.color.fillInverselDisabled,
+        backgroundColorChecked: theme.color.fillNeutralDisabled,
         knobColor: theme.color.fillNeutralDisabled,
-        knobColorChecked: theme.color.fillNeutralDisabled
+        knobColorChecked: theme.color.fillInverseDisabled
       }
     }
   }

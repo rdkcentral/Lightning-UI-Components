@@ -34,6 +34,8 @@ type TitleRowStyle = NavigationManagerStyle & {
   w: number;
   titleMarginLeft: number;
   titleTextStyle: TextBoxStyle;
+  titleMarginBottom: number;
+  /** @deprecated */
   rowMarginTop: number;
 };
 

@@ -105,6 +105,7 @@ export default class Button extends Surface {
   }
 
   _updatePrefix() {
+    const prefixString = JSON.stringify(this.prefix);
     if (this.prefix) {
       let prefixPatch = {
         style: {
@@ -122,6 +123,7 @@ export default class Button extends Surface {
     } else {
       this._Content.patch({ Prefix: undefined });
     }
+    this._prevPrefix = prefixString;
   }
 
   _updatePrefixSuffixStyles(type = 'prefix') {
@@ -245,7 +247,7 @@ export default class Button extends Surface {
     }
 
     if (Object.keys(contentDimensionsPatch).length > 0) {
-      this.applySmooth(this._Content, contentDimensionsPatch);
+      this._Content.patch(contentDimensionsPatch);
     }
   }
 

@@ -31,22 +31,22 @@ export const base = theme => {
 
 export const tone = theme => ({
   neutral: {
-    backgroundColor: theme.color.fillNeutralDisabled,
+    backgroundColor: theme.color.fillInverseSecondary,
     backgroundColorChecked: theme.color.fillNeutral,
     knobColor: theme.color.fillInverse,
-    strokeColor: theme.color.strokeInverse
+    strokeColor: theme.color.strokeNeutralSecondary
   },
   inverse: {
-    backgroundColor: theme.color.fillInverseDisabled,
+    backgroundColor: theme.color.fillNeutralSecondary,
     backgroundColorChecked: theme.color.fillInverse,
     knobColor: theme.color.fillNeutral,
-    strokeColor: theme.color.strokeNeutral
+    strokeColor: theme.color.strokeInverseSecondary
   },
   brand: {
-    backgroundColor: theme.color.fillInverseDisabled,
+    backgroundColor: theme.color.fillNeutralSecondary,
     backgroundColorChecked: theme.color.fillBrand,
-    knobColor: theme.color.fillNeutral,
-    strokeColor: theme.color.strokeNeutral
+    knobColor: theme.color.fillInverse,
+    strokeColor: theme.color.strokeNeutralSecondary
   }
 });
 

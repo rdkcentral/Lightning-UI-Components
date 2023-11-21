@@ -29,11 +29,15 @@ type ToggleStyle = {
   knobRadius: lng.Tools.CornerRadius;
   knobColor: Color;
   knobColorChecked: Color;
+  /* @deprecated */
   knobX: number;
+  /* @deprecated */
   knobXChecked: number;
   strokeColor: Color;
   strokeRadius: lng.Tools.CornerRadius;
+  /* @deprecated */
   strokeWeight: number;
+  strokeWidth: number;
 };
 
 declare namespace Toggle {

@@ -56,8 +56,11 @@ export default class Checkbox extends Base {
 
   static get aliasStyles() {
     return [
-      { prev: 'checkH', curr: 'checkHeight' },
-      { prev: 'checkW', curr: 'checkWidth' }
+      { prev: 'checkSrc', curr: 'icon' },
+      { prev: 'checkH', curr: 'iconHeight' },
+      { prev: 'checkW', curr: 'iconWidth' },
+      { prev: 'checkHeight', curr: 'iconHeight' },
+      { prev: 'checkWidth', curr: 'iconWidth' }
     ];
   }
 
@@ -74,9 +77,9 @@ export default class Checkbox extends Base {
 
   _updateCheck() {
     this._Check.patch({
-      w: this.style.checkWidth,
-      h: this.style.checkHeight,
-      icon: this.style.checkSrc,
+      w: this.style.iconWidth,
+      h: this.style.iconHeight,
+      icon: this.style.icon,
       style: { color: this.style.checkColor }
     });
 
@@ -95,13 +98,14 @@ export default class Checkbox extends Base {
     // if the inner checkbox should be square, a rounded corner radius can still be applied to the stroke
     const radius =
       this.style.radius >= this.w / 2
-        ? (this.w - this.style.strokeWidth) / 2
+        ? (this.w - this.style.strokeWidth - 2) / 2
         : 0;
 
     this._Body.patch({
       texture: lng.Tools.getRoundRect(
-        this.w - this.style.strokeWidth,
-        this.h - this.style.strokeWidth,
+        // Compensating for the extra 2 pixels getRoundRect adds
+        this.w - this.style.strokeWidth * 2 - 2,
+        this.h - this.style.strokeWidth * 2 - 2,
         radius,
         0,
         null,
@@ -114,8 +118,9 @@ export default class Checkbox extends Base {
   _updateStroke() {
     this._Stroke.patch({
       texture: lng.Tools.getRoundRect(
-        this.w,
-        this.h,
+        // Compensating for the extra 2 pixels getRoundRect adds
+        this.w - 2,
+        this.h - 2,
         this.style.radius,
         this.style.strokeWidth,
         this.style.strokeColor,
