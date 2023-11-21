@@ -121,8 +121,8 @@ class Base extends lng.Component {
     return this.mode === 'focused';
   }
 
-  isFullyOnScreen() {
-    return isComponentOnScreen(this);
+  isFullyOnScreen(offsets) {
+    return isComponentOnScreen(this, offsets);
   }
 
   getFocusScale() {
