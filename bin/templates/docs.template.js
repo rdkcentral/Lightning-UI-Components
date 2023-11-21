@@ -39,7 +39,7 @@ SPDX-License-Identifier: Apache-2.0 */}
 
 import { Meta, Title, ArgTypes, Description } from '@storybook/blocks';
 import * as ${name}Stories from './${name}.stories';
-import * as ${parentName}Stories from '../${parentName}/${parentName}.stories'; //TODO: Make sure the path is correct
+import * as ${parentName}Stories from '../${parentName}/${parentName}.stories'; //TODO: Make sure the path is correct or removed if not needed
 
 <Meta of={${name}Stories} />
 
