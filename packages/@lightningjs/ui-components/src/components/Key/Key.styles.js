@@ -16,19 +16,22 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { getWidthByColumnSpan } from '../../utils';
+
 export const base = theme => {
   const textStyle = theme.typography.headline2;
+  const keySize = getWidthByColumnSpan(theme, 1);
   return {
-    height: theme.spacer.md * 9,
+    height: keySize,
     minWidth: theme.spacer.md * 7,
     paddingX: theme.spacer.md,
     textStyle,
     sizes: {
-      sm: theme.spacer.md * 7,
-      md: theme.spacer.md * 15,
-      lg: theme.spacer.md * 23,
-      xl: theme.spacer.md * 47,
-      xxl: theme.spacer.md * 95
+      sm: keySize,
+      md: keySize * 2,
+      lg: keySize * 3,
+      xl: keySize * 4,
+      xxl: keySize * 5
     },
     iconWidth: textStyle.lineHeight,
     iconHeight: textStyle.lineHeight
