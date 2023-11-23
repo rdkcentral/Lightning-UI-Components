@@ -154,18 +154,7 @@ export const getSubTheme = obj => {
  */
 export const getComponentConfig = obj => {
   if (!isPlainObject(obj)) return {};
-
-  const prototypeChain = getPrototypeChain(obj);
-
-  if (!prototypeChain.length) {
-    return obj?.theme?.componentConfig?.[obj.constructor.__componentName] || {};
-  }
-
-  return Array.from(prototypeChain)
-    .reverse()
-    .reduce((acc, curr) => {
-      return clone(acc, obj?.theme?.componentConfig?.[curr] || {});
-    }, {});
+  return obj?.theme?.componentConfig?.[obj.constructor.__componentName] || {};
 };
 
 /**
@@ -256,8 +245,6 @@ export function createSharedReferences(obj = {}) {
 
   return obj;
 }
-
-// TODO: Need to add defaultStyle functionality
 
 /**
  * Combines the provided properties and returns a list of unique properties.
@@ -399,7 +386,7 @@ export const generateSolution = (
 };
 
 const DEFAULT_KEYS = [
-  // NOTE: ORDER MATTERS
+  // ORDER MATTERS
   'unfocused_neutral',
   'unfocused_inverse',
   'unfocused_brand',
@@ -479,7 +466,6 @@ export const generateComponentStyleSource = ({
   /**
    * Component default styles
    */
-
   const componentDefault = styleChain.map(({ style }) => {
     if (
       typeof style === 'object' &&
@@ -491,64 +477,24 @@ export const generateComponentStyleSource = ({
       return { base: style };
     } else {
       const { base = {}, mode = {}, tone = {} } = style;
+
+      let componentConfigDefaultStyle;
+      if (style) {
+        const defaultStyle = JSON.parse(JSON.stringify(style));
+        delete defaultStyle.base;
+        delete defaultStyle.tone;
+        delete defaultStyle.mode;
+        componentConfigDefaultStyle = defaultStyle; // Anything in the root level of style
+      }
+
       return {
+        defaultStyle: componentConfigDefaultStyle || {},
         base,
         mode,
         tone
       };
     }
   });
-
-  /**
-   * ComponentConfig settings
-   * StyleConfig is deprecated but we will still support it for now
-   */
-  const componentConfigOrigin =
-    componentConfig?.style ||
-    (componentConfig?.styleConfig &&
-      clone(componentConfig?.style || {}, componentConfig.styleConfig || {}));
-
-  if (!(componentConfig || {}).hasOwnProperty('styleConfig')) {
-    log.warn(
-      '[Deprecation Warning]: "styleConfig" will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.'
-    );
-  }
-
-  /**
-   * DefaultStyle will apply to the next level in the hierarchy
-   */
-  let componentConfigDefaultStyle;
-  if (componentConfigOrigin) {
-    const defaultStyle = JSON.parse(JSON.stringify(componentConfigOrigin));
-    delete defaultStyle.base;
-    delete defaultStyle.tone;
-    delete defaultStyle.mode;
-    componentConfigDefaultStyle = defaultStyle; // Anything in the root level of style
-  }
-
-  const componentConfigSanitized = {
-    defaultStyle: componentConfigDefaultStyle || {},
-    base: componentConfigOrigin?.base || {},
-    mode: componentConfigOrigin?.mode || {},
-    tone: componentConfigOrigin?.tone || {}
-  };
-
-  /**
-   * Filters the componentConfig object to retain only those properties that are not core style properties.
-   *
-   * @param {Object} componentConfig - The configuration object for components.
-   * @returns {Object} An object containing only properties to be applied to the component.
-   */
-
-  const props = Object.entries(componentConfig || {}).reduce(
-    (acc, [key, value]) => {
-      if (!CORE_STYLE_PROPS.includes(key)) {
-        acc[key] = value;
-      }
-      return acc;
-    },
-    {}
-  );
 
   /**
    * Local / Instance level styles
@@ -571,7 +517,7 @@ export const generateComponentStyleSource = ({
   };
 
   // Merge all the styles together into one array to loop
-  const merged = [...componentDefault, componentConfigSanitized, local];
+  const merged = [...componentDefault, local];
 
   // Execute all style functions with the theme
   const parsedStyles = merged.map(style => {
@@ -591,19 +537,6 @@ export const generateComponentStyleSource = ({
     removeEmptyObjects(colorParser({ theme }, solution)) || {},
     alias
   );
-
-  // Pass properties to final object
-  if (Object.keys(props).length) {
-    if (Object.keys(final).length) {
-      Object.keys(final).forEach(key => {
-        final[key].props = props;
-      });
-    } else {
-      final['unfocused_neutral'] = {
-        props
-      };
-    }
-  }
 
   const cleanObj = createSharedReferences(final);
 
@@ -773,19 +706,27 @@ export const getStyleChain = componentObj => {
     proto = parent !== Object.prototype ? parent : null;
 
     if (proto && proto.constructor) {
+      // ComponentConfig Level
+      const { style: componentConfigStyle } = getComponentConfig(proto);
+      if (Object.keys(componentConfigStyle || {}).length) {
+        if (!styleMap.has(componentConfigStyle)) {
+          styleMap.set(componentConfigStyle, { style: componentConfigStyle });
+        }
+      }
+
       // Access the __themeStyle property from the current prototype's constructor
       const themeStyle = proto.constructor.__themeStyle;
 
-      if (themeStyle) {
+      if (Object.keys(themeStyle || {}).length) {
         if (!styleMap.has(themeStyle)) {
-          styleMap.set(themeStyle, { style: themeStyle });
+          styleMap.set(themeStyle, { style: { ...themeStyle } });
         }
       }
 
       // Access the __mixinStyle property from the current prototype's constructor
       const mixinStyle = proto.constructor.__mixinStyle;
 
-      if (mixinStyle) {
+      if (Object.keys(mixinStyle || {}).length) {
         if (!styleMap.has(mixinStyle)) {
           styleMap.set(mixinStyle, { style: mixinStyle });
         }
@@ -794,6 +735,7 @@ export const getStyleChain = componentObj => {
   } while (proto);
 
   // Convert the values of the Map (unique styles) back to an array
+
   const uniqueStyles = Array.from(styleMap.values());
 
   // Return an array of unique style objects with a "style" property
