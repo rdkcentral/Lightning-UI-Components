@@ -146,12 +146,21 @@ export default class TextBox extends Base {
   _updateInlineContent() {
     this.patch({ Text: undefined });
 
-    const inlineContentPatch = InlineContent.properties.reduce((acc, prop) => {
-      if (this[prop] != undefined) {
-        acc[prop] = this[prop];
+    const inlineContentPatch = InlineContent.properties.reduce(
+      (acc, prop) => {
+        if (this[prop] != undefined) {
+          acc[prop] = this[prop];
+        }
+        return acc;
+      },
+      // ensure all styles are passed down as well
+      {
+        style: {
+          ...this.style,
+          textStyle: this._textStyleSet
+        }
       }
-      return acc;
-    }, {});
+    );
 
     if (this._textStyleSet.wordWrapWidth) {
       inlineContentPatch.w = this._textStyleSet.wordWrapWidth;
