@@ -106,6 +106,8 @@ export default params => {
   }, [tone]);
 
   function updatePanel() {
+    //REMOVE
+    console.log('updatePanel called');
     updateTone();
     setFields();
   }
@@ -134,6 +136,8 @@ export default params => {
     version = new Date().valueOf();
     const fields = Object.keys(style || {}).reduce((acc, prop) => {
       const defaultValue = style[prop];
+      //REMOVE
+      console.log('defaultValue', style, defaultValue);
       switch (getControlType(defaultValue)) {
         case 'color':
           acc.push(
