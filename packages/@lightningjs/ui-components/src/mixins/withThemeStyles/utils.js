@@ -19,7 +19,6 @@
 import { clone, getValFromObjPath, getHexColor } from '../../utils';
 import log from '../../globals/context/logger';
 
-const CORE_STYLE_PROPS = ['base', 'tone', 'mode', 'style', 'styleConfig'];
 /**
 Given a character, return its ASCII value multiplied by its position.
  *
@@ -438,17 +437,12 @@ export function enforceContract(inputObj) {
  */
 export const generateComponentStyleSource = ({
   theme = {},
-  componentConfig = {},
   styleChain = [],
   inlineStyle = {},
   alias = []
 } = {}) => {
   if (typeof theme !== 'object') {
     throw new Error('Expected theme to be an object');
-  }
-
-  if (typeof componentConfig !== 'object') {
-    throw new Error('Expected componentConfig to be an object');
   }
 
   if (!Array.isArray(styleChain)) {
@@ -647,67 +641,25 @@ export const getStyleChainMemoized = componentObj => {
 };
 
 /**
- * Removes duplicate objects from an array based on their content.
- * @param {Array<Object>} arr - The array of objects to be deduplicated.
- * @returns {Array<Object>} An array of objects without duplicates.
- * @throws {Error} Throws an error if the input is not an array.
- */
-export function removeDuplicateObjects(arr) {
-  if (!Array.isArray(arr)) {
-    throw new Error('Input should be an array');
-  }
-
-  const deepEquals = (a, b) => {
-    const typeA = typeof a;
-    const typeB = typeof b;
-
-    if (typeA !== typeB) return false;
-
-    if (typeA !== 'object' || a === null || b === null) {
-      if (typeA === 'function') {
-        return a.toString() === b.toString();
-      }
-      return a === b;
-    }
-
-    const keysA = Object.keys(a);
-    const keysB = Object.keys(b);
-
-    if (keysA.length !== keysB.length) return false;
-
-    for (const key of keysA) {
-      if (
-        !Object.prototype.hasOwnProperty.call(b, key) ||
-        !deepEquals(a[key], b[key])
-      )
-        return false;
-    }
-
-    return true;
-  };
-
-  return arr.filter((item, index, self) => {
-    return index === self.findIndex(t => deepEquals(item, t));
-  });
-}
-
-/**
  * Traverse up the prototype chain to create an array of all the styles that are present in the Components ancestors
  * @param {object} componentObj - The component object to get the style chain from.
  * @returns {{ style: (object | function) }[]} - An array of style objects containing either an object of styles or a function to return an object of styles.
  */
 export const getStyleChain = componentObj => {
   const styleMap = new Map(); // Use a Map to store styles as JSON strings
-  let proto = componentObj;
-  let firstRun = true;
-  do {
-    const parent = firstRun ? proto : Object.getPrototypeOf(proto); // The first time the loop runs it should get the style from the current component
-    firstRun = false;
-    proto = parent !== Object.prototype ? parent : null;
+  let proto;
 
-    if (proto && proto.constructor) {
+  do {
+    proto = !proto ? componentObj : Object.getPrototypeOf(proto);
+    if (proto?.constructor === Object) break; // Stop traversing the prototype chain if we reach the Object prototype
+    if (
+      proto &&
+      typeof proto === 'object' &&
+      proto.hasOwnProperty('constructor')
+    ) {
       // ComponentConfig Level
       const { style: componentConfigStyle } = getComponentConfig(proto);
+
       if (Object.keys(componentConfigStyle || {}).length) {
         if (!styleMap.has(componentConfigStyle)) {
           styleMap.set(componentConfigStyle, { style: componentConfigStyle });
@@ -715,16 +667,25 @@ export const getStyleChain = componentObj => {
       }
 
       // Access the __themeStyle property from the current prototype's constructor
-      const themeStyle = proto.constructor.__themeStyle;
+      const themeStyle =
+        proto.constructor.hasOwnProperty('__themeStyle') &&
+        proto.constructor.__themeStyle;
 
       if (Object.keys(themeStyle || {}).length) {
         if (!styleMap.has(themeStyle)) {
           styleMap.set(themeStyle, { style: { ...themeStyle } });
         }
+      } else if (typeof themeStyle === 'function') {
+        // If the style is a function, add it to the styleMap
+        if (!styleMap.has(themeStyle)) {
+          styleMap.set(themeStyle, { style: themeStyle });
+        }
       }
 
       // Access the __mixinStyle property from the current prototype's constructor
-      const mixinStyle = proto.constructor.__mixinStyle;
+      const mixinStyle =
+        proto.constructor.hasOwnProperty('__mixinStyle') &&
+        proto.constructor.__mixinStyle;
 
       if (Object.keys(mixinStyle || {}).length) {
         if (!styleMap.has(mixinStyle)) {
@@ -735,13 +696,10 @@ export const getStyleChain = componentObj => {
   } while (proto);
 
   // Convert the values of the Map (unique styles) back to an array
-
   const uniqueStyles = Array.from(styleMap.values());
 
   // Return an array of unique style objects with a "style" property
-  return removeDuplicateObjects(uniqueStyles)
-    .map(style => style)
-    .reverse();
+  return uniqueStyles.map(style => style).reverse();
 };
 
 /**
