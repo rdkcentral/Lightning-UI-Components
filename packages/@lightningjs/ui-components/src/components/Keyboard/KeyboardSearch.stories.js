@@ -23,7 +23,7 @@ import { default as KeyboardSearchComponent } from './KeyboardSearch';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: 'Components/Keyboard/KeyboardSearch',
+  title: 'Components/Keyboard/KeyboardSearch'
 };
 
 export const KeyboardSearch = () =>
