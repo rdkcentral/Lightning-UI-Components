@@ -17,20 +17,13 @@
  */
 
 import lng from '@lightningjs/core';
-import mdx from './Keyboard.mdx';
-import { CATEGORIES } from '../../docs/constants';
 import { context } from '../../globals';
 import utils from '../../utils';
 import { default as KeyboardSearchComponent } from './KeyboardSearch';
 import { Keyboard } from './Keyboard.stories';
 
 export default {
-  title: `${CATEGORIES[8]}/KeyboardSearch`,
-  parameters: {
-    docs: {
-      page: mdx
-    }
-  }
+  title: 'Components/Keyboard/KeyboardSearch',
 };
 
 export const KeyboardSearch = () =>
@@ -41,7 +34,7 @@ export const KeyboardSearch = () =>
           type: KeyboardSearchComponent,
           defaultFormat: 'uppercase'
         },
-        w: utils.getWidthByUpCount(context.theme, 1)
+        w: utils.getWidthByUpCount(context.theme, 3)
       };
     }
   };
