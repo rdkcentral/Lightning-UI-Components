@@ -37,8 +37,8 @@ describe('withThemeStyles', () => {
       }
     );
     const [testComponent] = createComponent();
-
-    expect(testComponent.prop1).toBe('foo');
-    expect(testComponent.style).toMatchObject({});
+    expect(testComponent.__componentConfigProps).toMatchObject({
+      prop1: 'foo'
+    });
   });
 });

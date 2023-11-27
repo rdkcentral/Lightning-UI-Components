@@ -43,7 +43,6 @@ export default class StyleManager extends lng.EventEmitter {
     this.component = component;
     this.setupListeners();
     this._style = {}; // This will be the source of truth for the style manager
-    this._props = {}; // props that are set in componentConfig will be stored here
     // Initial update is not debounced
     this.update();
   }
@@ -220,8 +219,7 @@ export default class StyleManager extends lng.EventEmitter {
         style = generateStyle(this.component, styleSource);
         this._addCache(`style_${mode}_${tone}`, style);
       }
-      this._props = style.props;
-      delete style.props;
+
       this._style = style;
       this.emit('styleUpdate', this.style);
     } catch (error) {
@@ -245,7 +243,13 @@ export default class StyleManager extends lng.EventEmitter {
   }
 
   get props() {
-    return this._props;
+    return Object.keys(this.component._componentConfig).reduce((acc, key) => {
+      if (!['base', 'tone', 'mode', 'style', 'styleConfig'].includes(key)) {
+        acc[key] = this.component._componentConfig[key];
+      }
+
+      return acc;
+    }, {});
   }
 
   /**

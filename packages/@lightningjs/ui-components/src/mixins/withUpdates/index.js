@@ -23,15 +23,31 @@ function capital(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+// Merge the componentConfigProp with the prop value
+function mergeProps(componentConfigProp, prop) {
+  let result = prop;
+  if (
+    typeof componentConfigProp === 'object' &&
+    Object.keys(componentConfigProp).length &&
+    typeof prop === 'object'
+  ) {
+    result = clone(componentConfigProp, prop);
+  }
+
+  return result ?? componentConfigProp;
+}
+
 function getPropertyDescriptor(name, key) {
   return {
     get() {
       const customGetter = this[`_get${capital(name)}`];
       if (customGetter && typeof customGetter === 'function') {
         const value = customGetter.call(this, this[key]);
-        this[key] = value;
+        this[key] = value || this.__componentConfigProps?.[name]; // Defaults can also be set from withThemeStyles if used
+        return mergeProps(this.__componentConfigProps?.[name], value);
       }
-      return this[key];
+
+      return mergeProps(this.__componentConfigProps?.[name], this[key]); // Defaults can also be set from withThemeStyles if used
     },
     set(value) {
       const oldValue = this[key];
@@ -40,6 +56,7 @@ function getPropertyDescriptor(name, key) {
         if (changeHandler && typeof changeHandler === 'function') {
           value = changeHandler.call(this, value);
         }
+
         const newValue = key === 'style' ? clone(this[key], value) : value;
 
         if (
