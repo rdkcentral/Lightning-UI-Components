@@ -18,7 +18,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useGlobals } from '@storybook/manager-api';
-import { AddonPanel } from '@storybook/components';
+import { AddonPanel, Button } from '@storybook/components';
 import { OptionsControl, ColorControl, NumberControl } from '@storybook/blocks';
 import { Table, TableRow, NumberRow } from '../components';
 import { utils } from '@lightningjs/ui-components/src';
@@ -31,8 +31,18 @@ import {
   updateGlobalTheme
 } from '../../utils/themeUtils';
 
+// Components Style Panel should update styles via controls
+// The updates should update the theme and carry over to other panels
+// controls should not reset unless refresh of SB or rest controls button?
+
+/**
+ *
+ * @returns rows of component styles controls
+ */
 const StyleFieldRows = () => {
   const defaultValue = 3;
+
+  // TODO: map all styles to either Color or Number control
   return (
     <TableRow
       label="prop"
@@ -41,15 +51,22 @@ const StyleFieldRows = () => {
         <NumberControl
           name="testProp"
           value={defaultValue}
-          onChange={val => console.log(val)}
+          onChange={val =>
+            // TODO: update prop value in control and in theme
+            console.log(val)
+          }
         />
       }
     />
   );
 };
 
+/**
+ *
+ * @returns row containing tone control
+ */
 const ToneRow = () => {
-  let tone = 'neutral';
+  let defaultvalue = 'neutral';
   return (
     <TableRow
       label="tone"
@@ -59,9 +76,10 @@ const ToneRow = () => {
           name="tones"
           key="Tones-one"
           type="inline-radio"
-          value={tone}
+          value={defaultvalue}
           argType={{ options: ['neutral', 'inverse', 'brand'] }}
           onChange={val => {
+            // TODO: update tone value in control and in theme
             console.log(val);
           }}
         />
@@ -70,20 +88,46 @@ const ToneRow = () => {
   );
 };
 
+/**
+ *
+ * @returns table of component style props
+ */
+
 const ComponentStyleTable = () => {
+  // TODO: make this one table
   return (
-    <Table
-      title="Component Level Theme Styles"
-      rows={((<ToneRow />), (<StyleFieldRows />))}
-    />
+    <>
+      <Table title="Component Level Theme Styles" rows={<StyleFieldRows />} />
+      <Table title="Tone" rows={<ToneRow />} />
+    </>
   );
 };
 
+const ResetButton = () => {
+  return (
+    <>
+      <Button small outline label="buttonLabel" onClick={resetPanel}>
+        Reset Panel
+      </Button>
+    </>
+  );
+};
+
+// reset panel style to default
+const resetPanel = () => {
+  //TODO: create logic to reset styles
+  return console.log('reset panel');
+};
+
+/**
+ * @returns the full Component Style Panel add-on
+ */
 export default params => {
   return (
     <AddonPanel {...params}>
       <div className="component-styles-panel-wrapper">
         <h1>Current Theme</h1>
+        <ResetButton />
         <ComponentStyleTable />
       </div>
     </AddonPanel>
