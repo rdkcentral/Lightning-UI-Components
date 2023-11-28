@@ -19,6 +19,7 @@
 import {
   generateComponentStyleSource,
   getStyleChainMemoized,
+  clearStyleChainCache,
   generateStyle,
   getHash
 } from './utils.js';
@@ -93,6 +94,7 @@ export default class StyleManager extends lng.EventEmitter {
    * @private
    */
   _onThemeUpdate() {
+    clearStyleChainCache()
     this.clearSourceCache();
     this.clearStyleCache();
     this.update();

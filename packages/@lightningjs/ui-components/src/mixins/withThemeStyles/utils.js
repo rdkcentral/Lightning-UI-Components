@@ -610,6 +610,18 @@ export function generateNameFromPrototypeChain(obj, name = '') {
 const styleChainCache = {};
 
 /**
+ * Flush the memoization cache for styleChain
+ *
+ */
+export const clearStyleChainCache = () => {
+  for (const key in styleChainCache) {
+    if (styleChainCache.hasOwnProperty(key)) {
+      delete styleChainCache[key];
+    }
+  }
+};
+
+/**
  * Memoized version of getStyleChain function. Retrieves the style chain for a component by traversing its prototype chain.
  * @param {object} componentObj - The component object to get the style chain from.
  * @returns {{ style: (object | function) }[]} - An array of style objects containing either an object of styles or a function to return an object of styles.
@@ -659,7 +671,6 @@ export const getStyleChain = componentObj => {
     ) {
       // ComponentConfig Level
       const { style: componentConfigStyle } = getComponentConfig(proto);
-
       if (Object.keys(componentConfigStyle || {}).length) {
         if (!styleMap.has(componentConfigStyle)) {
           styleMap.set(componentConfigStyle, { style: componentConfigStyle });
