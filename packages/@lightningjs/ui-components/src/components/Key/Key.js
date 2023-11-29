@@ -95,15 +95,9 @@ export default class Key extends Button {
   }
 
   _updateKeyWidth() {
-    const keyPadding = {
-      sm: 0,
-      md: this.keySpacing,
-      lg: this.keySpacing * 2,
-      xl: this.keySpacing * 3,
-      xxl: this.keySpacing * 4
-    };
-    const baseSize = this.sizes[this.size] || this.sizes.sm;
-    const padding = keyPadding[this.size] || keyPadding.sm;
+    const sizeMultiplier = this.style.sizes[this.size || 'sm'];
+    const baseSize = this.style.baseWidth * sizeMultiplier;
+    const padding = this.keySpacing * (sizeMultiplier - 1);
     this.w = baseSize + padding;
   }
 
@@ -131,16 +125,6 @@ export default class Key extends Button {
     }
 
     return icon;
-  }
-
-  get sizes() {
-    return {
-      sm: this.style.baseWidth,
-      md: this.style.baseWidth * 2,
-      lg: this.style.baseWidth * 3,
-      xl: this.style.baseWidth * 4,
-      xxl: this.style.baseWidth * 5
-    };
   }
 
   set announce(announce) {

@@ -23,6 +23,13 @@ export const base = theme => {
     minWidth: theme.spacer.md * 7,
     paddingX: theme.spacer.md,
     textStyle,
+    sizes: {
+      sm: 1,
+      md: 2,
+      lg: 3,
+      xl: 4,
+      xxl: 5
+    },
     baseWidth: theme.spacer.md * 7,
     iconWidth: textStyle.lineHeight,
     iconHeight: textStyle.lineHeight
