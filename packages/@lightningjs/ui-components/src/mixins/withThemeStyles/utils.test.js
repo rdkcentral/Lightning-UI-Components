@@ -196,14 +196,15 @@ describe('executeWithContextRecursive', () => {
   });
 });
 
+// Generic tests for plain vs. non-plain objects
 describe('isPlainObject', () => {
-  it('should return true for plain objects', () => {
+  it('should evaluate to true for plain objects', () => {
     expect(isPlainObject({})).toBe(true);
     expect(isPlainObject({ foo: 'bar' })).toBe(true);
     expect(isPlainObject(Object.create(null))).toBe(true);
   });
 
-  it('should return false for non-plain objects', () => {
+  it('should evaluate to false for other object types', () => {
     expect(isPlainObject([])).toBe(false);
     expect(isPlainObject(new Date())).toBe(false);
     expect(isPlainObject(null)).toBe(false);
