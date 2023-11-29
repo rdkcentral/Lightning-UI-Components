@@ -90,6 +90,7 @@ export default class Artwork extends Base {
   }
 
   set w(v) {
+    if (v === super.w) return;
     super.w = v;
     this._componentSrc = this._generatePromise();
   }
@@ -99,6 +100,7 @@ export default class Artwork extends Base {
   }
 
   set h(v) {
+    if (v === super.h) return;
     super.h = v;
     this._componentSrc = this._generatePromise();
   }
