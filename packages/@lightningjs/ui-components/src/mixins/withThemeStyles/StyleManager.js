@@ -94,7 +94,7 @@ export default class StyleManager extends lng.EventEmitter {
    * @private
    */
   _onThemeUpdate() {
-    clearStyleChainCache()
+    clearStyleChainCache();
     this.clearSourceCache();
     this.clearStyleCache();
     this.update();
