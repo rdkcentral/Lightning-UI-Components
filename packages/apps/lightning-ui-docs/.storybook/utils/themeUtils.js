@@ -20,14 +20,20 @@ import baseTheme from '@lightningjs/ui-components-theme-base';
 import { utils } from '@lightningjs/ui-components/src';
 import debounce from 'debounce';
 
-// Component Styles Panel
+/**
+ * @returns the Lightning App
+ * used in Component Styles Panel
+ */
 export const globalApp = () =>
   document &&
   document.querySelector('iframe') &&
   document.querySelector('iframe').contentWindow &&
   document.querySelector('iframe').contentWindow.APP;
 
-// Component Styles Panel and Theme Picker
+/**
+ * @returns the context
+ * used in Component Styles Panel and Theme Picker
+ */
 export const globalContext = () =>
   document &&
   document.querySelector('iframe') &&
@@ -40,10 +46,16 @@ export const globalTheme = () => {
   return context && context.theme;
 };
 
-// Theme Panel
+/**
+ * @returns the current theme being used in panel
+ * used in Theme Panel
+ */
 export const getPanelsTheme = () => globalTheme() || baseTheme;
 
-// Theme Picker
+/**
+ * sets global theme to the theme passed in
+ * used in Theme Picker
+ */
 export function setGlobalTheme(theme, updateGlobals) {
   document &&
     document.querySelector('iframe') &&
@@ -52,7 +64,11 @@ export function setGlobalTheme(theme, updateGlobals) {
   if (updateGlobals) updateGlobals({ LUITheme: theme });
 }
 
-// Component Styles and Theme Panels
+/**
+ * updates globalTheme with updates past in and creates a custom theme
+ * used in Component Styles and Theme Panels
+ */
+
 export const updateGlobalTheme = (
   updates,
   updateGlobals,
@@ -78,6 +94,7 @@ export const updateGlobalTheme = (
   }
 };
 
+// Functions Specific to color updates
 const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
   updateGlobalTheme(
     { color: { [name]: utils.getValidColor(value) } },
@@ -85,7 +102,7 @@ const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
   );
 }, 500);
 
-// Theme Panel
+// used in Theme Panel
 export function colorUpdate() {
   debouncedColorUpdate(...arguments);
 }

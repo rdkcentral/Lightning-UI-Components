@@ -1,4 +1,5 @@
 //NOTE: returns string for the control type to use
+// What about strings? for example
 function getControlType(value) {
   try {
     if (utils.getValidColor(value)) {
@@ -51,6 +52,8 @@ export default params => {
   const [tone, updateToneState] = useState();
   const [styleRows, updateStyleRows] = useState([]);
 
+  // why only on storyChanges???
+  // APP is the Lightning APP
   if (APP && !storybookInit) {
     APP.on('storyChanged', () => {
       component = APP._getFocused().childList.first;
