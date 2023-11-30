@@ -11,7 +11,6 @@ import {
   getPrototypeChain,
   getUniqueProperties,
   removeEmptyObjects,
-  removeDuplicateObjects,
   // generateSolution, // TODO: Need a test for this
   enforceContract,
   generateComponentStyleSource,
@@ -197,14 +196,15 @@ describe('executeWithContextRecursive', () => {
   });
 });
 
+// Generic tests for plain vs. non-plain objects
 describe('isPlainObject', () => {
-  it('should return true for plain objects', () => {
+  it('should evaluate to true for plain objects', () => {
     expect(isPlainObject({})).toBe(true);
     expect(isPlainObject({ foo: 'bar' })).toBe(true);
     expect(isPlainObject(Object.create(null))).toBe(true);
   });
 
-  it('should return false for non-plain objects', () => {
+  it('should evaluate to false for other object types', () => {
     expect(isPlainObject([])).toBe(false);
     expect(isPlainObject(new Date())).toBe(false);
     expect(isPlainObject(null)).toBe(false);
@@ -622,12 +622,6 @@ describe('generateComponentStyleSource', () => {
     }).toThrow('Expected theme to be an object');
   });
 
-  it('throws an error if componentConfig is not an object', () => {
-    expect(() => {
-      generateComponentStyleSource({ componentConfig: 'string' });
-    }).toThrow('Expected componentConfig to be an object');
-  });
-
   it('throws an error if styleChain is not an array', () => {
     expect(() => {
       generateComponentStyleSource({ styleChain: 'string' });
@@ -669,6 +663,39 @@ describe('generateComponentStyleSource', () => {
       disabled_neutral: { color: 'primary' },
       disabled_inverse: { color: 'primary' },
       disabled_brand: { color: 'primary' }
+    });
+  });
+
+  it('will properly incorporate custom modes and tones', () => {
+    const source = generateComponentStyleSource({
+      styleChain: [
+        {
+          style: {
+            base: {
+              color: 'primary'
+            }
+          }
+        },
+        {
+          style: {
+            selected: {
+              color: 'brand'
+            }
+          }
+        }
+      ]
+    });
+
+    expect(source).toStrictEqual({
+      unfocused_neutral: { color: 'primary', selected: { color: 'brand' } },
+      unfocused_inverse: { color: 'primary', selected: { color: 'brand' } },
+      unfocused_brand: { color: 'primary', selected: { color: 'brand' } },
+      focused_neutral: { color: 'primary', selected: { color: 'brand' } },
+      focused_inverse: { color: 'primary', selected: { color: 'brand' } },
+      focused_brand: { color: 'primary', selected: { color: 'brand' } },
+      disabled_neutral: { color: 'primary', selected: { color: 'brand' } },
+      disabled_inverse: { color: 'primary', selected: { color: 'brand' } },
+      disabled_brand: { color: 'primary', selected: { color: 'brand' } }
     });
   });
 
@@ -736,183 +763,6 @@ describe('generateComponentStyleSource', () => {
     });
     expect(source).toStrictEqual({
       unfocused_neutral: { color: 'primary' },
-      unfocused_inverse: { color: 'primary' },
-      unfocused_brand: { color: 'primary' },
-      focused_neutral: { color: 'primary' },
-      focused_inverse: { color: 'primary' },
-      focused_brand: { color: 'primary' },
-      disabled_neutral: { color: 'primary' },
-      disabled_inverse: { color: 'primary' },
-      disabled_brand: { color: 'primary' }
-    });
-  });
-
-  it('will provide correct source for a component with componentConfig', () => {
-    const source = generateComponentStyleSource({
-      componentConfig: {
-        style: {
-          base: {
-            color: 'primary'
-          }
-        }
-      }
-    });
-
-    expect(source).toStrictEqual({
-      unfocused_neutral: { color: 'primary' },
-      unfocused_inverse: { color: 'primary' },
-      unfocused_brand: { color: 'primary' },
-      focused_neutral: { color: 'primary' },
-      focused_inverse: { color: 'primary' },
-      focused_brand: { color: 'primary' },
-      disabled_neutral: { color: 'primary' },
-      disabled_inverse: { color: 'primary' },
-      disabled_brand: { color: 'primary' }
-    });
-  });
-
-  it('will provide correct source for a component with componentConfig with tone', () => {
-    const source = generateComponentStyleSource({
-      componentConfig: {
-        style: {
-          base: {
-            color: 'primary'
-          },
-          tone: {
-            neutral: {
-              color: 'secondary'
-            }
-          }
-        }
-      }
-    });
-
-    expect(source).toStrictEqual({
-      unfocused_neutral: { color: 'secondary' },
-      unfocused_inverse: { color: 'primary' },
-      unfocused_brand: { color: 'primary' },
-      focused_neutral: { color: 'secondary' },
-      focused_inverse: { color: 'primary' },
-      focused_brand: { color: 'primary' },
-      disabled_neutral: { color: 'secondary' },
-      disabled_inverse: { color: 'primary' },
-      disabled_brand: { color: 'primary' }
-    });
-  });
-
-  it('will provide correct source for a component with componentConfig with mode', () => {
-    const source = generateComponentStyleSource({
-      componentConfig: {
-        style: {
-          base: {
-            color: 'primary'
-          },
-          mode: {
-            unfocused: {
-              color: 'secondary'
-            }
-          }
-        }
-      }
-    });
-
-    expect(source).toStrictEqual({
-      unfocused_neutral: { color: 'secondary' },
-      unfocused_inverse: { color: 'secondary' },
-      unfocused_brand: { color: 'secondary' },
-      focused_neutral: { color: 'primary' },
-      focused_inverse: { color: 'primary' },
-      focused_brand: { color: 'primary' },
-      disabled_neutral: { color: 'primary' },
-      disabled_inverse: { color: 'primary' },
-      disabled_brand: { color: 'primary' }
-    });
-  });
-
-  it('will provide correct source for a component with componentConfig with mode', () => {
-    const source = generateComponentStyleSource({
-      componentConfig: {
-        style: {
-          base: {
-            color: 'primary'
-          },
-          mode: {
-            unfocused: {
-              color: 'secondary'
-            }
-          }
-        }
-      }
-    });
-
-    expect(source).toStrictEqual({
-      unfocused_neutral: { color: 'secondary' },
-      unfocused_inverse: { color: 'secondary' },
-      unfocused_brand: { color: 'secondary' },
-      focused_neutral: { color: 'primary' },
-      focused_inverse: { color: 'primary' },
-      focused_brand: { color: 'primary' },
-      disabled_neutral: { color: 'primary' },
-      disabled_inverse: { color: 'primary' },
-      disabled_brand: { color: 'primary' }
-    });
-  });
-
-  it('will provide correct source for a component with componentConfig with tone/mode', () => {
-    const source = generateComponentStyleSource({
-      componentConfig: {
-        style: {
-          base: {
-            color: 'primary'
-          },
-          tone: {
-            neutral: {
-              mode: {
-                unfocused: {
-                  color: 'secondary'
-                }
-              }
-            }
-          }
-        }
-      }
-    });
-
-    expect(source).toStrictEqual({
-      unfocused_neutral: { color: 'secondary' },
-      unfocused_inverse: { color: 'primary' },
-      unfocused_brand: { color: 'primary' },
-      focused_neutral: { color: 'primary' },
-      focused_inverse: { color: 'primary' },
-      focused_brand: { color: 'primary' },
-      disabled_neutral: { color: 'primary' },
-      disabled_inverse: { color: 'primary' },
-      disabled_brand: { color: 'primary' }
-    });
-  });
-
-  it('will provide correct source for a component with componentConfig with mode/tone', () => {
-    const source = generateComponentStyleSource({
-      componentConfig: {
-        style: {
-          base: {
-            color: 'primary'
-          },
-          mode: {
-            unfocused: {
-              tone: {
-                neutral: {
-                  color: 'secondary'
-                }
-              }
-            }
-          }
-        }
-      }
-    });
-
-    expect(source).toStrictEqual({
-      unfocused_neutral: { color: 'secondary' },
       unfocused_inverse: { color: 'primary' },
       unfocused_brand: { color: 'primary' },
       focused_neutral: { color: 'primary' },
@@ -1067,116 +917,6 @@ describe('generateComponentStyleSource', () => {
       disabled_neutral: { color: 'primary' },
       disabled_inverse: { color: 'primary' },
       disabled_brand: { color: 'primary' }
-    });
-  });
-
-  it('will provide props that are available in the componentConfig', () => {
-    const source = generateComponentStyleSource({
-      componentConfig: {
-        prop1: 'string1',
-        prop2: 'string2',
-        prop3: {
-          prop4: 'string4'
-        },
-        style: {
-          base: {
-            color: 'primary'
-          }
-        }
-      }
-    });
-
-    expect(source).toStrictEqual({
-      unfocused_neutral: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      },
-      unfocused_inverse: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      },
-      unfocused_brand: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      },
-      focused_neutral: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      },
-      focused_inverse: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      },
-      focused_brand: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      },
-      disabled_neutral: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      },
-      disabled_inverse: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      },
-      disabled_brand: {
-        color: 'primary',
-        props: {
-          prop1: 'string1',
-          prop2: 'string2',
-          prop3: {
-            prop4: 'string4'
-          }
-        }
-      }
     });
   });
 });
@@ -1416,31 +1156,6 @@ describe('getStyleChainMemoized', () => {
   });
 });
 
-describe('removeDuplicateObjects', () => {
-  test('should remove duplicates from array', () => {
-    const input = [
-      { style: { color: 'red' } },
-      { style: { fontSize: 16 } },
-      { style: { color: 'red' } }
-    ];
-
-    const expected = [{ style: { color: 'red' } }, { style: { fontSize: 16 } }];
-
-    const result = removeDuplicateObjects(input);
-    expect(result).toEqual(expected);
-  });
-
-  test('should throw an error if input is not an array', () => {
-    expect(() => {
-      removeDuplicateObjects('not an array');
-    }).toThrow('Input should be an array');
-  });
-
-  test('should return an empty array if input is empty', () => {
-    expect(removeDuplicateObjects([])).toEqual([]);
-  });
-});
-
 class ComponentA {
   static get __themeStyle() {
     return { color: 'red' };
@@ -1460,8 +1175,8 @@ describe('getStyleChain', () => {
     const componentC = new ComponentC();
     const styleChain = getStyleChain(componentC);
     expect(styleChain).toHaveLength(2); // Two styles in the chain
-    expect(styleChain[0]).toEqual({ style: { fontSize: 16 } });
-    expect(styleChain[1]).toEqual({ style: { color: 'red' } });
+    expect(styleChain[0]).toEqual({ style: { color: 'red' } });
+    expect(styleChain[1]).toEqual({ style: { fontSize: 16 } });
   });
 
   it('should handle components with no styles in the chain', () => {
@@ -1485,6 +1200,99 @@ describe('getStyleChain', () => {
 
     expect(styleChain).toHaveLength(1);
     expect(styleChain[0]).toEqual({ style });
+  });
+
+  it('should add componentConfig to the prototype chain', () => {
+    const style = () => ({ fontWeight: 'bold' });
+
+    class FunctionStyleComponent {
+      static get __themeStyle() {
+        return style;
+      }
+
+      static get __componentName() {
+        return 'Test';
+      }
+
+      get theme() {
+        return {
+          componentConfig: {
+            Test: {
+              style: {
+                color: 'red'
+              }
+            }
+          }
+        };
+      }
+    }
+
+    const componentWithFunctionStyle = new FunctionStyleComponent();
+
+    const styleChain = getStyleChain(componentWithFunctionStyle);
+
+    expect(styleChain).toHaveLength(2);
+    expect(styleChain[0]).toEqual({ style });
+    expect(styleChain[1]).toEqual({ style: { color: 'red' } });
+  });
+
+  it('should add componentConfig to the prototype chain in the proper order', () => {
+    const theme = {
+      componentConfig: {
+        TestBase: {
+          style: {
+            color: 'blue'
+          }
+        },
+        Test: {
+          style: {
+            color: 'red'
+          }
+        }
+      }
+    };
+
+    const styleBase = () => ({ fontWeight: 'bold' });
+
+    class FunctionStyleComponentBase {
+      static get __themeStyle() {
+        return styleBase;
+      }
+
+      static get __componentName() {
+        return 'TestBase';
+      }
+
+      get theme() {
+        return theme;
+      }
+    }
+
+    const style = () => ({ fontWeight: 'bold' });
+
+    class FunctionStyleComponent extends FunctionStyleComponentBase {
+      static get __themeStyle() {
+        return style;
+      }
+
+      static get __componentName() {
+        return 'Test';
+      }
+
+      get theme() {
+        return theme;
+      }
+    }
+
+    const componentWithFunctionStyle = new FunctionStyleComponent();
+
+    const styleChain = getStyleChain(componentWithFunctionStyle);
+
+    expect(styleChain).toHaveLength(4);
+    expect(styleChain[0]).toEqual({ style: styleBase });
+    expect(styleChain[1]).toEqual({ style: { color: 'blue' } });
+    expect(styleChain[2]).toEqual({ style });
+    expect(styleChain[3]).toEqual({ style: { color: 'red' } });
   });
 });
 
