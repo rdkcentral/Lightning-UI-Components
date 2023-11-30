@@ -374,9 +374,10 @@ var Keyboard = /*#__PURE__*/function (_Base) {
           };
         }
         var key = {
-          type: _this2.keyComponent || _Key__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z // allows use of a custom Key component if specified
+          type: _this2.keyComponent || _Key__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z,
+          // allows use of a custom Key component if specified
+          keySpacing: _this2.style.keySpacing
         };
-
         if (_typeof(keyProps) === 'object') {
           var _this2$style$keyProps, _this2$style$keyProps2;
           // keyId is used to account for localization
@@ -384,9 +385,7 @@ var Keyboard = /*#__PURE__*/function (_Base) {
           var keyIcon = ((_this2$style$keyProps = _this2.style.keyProps) === null || _this2$style$keyProps === void 0 || (_this2$style$keyProps = _this2$style$keyProps[keyboard]) === null || _this2$style$keyProps === void 0 ? void 0 : _this2$style$keyProps[iconName]) || ((_this2$style$keyProps2 = _this2.style.keyProps) === null || _this2$style$keyProps2 === void 0 ? void 0 : _this2$style$keyProps2[iconName]);
           if (keyIcon && keyIcon.icon) {
             var _this2$style$keyProps3;
-            return _objectSpread(_objectSpread(_objectSpread({
-              type: _this2.keyComponent || _Key__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z
-            }, keyProps), (_this2$style$keyProps3 = _this2.style.keyProps) === null || _this2$style$keyProps3 === void 0 ? void 0 : _this2$style$keyProps3[iconName]), {}, {
+            return _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, key), keyProps), (_this2$style$keyProps3 = _this2.style.keyProps) === null || _this2$style$keyProps3 === void 0 ? void 0 : _this2$style$keyProps3[iconName]), {}, {
               style: {
                 iconStyle: _objectSpread({}, keyIcon.iconStyle)
               },
@@ -658,4 +657,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Keyboard-Keyboard-stories.ac92056b.iframe.bundle.js.map
+//# sourceMappingURL=components-Keyboard-Keyboard-stories.4c77aefd.iframe.bundle.js.map

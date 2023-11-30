@@ -46,12 +46,13 @@ var base = function base(theme) {
     paddingX: theme.spacer.md,
     textStyle: textStyle,
     sizes: {
-      sm: theme.spacer.md * 7,
-      md: theme.spacer.md * 15,
-      lg: theme.spacer.md * 23,
-      xl: theme.spacer.md * 47,
-      xxl: theme.spacer.md * 95
+      sm: 1,
+      md: 2,
+      lg: 3,
+      xl: 4,
+      xxl: 5
     },
+    baseWidth: theme.spacer.md * 7,
     iconWidth: textStyle.lineHeight,
     iconHeight: textStyle.lineHeight
   };
@@ -160,14 +161,21 @@ var Key = /*#__PURE__*/function (_Button) {
     value: function _construct() {
       _get(_getPrototypeOf(Key.prototype), "_construct", this).call(this);
       this._size = 'sm';
-      this._fixed = true;
+      this._keySpacing = 0;
     }
   }, {
     key: "_update",
     value: function _update() {
-      this.w = this.style.sizes[this.size] || this.style.sizes.sm;
       this._updatePrefixStyle();
       _get(_getPrototypeOf(Key.prototype), "_update", this).call(this);
+    }
+  }, {
+    key: "_calcDynamicWidth",
+    value: function _calcDynamicWidth() {
+      var sizeMultiplier = this.style.sizes[this.size || 'sm'];
+      var baseSize = this.style.baseWidth * sizeMultiplier;
+      var padding = this.keySpacing * (sizeMultiplier - 1);
+      return baseSize + padding;
     }
   }, {
     key: "_updatePrefixStyle",
@@ -244,7 +252,7 @@ var Key = /*#__PURE__*/function (_Button) {
   }, {
     key: "properties",
     get: function get() {
-      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Key), "properties", this)), ['icon', 'size', 'toggle']);
+      return [].concat(_toConsumableArray(_get(_getPrototypeOf(Key), "properties", this)), ['icon', 'size', 'toggle', 'keySpacing']);
     }
   }, {
     key: "aliasStyles",
@@ -490,4 +498,4 @@ var GenericType = function GenericType(_ref7) {
 /***/ })
 
 }]);
-//# sourceMappingURL=9609.55c8932b.iframe.bundle.js.map
+//# sourceMappingURL=9609.2de25b75.iframe.bundle.js.map

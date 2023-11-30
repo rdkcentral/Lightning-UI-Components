@@ -134,9 +134,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/components/Key/Key.js");
-/* harmony import */ var _assets_images_ic_lightning_white_32_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../@lightningjs/ui-components/src/assets/images/ic_lightning_white_32.png");
-/* harmony import */ var _docs_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../@lightningjs/ui-components/src/docs/utils.js");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../@lightningjs/ui-components/src/components/Key/Key.js");
+/* harmony import */ var _assets_images_ic_lightning_white_32_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("../../@lightningjs/ui-components/src/assets/images/ic_lightning_white_32.png");
+/* harmony import */ var _docs_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../@lightningjs/ui-components/src/docs/utils.js");
+/* harmony import */ var _docs_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/docs/constants.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 var _Basic$parameters, _Basic$parameters2, _KeyIcon$parameters, _KeyIcon$parameters2;
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -157,43 +158,43 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 /* eslint-disable */
 // @ts-nocheck
 // @ts-expect-error (Converted from ts-ignore)
-var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as KeyComponent } from '.';\nimport lightning from '../../assets/images/ic_lightning_white_32.png';\nimport { createModeControl } from '../../docs/utils';\n\nexport default {\n  title: 'Components/Key'\n};\n\nexport const Basic = () =>\n  class Basic extends lng.Component {\n    static _template() {\n      return {\n        Key: {\n          type: KeyComponent\n        }\n      };\n    }\n  };\n\nBasic.parameters = {};\nBasic.args = {\n  title: 'A',\n  size: 'sm',\n  mode: 'focused'\n};\n\nBasic.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  size: {\n    control: 'select',\n    options: ['sm', 'md', 'lg', 'xl'],\n    description: 'Width of the Key',\n    table: {\n      defaultValue: { summary: 'sm' }\n    }\n  },\n  title: {\n    control: 'text',\n    description: 'Key character',\n    table: {\n      defaultValue: { summary: 'undefined' }\n    }\n  }\n};\n\nexport const KeyIcon = () =>\n  class KeyIcon extends lng.Component {\n    static _template() {\n      return {\n        Key: {\n          type: KeyComponent,\n          icon: lightning\n        }\n      };\n    }\n  };\nKeyIcon.args = {\n  size: 'sm',\n  mode: 'focused'\n};\n\nKeyIcon.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  size: {\n    control: 'select',\n    options: ['sm', 'md', 'lg', 'xl'],\n    description: 'Width of the Key',\n    table: {\n      defaultValue: { summary: 'sm' }\n    }\n  }\n};\n\nKeyIcon.parameters = {};\n";
+var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as KeyComponent } from '.';\nimport lightning from '../../assets/images/ic_lightning_white_32.png';\nimport { createModeControl } from '../../docs/utils';\nimport { controlDescriptions } from '../../docs/constants';\n\nexport default {\n  title: 'Components/Key',\n  args: {\n    fixed: false,\n    w: 200\n  },\n  argTypes: {\n    fixed: {\n      control: 'boolean',\n      description: controlDescriptions.fixed,\n      table: {\n        defaultValue: { summary: false }\n      }\n    },\n    w: {\n      control: 'number',\n      description:\n        'When the fixed property is true, this will set the width of the component',\n      table: {\n        defaultValue: { summary: 0 }\n      }\n    }\n  }\n};\n\nexport const Basic = () =>\n  class Basic extends lng.Component {\n    static _template() {\n      return {\n        Key: {\n          type: KeyComponent\n        }\n      };\n    }\n  };\n\nBasic.parameters = {};\nBasic.args = {\n  title: 'A',\n  size: 'sm',\n  mode: 'focused'\n};\n\nBasic.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  size: {\n    control: 'select',\n    options: ['sm', 'md', 'lg', 'xl'],\n    description: 'Width of the Key',\n    table: {\n      defaultValue: { summary: 'sm' }\n    }\n  },\n  title: {\n    control: 'text',\n    description: 'Key character',\n    table: {\n      defaultValue: { summary: 'undefined' }\n    }\n  }\n};\n\nexport const KeyIcon = () =>\n  class KeyIcon extends lng.Component {\n    static _template() {\n      return {\n        Key: {\n          type: KeyComponent,\n          icon: lightning\n        }\n      };\n    }\n  };\nKeyIcon.args = {\n  size: 'sm',\n  mode: 'focused'\n};\n\nKeyIcon.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  size: {\n    control: 'select',\n    options: ['sm', 'md', 'lg', 'xl'],\n    description: 'Width of the Key',\n    table: {\n      defaultValue: { summary: 'sm' }\n    }\n  }\n};\n\nKeyIcon.parameters = {};\n";
 // @ts-expect-error (Converted from ts-ignore)
 var __LOCATIONS_MAP__ = {
   "Basic": {
     "startLoc": {
       "col": 21,
-      "line": 26
+      "line": 51
     },
     "endLoc": {
       "col": 1,
-      "line": 34
+      "line": 59
     },
     "startBody": {
       "col": 21,
-      "line": 26
+      "line": 51
     },
     "endBody": {
       "col": 1,
-      "line": 34
+      "line": 59
     }
   },
   "KeyIcon": {
     "startLoc": {
       "col": 23,
-      "line": 65
+      "line": 90
     },
     "endLoc": {
       "col": 1,
-      "line": 74
+      "line": 99
     },
     "startBody": {
       "col": 23,
-      "line": 65
+      "line": 90
     },
     "endBody": {
       "col": 1,
-      "line": 74
+      "line": 99
     }
   }
 };
@@ -220,51 +221,76 @@ var __LOCATIONS_MAP__ = {
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   parameters: {
     "storySource": {
-      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as KeyComponent } from '.';\nimport lightning from '../../assets/images/ic_lightning_white_32.png';\nimport { createModeControl } from '../../docs/utils';\nexport default {\n  title: 'Components/Key'\n};\nexport const Basic = () => class Basic extends lng.Component {\n  static _template() {\n    return {\n      Key: {\n        type: KeyComponent\n      }\n    };\n  }\n};\nBasic.parameters = {};\nBasic.args = {\n  title: 'A',\n  size: 'sm',\n  mode: 'focused'\n};\nBasic.argTypes = {\n  ...createModeControl({\n    summaryValue: 'focused'\n  }),\n  size: {\n    control: 'select',\n    options: ['sm', 'md', 'lg', 'xl'],\n    description: 'Width of the Key',\n    table: {\n      defaultValue: {\n        summary: 'sm'\n      }\n    }\n  },\n  title: {\n    control: 'text',\n    description: 'Key character',\n    table: {\n      defaultValue: {\n        summary: 'undefined'\n      }\n    }\n  }\n};\nexport const KeyIcon = () => class KeyIcon extends lng.Component {\n  static _template() {\n    return {\n      Key: {\n        type: KeyComponent,\n        icon: lightning\n      }\n    };\n  }\n};\nKeyIcon.args = {\n  size: 'sm',\n  mode: 'focused'\n};\nKeyIcon.argTypes = {\n  ...createModeControl({\n    summaryValue: 'focused'\n  }),\n  size: {\n    control: 'select',\n    options: ['sm', 'md', 'lg', 'xl'],\n    description: 'Width of the Key',\n    table: {\n      defaultValue: {\n        summary: 'sm'\n      }\n    }\n  }\n};\nKeyIcon.parameters = {};\nBasic.parameters = {\n  ...Basic.parameters,\n  docs: {\n    ...Basic.parameters?.docs,\n    source: {\n      originalSource: \"() => class Basic extends lng.Component {\\n  static _template() {\\n    return {\\n      Key: {\\n        type: KeyComponent\\n      }\\n    };\\n  }\\n}\",\n      ...Basic.parameters?.docs?.source\n    }\n  }\n};\nKeyIcon.parameters = {\n  ...KeyIcon.parameters,\n  docs: {\n    ...KeyIcon.parameters?.docs,\n    source: {\n      originalSource: \"() => class KeyIcon extends lng.Component {\\n  static _template() {\\n    return {\\n      Key: {\\n        type: KeyComponent,\\n        icon: lightning\\n      }\\n    };\\n  }\\n}\",\n      ...KeyIcon.parameters?.docs?.source\n    }\n  }\n};",
+      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as KeyComponent } from '.';\nimport lightning from '../../assets/images/ic_lightning_white_32.png';\nimport { createModeControl } from '../../docs/utils';\nimport { controlDescriptions } from '../../docs/constants';\nexport default {\n  title: 'Components/Key',\n  args: {\n    fixed: false,\n    w: 200\n  },\n  argTypes: {\n    fixed: {\n      control: 'boolean',\n      description: controlDescriptions.fixed,\n      table: {\n        defaultValue: {\n          summary: false\n        }\n      }\n    },\n    w: {\n      control: 'number',\n      description: 'When the fixed property is true, this will set the width of the component',\n      table: {\n        defaultValue: {\n          summary: 0\n        }\n      }\n    }\n  }\n};\nexport const Basic = () => class Basic extends lng.Component {\n  static _template() {\n    return {\n      Key: {\n        type: KeyComponent\n      }\n    };\n  }\n};\nBasic.parameters = {};\nBasic.args = {\n  title: 'A',\n  size: 'sm',\n  mode: 'focused'\n};\nBasic.argTypes = {\n  ...createModeControl({\n    summaryValue: 'focused'\n  }),\n  size: {\n    control: 'select',\n    options: ['sm', 'md', 'lg', 'xl'],\n    description: 'Width of the Key',\n    table: {\n      defaultValue: {\n        summary: 'sm'\n      }\n    }\n  },\n  title: {\n    control: 'text',\n    description: 'Key character',\n    table: {\n      defaultValue: {\n        summary: 'undefined'\n      }\n    }\n  }\n};\nexport const KeyIcon = () => class KeyIcon extends lng.Component {\n  static _template() {\n    return {\n      Key: {\n        type: KeyComponent,\n        icon: lightning\n      }\n    };\n  }\n};\nKeyIcon.args = {\n  size: 'sm',\n  mode: 'focused'\n};\nKeyIcon.argTypes = {\n  ...createModeControl({\n    summaryValue: 'focused'\n  }),\n  size: {\n    control: 'select',\n    options: ['sm', 'md', 'lg', 'xl'],\n    description: 'Width of the Key',\n    table: {\n      defaultValue: {\n        summary: 'sm'\n      }\n    }\n  }\n};\nKeyIcon.parameters = {};\nBasic.parameters = {\n  ...Basic.parameters,\n  docs: {\n    ...Basic.parameters?.docs,\n    source: {\n      originalSource: \"() => class Basic extends lng.Component {\\n  static _template() {\\n    return {\\n      Key: {\\n        type: KeyComponent\\n      }\\n    };\\n  }\\n}\",\n      ...Basic.parameters?.docs?.source\n    }\n  }\n};\nKeyIcon.parameters = {\n  ...KeyIcon.parameters,\n  docs: {\n    ...KeyIcon.parameters?.docs,\n    source: {\n      originalSource: \"() => class KeyIcon extends lng.Component {\\n  static _template() {\\n    return {\\n      Key: {\\n        type: KeyComponent,\\n        icon: lightning\\n      }\\n    };\\n  }\\n}\",\n      ...KeyIcon.parameters?.docs?.source\n    }\n  }\n};",
       "locationsMap": {
         "basic": {
           "startLoc": {
             "col": 21,
-            "line": 26
+            "line": 51
           },
           "endLoc": {
             "col": 1,
-            "line": 34
+            "line": 59
           },
           "startBody": {
             "col": 21,
-            "line": 26
+            "line": 51
           },
           "endBody": {
             "col": 1,
-            "line": 34
+            "line": 59
           }
         },
         "key-icon": {
           "startLoc": {
             "col": 23,
-            "line": 65
+            "line": 90
           },
           "endLoc": {
             "col": 1,
-            "line": 74
+            "line": 99
           },
           "startBody": {
             "col": 23,
-            "line": 65
+            "line": 90
           },
           "endBody": {
             "col": 1,
-            "line": 74
+            "line": 99
           }
         }
       }
     }
   },
-  title: 'Components/Key'
+  title: 'Components/Key',
+  args: {
+    fixed: false,
+    w: 200
+  },
+  argTypes: {
+    fixed: {
+      control: 'boolean',
+      description: _docs_constants__WEBPACK_IMPORTED_MODULE_1__/* .controlDescriptions */ .oD.fixed,
+      table: {
+        defaultValue: {
+          summary: false
+        }
+      }
+    },
+    w: {
+      control: 'number',
+      description: 'When the fixed property is true, this will set the width of the component',
+      table: {
+        defaultValue: {
+          summary: 0
+        }
+      }
+    }
+  }
 });
 var Basic = function Basic() {
   return /*#__PURE__*/function (_lng$Component) {
@@ -279,7 +305,7 @@ var Basic = function Basic() {
       value: function _template() {
         return {
           Key: {
-            type: ___WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z
+            type: ___WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z
           }
         };
       }
@@ -294,7 +320,7 @@ Basic.args = {
   size: 'sm',
   mode: 'focused'
 };
-Basic.argTypes = _objectSpread(_objectSpread({}, (0,_docs_utils__WEBPACK_IMPORTED_MODULE_2__/* .createModeControl */ .Ys)({
+Basic.argTypes = _objectSpread(_objectSpread({}, (0,_docs_utils__WEBPACK_IMPORTED_MODULE_3__/* .createModeControl */ .Ys)({
   summaryValue: 'focused'
 })), {}, {
   size: {
@@ -330,8 +356,8 @@ var KeyIcon = function KeyIcon() {
       value: function _template() {
         return {
           Key: {
-            type: ___WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z,
-            icon: _assets_images_ic_lightning_white_32_png__WEBPACK_IMPORTED_MODULE_3__
+            type: ___WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z,
+            icon: _assets_images_ic_lightning_white_32_png__WEBPACK_IMPORTED_MODULE_4__
           }
         };
       }
@@ -343,7 +369,7 @@ KeyIcon.args = {
   size: 'sm',
   mode: 'focused'
 };
-KeyIcon.argTypes = _objectSpread(_objectSpread({}, (0,_docs_utils__WEBPACK_IMPORTED_MODULE_2__/* .createModeControl */ .Ys)({
+KeyIcon.argTypes = _objectSpread(_objectSpread({}, (0,_docs_utils__WEBPACK_IMPORTED_MODULE_3__/* .createModeControl */ .Ys)({
   summaryValue: 'focused'
 })), {}, {
   size: {
@@ -373,6 +399,51 @@ KeyIcon.parameters = _objectSpread(_objectSpread({}, KeyIcon.parameters), {}, {
   })
 });
 var __namedExportsOrder = ["Basic", "KeyIcon"];
+
+/***/ }),
+
+/***/ "../../@lightningjs/ui-components/src/docs/constants.js":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   oD: () => (/* binding */ controlDescriptions)
+/* harmony export */ });
+/* unused harmony exports CATEGORIES, storySortOrder */
+/**
+ * Copyright 2023 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+var CATEGORIES = {
+  0: 'Docs',
+  2: 'Collections',
+  4: 'Utilities',
+  8: 'Components',
+  16: 'Patterns',
+  32: 'Templates'
+};
+
+/** Storybook config constants should go in this file */
+
+var storySortOrder = [CATEGORIES[0], ['Introduction', 'Read Me', 'Base', 'Contributing', 'Lightning Resources', 'Theming', ['Overview', 'Component Config', 'Tones', 'Modes', 'Extensions', 'Subtheming', 'Use in Storybook', 'Theme Properties', 'Hierarchy', 'Tutorial'], 'Unit Testing', ['Overview', 'Test Renderer', 'Test Utils', ['makeCreateComponent', '*']]], CATEGORIES[2], CATEGORIES[4], CATEGORIES[8], CATEGORIES[16], CATEGORIES[32]];
+var controlDescriptions = {
+  collapseToMetadata: 'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the image to metadata (when focused, it will always be expanded)',
+  shouldCollapse: 'When in unfocused or disabled mode, if this flag is true metadata will collapse (when focused, it will always be expanded)',
+  fixed: 'Stops the width from being calculated dynamically based on content and will instead use the`w` property'
+};
 
 /***/ }),
 
@@ -455,6 +526,43 @@ function _createMdxContent(props) {
         className: "language-js",
         children: "import { Key } from '@lightningjs/ui-components';\n\nclass Basic extends lng.Component {\n  static _template() {\n    return {\n      Key: {\n        type: Key\n      }\n    };\n  }\n}\n"
       })
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h3, {
+      id: "sizing",
+      children: "Sizing"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
+      children: ["There are two options for setting the width of a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "Key"
+      }), ": dynamically based of the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "baseWidth"
+      }), " and ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "sizes"
+      }), " style properties, or setting a fixed width manually."]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
+      children: ["For dynamic sizing, the width of the smallest ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "Key"
+      }), " is defined as the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "baseWidth"
+      }), " style property. Then, by setting the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "size"
+      }), " property, the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "Key"
+      }), " width will increase by multiples of that ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "baseWdith"
+      }), " (plus the spacing between ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "Key"
+      }), " components on a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "Keyboard"
+      }), ", defined by the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "keySpacing"
+      }), " property)."]
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
+      children: ["For fixed sizing, set the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "fixed"
+      }), " property to ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "true"
+      }), " and define the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "w"
+      }), " property."]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h2, {
       id: "api",
       children: "API"
@@ -478,6 +586,20 @@ function _createMdxContent(props) {
         })
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tbody, {
         children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "fixed"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "boolean"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "false"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "false"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.td, {
+            children: ["when true, ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+              children: "w"
+            }), " overrides dynamically calclulated width"]
+          })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "icon"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
@@ -531,6 +653,21 @@ function _createMdxContent(props) {
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event"
           })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "keySpacing"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "number"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "false"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "0"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.td, {
+            children: ["The horizontal spacing between each key in a ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.a, {
+              href: "?path=/docs/components-keyboard--docs",
+              children: "Keyboard"
+            }), ". This value is factored into the width of the key so that it aligns with with the borders of other keys in a Keyboard."]
+          })]
         })]
       })]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h3, {
@@ -549,6 +686,16 @@ function _createMdxContent(props) {
         })
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tbody, {
         children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "baseWidth"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "number"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.td, {
+            children: ["The base width of a key. This value will be multiplied based on the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+              children: "size"
+            }), " property of the key"]
+          })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "iconWidth"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
@@ -596,7 +743,7 @@ function _createMdxContent(props) {
               children: "lg"
             }), ", ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
               children: "xl"
-            })]
+            }), ". See Sizing section for more details."]
           })]
         }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
@@ -705,4 +852,4 @@ module.exports = __webpack_require__.p + "static/media/ic_lightning_white_32.06a
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Key-Key-mdx.792761ea.iframe.bundle.js.map
+//# sourceMappingURL=components-Key-Key-mdx.d69e6d40.iframe.bundle.js.map

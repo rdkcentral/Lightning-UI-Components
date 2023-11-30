@@ -2837,7 +2837,8 @@ var InlineContent = /*#__PURE__*/function (_Base) {
 
           // text not separated by icons/badges are grouped together
           if (isText(item)) {
-            if (typeof _this._parsedContent[index + 1] === 'string') {
+            var nextItem = _this._parsedContent[index + 1];
+            if (nextItem && isText(nextItem)) {
               base.flexItem.marginRight = 0;
             }
             _this.childList.a(_this._createText(base, item));
@@ -3085,16 +3086,20 @@ var InlineContent = /*#__PURE__*/function (_Base) {
   }, {
     key: "_formatSpaces",
     value: function _formatSpaces(parsedContent) {
-      var whitespace = /(\s+)/;
+      // retain the white space next to the appropriate word, then filter by the empty string,
+      // otherwise all whitespace is stripped and the flexItem's marginRight adds its own space
+      // which can be a different space size than the text would apply between words
+      var whitespace = /(.+?\s+)/;
       return (0,utils/* flatten */.xH)((parsedContent || []).reduce(function (acc, item) {
         var parsed = item;
         if (isText(item)) {
           if (InlineContent_typeof(item) === 'object') {
-            var formattedWords = item.text.split(whitespace).map(function (word) {
-              return InlineContent_objectSpread(InlineContent_objectSpread({}, item), {}, {
-                text: word.trim()
+            var formattedWords = item.text.split(whitespace) // split after whitespace character (which adds empty strings)
+            .map(function (word) {
+              return word && InlineContent_objectSpread(InlineContent_objectSpread({}, item), {}, {
+                text: word
               });
-            });
+            }); // check for empty string before adding
             acc.push.apply(acc, _toConsumableArray(formattedWords));
             return acc;
           }
@@ -4765,7 +4770,13 @@ var TextBox = /*#__PURE__*/function (_Base) {
           acc[prop] = _this[prop];
         }
         return acc;
-      }, {});
+      },
+      // ensure all styles are passed down as well
+      {
+        style: _objectSpread(_objectSpread({}, this.style), {}, {
+          textStyle: this._textStyleSet
+        })
+      });
       if (this._textStyleSet.wordWrapWidth) {
         inlineContentPatch.w = this._textStyleSet.wordWrapWidth;
         inlineContentPatch.rtt = true;
@@ -7505,6 +7516,11 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7533,7 +7549,7 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 
 
 
-var CORE_STYLE_PROPS = ['base', 'tone', 'mode', 'style', 'styleConfig'];
+
 /**
 Given a character, return its ASCII value multiplied by its position.
  *
@@ -7655,16 +7671,9 @@ var getSubTheme = function getSubTheme(obj) {
  * @returns {object} - The component configuration object.
  */
 var getComponentConfig = function getComponentConfig(obj) {
+  var _obj$theme;
   if (!isPlainObject(obj)) return {};
-  var prototypeChain = getPrototypeChain(obj);
-  if (!prototypeChain.length) {
-    var _obj$theme;
-    return (obj === null || obj === void 0 || (_obj$theme = obj.theme) === null || _obj$theme === void 0 || (_obj$theme = _obj$theme.componentConfig) === null || _obj$theme === void 0 ? void 0 : _obj$theme[obj.constructor.__componentName]) || {};
-  }
-  return Array.from(prototypeChain).reverse().reduce(function (acc, curr) {
-    var _obj$theme2;
-    return (0,utils/* clone */.d9)(acc, (obj === null || obj === void 0 || (_obj$theme2 = obj.theme) === null || _obj$theme2 === void 0 || (_obj$theme2 = _obj$theme2.componentConfig) === null || _obj$theme2 === void 0 ? void 0 : _obj$theme2[curr]) || {});
-  }, {});
+  return (obj === null || obj === void 0 || (_obj$theme = obj.theme) === null || _obj$theme === void 0 || (_obj$theme = _obj$theme.componentConfig) === null || _obj$theme === void 0 ? void 0 : _obj$theme[obj.constructor.__componentName]) || {};
 };
 
 /**
@@ -7752,8 +7761,6 @@ function createSharedReferences() {
   process(obj);
   return obj;
 }
-
-// TODO: Need to add defaultStyle functionality
 
 /**
  * Combines the provided properties and returns a list of unique properties.
@@ -7863,7 +7870,9 @@ var generateSolution = function generateSolution(_ref) {
   var modeKeys = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var toneKeys = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
   var solution = {};
-  var uniqueModes = getUniqueProperties(['unfocused', 'focused', 'disabled'].concat(_toConsumableArray(modeKeys)));
+  var uniqueModes = getUniqueProperties(['focused', 'disabled'].concat(_toConsumableArray(modeKeys), ['unfocused' // Unfocused must be at the end for proper fallback since base === 'unfocused' in many cases
+  ]));
+
   var uniqueTones = getUniqueProperties(['neutral', 'inverse', 'brand'].concat(_toConsumableArray(toneKeys)));
   var _iterator = _createForOfIteratorHelper(uniqueModes),
     _step;
@@ -7892,7 +7901,7 @@ var generateSolution = function generateSolution(_ref) {
   return solution;
 };
 var DEFAULT_KEYS = [
-// NOTE: ORDER MATTERS
+// ORDER MATTERS
 'unfocused_neutral', 'unfocused_inverse', 'unfocused_brand', 'focused_neutral', 'focused_inverse', 'focused_brand', 'disabled_neutral', 'disabled_inverse', 'disabled_brand'];
 
 /**
@@ -7938,8 +7947,6 @@ var generateComponentStyleSource = function generateComponentStyleSource() {
   var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
     _ref2$theme = _ref2.theme,
     theme = _ref2$theme === void 0 ? {} : _ref2$theme,
-    _ref2$componentConfig = _ref2.componentConfig,
-    componentConfig = _ref2$componentConfig === void 0 ? {} : _ref2$componentConfig,
     _ref2$styleChain = _ref2.styleChain,
     styleChain = _ref2$styleChain === void 0 ? [] : _ref2$styleChain,
     _ref2$inlineStyle = _ref2.inlineStyle,
@@ -7948,9 +7955,6 @@ var generateComponentStyleSource = function generateComponentStyleSource() {
     alias = _ref2$alias === void 0 ? [] : _ref2$alias;
   if (_typeof(theme) !== 'object') {
     throw new Error('Expected theme to be an object');
-  }
-  if (_typeof(componentConfig) !== 'object') {
-    throw new Error('Expected componentConfig to be an object');
   }
   if (!Array.isArray(styleChain)) {
     throw new Error('Expected styleChain to be an array');
@@ -7965,7 +7969,6 @@ var generateComponentStyleSource = function generateComponentStyleSource() {
   /**
    * Component default styles
    */
-
   var componentDefault = styleChain.map(function (_ref3) {
     var style = _ref3.style;
     if (_typeof(style) === 'object' && !style.base && !style.mode && !style.tone && !style["default"]) {
@@ -7979,7 +7982,17 @@ var generateComponentStyleSource = function generateComponentStyleSource() {
         mode = _style$mode === void 0 ? {} : _style$mode,
         _style$tone = style.tone,
         tone = _style$tone === void 0 ? {} : _style$tone;
+      var componentConfigDefaultStyle;
+      if (style) {
+        var defaultStyle = JSON.parse(JSON.stringify(style));
+        delete defaultStyle.base;
+        delete defaultStyle.tone;
+        delete defaultStyle.mode;
+        componentConfigDefaultStyle = defaultStyle; // Anything in the root level of style
+      }
+
       return {
+        defaultStyle: componentConfigDefaultStyle || {},
         base: base,
         mode: mode,
         tone: tone
@@ -7988,61 +8001,16 @@ var generateComponentStyleSource = function generateComponentStyleSource() {
   });
 
   /**
-   * ComponentConfig settings
-   * StyleConfig is deprecated but we will still support it for now
-   */
-  var componentConfigOrigin = (componentConfig === null || componentConfig === void 0 ? void 0 : componentConfig.style) || (componentConfig === null || componentConfig === void 0 ? void 0 : componentConfig.styleConfig) && (0,utils/* clone */.d9)((componentConfig === null || componentConfig === void 0 ? void 0 : componentConfig.style) || {}, componentConfig.styleConfig || {});
-  if (!(componentConfig || {}).hasOwnProperty('styleConfig')) {
-    logger/* default */.Z.warn('[Deprecation Warning]: "styleConfig" will soon be deprecated. Refer to the theming section of the latest documentation for guidance on updates and alternatives.');
-  }
-
-  /**
-   * DefaultStyle will apply to the next level in the hierarchy
-   */
-  var componentConfigDefaultStyle;
-  if (componentConfigOrigin) {
-    var defaultStyle = JSON.parse(JSON.stringify(componentConfigOrigin));
-    delete defaultStyle.base;
-    delete defaultStyle.tone;
-    delete defaultStyle.mode;
-    componentConfigDefaultStyle = defaultStyle; // Anything in the root level of style
-  }
-
-  var componentConfigSanitized = {
-    defaultStyle: componentConfigDefaultStyle || {},
-    base: (componentConfigOrigin === null || componentConfigOrigin === void 0 ? void 0 : componentConfigOrigin.base) || {},
-    mode: (componentConfigOrigin === null || componentConfigOrigin === void 0 ? void 0 : componentConfigOrigin.mode) || {},
-    tone: (componentConfigOrigin === null || componentConfigOrigin === void 0 ? void 0 : componentConfigOrigin.tone) || {}
-  };
-
-  /**
-   * Filters the componentConfig object to retain only those properties that are not core style properties.
-   *
-   * @param {Object} componentConfig - The configuration object for components.
-   * @returns {Object} An object containing only properties to be applied to the component.
-   */
-
-  var props = Object.entries(componentConfig || {}).reduce(function (acc, _ref4) {
-    var _ref5 = _slicedToArray(_ref4, 2),
-      key = _ref5[0],
-      value = _ref5[1];
-    if (!CORE_STYLE_PROPS.includes(key)) {
-      acc[key] = value;
-    }
-    return acc;
-  }, {});
-
-  /**
    * Local / Instance level styles
    * DefaultStyle will apply to the next level in the hierarchy
    */
   var localDefaultStyle;
   if (inlineStyle) {
-    var _defaultStyle = JSON.parse(JSON.stringify(inlineStyle));
-    delete _defaultStyle.base;
-    delete _defaultStyle.tone;
-    delete _defaultStyle.mode;
-    localDefaultStyle = _defaultStyle; // Anything in the root level of style
+    var defaultStyle = JSON.parse(JSON.stringify(inlineStyle));
+    delete defaultStyle.base;
+    delete defaultStyle.tone;
+    delete defaultStyle.mode;
+    localDefaultStyle = defaultStyle; // Anything in the root level of style
   }
 
   var local = {
@@ -8053,31 +8021,24 @@ var generateComponentStyleSource = function generateComponentStyleSource() {
   };
 
   // Merge all the styles together into one array to loop
-  var merged = [].concat(_toConsumableArray(componentDefault), [componentConfigSanitized, local]);
+  var merged = [].concat(_toConsumableArray(componentDefault), [local]);
 
-  // Find all the keys that are nested under mode and tone this will help generate the final solution
-  var modeKeys = findNestedKeys(merged, 'mode');
-  var toneKeys = findNestedKeys(merged, 'tone');
-  var solution = merged.reduce(function (acc, style) {
-    var parsed = executeWithContextRecursive(style, theme);
-    return (0,utils/* clone */.d9)(acc, generateSolution(parsed, modeKeys, toneKeys));
+  // Execute all style functions with the theme
+  var parsedStyles = merged.map(function (style) {
+    return executeWithContextRecursive(style, theme);
+  });
+
+  // Find all the keys that are in mode/tone as well as nested under mode and tone this will help generate the final solution
+  var modeKeys = findNestedKeys(parsedStyles, 'mode');
+  var toneKeys = findNestedKeys(parsedStyles, 'tone');
+
+  // Merge all the styles together into one object
+  var solution = parsedStyles.reduce(function (acc, style) {
+    return (0,utils/* clone */.d9)(acc, generateSolution(style, modeKeys, toneKeys));
   }, {});
   var _final = formatStyleObj(removeEmptyObjects(colorParser({
     theme: theme
   }, solution)) || {}, alias);
-
-  // Pass properties to final object
-  if (Object.keys(props).length) {
-    if (Object.keys(_final).length) {
-      Object.keys(_final).forEach(function (key) {
-        _final[key].props = props;
-      });
-    } else {
-      _final['unfocused_neutral'] = {
-        props: props
-      };
-    }
-  }
   var cleanObj = createSharedReferences(_final);
   return enforceContract(cleanObj);
 };
@@ -8152,6 +8113,18 @@ function generateNameFromPrototypeChain(obj) {
 var styleChainCache = {};
 
 /**
+ * Flush the memoization cache for styleChain
+ *
+ */
+var clearStyleChainCache = function clearStyleChainCache() {
+  for (var key in styleChainCache) {
+    if (styleChainCache.hasOwnProperty(key)) {
+      delete styleChainCache[key];
+    }
+  }
+};
+
+/**
  * Memoized version of getStyleChain function. Retrieves the style chain for a component by traversing its prototype chain.
  * @param {object} componentObj - The component object to get the style chain from.
  * @returns {{ style: (object | function) }[]} - An array of style objects containing either an object of styles or a function to return an object of styles.
@@ -8183,58 +8156,39 @@ var getStyleChainMemoized = function getStyleChainMemoized(componentObj) {
 };
 
 /**
- * Removes duplicate objects from an array based on their content.
- * @param {Array<Object>} arr - The array of objects to be deduplicated.
- * @returns {Array<Object>} An array of objects without duplicates.
- * @throws {Error} Throws an error if the input is not an array.
- */
-function removeDuplicateObjects(arr) {
-  if (!Array.isArray(arr)) {
-    throw new Error('Input should be an array');
-  }
-  var deepEquals = function deepEquals(a, b) {
-    var typeA = _typeof(a);
-    var typeB = _typeof(b);
-    if (typeA !== typeB) return false;
-    if (typeA !== 'object' || a === null || b === null) {
-      if (typeA === 'function') {
-        return a.toString() === b.toString();
-      }
-      return a === b;
-    }
-    var keysA = Object.keys(a);
-    var keysB = Object.keys(b);
-    if (keysA.length !== keysB.length) return false;
-    for (var _i2 = 0, _keysA = keysA; _i2 < _keysA.length; _i2++) {
-      var key = _keysA[_i2];
-      if (!Object.prototype.hasOwnProperty.call(b, key) || !deepEquals(a[key], b[key])) return false;
-    }
-    return true;
-  };
-  return arr.filter(function (item, index, self) {
-    return index === self.findIndex(function (t) {
-      return deepEquals(item, t);
-    });
-  });
-}
-
-/**
  * Traverse up the prototype chain to create an array of all the styles that are present in the Components ancestors
  * @param {object} componentObj - The component object to get the style chain from.
  * @returns {{ style: (object | function) }[]} - An array of style objects containing either an object of styles or a function to return an object of styles.
  */
 var getStyleChain = function getStyleChain(componentObj) {
   var styleMap = new Map(); // Use a Map to store styles as JSON strings
-  var proto = componentObj;
-  var firstRun = true;
+  var proto;
   do {
-    var parent = firstRun ? proto : Object.getPrototypeOf(proto); // The first time the loop runs it should get the style from the current component
-    firstRun = false;
-    proto = parent !== Object.prototype ? parent : null;
-    if (proto && proto.constructor) {
+    var _proto;
+    proto = !proto ? componentObj : Object.getPrototypeOf(proto);
+    if (((_proto = proto) === null || _proto === void 0 ? void 0 : _proto.constructor) === Object) break; // Stop traversing the prototype chain if we reach the Object prototype
+    if (proto && _typeof(proto) === 'object' && proto.hasOwnProperty('constructor')) {
+      // ComponentConfig Level
+      var _getComponentConfig = getComponentConfig(proto),
+        componentConfigStyle = _getComponentConfig.style;
+      if (Object.keys(componentConfigStyle || {}).length) {
+        if (!styleMap.has(componentConfigStyle)) {
+          styleMap.set(componentConfigStyle, {
+            style: componentConfigStyle
+          });
+        }
+      }
+
       // Access the __themeStyle property from the current prototype's constructor
-      var themeStyle = proto.constructor.__themeStyle;
-      if (themeStyle) {
+      var themeStyle = proto.constructor.hasOwnProperty('__themeStyle') && proto.constructor.__themeStyle;
+      if (Object.keys(themeStyle || {}).length) {
+        if (!styleMap.has(themeStyle)) {
+          styleMap.set(themeStyle, {
+            style: _objectSpread({}, themeStyle)
+          });
+        }
+      } else if (typeof themeStyle === 'function') {
+        // If the style is a function, add it to the styleMap
         if (!styleMap.has(themeStyle)) {
           styleMap.set(themeStyle, {
             style: themeStyle
@@ -8243,8 +8197,8 @@ var getStyleChain = function getStyleChain(componentObj) {
       }
 
       // Access the __mixinStyle property from the current prototype's constructor
-      var mixinStyle = proto.constructor.__mixinStyle;
-      if (mixinStyle) {
+      var mixinStyle = proto.constructor.hasOwnProperty('__mixinStyle') && proto.constructor.__mixinStyle;
+      if (Object.keys(mixinStyle || {}).length) {
         if (!styleMap.has(mixinStyle)) {
           styleMap.set(mixinStyle, {
             style: mixinStyle
@@ -8258,7 +8212,7 @@ var getStyleChain = function getStyleChain(componentObj) {
   var uniqueStyles = Array.from(styleMap.values());
 
   // Return an array of unique style objects with a "style" property
-  return removeDuplicateObjects(uniqueStyles).map(function (style) {
+  return uniqueStyles.map(function (style) {
     return style;
   }).reverse();
 };
@@ -8288,10 +8242,10 @@ var formatStyleObj = function formatStyleObj(originalObj) {
   // Each function takes 'obj' (initially 'finalStyle') as input and applies transformations
   // The result of the previous function is passed as input to the next function
   // The final transformed style is assigned to 'this._style'
-  return formattersArray.reduce(function (obj, _ref6) {
-    var _ref7 = _slicedToArray(_ref6, 2),
-      func = _ref7[0],
-      args = _ref7[1];
+  return formattersArray.reduce(function (obj, _ref4) {
+    var _ref5 = _slicedToArray(_ref4, 2),
+      func = _ref5[0],
+      args = _ref5[1];
     return func.apply(void 0, [obj].concat(_toConsumableArray(args)));
   }, originalObj);
 };
@@ -8348,10 +8302,10 @@ function StyleManager_iterableToArray(iter) { if (typeof Symbol !== "undefined" 
 function StyleManager_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return StyleManager_arrayLikeToArray(arr); }
 function StyleManager_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, StyleManager_toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return StyleManager_typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (StyleManager_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (StyleManager_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function StyleManager_toPropertyKey(arg) { var key = StyleManager_toPrimitive(arg, "string"); return StyleManager_typeof(key) === "symbol" ? key : String(key); }
+function StyleManager_toPrimitive(input, hint) { if (StyleManager_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (StyleManager_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
@@ -8407,7 +8361,6 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
       this.component = component;
       this.setupListeners();
       this._style = {}; // This will be the source of truth for the style manager
-      this._props = {}; // props that are set in componentConfig will be stored here
       // Initial update is not debounced
       this.update();
     }
@@ -8458,6 +8411,7 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
   }, {
     key: "_onThemeUpdate",
     value: function _onThemeUpdate() {
+      clearStyleChainCache();
       this.clearSourceCache();
       this.clearStyleCache();
       this.update();
@@ -8585,7 +8539,6 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
             alias: this.component.constructor.aliasStyles,
             componentConfig: this.component._componentConfig,
             inlineStyle: this.component._componentLevelStyle,
-            name: this.component.constructor.__componentName || this.component.constructor.name,
             styleChain: getStyleChainMemoized(this.component),
             theme: this.component.theme
           });
@@ -8599,8 +8552,6 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
           style = generateStyle(this.component, styleSource);
           this._addCache("style_".concat(mode, "_").concat(tone), style);
         }
-        this._props = style.props;
-        delete style.props;
         this._style = style;
         this.emit('styleUpdate', this.style);
       } catch (error) {
@@ -8622,7 +8573,13 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
   }, {
     key: "props",
     get: function get() {
-      return this._props;
+      var _this3 = this;
+      return Object.keys(this.component._componentConfig).reduce(function (acc, key) {
+        if (!['base', 'tone', 'mode', 'style', 'styleConfig'].includes(key)) {
+          acc[key] = _this3.component._componentConfig[key];
+        }
+        return acc;
+      }, {});
     }
 
     /**
@@ -8647,13 +8604,12 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
 // EXTERNAL MODULE: ../../@lightningjs/ui-components/src/globals/global-update-manager/GlobalUpdateManager.js
 var GlobalUpdateManager = __webpack_require__("../../@lightningjs/ui-components/src/globals/global-update-manager/GlobalUpdateManager.js");
 ;// CONCATENATED MODULE: ../../@lightningjs/ui-components/src/mixins/withThemeStyles/index.js
-function withThemeStyles_typeof(o) { "@babel/helpers - typeof"; return withThemeStyles_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, withThemeStyles_typeof(o); }
 function withThemeStyles_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function withThemeStyles_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, withThemeStyles_toPropertyKey(descriptor.key), descriptor); } }
 function withThemeStyles_createClass(Constructor, protoProps, staticProps) { if (protoProps) withThemeStyles_defineProperties(Constructor.prototype, protoProps); if (staticProps) withThemeStyles_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { _defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
+function set(target, property, value, receiver) { if (typeof Reflect !== "undefined" && Reflect.set) { set = Reflect.set; } else { set = function set(target, property, value, receiver) { var base = _superPropBase(target, property); var desc; if (base) { desc = Object.getOwnPropertyDescriptor(base, property); if (desc.set) { desc.set.call(receiver, value); return true; } else if (!desc.writable) { return false; } } desc = Object.getOwnPropertyDescriptor(receiver, property); if (desc) { if (!desc.writable) { return false; } desc.value = value; Object.defineProperty(receiver, property, desc); } else { withThemeStyles_defineProperty(receiver, property, value); } return true; }; } return set(target, property, value, receiver); }
 function _set(target, property, value, receiver, isStrict) { var s = set(target, property, value, receiver || target); if (!s && isStrict) { throw new TypeError('failed to set property'); } return value; }
-function _defineProperty(obj, key, value) { key = withThemeStyles_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function withThemeStyles_defineProperty(obj, key, value) { key = withThemeStyles_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function withThemeStyles_toPropertyKey(arg) { var key = withThemeStyles_toPrimitive(arg, "string"); return withThemeStyles_typeof(key) === "symbol" ? key : String(key); }
 function withThemeStyles_toPrimitive(input, hint) { if (withThemeStyles_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (withThemeStyles_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get.bind(); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
@@ -8665,6 +8621,13 @@ function withThemeStyles_possibleConstructorReturn(self, call) { if (call && (wi
 function withThemeStyles_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function withThemeStyles_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function withThemeStyles_getPrototypeOf(o) { withThemeStyles_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return withThemeStyles_getPrototypeOf(o); }
+function withThemeStyles_toConsumableArray(arr) { return withThemeStyles_arrayWithoutHoles(arr) || withThemeStyles_iterableToArray(arr) || withThemeStyles_unsupportedIterableToArray(arr) || withThemeStyles_nonIterableSpread(); }
+function withThemeStyles_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function withThemeStyles_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return withThemeStyles_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return withThemeStyles_arrayLikeToArray(o, minLen); }
+function withThemeStyles_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function withThemeStyles_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return withThemeStyles_arrayLikeToArray(arr); }
+function withThemeStyles_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function withThemeStyles_typeof(o) { "@babel/helpers - typeof"; return withThemeStyles_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, withThemeStyles_typeof(o); }
 /**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
@@ -8688,6 +8651,46 @@ function withThemeStyles_getPrototypeOf(o) { withThemeStyles_getPrototypeOf = Ob
 
 
 
+
+/**
+ * Merges two objects based on the following rules:
+ * 1. If a key exists in both objects, use the value from the second object.
+ * 2. If a key exists in the first object but not in the second, set the value to undefined.
+ * 3. If a key exists in the second object but not in the first, include it in the result.
+ * 4. Maintain the structure of the first object and augment it with extra keys from the second object.
+ *
+ * @param {Object|Array} firstObj - The first object, providing the structure to match.
+ * @param {Object|Array} secondObj - The second object, whose values take precedence.
+ * @returns {Object|Array} A new object with a merged structure and values.
+ */
+function mergeObjectsWithSecondDominant(firstObj, secondObj) {
+  if (firstObj !== null && withThemeStyles_typeof(firstObj) === 'object') {
+    if (Array.isArray(firstObj)) {
+      return firstObj.map(function (item, index) {
+        return mergeObjectsWithSecondDominant(item, Array.isArray(secondObj) ? secondObj[index] : undefined);
+      });
+    } else {
+      var result = {};
+      // Combine keys from both objects to ensure all keys are covered
+      var allKeys = new Set([].concat(withThemeStyles_toConsumableArray(Object.keys(firstObj)), withThemeStyles_toConsumableArray(Object.keys(secondObj))));
+      allKeys.forEach(function (key) {
+        // Recurse for nested objects or arrays
+        if (withThemeStyles_typeof(firstObj[key]) === 'object' && firstObj[key] !== null) {
+          result[key] = mergeObjectsWithSecondDominant(firstObj[key], secondObj[key] || {});
+        } else if (withThemeStyles_typeof(secondObj[key]) === 'object' && secondObj[key] !== null) {
+          result[key] = mergeObjectsWithSecondDominant(firstObj[key] || {}, secondObj[key]);
+        } else {
+          // Use value from the second object if available, else set to undefined
+          result[key] = secondObj.hasOwnProperty(key) ? secondObj[key] : undefined;
+        }
+      });
+      return result;
+    }
+  } else {
+    // Return non-object values directly
+    return firstObj;
+  }
+}
 
 /**
  * A higher-order function that returns a class with theme styles.
@@ -8720,7 +8723,6 @@ function withThemeStyles(Base) {
           component: this
         });
         this._style = this._styleManager.style; // Set the style for the first time. After this is will be updated by events
-
         this._updatePropDefaults();
         this._styleManager.on('styleUpdate', function () {
           _this._style = _this._styleManager.style;
@@ -8748,19 +8750,28 @@ function withThemeStyles(Base) {
           this._styleManager.update();
         }
       }
+
+      /**
+       * Updates the default properties of the component based on the current theme.
+       * It compares the previous component configuration properties with the current style manager properties,
+       * and updates the component's properties accordingly. If the properties are unchanged, no action is taken.
+       * This method is crucial for ensuring the component's properties are synchronized with the theme.
+       */
     }, {
       key: "_updatePropDefaults",
       value: function _updatePropDefaults() {
-        var _this2 = this;
-        // Add support for properties passed through the theme
-        var componentConfigProps = this._styleManager.props || {};
-        if (Object.keys(componentConfigProps).length && this.constructor.properties && this.constructor.properties.length) {
-          Object.keys(componentConfigProps).forEach(function (key) {
-            if (_this2.constructor.properties.includes(key)) {
-              _this2["_".concat(key)] = withThemeStyles_typeof(_this2["_".concat(key)]) === 'object' && _this2["_".concat(key)] !== null && !Array.isArray(_this2["_".concat(key)]) ? utils/* default.clone */.ZP.clone(_this2["_".concat(key)] || {}, componentConfigProps[key]) : componentConfigProps[key];
-            }
-          });
+        // If the current properties are the same as the previous configuration, no update is needed
+        if (JSON.stringify(this._styleManager.props) === JSON.stringify(this._prevComponentConfigProps)) {
+          return;
         }
+        // Compare current properties with previous configuration and get the payload
+        var payload = this._prevComponentConfigProps ? mergeObjectsWithSecondDominant(this._prevComponentConfigProps || {}, this._styleManager.props || {}) : this._styleManager.props || {};
+
+        // Store a deep copy of the current properties for future comparison
+        this._prevComponentConfigProps = this._styleManager.props && JSON.parse(JSON.stringify(this._styleManager.props));
+
+        // This will be used by withUpdates to set defaults
+        this.__componentConfigProps = payload;
       }
 
       /**
@@ -9104,15 +9115,28 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
 function capital(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+// Merge the componentConfigProp with the prop value
+function mergeProps(componentConfigProp, prop) {
+  var _result;
+  var result = prop;
+  if (_typeof(componentConfigProp) === 'object' && Object.keys(componentConfigProp).length && _typeof(prop) === 'object') {
+    result = (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .clone */ .d9)(componentConfigProp, prop);
+  }
+  return (_result = result) !== null && _result !== void 0 ? _result : componentConfigProp;
+}
 function getPropertyDescriptor(name, key) {
   return {
     get: function get() {
+      var _this$__componentConf3;
       var customGetter = this["_get".concat(capital(name))];
       if (customGetter && typeof customGetter === 'function') {
+        var _this$__componentConf, _this$__componentConf2;
         var value = customGetter.call(this, this[key]);
-        this[key] = value;
+        this[key] = value || ((_this$__componentConf = this.__componentConfigProps) === null || _this$__componentConf === void 0 ? void 0 : _this$__componentConf[name]); // Defaults can also be set from withThemeStyles if used
+        return mergeProps((_this$__componentConf2 = this.__componentConfigProps) === null || _this$__componentConf2 === void 0 ? void 0 : _this$__componentConf2[name], value);
       }
-      return this[key];
+      return mergeProps((_this$__componentConf3 = this.__componentConfigProps) === null || _this$__componentConf3 === void 0 ? void 0 : _this$__componentConf3[name], this[key]); // Defaults can also be set from withThemeStyles if used
     },
     set: function set(value) {
       var oldValue = this[key];
@@ -12844,4 +12868,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.41486edf.iframe.bundle.js.map
+//# sourceMappingURL=main.5646f891.iframe.bundle.js.map
