@@ -260,15 +260,7 @@ export default class Button extends Surface {
     if (this.fixed) {
       newWidth = this._w;
     } else {
-      // if no title, ignore minWidth and use prefix/suffix width
-      // when the title is collapsed, width should be the same as if there is no title
-      newWidth =
-        (!this._hasTitle && (this._hasPrefix || this._hasSuffix)) ||
-        (this._Title &&
-          !this._Title.visible &&
-          (this._hasPrefix || this._hasSuffix))
-          ? this._contentW + this._paddingX
-          : Math.max(this._contentW + this._paddingX, this.style.minWidth);
+      newWidth = this._calcDynamicWidth();
     }
 
     if (newWidth !== this.w) {
@@ -285,6 +277,17 @@ export default class Button extends Surface {
 
     // TODO breaks row resizing if this is wrapped in the width conditional above
     this.fireAncestors('$itemChanged');
+  }
+
+  _calcDynamicWidth() {
+    // if no title, ignore minWidth and use prefix/suffix width
+    // when the title is collapsed, width should be the same as if there is no title
+    return (!this._hasTitle && (this._hasPrefix || this._hasSuffix)) ||
+      (this._Title &&
+        !this._Title.visible &&
+        (this._hasPrefix || this._hasSuffix))
+      ? this._contentW + this._paddingX
+      : Math.max(this._contentW + this._paddingX, this.style.minWidth);
   }
 
   _addButtonProps(arr) {

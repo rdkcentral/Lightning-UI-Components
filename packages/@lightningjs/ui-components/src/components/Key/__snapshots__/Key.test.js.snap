@@ -100,7 +100,6 @@ exports[`Key should render 1`] = `
                     "textColor": 4294506490,
                     "type": "TextTexture",
                     "verticalAlign": "middle",
-                    "wordWrapWidth": 50,
                   },
                   "visible": true,
                   "w": 0,

@@ -84,21 +84,19 @@ export default class Key extends Button {
   _construct() {
     super._construct();
     this._size = 'sm';
-    this._fixed = true;
     this._keySpacing = 0;
   }
 
   _update() {
-    this._updateKeyWidth();
     this._updatePrefixStyle();
     super._update();
   }
 
-  _updateKeyWidth() {
+  _calcDynamicWidth() {
     const sizeMultiplier = this.style.sizes[this.size || 'sm'];
     const baseSize = this.style.baseWidth * sizeMultiplier;
     const padding = this.keySpacing * (sizeMultiplier - 1);
-    this.w = baseSize + padding;
+    return baseSize + padding;
   }
 
   _updatePrefixStyle() {
