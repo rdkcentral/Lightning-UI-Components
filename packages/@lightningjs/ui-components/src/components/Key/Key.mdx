@@ -48,27 +48,38 @@ class Basic extends lng.Component {
 }
 ```
 
+### Sizing
+
+There are two options for setting the width of a `Key`: dynamically based of the `baseWidth` and `sizes` style properties, or setting a fixed width manually.
+
+For dynamic sizing, the width of the smallest `Key` is defined as the `baseWidth` style property. Then, by setting the `size` property, the `Key` width will increase by multiples of that `baseWdith` (plus the spacing between `Key` components on a `Keyboard`, defined by the `keySpacing` property).
+
+For fixed sizing, set the `fixed` property to `true` and define the `w` property.
+
 ## API
 
 ### Properties
 
-| name    | type     | required | default   | description                                                                                                                                                                                                     |
-| ------- | -------- | -------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| icon    | string   | false    | null      | url for icon                                                                                                                                                                                                    |
-| onEnter | function | false    | undefined | if defined, will be invoked when enter is pressed while focused on the `Key` component. When defined, the `$onSoftKey` and `$toggleKeyboard` events will not be emitted from the key (see Events section below) |
-| size    | string   | false    | sm        | width of the Key                                                                                                                                                                                                |
-| toggle  | boolean  | false    | undefined | If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event                                                                                           |
+| name       | type     | required | default   | description                                                                                                                                                                                                           |
+| ---------- | -------- | -------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| fixed      | boolean  | false    | false     | when true, `w` overrides dynamically calclulated width                                                                                                                                                                |
+| icon       | string   | false    | null      | url for icon                                                                                                                                                                                                          |
+| onEnter    | function | false    | undefined | if defined, will be invoked when enter is pressed while focused on the `Key` component. When defined, the `$onSoftKey` and `$toggleKeyboard` events will not be emitted from the key (see Events section below)       |
+| size       | string   | false    | sm        | width of the Key                                                                                                                                                                                                      |
+| toggle     | boolean  | false    | undefined | If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event                                                                                                 |
+| keySpacing | number   | false    | 0         | The horizontal spacing between each key in a [Keyboard](?path=/docs/components-keyboard--docs). This value is factored into the width of the key so that it aligns with with the borders of other keys in a Keyboard. |
 
 ### Style Properties
 
-| name       | type             | description                                                                            |
-| ---------- | ---------------- | -------------------------------------------------------------------------------------- |
-| iconWidth  | number           | width set to all icons                                                                 |
-| iconHeight | number           | height set to all icons                                                                |
-| minWidth   | number           | used as a fallback width if no width is passed into the component and `fixed` is false |
-| paddingX   | number           | space between the button horizontal edge and the content                               |
-| sizes      | object           | used to determine the width of key, contains the properties `sm`, `md`, `lg`, `xl`     |
-| textStyle  | string \| object | text style to apply to the title                                                       |
+| name       | type             | description                                                                                                              |
+| ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| baseWidth  | number           | The base width of a key. This value will be multiplied based on the `size` property of the key                           |
+| iconWidth  | number           | width set to all icons                                                                                                   |
+| iconHeight | number           | height set to all icons                                                                                                  |
+| minWidth   | number           | used as a fallback width if no width is passed into the component and `fixed` is false                                   |
+| paddingX   | number           | space between the button horizontal edge and the content                                                                 |
+| sizes      | object           | used to determine the width of key, contains the properties `sm`, `md`, `lg`, `xl`. See Sizing section for more details. |
+| textStyle  | string \| object | text style to apply to the title                                                                                         |
 
 ### Events
 

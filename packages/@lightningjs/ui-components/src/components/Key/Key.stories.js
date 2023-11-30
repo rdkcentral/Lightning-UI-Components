@@ -20,9 +20,31 @@ import lng from '@lightningjs/core';
 import { default as KeyComponent } from '.';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import { createModeControl } from '../../docs/utils';
+import { controlDescriptions } from '../../docs/constants';
 
 export default {
-  title: 'Components/Key'
+  title: 'Components/Key',
+  args: {
+    fixed: false,
+    w: 200
+  },
+  argTypes: {
+    fixed: {
+      control: 'boolean',
+      description: controlDescriptions.fixed,
+      table: {
+        defaultValue: { summary: false }
+      }
+    },
+    w: {
+      control: 'number',
+      description:
+        'When the fixed property is true, this will set the width of the component',
+      table: {
+        defaultValue: { summary: 0 }
+      }
+    }
+  }
 };
 
 export const Basic = () =>

@@ -37,6 +37,7 @@ type KeyStyle = ButtonStyle & {
   /** @deprecated */
   iconH: number;
   iconHeight: number;
+  baseWidth: number;
 };
 
 declare namespace Key {
@@ -60,6 +61,11 @@ declare namespace Key {
      * If true, pressing the key will trigger the $toggleKeyboard event. If false, the key will trigger the $onSoftKey event.
      */
     toggle?: boolean;
+
+    /**
+     * The horizontal spacing between each key in a Keyboard. This value is factored into the width of the key so that it aligns with with the borders of other keys in a Keyboard.
+     */
+    keySpacing?: string;
   }
 }
 declare class Key<

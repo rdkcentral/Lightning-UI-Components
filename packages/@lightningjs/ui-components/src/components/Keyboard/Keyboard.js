@@ -140,7 +140,8 @@ export default class Keyboard extends Base {
       }
 
       const key = {
-        type: this.keyComponent || Key // allows use of a custom Key component if specified
+        type: this.keyComponent || Key, // allows use of a custom Key component if specified
+        keySpacing: this.style.keySpacing
       };
 
       if (typeof keyProps === 'object') {
@@ -152,7 +153,7 @@ export default class Keyboard extends Base {
 
         if (keyIcon && keyIcon.icon) {
           return {
-            type: this.keyComponent || Key,
+            ...key,
             ...keyProps,
             ...this.style.keyProps?.[iconName],
             style: {
