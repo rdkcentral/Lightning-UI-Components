@@ -41,8 +41,7 @@ import {
  * @returns a style row with a number control
  */
 
-function NumberRow({ styleProp, defaultValue, componentName }) {
-  const [{ LUITheme }, updateGlobals] = useGlobals();
+function NumberRow({ styleProp, defaultValue, componentName, updateGlobals }) {
   const [fieldValue, setValueState] = useState(defaultValue);
 
   return (
@@ -68,8 +67,7 @@ function NumberRow({ styleProp, defaultValue, componentName }) {
  *
  * @returns style row with color control
  */
-function ColorRow({ styleProp, defaultValue, componentName }) {
-  const [{ LUITheme }, updateGlobals] = useGlobals();
+function ColorRow({ styleProp, defaultValue, componentName, updateGlobals }) {
   const [fieldValue, setValueState] = useState(defaultValue);
   return (
     <TableRow
@@ -117,7 +115,7 @@ const ToneRow = ({ defaultTone }) => {
   );
 };
 
-// REVIEW: Should this be moved to themeUtils?
+// REVIEW: Should this be moved to themeUtils? Could this be reused?
 function getControlType(value) {
   try {
     if (utils.getValidColor(value)) {
@@ -130,6 +128,7 @@ function getControlType(value) {
   }
 }
 
+// used for both Number and Color component
 const updateComponentValue = (
   componentName,
   styleProp,
@@ -153,10 +152,12 @@ const updateComponentValue = (
  * @returns rows of component style controls
  */
 function createStyleRows(component) {
-  //REVIEW: a lot going on in this function right now, can this be broken down more?
+  //REVIEW: a lot going on in this function right now, can/should this be broken down in more components/functions?
+  const [{ LUITheme }, updateGlobals] = useGlobals();
   const style = component._style;
   const theme = globalTheme();
   const componentName = component.constructor.__componentName;
+  // if the tone is already set on the componentConfig use it, otherwise use default
   const defaultTone = theme?.componentConfig?.[componentName]?.tone
     ? theme.componentConfig[componentName].tone
     : 'neutral';
@@ -164,21 +165,25 @@ function createStyleRows(component) {
   // only props that get passed to ToneRow component
   const toneRowProps = {
     defaultTone: defaultTone,
-    componentName: componentName
+    componentName: componentName,
+    updateGlobals
   };
-
+  // create an array of control rows using the props from the component styles
   const rows = Object.keys(style || {}).reduce((acc, prop) => {
     const styleType = getControlType(style[prop]);
-    // need to format value before passing to row component
+
+    // format value before passing to row component
     const propValue =
       styleType === 'color'
         ? lng.StageUtils.getRgbaString(style[prop])
         : style[prop];
-    // only props to get passed to row component
+
+    // contains only props to get passed to row component
     const rowProps = {
       defaultValue: propValue,
       componentName: component.constructor.__componentName,
-      styleProp: prop
+      styleProp: prop,
+      updateGlobals
     };
 
     if (styleType === 'color') {
@@ -242,7 +247,6 @@ export default params => {
   if (APP && !storybookInit) {
     // NOTE: removed the storyChanged piece
     component = APP._getFocused().childList.first;
-    console.log(component);
     storybookInit = true;
   }
 
