@@ -31,13 +31,6 @@ import {
 } from '../../utils/themeUtils';
 
 /**
- * REMOVE:
- * Components Style Panel should update theme styles via controls
- * The state of fields should carry over from panel to panel
- * controls should not reset unless refresh of SB or reset controls button (would need to be created)
- */
-
-/**
  * @returns a style row with a number control
  */
 
@@ -53,7 +46,6 @@ function NumberRow({ styleProp, defaultValue, componentName, updateGlobals }) {
           key={`Number-${styleProp}`}
           value={fieldValue}
           onChange={val => {
-            // TODO: update prop value in control and in theme
             setValueState(val);
             updateComponentValue(componentName, styleProp, val, updateGlobals);
           }}
@@ -246,6 +238,8 @@ export default params => {
   const [{ LUITheme }, updateGlobals] = useGlobals();
   if (APP && !storybookInit) {
     // NOTE: removed the storyChanged piece
+    // right now this only sets fields on initial load
+    // if you click to another story the the controls stay the same
     component = APP._getFocused().childList.first;
     storybookInit = true;
   }
