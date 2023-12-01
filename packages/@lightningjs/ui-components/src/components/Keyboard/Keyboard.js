@@ -110,7 +110,8 @@ export default class Keyboard extends Base {
           },
           autoResizeWidth: true,
           autoResizeHeight: true,
-          neverScroll: true
+          neverScroll: true,
+          waitForDimensions: true
         }
       });
     }
@@ -128,7 +129,8 @@ export default class Keyboard extends Base {
         style: {
           itemSpacing: this.style.keySpacing
         },
-        items: this._createKeys(keys, keyboard)
+        items: this._createKeys(keys, keyboard),
+        waitForDimensions: true
       };
     });
   }

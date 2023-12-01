@@ -57,7 +57,8 @@ export default class NavigationManager extends FocusManager {
       'autoResizeWidth',
       'autoResizeHeight',
       'lazyUpCount',
-      'lazyUpCountBuffer'
+      'lazyUpCountBuffer',
+      'waitForDimensions'
     ];
   }
 
@@ -113,10 +114,19 @@ export default class NavigationManager extends FocusManager {
     let maxCrossDimensionSize = 0;
     let maxInnerCrossDimensionSize = 0;
     const childrenToCenter = [];
+    const loadingChildren = [];
 
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
       const childCrossDimensionSize = this._calcCrossDimensionSize(child);
+
+      if (
+        this.waitForDimensions &&
+        (!childCrossDimensionSize || !child[lengthDimension])
+      ) {
+        loadingChildren.push(child);
+      }
+
       maxCrossDimensionSize = max(
         maxCrossDimensionSize,
         childCrossDimensionSize
@@ -158,6 +168,7 @@ export default class NavigationManager extends FocusManager {
       this.Items[lengthDimension] !== nextPosition;
 
     this.Items.patch({
+      alpha: this.waitForDimensions && loadingChildren.length ? 0.001 : 1,
       [crossDimension]: maxCrossDimensionSize,
       [innerCrossDimension]:
         maxInnerCrossDimensionSize || maxCrossDimensionSize,
