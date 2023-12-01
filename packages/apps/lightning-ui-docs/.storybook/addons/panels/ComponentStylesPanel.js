@@ -16,18 +16,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import lng from '@lightningjs/core';
 import { useGlobals } from '@storybook/manager-api';
 import { AddonPanel, Button } from '@storybook/components';
 import { OptionsControl, ColorControl, NumberControl } from '@storybook/blocks';
 import { Table, TableRow } from '../components';
 import { utils } from '@lightningjs/ui-components/src';
-import debounce from 'debounce';
-
 import {
   globalApp,
-  globalContext,
   globalTheme,
+  globalContext,
   updateGlobalTheme
 } from '../../utils/themeUtils';
 
@@ -35,7 +34,6 @@ import {
  * REMOVE:
  * Components Style Panel should update theme styles via controls
  * The state of fields should carry over from panel to panel
- * and the controls should stay set with the changed state
  * controls should not reset unless refresh of SB or reset controls button (would need to be created)
  */
 
@@ -43,22 +41,22 @@ import {
  * @returns a style row with a number control
  */
 
-function NumberRow({ prop, defaultValue }) {
-  // TODO: pass the default value to useState()
-  // Currently using value is hard coded for testing
-  const [fieldValue, updateValueState] = useState(1);
+function NumberRow({ styleProp, defaultValue, componentName }) {
+  const [{ LUITheme }, updateGlobals] = useGlobals();
+  const [fieldValue, setValueState] = useState(defaultValue);
 
   return (
     <TableRow
-      label={prop}
+      label={styleProp}
       control={
         <NumberControl
-          name={prop}
-          key="prop-5"
+          name={styleProp}
+          key={`Number-${styleProp}`}
           value={fieldValue}
           onChange={val => {
             // TODO: update prop value in control and in theme
-            updateValueState(val);
+            setValueState(val);
+            updateComponentValue(componentName, styleProp, val, updateGlobals);
           }}
         />
       }
@@ -70,22 +68,20 @@ function NumberRow({ prop, defaultValue }) {
  *
  * @returns style row with color control
  */
-function ColorRow({ prop, defaultValue }) {
-  // TODO: pass the default value to useState()
-  // Currently using value is hard coded for testing
-  const [fieldValue, updateValueState] = useState('#fff');
-
+function ColorRow({ styleProp, defaultValue, componentName }) {
+  const [fieldValue, setValueState] = useState(defaultValue);
   return (
     <TableRow
-      label={prop}
+      label={styleProp}
       control={
         <ColorControl
-          name={prop}
+          name={styleProp}
           key="prop-2"
           value={fieldValue}
           onChange={val => {
             // TODO: update prop value in control and in theme
-            updateValueState(val);
+            setValueState(val);
+            //updateComponentValue(componentName, styleProp, val);
           }}
         />
       }
@@ -97,25 +93,22 @@ function ColorRow({ prop, defaultValue }) {
  *
  * @returns row containing tone control
  */
-const ToneRow = () => {
-  // TODO: pass the default value to useState()
-  // Currently using value is hard coded for testing
-  const [tone, updateToneState] = useState('neutral');
+const ToneRow = ({ defaultTone }) => {
+  const [toneState, setToneState] = useState(defaultTone);
 
   return (
     <TableRow
       label="tone"
-      key="Row-tones"
       control={
         <OptionsControl
           name="tones"
           key="Tones-one"
           type="inline-radio"
-          value={tone}
+          value={toneState}
           argType={{ options: ['neutral', 'inverse', 'brand'] }}
           onChange={val => {
             // TODO: update prop value in control and in theme
-            updateToneState(val);
+            setToneState(val);
           }}
         />
       }
@@ -123,7 +116,7 @@ const ToneRow = () => {
   );
 };
 
-// REVIEW: Should this be moved to inside the component or possibly to themeUtils?
+// REVIEW: Should this be moved to themeUtils?
 function getControlType(value) {
   try {
     if (utils.getValidColor(value)) {
@@ -136,37 +129,66 @@ function getControlType(value) {
   }
 }
 
+const updateComponentValue = (
+  componentName,
+  styleProp,
+  value,
+  updateGlobals
+) => {
+  updateGlobalTheme(
+    {
+      componentConfig: {
+        [componentName]: {
+          style: { [styleProp]: value }
+        }
+      }
+    },
+    updateGlobals
+  );
+};
+
 /**
  *
  * @returns rows of component style controls
  */
 function createStyleRows(component) {
+  //REVIEW: a lot going on in this function right now, can this be broken down more?
   const style = component._style;
+  const theme = globalTheme();
   const componentName = component.constructor.__componentName;
-  // TODO: iterate through component style object assigning prop to Color or Number component
-  const rows = Object.keys(style || {}).reduce((acc, prop) => {
-    const defaultValue = style[prop];
+  const defaultTone = theme?.componentConfig?.[componentName]?.tone
+    ? theme.componentConfig[componentName].tone
+    : 'neutral';
 
+  // only props that get passed to ToneRow component
+  const toneRowProps = {
+    defaultTone: defaultTone,
+    componentName: componentName
+  };
+
+  const rows = Object.keys(style || {}).reduce((acc, prop) => {
     const styleType = getControlType(style[prop]);
+    // need to format value before passing to row component
+    const propValue =
+      styleType === 'color'
+        ? lng.StageUtils.getRgbaString(style[prop])
+        : style[prop];
+    // only props to get passed to row component
+    const rowProps = {
+      defaultValue: propValue,
+      componentName: component.constructor.__componentName,
+      styleProp: prop
+    };
+
     if (styleType === 'color') {
-      acc.push(
-        <ColorRow
-          key={`Color-${prop}`}
-          prop={prop}
-          defaultValue={defaultValue}
-        />
-      );
+      acc.push(<ColorRow key={`Color-${prop}`} {...rowProps} />);
     } else if (styleType === 'number') {
-      acc.push(
-        <NumberRow
-          key={`Number-${prop}`}
-          prop={prop}
-          defaultValue={defaultValue}
-        />
-      );
+      acc.push(<NumberRow key={`Number-${prop}`} {...rowProps} />);
     }
     return acc;
   }, []);
+  //TODO: add ToneRow to top of table,right now this ends up at the bottom because of filter order
+  rows.push(<ToneRow key={`Tone-${componentName}`} {...toneRowProps} />);
   return rows;
 }
 
@@ -186,10 +208,10 @@ const ComponentStyleTable = component => {
 };
 
 /**
- *
- * @returns a reset button that when clicked will reset component style panel back to default
+ * NOTE: New Feature to basically mimic what happens on the controls panel
+ * @returns a reset button that when clicked will reset component style panel back to default style props of component base on theme
  */
-// NOTE: depending how we handle state for the theme may need to move this into default
+// REVIEW: depending how we handle state for the theme may need to move this into default
 // TODO: add style to button to properly align in table
 const ResetButton = () => {
   return (
@@ -200,26 +222,26 @@ const ResetButton = () => {
     </>
   );
 };
-// reset panel style to default
+
+// TODO: reset component panel style to default theme i.e. base
 const resetPanel = () => {
   //TODO: create logic to reset styles
   return console.log('reset panel');
 };
 
-/**
- * @returns the full Component Style Panel add-on
- */
 let component;
 let storybookInit;
 
+/**
+ * @returns the full Component Style Panel add-on
+ */
 export default params => {
-  //REVIEW: not being used at the moment
-  const [{ LUITheme }, updateGlobals] = useGlobals();
   const APP = globalApp();
-
+  const [{ LUITheme }, updateGlobals] = useGlobals();
   if (APP && !storybookInit) {
     // NOTE: removed the storyChanged piece
     component = APP._getFocused().childList.first;
+    console.log(component);
     storybookInit = true;
   }
 
