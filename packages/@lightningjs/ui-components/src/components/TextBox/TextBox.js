@@ -231,10 +231,8 @@ export default class TextBox extends Base {
   }
 
   _updateMarquee() {
-    const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
-
     if (this._Marquee && !this.marquee) {
-      this._toggleMarquee(contentTag);
+      this._toggleMarquee(this._contentTag);
     }
 
     if (this.marquee) {
@@ -256,11 +254,13 @@ export default class TextBox extends Base {
 
       if (this._isInlineContent) {
         this._InlineContent.w = 0; // ensure we're copying the full, unwrapped inlineContent
-        marqueePatch.contentTexture = contentTag.getTexture();
+        marqueePatch.title = undefined;
+        marqueePatch.contentTexture = this._contentTag.getTexture();
         marqueePatch.w = this._textStyleSet.wordWrapWidth || this.w;
       } else {
+        marqueePatch.contentTexture = undefined;
         marqueePatch.title = {
-          text: contentTag.text.text,
+          text: this._contentTag.text.text,
           ...this._textStyleSet,
           wordWrapWidth: 0, // ensures that the text will marquee and not wrap
           maxLines: 1
@@ -275,10 +275,10 @@ export default class TextBox extends Base {
       }
       if ('undefined' !== typeof this._marqueeOverrideLoopX) {
         this._awaitMarqueeOverrideX.then(() => {
-          this._toggleMarquee(contentTag);
+          this._toggleMarquee(this._contentTag);
         });
       } else {
-        this._toggleMarquee(contentTag);
+        this._toggleMarquee(this._contentTag);
       }
     }
   }
@@ -316,6 +316,10 @@ export default class TextBox extends Base {
     return fontStyle;
   }
 
+  get _contentTag() {
+    return this._isInlineContent ? this._InlineContent : this._Text;
+  }
+
   _toggleMarquee(contentTag) {
     if (this.marquee) {
       contentTag.alpha = 0.001;
@@ -329,8 +333,7 @@ export default class TextBox extends Base {
   }
 
   toggleMarquee() {
-    const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
-    this._toggleMarquee(contentTag);
+    this._toggleMarquee(this._contentTag);
   }
 
   get announce() {
