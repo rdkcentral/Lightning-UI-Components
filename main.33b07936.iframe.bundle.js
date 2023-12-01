@@ -4850,9 +4850,8 @@ var TextBox = /*#__PURE__*/function (_Base) {
     key: "_updateMarquee",
     value: function _updateMarquee() {
       var _this3 = this;
-      var contentTag = this._isInlineContent ? this._InlineContent : this._Text;
       if (this._Marquee && !this.marquee) {
-        this._toggleMarquee(contentTag);
+        this._toggleMarquee(this._contentTag);
       }
       if (this.marquee) {
         this._resetMarqueePromise();
@@ -4870,11 +4869,13 @@ var TextBox = /*#__PURE__*/function (_Base) {
         }
         if (this._isInlineContent) {
           this._InlineContent.w = 0; // ensure we're copying the full, unwrapped inlineContent
-          marqueePatch.contentTexture = contentTag.getTexture();
+          marqueePatch.title = undefined;
+          marqueePatch.contentTexture = this._contentTag.getTexture();
           marqueePatch.w = this._textStyleSet.wordWrapWidth || this.w;
         } else {
+          marqueePatch.contentTexture = undefined;
           marqueePatch.title = _objectSpread(_objectSpread({
-            text: contentTag.text.text
+            text: this._contentTag.text.text
           }, this._textStyleSet), {}, {
             wordWrapWidth: 0,
             // ensures that the text will marquee and not wrap
@@ -4889,10 +4890,10 @@ var TextBox = /*#__PURE__*/function (_Base) {
         }
         if ('undefined' !== typeof this._marqueeOverrideLoopX) {
           this._awaitMarqueeOverrideX.then(function () {
-            _this3._toggleMarquee(contentTag);
+            _this3._toggleMarquee(_this3._contentTag);
           });
         } else {
-          this._toggleMarquee(contentTag);
+          this._toggleMarquee(this._contentTag);
         }
       }
     }
@@ -4919,6 +4920,11 @@ var TextBox = /*#__PURE__*/function (_Base) {
       return fontStyle;
     }
   }, {
+    key: "_contentTag",
+    get: function get() {
+      return this._isInlineContent ? this._InlineContent : this._Text;
+    }
+  }, {
     key: "_toggleMarquee",
     value: function _toggleMarquee(contentTag) {
       if (this.marquee) {
@@ -4934,8 +4940,7 @@ var TextBox = /*#__PURE__*/function (_Base) {
   }, {
     key: "toggleMarquee",
     value: function toggleMarquee() {
-      var contentTag = this._isInlineContent ? this._InlineContent : this._Text;
-      this._toggleMarquee(contentTag);
+      this._toggleMarquee(this._contentTag);
     }
   }, {
     key: "announce",
@@ -12868,4 +12873,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.5646f891.iframe.bundle.js.map
+//# sourceMappingURL=main.33b07936.iframe.bundle.js.map

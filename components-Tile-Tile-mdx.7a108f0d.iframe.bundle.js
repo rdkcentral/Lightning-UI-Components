@@ -284,6 +284,18 @@ function _createMdxContent(props) {
           })]
         }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "circle"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "boolean"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "false"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "undefined"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "If true, changes format of itemLayout to circle"
+          })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "label"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "object"
@@ -398,7 +410,7 @@ function _createMdxContent(props) {
           })]
         }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
-            children: "iconHeight"
+            children: "logoHeight"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "number"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
@@ -406,7 +418,7 @@ function _createMdxContent(props) {
           })]
         }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
-            children: "iconWidth"
+            children: "logoWidth"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "number"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
@@ -507,4 +519,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Tile-Tile-mdx.524b6b02.iframe.bundle.js.map
+//# sourceMappingURL=components-Tile-Tile-mdx.7a108f0d.iframe.bundle.js.map
