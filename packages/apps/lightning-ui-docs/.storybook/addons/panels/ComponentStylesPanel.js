@@ -69,6 +69,7 @@ function NumberRow({ styleProp, defaultValue, componentName }) {
  * @returns style row with color control
  */
 function ColorRow({ styleProp, defaultValue, componentName }) {
+  const [{ LUITheme }, updateGlobals] = useGlobals();
   const [fieldValue, setValueState] = useState(defaultValue);
   return (
     <TableRow
@@ -81,7 +82,7 @@ function ColorRow({ styleProp, defaultValue, componentName }) {
           onChange={val => {
             // TODO: update prop value in control and in theme
             setValueState(val);
-            //updateComponentValue(componentName, styleProp, val);
+            updateComponentValue(componentName, styleProp, val, updateGlobals);
           }}
         />
       }
