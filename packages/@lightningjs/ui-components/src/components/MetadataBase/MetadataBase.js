@@ -36,37 +36,23 @@ class MetadataBase extends Base {
     return {
       Text: {
         flex: { direction: 'column', justifyContent: 'flex-start' },
-        Title: {
-          type: TextBox,
-          signals: {
-            textBoxChanged: '_titleLoaded'
-          }
-        },
+        // Title: {},
         DetailsWrapper: {
-          Details: {
-            type: TextBox,
-            signals: {
-              textBoxChanged: '_detailsLoaded'
-            }
-          }
-        },
-        Description: {
-          type: TextBox,
-          signals: {
-            textBoxChanged: '_descriptionLoaded'
-          }
+          // Details: {}
         }
-      },
-      Logo: {
-        flexItem: false,
-        type: Icon
+        // Description: {}
       }
+      // Logo: {
+      //   flexItem: false,
+      //   type: Icon
+      // }
     };
   }
 
-  _init() {
-    this.requestUpdate(true);
-  }
+  // TODO: why here but no other  components?
+  // _init() {
+  //   this.requestUpdate(true);
+  // }
 
   static get properties() {
     return [
@@ -127,6 +113,10 @@ class MetadataBase extends Base {
   }
 
   _updateDetailsLayout({ w, h }) {
+    if (!this.details && !this._Details) {
+      return;
+    }
+
     this._DetailsWrapper.alpha = this.style.alpha;
     this._DetailsWrapper.w = w;
     this._DetailsWrapper.h = h;
@@ -168,6 +158,22 @@ class MetadataBase extends Base {
   }
 
   _updateTitle() {
+    if (!this.title && !this._Title) {
+      return;
+    }
+
+    if (!this._Title) {
+      this._Text.childList.addAt(
+        {
+          ref: 'Title',
+          type: TextBox,
+          signals: {
+            textBoxChanged: '_titleLoaded'
+          }
+        },
+        0
+      );
+    }
     this._Title.patch({
       content: this.title,
       marquee: this.marquee,
@@ -194,10 +200,26 @@ class MetadataBase extends Base {
   }
 
   _updateDetails() {
+    if (!this.details && !this._Details) {
+      return;
+    }
+
+    if (!this._Details) {
+      this._DetailsWrapper.patch({
+        Details: {
+          type: TextBox,
+          signals: {
+            textBoxChanged: '_detailsLoaded'
+          }
+        }
+      });
+    }
+
     this._Details.patch({
       content: this.details,
       style: { textStyle: this.style.detailsTextStyle }
     });
+
     if (this._Details.finalW > this._textW()) {
       this._Details.patch({
         w: this._textW() + this.style.fadeWidth / 2,
@@ -216,6 +238,20 @@ class MetadataBase extends Base {
   }
 
   _updateDescription() {
+    if (!this.description && !this._Description) {
+      return;
+    }
+
+    if (!this._Description) {
+      this._Text.childList.add({
+        ref: 'Description',
+        type: TextBox,
+        signals: {
+          textBoxChanged: '_descriptionLoaded'
+        }
+      });
+    }
+
     this._Description.patch({
       content: this.description,
       marquee: this.marquee,
@@ -231,9 +267,21 @@ class MetadataBase extends Base {
   }
 
   _updateLogo() {
+    if (!this.logo && !this._Logo) {
+      return;
+    }
+
+    if (!this._Logo) {
+      this.patch({
+        Logo: {
+          flexItem: false,
+          type: Icon
+        }
+      });
+    }
+
     this.logoPosition = this.logoPosition || 'right';
     this._Logo.patch({
-      type: Icon,
       w: this.logoWidth,
       h: this.logoHeight,
       icon: this.logo,
@@ -279,9 +327,9 @@ class MetadataBase extends Base {
 
   get syncArray() {
     return [
-      ...(this.title ? [this._Title] : []),
-      ...(this.description ? [this._Description] : []),
-      ...(this.details ? [this._Details] : [])
+      ...(this._Title ? [this._Title] : []),
+      ...(this._Description ? [this._Description] : []),
+      ...(this._Details ? [this._Details] : [])
     ];
   }
 
