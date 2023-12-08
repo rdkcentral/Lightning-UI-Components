@@ -109,7 +109,6 @@ describe('TabBar', () => {
   });
 
   it('should display which tab is selected when focused on the tab content', async () => {
-    await tabBar.__updateSpyPromise;
     testRenderer.keyPress('Down');
 
     expect(tabBar._Tabs.items[0].mode).toBe('selected');
@@ -117,7 +116,6 @@ describe('TabBar', () => {
   });
 
   it('should transfer focus back to the tabs on up', async () => {
-    await tabBar.__updateSpyPromise;
     testRenderer.keyPress('Down');
 
     expect(tabBar._Tabs.items[0].mode).toBe('selected');
@@ -196,7 +194,6 @@ describe('TabBar', () => {
   });
 
   it('should not repeatedly select the tabs when already selected', async () => {
-    await tabBar.__updateSpyPromise;
     jest.spyOn(tabBar, '_updateTabs');
     expect(tabBar._updateTabs).not.toHaveBeenCalled();
 
