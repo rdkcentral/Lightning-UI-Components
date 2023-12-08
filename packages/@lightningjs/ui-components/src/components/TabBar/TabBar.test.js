@@ -321,14 +321,14 @@ describe('TabBar', () => {
   });
 
   it('should allow overwriting the margin between tabs and tab content', async () => {
-    await tabBar.__updateSpyPromise;
+    testRenderer.forceAllUpdates();
     expect(tabBar._TabContent.y).toBe(
       tabBar._Tabs.h + tabBar.style.tabsMarginBottom
     );
   });
 
   it('should set the tab item spacing', async () => {
-    await tabBar.__updateSpyPromise;
+    testRenderer.forceAllUpdates();
     expect(tabBar._Tabs.style.itemSpacing).toBe(tabBar.style.tabSpacing);
   });
 
