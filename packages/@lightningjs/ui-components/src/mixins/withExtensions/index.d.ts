@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 
 export interface WithExtensions {
-  get _withExtensionsApplied(): boolean;
+  _withExtensionsApplied?: boolean;
   get _prototypeChain(): Set<string>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get _extensions(): Record<string, any>[];
