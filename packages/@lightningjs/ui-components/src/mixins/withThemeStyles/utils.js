@@ -16,6 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import lng from '@lightningjs/core';
 import { clone, getValFromObjPath, getHexColor } from '../../utils';
 import log from '../../globals/context/logger';
 
@@ -538,6 +539,23 @@ export const generateComponentStyleSource = ({
 };
 
 /**
+ *
+ * Default properties directly from @lightningjs/core to ensure correct fallback values
+ *
+ */
+const lightningTextDefaults = Object.entries(
+  Object.getOwnPropertyDescriptors(lng.textures.TextTexture.prototype)
+).reduce((acc, [prop]) => {
+  const value = lng.textures.TextTexture.prototype[prop];
+  if (prop.startsWith('_') || ['undefined', 'function'].includes(typeof value))
+    return acc;
+  return {
+    [prop]: value,
+    ...acc
+  };
+}, {});
+
+/**
  * Parse and process a style object to replace theme strings and process color arrays.
  * @param {object} targetObject - In most cases, this will be a theme object.
  * @param {object} styleObj - The input style object to be processed.
@@ -563,6 +581,12 @@ export const colorParser = (targetObject, styleObj) => {
     } else if (Array.isArray(value) && value.length === 2) {
       // Process value as a color ['#663399', 1]
       return getHexColor(value[0], value[1]);
+    }
+    // TODO: what is best way to detect a font obj?
+    // Ensure text styles contain all default values from Text texture.
+    // This prevents properties that exist on a previous theme persisting on the current theme when switching themes by creating a new object each time.
+    if (typeof value === 'object' && value?.fontFace) {
+      return { ...lightningTextDefaults, ...value };
     }
     return value;
   });
