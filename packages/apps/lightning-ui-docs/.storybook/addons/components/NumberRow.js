@@ -18,6 +18,7 @@
 
 import React, { useState } from 'react';
 import { NumberControl } from '@storybook/blocks';
+import { updateGlobalTheme } from '../../utils/themeUtils';
 import TableRow from './TableRow';
 
 // REVIEW: these two update functions are doing similar things, can they combined into one?

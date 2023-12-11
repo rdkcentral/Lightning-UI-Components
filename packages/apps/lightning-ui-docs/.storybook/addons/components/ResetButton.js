@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useGlobals } from '@storybook/manager-api';
 import { Button } from '@storybook/components';
 
 // REVIEW: depending how we handle state for the theme may need to move this into default
@@ -9,6 +10,13 @@ import { Button } from '@storybook/components';
  */
 
 export default function ResetButton() {
+  const [{ LUITheme }, updateGlobals] = useGlobals();
+
+  const resetPanel = rows => {
+    //TODO: create logic to reset styles in rows
+
+    return updateGlobals({ LUITheme: 'base' });
+  };
   return (
     <>
       <Button small outline label="reset-panel" onClick={resetPanel}>
@@ -17,9 +25,3 @@ export default function ResetButton() {
     </>
   );
 }
-
-// TODO: reset component panel style to default theme i.e. base
-const resetPanel = rows => {
-  //TODO: create logic to reset styles
-  return console.log('reset panel');
-};

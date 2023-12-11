@@ -21,6 +21,7 @@ import { useGlobals } from '@storybook/manager-api';
 import { AddonPanel } from '@storybook/components';
 import { ComponentStyleTable, ResetButton } from '../components';
 import { globalApp } from '../../utils/themeUtils';
+import { createTitle } from '../../utils/helpers';
 
 let component;
 let storybookInit;
@@ -30,22 +31,18 @@ let storybookInit;
  */
 export default params => {
   const APP = globalApp();
-  const [{ LUITheme }, updateGlobals] = useGlobals();
-  if (APP && !storybookInit) {
-    // NOTE: removed the storyChanged piece
-    // right now this only sets fields on initial load
-    // if you click to another story the the controls stay the same
+  const [{ LUITheme }] = useGlobals();
+  if (APP) {
     component = APP._getFocused().childList.first;
-    storybookInit = true;
   }
 
   return (
     <AddonPanel {...params}>
       <div className="component-styles-panel-wrapper">
-        <h1>Current Theme: {LUITheme}</h1>
+        <h1>Current Theme: {createTitle(LUITheme)}</h1>
         <ResetButton />
         <ComponentStyleTable {...component} />
-
+        <p>Below should show only if now styles are available</p>
         <h3>No theme values available on this component.</h3>
       </div>
     </AddonPanel>
