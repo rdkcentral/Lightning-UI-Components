@@ -45,7 +45,7 @@ export default class KeyboardSearch extends Keyboard {
         [
           {
             title: 'Space',
-            size: 'lg',
+            size: 'xl',
             keyId: 'space',
             announce: 'space, button'
           },
