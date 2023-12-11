@@ -16,128 +16,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import lng from '@lightningjs/core';
 import { useGlobals } from '@storybook/manager-api';
-import { AddonPanel, Button } from '@storybook/components';
-import { OptionsControl, ColorControl, NumberControl } from '@storybook/blocks';
-import { Table, TableRow } from '../components';
-import { utils } from '@lightningjs/ui-components/src';
+import { AddonPanel } from '@storybook/components';
 import {
-  globalApp,
-  globalTheme,
-  globalContext,
-  updateGlobalTheme
-} from '../../utils/themeUtils';
-
-/**
- * @returns a style row with a number control
- */
-
-function NumberRow({ styleProp, defaultValue, componentName, updateGlobals }) {
-  const [fieldValue, setValueState] = useState(defaultValue);
-
-  return (
-    <TableRow
-      label={styleProp}
-      control={
-        <NumberControl
-          name={styleProp}
-          key={`Number-${styleProp}`}
-          value={fieldValue}
-          onChange={val => {
-            setValueState(val);
-            updateComponentValue(componentName, styleProp, val, updateGlobals);
-          }}
-        />
-      }
-    />
-  );
-}
-
-/**
- *
- * @returns style row with color control
- */
-function ColorRow({ styleProp, defaultValue, componentName, updateGlobals }) {
-  const [fieldValue, setValueState] = useState(defaultValue);
-  return (
-    <TableRow
-      label={styleProp}
-      control={
-        <ColorControl
-          name={styleProp}
-          key="prop-2"
-          value={fieldValue}
-          onChange={val => {
-            // TODO: update prop value in control and in theme
-            setValueState(val);
-            updateComponentValue(componentName, styleProp, val, updateGlobals);
-          }}
-        />
-      }
-    />
-  );
-}
-
-/**
- *
- * @returns row containing tone control
- */
-const ToneRow = ({ defaultTone }) => {
-  const [toneState, setToneState] = useState(defaultTone);
-
-  return (
-    <TableRow
-      label="tone"
-      control={
-        <OptionsControl
-          name="tones"
-          key="Tones-one"
-          type="inline-radio"
-          value={toneState}
-          argType={{ options: ['neutral', 'inverse', 'brand'] }}
-          onChange={val => {
-            // TODO: update prop value in control and in theme
-            setToneState(val);
-          }}
-        />
-      }
-    />
-  );
-};
-
-// REVIEW: Should this be moved to themeUtils? Could this be reused?
-function getControlType(value) {
-  try {
-    if (utils.getValidColor(value)) {
-      return 'color';
-    } else if (typeof value === 'number') {
-      return 'number';
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// used for both Number and Color component
-const updateComponentValue = (
-  componentName,
-  styleProp,
-  value,
-  updateGlobals
-) => {
-  updateGlobalTheme(
-    {
-      componentConfig: {
-        [componentName]: {
-          style: { [styleProp]: value }
-        }
-      }
-    },
-    updateGlobals
-  );
-};
+  Table,
+  ColorRow,
+  NumberRow,
+  ToneRow,
+  ResetButton
+} from '../components';
+import { getControlType } from '../../utils/helpers';
+import { globalApp, globalTheme } from '../../utils/themeUtils';
 
 /**
  *
@@ -149,7 +40,7 @@ function createStyleRows(component) {
   const style = component._style;
   const theme = globalTheme();
   const componentName = component.constructor.__componentName;
-  // if the tone is already set on the componentConfig use it, otherwise use default
+  // // if the tone is already set on the componentConfig use it, otherwise use default
   const defaultTone = theme?.componentConfig?.[componentName]?.tone
     ? theme.componentConfig[componentName].tone
     : 'neutral';
@@ -160,6 +51,7 @@ function createStyleRows(component) {
     componentName: componentName,
     updateGlobals
   };
+
   // create an array of control rows using the props from the component styles
   const rows = Object.keys(style || {}).reduce((acc, prop) => {
     const styleType = getControlType(style[prop]);
@@ -170,7 +62,7 @@ function createStyleRows(component) {
         ? lng.StageUtils.getRgbaString(style[prop])
         : style[prop];
 
-    // contains only props to get passed to row component
+    // contains only props for rows
     const rowProps = {
       defaultValue: propValue,
       componentName: component.constructor.__componentName,
@@ -185,8 +77,7 @@ function createStyleRows(component) {
     }
     return acc;
   }, []);
-  //TODO: add ToneRow to top of table,right now this ends up at the bottom because of filter order
-  rows.push(<ToneRow key={`Tone-${componentName}`} {...toneRowProps} />);
+  rows.unshift(<ToneRow key={`Tone-${componentName}`} {...toneRowProps} />);
   return rows;
 }
 
@@ -203,28 +94,6 @@ const ComponentStyleTable = component => {
       />
     </>
   );
-};
-
-/**
- * NOTE: New Feature to basically mimic what happens on the controls panel
- * @returns a reset button that when clicked will reset component style panel back to default style props of component base on theme
- */
-// REVIEW: depending how we handle state for the theme may need to move this into default
-// TODO: add style to button to properly align in table
-const ResetButton = () => {
-  return (
-    <>
-      <Button small outline label="buttonLabel" onClick={resetPanel}>
-        Reset Styles
-      </Button>
-    </>
-  );
-};
-
-// TODO: reset component panel style to default theme i.e. base
-const resetPanel = () => {
-  //TODO: create logic to reset styles
-  return console.log('reset panel');
 };
 
 let component;
@@ -250,6 +119,8 @@ export default params => {
         <h1>Current Theme: {LUITheme}</h1>
         <ResetButton />
         <ComponentStyleTable {...component} />
+
+        <h3>No theme values available on this component.</h3>
       </div>
     </AddonPanel>
   );

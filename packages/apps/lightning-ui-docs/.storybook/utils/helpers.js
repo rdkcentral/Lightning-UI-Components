@@ -15,6 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+import { utils } from '@lightningjs/ui-components/src';
 
 export function convertNumToHexAlphaArray(color) {
   const [r, g, b, a] = getRgbaString(color);
@@ -36,4 +37,16 @@ export function componentToHex(c) {
 
 export function rgbToHex(r, g, b) {
   return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+export function getControlType(value) {
+  try {
+    if (utils.getValidColor(value)) {
+      return 'color';
+    } else if (typeof value === 'number') {
+      return 'number';
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }

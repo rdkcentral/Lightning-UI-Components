@@ -20,20 +20,49 @@ import React, { useState } from 'react';
 import { NumberControl } from '@storybook/blocks';
 import TableRow from './TableRow';
 
-export default function NumberRow({ label, defaultValue, scope, onChange }) {
-  const [value, setValue] = useState(defaultValue);
+// REVIEW: these two update functions are doing similar things, can they combined into one?
+// used for both Number and Color component
+const updateComponentValue = (
+  componentName,
+  styleProp,
+  value,
+  updateGlobals
+) => {
+  updateGlobalTheme(
+    {
+      componentConfig: {
+        [componentName]: {
+          style: { [styleProp]: value }
+        }
+      }
+    },
+    updateGlobals
+  );
+};
+
+/**
+ * @returns a style row with a number control
+ */
+
+export default function NumberRow({
+  styleProp,
+  defaultValue,
+  componentName,
+  updateGlobals
+}) {
+  const [fieldValue, setValueState] = useState(defaultValue);
+
   return (
     <TableRow
-      label={label}
-      scope={scope}
+      label={styleProp}
       control={
         <NumberControl
-          name={label}
-          value={value}
-          min={0} // may need to revisit this if there are ever valid negative values
+          name={styleProp}
+          key={`Number-${styleProp}`}
+          value={fieldValue}
           onChange={val => {
-            setValue(val);
-            onChange(val);
+            setValueState(val);
+            updateComponentValue(componentName, styleProp, val, updateGlobals);
           }}
         />
       }
