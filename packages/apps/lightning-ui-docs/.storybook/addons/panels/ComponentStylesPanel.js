@@ -17,21 +17,17 @@
  */
 
 import React from 'react';
-import { useGlobals } from '@storybook/manager-api';
 import { AddonPanel } from '@storybook/components';
-import { ComponentStyleTable, ResetButton } from '../components';
+import { ComponentStyleTable } from '../components';
 import { globalApp } from '../../utils/themeUtils';
-import { createTitle } from '../../utils/helpers';
 
 let component;
-let storybookInit;
 
 /**
  * @returns the full Component Style Panel add-on
  */
 export default params => {
   const APP = globalApp();
-  const [{ LUITheme }] = useGlobals();
   if (APP) {
     component = APP._getFocused().childList.first;
   }
@@ -39,11 +35,13 @@ export default params => {
   return (
     <AddonPanel {...params}>
       <div className="component-styles-panel-wrapper">
-        <h1>Current Theme: {createTitle(LUITheme)}</h1>
-        <ResetButton />
-        <ComponentStyleTable {...component} />
-        <p>Below should show only if now styles are available</p>
-        <h3>No theme values available on this component.</h3>
+        {params.active ? (
+          <>
+            <ComponentStyleTable {...component} />
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </AddonPanel>
   );

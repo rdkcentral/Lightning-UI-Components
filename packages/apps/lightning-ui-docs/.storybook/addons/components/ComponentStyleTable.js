@@ -1,20 +1,25 @@
 import React from 'react';
 import lng from '@lightningjs/core';
 import { useGlobals } from '@storybook/manager-api';
-import { Table, ColorRow, NumberRow, ToneRow } from '../components';
-import { getControlType } from '../../utils/helpers';
+import {
+  Table,
+  ColorRow,
+  NumberRow,
+  ToneRow,
+  ResetButton
+} from '../components';
+import { getControlType, createTitle } from '../../utils/helpers';
 import { globalTheme } from '../../utils/themeUtils';
+
 /**
  *
  * @returns rows of component style controls
  */
-function createStyleRows(component) {
-  //REVIEW: a lot going on in this function right now, can/should this be broken down in more components/functions?
-  const [{ LUITheme }, updateGlobals] = useGlobals();
+function createStyleRows(component, updateGlobals) {
   const style = component._style;
   const theme = globalTheme();
   const componentName = component.constructor.__componentName;
-  // // if the tone is already set on the componentConfig use it, otherwise use default
+  // if the tone is already set on the componentConfig use it, otherwise use default
   const defaultTone = theme?.componentConfig?.[componentName]?.tone
     ? theme.componentConfig[componentName].tone
     : 'neutral';
@@ -51,8 +56,11 @@ function createStyleRows(component) {
     }
     return acc;
   }, []);
-  rows.unshift(<ToneRow key={`Tone-${componentName}`} {...toneRowProps} />);
-  return rows;
+
+  if (rows && rows.length) {
+    rows.unshift(<ToneRow key={`Tone-${componentName}`} {...toneRowProps} />);
+    return rows;
+  }
 }
 
 /**
@@ -60,12 +68,18 @@ function createStyleRows(component) {
  * @returns table of component style props
  */
 export default function ComponentStyleTable(component) {
-  return (
-    <>
-      <Table
-        title="Component Level Theme Styles"
-        rows={createStyleRows(component)}
-      />
-    </>
-  );
+  const [{ LUITheme }, updateGlobals] = useGlobals();
+  const styledRows = createStyleRows(component, updateGlobals);
+  if (styledRows && styledRows.length) {
+    return (
+      <>
+        <h1>Current Theme: {createTitle(LUITheme)}</h1>
+        <div>
+          <ResetButton />
+          <Table title="Component Level Theme Styles" rows={styledRows} />
+        </div>
+      </>
+    );
+  }
+  return <h3>No theme values available on this component.</h3>;
 }
