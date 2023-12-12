@@ -23,6 +23,9 @@ import { MetadataCardContent as MetadataStory } from '../MetadataCardContent/Met
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import { controlDescriptions } from '../../docs/constants';
 
+/**
+ * Formats a Card with one part Tile and one part Metadata.
+ */
 export default {
   title: 'Components/CardContent/CardContent'
 };
@@ -83,7 +86,8 @@ CardContent.argTypes = {
     control: 'boolean',
     description: controlDescriptions.shouldCollapse,
     table: {
-      defaultValue: { summary: false }
+      defaultValue: { summary: false },
+      type: { summary: 'boolean' }
     }
   },
   badge: {
@@ -93,7 +97,8 @@ CardContent.argTypes = {
     table: {
       category: tileCategory,
       subcategory: 'Badge',
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   label: {
@@ -103,7 +108,8 @@ CardContent.argTypes = {
     table: {
       category: tileCategory,
       subcategory: 'Label',
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   progress: {
@@ -117,7 +123,8 @@ CardContent.argTypes = {
     table: {
       category: tileCategory,
       subcategory: 'ProgressBar',
-      defaultValue: { summary: 0 }
+      defaultValue: { summary: 0 },
+      type: { summary: 'number' }
     }
   }
 };
