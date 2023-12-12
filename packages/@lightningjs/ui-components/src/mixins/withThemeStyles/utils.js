@@ -610,7 +610,6 @@ export const themeParser = (targetObject, styleObj) => {
       // Process value as a color ['#663399', 1]
       return getHexColor(value[0], value[1]);
     }
-    // TODO: what is best way to detect a font obj?
     // Ensure text styles contain all default values from Text texture.
     // This prevents properties that exist on a previous theme persisting on the current theme when switching themes by creating a new object each time.
     if (typeof value === 'object' && isTextStyleObject(value)) {
