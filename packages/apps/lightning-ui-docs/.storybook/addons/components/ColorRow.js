@@ -3,7 +3,7 @@ import { ColorControl } from '@storybook/blocks';
 import { updateGlobalTheme } from '../../utils/themeUtils';
 import { TableRow } from '../components';
 
-// used for both Number and Color component
+// TODO: move to universal location, used for both Number and Color component
 const updateComponentValue = (
   componentName,
   styleProp,
@@ -24,7 +24,7 @@ const updateComponentValue = (
 
 /**
  *
- * @returns style row with color control
+ * @returns component style row with color control
  */
 export default function ColorRow({
   styleProp,
@@ -42,7 +42,6 @@ export default function ColorRow({
           key="prop-2"
           value={fieldValue}
           onChange={val => {
-            // TODO: update prop value in control and in theme
             setValueState(val);
             updateComponentValue(componentName, styleProp, val, updateGlobals);
           }}

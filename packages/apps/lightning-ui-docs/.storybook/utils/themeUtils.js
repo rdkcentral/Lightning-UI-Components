@@ -68,8 +68,7 @@ export function setGlobalTheme(theme, updateGlobals) {
 }
 
 /**
- * updates globalTheme with updates past in, creates a custom theme, updates global LUITheme to * custom
- * used in Component Styles and Theme Panels
+ * updates globalTheme with values past in, creates a custom theme, updates global LUITheme to custom, used in Component Styles and Theme Panels
  */
 
 export const updateGlobalTheme = (

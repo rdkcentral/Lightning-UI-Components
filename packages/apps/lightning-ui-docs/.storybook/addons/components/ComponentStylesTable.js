@@ -13,7 +13,7 @@ import { globalTheme } from '../../utils/themeUtils';
 
 /**
  * @param {Object} component
- * @param {cb_} updateGlobals - update any global value
+ * @param {cb_} updateGlobals - update global value
  * @returns an array containing rows of component style controls
  */
 function createStyleRows(component, updateGlobals) {
