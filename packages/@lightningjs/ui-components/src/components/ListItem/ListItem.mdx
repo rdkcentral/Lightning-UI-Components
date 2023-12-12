@@ -27,8 +27,6 @@ import * as ButtonStories from '../Button/Button.stories';
 
 <Description of={ListItemStories} />
 
-<Description of={ListItemStories.ListItem} />
-
 ## Source
 
 https://github.com/rdkcentral/Lightning-UI-Components/tree/develop/packages/%40lightningjs/ui-components/src/components/ListItem
@@ -57,9 +55,15 @@ class Basic extends lng.Component {
 
 ## API
 
+### Button Properties
+
+`ListItem` extends `Button` therefore shares the same properties
+
+<ArgTypes of={ButtonStories} exclude={['mode']} />
+
 ### Properties
 
-`ListItem` has the same properties as the ones listed in [Button](?path=/docs/components-button--basic) in addition to a couple listed below:
+In addition the `Button` properties, `ListItem` has the following properties:
 
 <ArgTypes
   of={ListItemStories.ListItem}
@@ -76,9 +80,3 @@ class Basic extends lng.Component {
 | paddingX             | number | padding on left and right sides of text      |
 | contentSpacing       | number | padding between title and prefix             |
 | titleTextStyle       | object | text style to apply to the title             |
-
-### Button Properties
-
-List item extends button
-
-<ArgTypes of={ButtonStories} exclude={['mode']} />

@@ -58,7 +58,8 @@ export default {
       description:
         'When the fixed property is true, this will set the width of the component',
       table: {
-        defaultValue: { summary: 0 }
+        defaultValue: { summary: 0 },
+        type: { summary: 'number' }
       }
     },
     justify: {
@@ -66,7 +67,8 @@ export default {
       options: ['left', 'center', 'right'],
       description: 'Justification of button content',
       table: {
-        defaultValue: { summary: 'center' }
+        defaultValue: { summary: 'center' },
+        type: { summary: 'string' }
       }
     },
     prefix: {
@@ -74,7 +76,8 @@ export default {
       options: [null, 'icon', 'checkbox', 'combo'],
       description: 'Lightning components to be placed to the left of the title',
       table: {
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'object or array' }
       }
     },
     suffix: {
@@ -83,7 +86,8 @@ export default {
       description:
         'Lightning components to be placed to the right of the title',
       table: {
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: 'undefined' },
+        type: { summary: 'object or array' }
       }
     }
   },
