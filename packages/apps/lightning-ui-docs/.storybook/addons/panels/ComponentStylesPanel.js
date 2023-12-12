@@ -42,8 +42,7 @@ export default params => {
   //   });
   //   //storybookInit = true;
   // }
-  console.log(params);
-  console.log(component);
+
   return (
     <AddonPanel {...params}>
       <div className="component-styles-panel-wrapper">
