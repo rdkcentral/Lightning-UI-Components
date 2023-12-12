@@ -147,20 +147,18 @@ const extensions = [
 
 describe('withExtensions', () => {
   let withExtensionsComponent,
-    withExtensionsComponentSecondInstance,
     withExtensionsComponent2,
-    withExtensionsComponent3;
+    withExtensionsComponent3,
+    testRenderer,
+    renderTwoInstances;
 
   beforeEach(async () => {
     await context.setTheme({ extensions: extensions });
 
-    const firstComponentMaker = makeCreateComponent(
+    [withExtensionsComponent, testRenderer] = makeCreateComponent(
       withExtensions(Example),
       {}
-    );
-
-    [withExtensionsComponent] = firstComponentMaker();
-    [withExtensionsComponentSecondInstance] = firstComponentMaker();
+    )();
 
     [withExtensionsComponent2] = makeCreateComponent(
       withExtensions(Example2),
@@ -170,6 +168,16 @@ describe('withExtensions', () => {
       withExtensions(Example3),
       {}
     )();
+
+    renderTwoInstances = () => {
+      const app = testRenderer.getApp();
+      const firstInstance = app.stage.c({ type: withExtensions(Example) });
+      const secondInstance = app.stage.c({ type: withExtensions(Example) });
+      app.children = [firstInstance, secondInstance];
+      app.stage.drawFrame();
+      extensionMock.mockClear();
+      return [firstInstance, secondInstance];
+    };
   });
 
   afterEach(() => {
@@ -194,14 +202,15 @@ describe('withExtensions', () => {
   });
 
   it('returns the proper extensions for a second instance of component1', () => {
-    withExtensionsComponentSecondInstance._update();
+    const secondInstance = renderTwoInstances()[1];
+
+    extensionMock.mockClear();
+    secondInstance._update();
     expect(extensionMock.mock.calls[0][0]).toBe('extension 1');
     expect(extensionMock.mock.calls[1][0]).toBe('extension 2');
     expect(extensionMock.mock.calls[2][0]).toBe('extension 3');
     expect(extensionMock.mock.calls[3][0]).toBe('base component');
-    expect(withExtensionsComponentSecondInstance.testGetter).toBe(
-      'extension layer + test getter'
-    );
+    expect(secondInstance.testGetter).toBe('extension layer + test getter');
   });
 
   it('returns the proper extensions for components2', () => {
@@ -284,25 +293,28 @@ describe('withExtensions', () => {
   });
 
   it('removes overridden extension functions on theme change from all instances', async () => {
+    const [firstInstance, secondInstance] = renderTwoInstances();
+
     await context.setTheme({ extensions: [] }); // remove extension
 
-    withExtensionsComponent._update();
+    firstInstance._update();
     expect(extensionMock.mock.calls[0][0]).toBe('base component');
     expect(extensionMock).toHaveBeenCalledTimes(1);
     extensionMock.mockClear();
 
-    withExtensionsComponentSecondInstance._update();
+    secondInstance._update();
     expect(extensionMock.mock.calls[0][0]).toBe('base component');
     expect(extensionMock).toHaveBeenCalledTimes(1);
   });
 
   it('removes added methods on theme chage from all instances', async () => {
+    const [firstInstance, secondInstance] = renderTwoInstances();
+
     await context.setTheme({ extensions: [] }); // remove extension
-    expect(withExtensionsComponent._testAddedMethod).toBeUndefined();
-    expect(
-      withExtensionsComponentSecondInstance._testAddedMethod
-    ).toBeUndefined();
+    expect(firstInstance._testAddedMethod).toBeUndefined();
+    expect(secondInstance._testAddedMethod).toBeUndefined();
   });
+
   it('removes extension getters and setters on theme chage', async () => {
     await context.setTheme({ extensions: [] }); // remove extension
     withExtensionsComponent.testGetter = 'test';
