@@ -112,7 +112,7 @@ describe('InlineContent', () => {
     inlineContent.content = 'This should be in testTheme font.';
     await inlineContent.__updateSpyPromise;
     expect(context.theme.name).toBe('Test');
-    expect(inlineContent.style.textStyle).toEqual({
+    expect(inlineContent.style.textStyle).toMatchObject({
       ...context.theme.typography.body1,
       verticalAlign: 'bottom'
     });
