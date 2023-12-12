@@ -529,7 +529,7 @@ export const generateComponentStyleSource = ({
   }, {});
 
   const final = formatStyleObj(
-    removeEmptyObjects(colorParser({ theme }, solution)) || {},
+    removeEmptyObjects(themeParser({ theme }, solution)) || {},
     alias
   );
 
@@ -543,7 +543,7 @@ export const generateComponentStyleSource = ({
  * Default properties directly from @lightningjs/core to ensure correct fallback values
  *
  */
-const lightningTextDefaults = Object.entries(
+export const lightningTextDefaults = Object.entries(
   Object.getOwnPropertyDescriptors(lng.textures.TextTexture.prototype)
 ).reduce((acc, [prop]) => {
   const value = lng.textures.TextTexture.prototype[prop];
@@ -555,13 +555,41 @@ const lightningTextDefaults = Object.entries(
   };
 }, {});
 
+// exclude properties are not unique to the Text Texture as they would not
+// be reliable indicators that an object is a text style object
+const textStyleProps = Object.keys(lightningTextDefaults).filter(
+  val =>
+    ['paddingRight', 'paddingLeft', 'offsetY', 'h', 'w'].indexOf(val) === -1
+);
+
 /**
- * Parse and process a style object to replace theme strings and process color arrays.
+ * Return whether or not an object contains properties of the Lightning Text texture.
+ * @param {object} obj an object to check i
+ * @returns {boolean} Returns true if the object contains properties of the Lightning Text texture.
+ */
+export const isTextStyleObject = obj => {
+  if (typeof obj !== 'object' || obj === null) {
+    return false;
+  }
+  // check if any of the fields in textStyleProps exist in the object
+  for (let i = 0; i < textStyleProps.length; i++) {
+    const field = textStyleProps[i];
+    if (obj.hasOwnProperty(field)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+/**
+ * Parse and process a style object to:
+ *  - replace theme strings and process color arrays.
+ *  - generate new text style objects to prevent merging with previous objects if the theme changes
  * @param {object} targetObject - In most cases, this will be a theme object.
  * @param {object} styleObj - The input style object to be processed.
- * @returns {object} The processed style object with theme strings replaced and color arrays processed.
+ * @returns {object} The processed style object with theme strings replaced and color arrays processed and new text style objects generated.
  */
-export const colorParser = (targetObject, styleObj) => {
+export const themeParser = (targetObject, styleObj) => {
   // Check if targetObject is an object
   if (typeof targetObject !== 'object' || targetObject === null) {
     throw new TypeError('targetObject must be an object.');
@@ -585,7 +613,7 @@ export const colorParser = (targetObject, styleObj) => {
     // TODO: what is best way to detect a font obj?
     // Ensure text styles contain all default values from Text texture.
     // This prevents properties that exist on a previous theme persisting on the current theme when switching themes by creating a new object each time.
-    if (typeof value === 'object' && value?.fontFace) {
+    if (typeof value === 'object' && isTextStyleObject(value)) {
       return { ...lightningTextDefaults, ...value };
     }
     return value;

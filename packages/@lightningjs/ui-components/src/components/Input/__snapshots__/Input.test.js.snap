@@ -77,7 +77,10 @@ exports[`Input renders 1`] = `
             "Cursor",
           ],
           "texture": {
-            "type": "RectangleTexture",
+            "h": 40,
+            "precision": 0.6666666666666666,
+            "type": "TextTexture",
+            "w": 4,
           },
           "visible": true,
           "w": 4,

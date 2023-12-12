@@ -20,7 +20,8 @@ import {
   getStyleChain,
   formatStyleObj,
   replaceAliasValues,
-  colorParser
+  themeParser,
+  lightningTextDefaults
 } from './utils';
 import log from '../../globals/context/logger';
 
@@ -35,7 +36,7 @@ jest.mock('./utils', () => ({
   getValFromObjPath: jest.fn(),
   removeEmptyObjects: jest.fn(),
   getHexColor: jest.fn(),
-  colorParser: jest.fn()
+  themeParser: jest.fn()
 }));
 
 jest.mock('../../globals/context/logger', () => ({
@@ -921,7 +922,7 @@ describe('generateComponentStyleSource', () => {
   });
 });
 
-describe('colorParser', () => {
+describe('themeParser', () => {
   it('should parse style object with theme strings and color arrays', () => {
     const targetObject = {
       theme: {
@@ -936,7 +937,7 @@ describe('colorParser', () => {
       borderColor: ['#663399', 1]
     };
 
-    const result = colorParser(targetObject, styleObj);
+    const result = themeParser(targetObject, styleObj);
 
     const expectedOutput = {
       backgroundColor: '10',
@@ -953,7 +954,7 @@ describe('colorParser', () => {
 
     const styleObj = {};
 
-    const result = colorParser(targetObject, styleObj);
+    const result = themeParser(targetObject, styleObj);
 
     expect(result).toEqual({});
   });
@@ -965,7 +966,7 @@ describe('colorParser', () => {
       backgroundColor: 'theme.radius.md'
     };
 
-    expect(() => colorParser(targetObject, styleObj)).toThrow(TypeError);
+    expect(() => themeParser(targetObject, styleObj)).toThrow(TypeError);
   });
 
   it('should throw a TypeError if styleObj is not an object', () => {
@@ -975,7 +976,28 @@ describe('colorParser', () => {
 
     const styleObj = 'not an object'; // Passing a string instead of an object
 
-    expect(() => colorParser(targetObject, styleObj)).toThrow(TypeError);
+    expect(() => themeParser(targetObject, styleObj)).toThrow(TypeError);
+  });
+
+  it('should generate new text style objects', () => {
+    const targetObject = {
+      theme: {}
+    };
+
+    const styleObj = {
+      textStyle: {
+        fontSize: 12
+      }
+    };
+
+    const result = themeParser(targetObject, styleObj);
+
+    expect(result).toEqual({
+      textStyle: {
+        ...lightningTextDefaults,
+        fontSize: 12
+      }
+    });
   });
 });
 
