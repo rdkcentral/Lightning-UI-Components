@@ -27,13 +27,14 @@ import { createApp, clearInspector } from '../../../index';
 let previousID = null;
 let remountProps = {};
 
-/* 
-  returns boolean of if the story component should remount
-    returns true if any of the following are true
-    - if the selected story changed
-    - parameters.remountAll is true on the story
-    - an arg changes an its associated argType has a remount property set to true
-*/
+/**
+ * returns true if any of the following are true
+ *    - if the selected story changed
+ *    - parameters.remountAll is true on the story
+ *    - an arg changes an its associated argType has a remount property set to true
+ * @returns boolean of if the story component should remount
+ */
+
 function shouldTriggerUpdate({ id, args, argTypes, parameters }) {
   const storyChanged = previousID !== id;
   let triggerUpdate = storyChanged;
@@ -106,7 +107,7 @@ export const withLightning = (
               }
             ];
           }
-          // TODO: Assess what config.optimization.minimize is doing different in production vs develop
+          // FIXME: Assess what config.optimization.minimize is doing different in production vs develop - this was prior to v7 upgrade
           get componentTarget() {
             // using this check on type Element because production vs develop build issue
             return this.childList.first instanceof lng.Component
@@ -117,6 +118,7 @@ export const withLightning = (
             if (this.componentTarget) {
               // Notify application every time the style is updated. Used for componentStyles panel
               this.componentTarget.on('styleUpdated', () => {
+                //FIXME: why are we setting this time out here and in setup?
                 setTimeout(() => {
                   this.fireAncestors('$storyChanged');
                 });
@@ -148,7 +150,7 @@ export const withLightning = (
         ? 'ModeFocusState'
         : 'ModeUnfocusState'
     );
-  // // forces position update on theme change instead of just when triggerUpdate is true
+  //forces position update on theme change instead of just when triggerUpdate is true
   context.on('themeUpdate', () => {
     app.tag('StoryComponent') &&
       app.tag('StoryComponent').patch(

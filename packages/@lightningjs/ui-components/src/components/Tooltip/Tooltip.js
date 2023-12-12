@@ -80,11 +80,11 @@ export default class Tooltip extends Base {
     this._updateTextPosition();
   }
 
+  //NOTE: this only runs on initial load of story
   _updateBackground() {
     const backgroundH =
       this._Text.finalH + this.style.paddingY * 2 + this.style.pointerHeight;
     const backgroundW = this._Text.finalW + this.style.paddingX * 2;
-
     this.patch({
       w: backgroundW,
       h: backgroundH,

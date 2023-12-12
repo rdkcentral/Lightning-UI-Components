@@ -28,9 +28,22 @@ let component;
  */
 export default params => {
   const APP = globalApp();
+
+  // NOTE: loads panel properly from story to story but carries over props values from story to story if the props were changed in previous story
   if (APP) {
     component = APP._getFocused().childList.first;
   }
+  // NOTE: old logic
+  // only loads panel when changing stories not on initial load
+  // if (APP && storybookInit) {
+  //   APP.on('storyChanged', () => {
+  //     component = APP._getFocused().childList.first;
+  //     //if (component) updatePanel();
+  //   });
+  //   //storybookInit = true;
+  // }
+  console.log(params);
+  console.log(component);
   return (
     <AddonPanel {...params}>
       <div className="component-styles-panel-wrapper">
