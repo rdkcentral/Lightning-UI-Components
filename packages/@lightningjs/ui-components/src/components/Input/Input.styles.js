@@ -20,7 +20,7 @@ import { getWidthByUpCount } from '../../utils';
 
 export const base = theme => ({
   cursorStyle: {
-    textColor: theme.color.textNeutral,
+    color: theme.color.textNeutral,
     blink: true,
     width: theme.spacer.xs,
     height: theme.spacer.xxl
@@ -46,7 +46,7 @@ export const mode = theme => ({
     helpTextStyle: { textColor: theme.color.textNeutralDisabled }
   },
   focused: {
-    cursorStyle: { textColor: theme.color.textInverse },
+    cursorStyle: { color: theme.color.textInverse },
     eyebrowTextStyle: { textColor: theme.color.textNeutral },
     helpTextStyle: { textColor: theme.color.textNeutralSecondary }
   }
