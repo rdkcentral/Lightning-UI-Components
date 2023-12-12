@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { TableRow } from '../components';
 import { OptionsControl } from '@storybook/blocks';
-import { globalContext, updateGlobalTheme } from '../../utils/themeUtils';
+import { globalContext } from '../../utils/themeUtils';
 
 /**
- *
- * @returns row containing tone control
+ * @param {String} defaultTone - tone used to set initial state
+ * @param {String} componentName - name of the current component
+ * @returns row containing tone control set to defaultTone
  */
 export default function ToneRow({ defaultTone, componentName }) {
   const [tone, setToneState] = useState(defaultTone);
@@ -36,7 +37,6 @@ export default function ToneRow({ defaultTone, componentName }) {
           argType={{ options: ['neutral', 'inverse', 'brand'] }}
           onChange={val => {
             setToneState(val);
-            //updateToneValue(componentName, val, updateGlobals);
           }}
         />
       }

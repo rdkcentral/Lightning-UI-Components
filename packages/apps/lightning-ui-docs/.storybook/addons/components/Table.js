@@ -18,6 +18,12 @@
 
 import React from 'react';
 
+/**
+ *
+ * @param {String} title
+ * @param {Array} rows
+ * @returns a table with Property and Value headers
+ */
 export default function Table({ title, rows }) {
   return (
     <div style={{ marginBottom: '40px' }}>

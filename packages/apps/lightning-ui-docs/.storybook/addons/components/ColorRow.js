@@ -3,7 +3,6 @@ import { ColorControl } from '@storybook/blocks';
 import { updateGlobalTheme } from '../../utils/themeUtils';
 import { TableRow } from '../components';
 
-// REVIEW: these two update functions are doing similar things, can they combined into one?
 // used for both Number and Color component
 const updateComponentValue = (
   componentName,

@@ -12,15 +12,17 @@ import { getControlType, createTitle } from '../../utils/helpers';
 import { globalTheme } from '../../utils/themeUtils';
 
 /**
- *
- * @returns rows of component style controls
+ * @param {Object} component
+ * @param {cb_} updateGlobals - update any global value
+ * @returns an array containing rows of component style controls
  */
 function createStyleRows(component, updateGlobals) {
   const style = component._style;
 
   const theme = globalTheme();
   const componentName = component.constructor.__componentName;
-  // if the tone is already set on the componentConfig use it, otherwise use default
+
+  // if the tone is already set on the componentConfig use it, otherwise use neutral as default
   const defaultTone = theme?.componentConfig?.[componentName]?.tone
     ? theme.componentConfig[componentName].tone
     : 'neutral';
@@ -32,7 +34,6 @@ function createStyleRows(component, updateGlobals) {
     updateGlobals
   };
 
-  // create an array of control rows using the props from the component styles
   const rows = Object.keys(style || {}).reduce((acc, prop) => {
     const styleType = getControlType(style[prop]);
 
@@ -59,7 +60,7 @@ function createStyleRows(component, updateGlobals) {
     return acc;
   }, []);
 
-  // if a component has style props add a Tone row
+  // NOTE: logic needed, otherwise Tone Row will be added to all stories
   if (rows && rows.length) {
     rows.unshift(<ToneRow key={`Tone-${componentName}`} {...toneRowProps} />);
     return rows;
@@ -67,10 +68,10 @@ function createStyleRows(component, updateGlobals) {
 }
 
 /**
- *
- * @returns table of component style props
+ * @param {Object} component
+ * @returns a table of component styles if component has theme values
  */
-export default function ComponentStyleTable(component) {
+export default function ComponentStylesTable(component) {
   const [{ LUITheme }, updateGlobals] = useGlobals();
   const styledRows = createStyleRows(component, updateGlobals);
   if (styledRows && styledRows.length) {

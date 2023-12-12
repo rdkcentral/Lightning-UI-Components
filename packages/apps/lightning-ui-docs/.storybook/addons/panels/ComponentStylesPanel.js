@@ -18,8 +18,8 @@
 
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
-import { ComponentStyleTable } from '../components';
-import { globalApp } from '../../utils/themeUtils';
+import { ComponentStylesTable } from '../components';
+import { globalApp } from '../../utils/themeUtils.js';
 
 let component;
 
@@ -31,13 +31,12 @@ export default params => {
   if (APP) {
     component = APP._getFocused().childList.first;
   }
-
   return (
     <AddonPanel {...params}>
       <div className="component-styles-panel-wrapper">
         {params.active ? (
           <>
-            <ComponentStyleTable {...component} />
+            <ComponentStylesTable {...component} />
           </>
         ) : (
           <></>

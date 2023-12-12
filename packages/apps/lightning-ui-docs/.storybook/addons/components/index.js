@@ -22,4 +22,4 @@ export { default as NumberRow } from './NumberRow';
 export { default as ColorRow } from './ColorRow.js';
 export { default as ToneRow } from './ToneRow.js';
 export { default as ResetButton } from './ResetButton.js';
-export { default as ComponentStyleTable } from './ComponentStyleTable.js';
+export { default as ComponentStylesTable } from './ComponentStylesTable.js';

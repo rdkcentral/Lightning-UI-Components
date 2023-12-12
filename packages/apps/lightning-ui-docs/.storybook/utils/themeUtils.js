@@ -21,7 +21,7 @@ import { utils } from '@lightningjs/ui-components/src';
 import debounce from 'debounce';
 
 /**
- * @returns the Lightning App
+ * @returns
  * used in Component Styles Panel
  */
 export const globalApp = () =>
@@ -40,7 +40,10 @@ export const globalContext = () =>
   document.querySelector('iframe').contentWindow &&
   document.querySelector('iframe').contentWindow.CONTEXT;
 
-// Component Styles Panel, Theme Panel, Theme Picker
+/**
+ * used in Component Styles Panel, Theme Panel, Theme Picker
+ * @returns the global theme
+ */
 export const globalTheme = () => {
   const context = globalContext();
   return context && context.theme;
@@ -65,7 +68,7 @@ export function setGlobalTheme(theme, updateGlobals) {
 }
 
 /**
- * updates globalTheme with updates past in and creates a custom theme
+ * updates globalTheme with updates past in, creates a custom theme, updates global LUITheme to * custom
  * used in Component Styles and Theme Panels
  */
 
@@ -94,7 +97,11 @@ export const updateGlobalTheme = (
   }
 };
 
-// Functions Specific to color updates
+/**
+ * delays update to color value
+ * @returns a color value in proper format
+ */
+
 const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
   updateGlobalTheme(
     { color: { [name]: utils.getValidColor(value) } },
@@ -102,7 +109,9 @@ const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
   );
 }, 500);
 
-// used in Theme Panel
+/**
+ *  used in Theme Panel
+ */
 export function colorUpdate() {
   debouncedColorUpdate(...arguments);
 }
