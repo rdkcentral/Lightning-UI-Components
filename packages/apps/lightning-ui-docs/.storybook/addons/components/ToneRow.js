@@ -13,7 +13,6 @@ export default function ToneRow({ defaultTone, componentName }) {
 
   useEffect(() => {
     const context = globalContext();
-    console.log(context);
     if (context) {
       context.updateTheme({
         componentConfig: {
