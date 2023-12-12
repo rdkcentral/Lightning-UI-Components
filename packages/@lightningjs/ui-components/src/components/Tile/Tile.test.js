@@ -195,7 +195,7 @@ describe('Tile', () => {
     it('updates artwork scale when imageScale is updated', async () => {
       tile.artwork = { src: sampleImage };
       testRenderer.focus();
-      expect(tile._Artwork.style.imageScale).toBe(tile.style.imageScale); // base theme does not have a image scale change on focus
+      expect(tile._Artwork.style.imageScale).toBe(1); // imageScale for Artwork is 1
       tile.artwork.style = { imageScale: 2 };
       await tile.__updateArtworkSpyPromise;
       expect(tile._Artwork.style.imageScale).toBe(2);
