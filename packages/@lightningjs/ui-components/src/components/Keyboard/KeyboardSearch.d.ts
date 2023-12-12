@@ -16,27 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Keyboard, {
-  KeyboardStyle,
-  KeyboardFormat,
-  KeyboardSelectedKeyPosition
-} from './Keyboard';
-import KeyboardEmail from './KeyboardEmail';
-import KeyboardFullscreen from './KeyboardFullscreen';
-import KeyboardNumbers from './KeyboardNumbers';
-import KeyboardQwerty from './KeyboardQwerty';
-import KeyboardInput from './KeyboardInput';
-import KeyboardSearch from './KeyboardSearch';
+import Keyboard from './Keyboard';
 
-export {
-  Keyboard as default,
-  KeyboardStyle,
-  KeyboardFormat,
-  KeyboardSelectedKeyPosition,
-  KeyboardEmail,
-  KeyboardFullscreen,
-  KeyboardNumbers,
-  KeyboardQwerty,
-  KeyboardInput,
-  KeyboardSearch
-};
+export default class KeyboardSearch extends Keyboard {}

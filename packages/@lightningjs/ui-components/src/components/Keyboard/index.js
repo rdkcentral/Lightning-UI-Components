@@ -22,6 +22,7 @@ import KeyboardFullscreen from './KeyboardFullscreen';
 import KeyboardNumbers from './KeyboardNumbers';
 import KeyboardQwerty from './KeyboardQwerty';
 import KeyboardInput from './KeyboardInput';
+import KeyboardSearch from './KeyboardSearch';
 
 export {
   Keyboard as default,
@@ -29,5 +30,6 @@ export {
   KeyboardFullscreen,
   KeyboardNumbers,
   KeyboardQwerty,
-  KeyboardInput
+  KeyboardInput,
+  KeyboardSearch
 };
