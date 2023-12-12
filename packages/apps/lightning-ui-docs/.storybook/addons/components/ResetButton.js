@@ -1,7 +1,6 @@
 import React from 'react';
 import { useGlobals } from '@storybook/manager-api';
 import { Button } from '@storybook/components';
-import { setGlobalTheme } from '../../utils/themeUtils';
 
 // TODO: add style to button to properly align in table
 // NOTE: New Feature to mimic controls panel reset button

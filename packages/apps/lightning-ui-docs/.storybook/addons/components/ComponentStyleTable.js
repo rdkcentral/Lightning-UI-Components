@@ -17,6 +17,7 @@ import { globalTheme } from '../../utils/themeUtils';
  */
 function createStyleRows(component, updateGlobals) {
   const style = component._style;
+
   const theme = globalTheme();
   const componentName = component.constructor.__componentName;
   // if the tone is already set on the componentConfig use it, otherwise use default
@@ -24,7 +25,7 @@ function createStyleRows(component, updateGlobals) {
     ? theme.componentConfig[componentName].tone
     : 'neutral';
 
-  // only props that get passed to ToneRow component
+  //  props passed to ToneRow component
   const toneRowProps = {
     defaultTone: defaultTone,
     componentName: componentName,
@@ -41,7 +42,7 @@ function createStyleRows(component, updateGlobals) {
         ? lng.StageUtils.getRgbaString(style[prop])
         : style[prop];
 
-    // contains only props for rows
+    // props passed to Number or Color Rows
     const rowProps = {
       defaultValue: propValue,
       componentName: component.constructor.__componentName,
@@ -49,6 +50,7 @@ function createStyleRows(component, updateGlobals) {
       updateGlobals
     };
 
+    // logic to add either Color or Number row
     if (styleType === 'color') {
       acc.push(<ColorRow key={`Color-${prop}`} {...rowProps} />);
     } else if (styleType === 'number') {
@@ -57,6 +59,7 @@ function createStyleRows(component, updateGlobals) {
     return acc;
   }, []);
 
+  // if a component has style props add a Tone row
   if (rows && rows.length) {
     rows.unshift(<ToneRow key={`Tone-${componentName}`} {...toneRowProps} />);
     return rows;

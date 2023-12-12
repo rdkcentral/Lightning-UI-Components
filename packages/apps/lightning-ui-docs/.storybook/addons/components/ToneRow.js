@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TableRow } from '../components';
 import { OptionsControl } from '@storybook/blocks';
-import { updateGlobalTheme } from '../../utils/themeUtils';
-
-// used for Tone component
-const updateToneValue = (componentName, value, updateGlobals) => {
-  updateGlobalTheme(
-    {
-      componentConfig: {
-        [componentName]: {
-          tone: value
-        }
-      }
-    },
-    updateGlobals
-  );
-};
+import { globalContext, updateGlobalTheme } from '../../utils/themeUtils';
 
 /**
  *
  * @returns row containing tone control
  */
-export default function ToneRow({ defaultTone, componentName, updateGlobals }) {
-  const [toneState, setToneState] = useState(defaultTone);
+export default function ToneRow({ defaultTone, componentName }) {
+  const [tone, setToneState] = useState(defaultTone);
+
+  useEffect(() => {
+    const context = globalContext();
+    console.log(context);
+    if (context) {
+      context.updateTheme({
+        componentConfig: {
+          [componentName]: {
+            tone
+          }
+        }
+      });
+    }
+  }, [tone]);
 
   return (
     <TableRow
@@ -32,11 +32,11 @@ export default function ToneRow({ defaultTone, componentName, updateGlobals }) {
           name="tones"
           key="Tones-one"
           type="inline-radio"
-          value={toneState}
+          value={tone}
           argType={{ options: ['neutral', 'inverse', 'brand'] }}
           onChange={val => {
             setToneState(val);
-            updateToneValue(componentName, val, updateGlobals);
+            //updateToneValue(componentName, val, updateGlobals);
           }}
         />
       }

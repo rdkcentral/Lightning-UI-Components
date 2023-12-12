@@ -18,8 +18,6 @@
 import { utils } from '@lightningjs/ui-components/src';
 
 /**
- *
- * @param {*} color
  * @returns returns number in a Hex Alpha Array format
  */
 export function convertNumToHexAlphaArray(color) {
@@ -40,8 +38,6 @@ export function getRgbaString(color) {
 }
 
 /**
- *
- * @param {*} c
  * @returns returns a color in hex format
  */
 export function componentToHex(c) {
@@ -50,10 +46,6 @@ export function componentToHex(c) {
 }
 
 /**
- *
- * @param {*} r
- * @param {*} g
- * @param {*} b
  * @returns a color converted from rgb to hex
  */
 export function rgbToHex(r, g, b) {
@@ -61,8 +53,6 @@ export function rgbToHex(r, g, b) {
 }
 
 /**
- *
- * @param {String} value - the value to evaluated
  * @returns string of control type to use
  */
 export function getControlType(value) {
