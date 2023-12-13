@@ -34,6 +34,8 @@ export interface WithExtensions {
   _instanceNeedsReset(): boolean;
   _resetPrototype(): void;
   _handleThemeChange(): void;
+  _markInstanceUpToDate(): void;
+  _markClassUpToDate(): void;
 }
 
 export interface WithExtensionsConstructor {

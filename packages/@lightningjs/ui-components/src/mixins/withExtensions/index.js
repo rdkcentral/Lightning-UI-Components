@@ -18,6 +18,24 @@
 
 import { context } from '../../globals';
 
+/**
+ * Note on how instance createExtensions cleanup are handled:
+ *
+ * 1. If you're a new instance and prototype doesn't have extension, run createExtensions
+ *  and mark instance and prototype as up to date
+ *
+ * 2. A second instance will be marked as instance up to date, and createExtension won't need to run
+ *
+ * 3. If theme changes with instances attached, they all run cleanup, and then each tries to run checkAndCreateExtension.
+ * This will run createExtension the first time, and then mark all other instances as up to date without running createExtension
+ *
+ * 4. If theme changes when instances exist but are not attached, their cleanup listeners won't run.
+ * Instead, on attach, we check if both the instance and prototype needs updating.
+ * We don't end up repeatedly calling extensionCleanup on attach because in the _construct hook for a new instance
+ * We start with the latest timestamp.
+ *
+ */
+
 const SUFFIX = '__original';
 
 export default function withExtensions(Base) {
@@ -134,9 +152,10 @@ export default function withExtensions(Base) {
       // Here we are assuming it's ok to run _extensionCleanup at any time, even if the extension code has never run in an update cycle
       if (this._instanceNeedsReset()) {
         this._resetComponent();
+        this._markInstanceUpToDate();
       }
 
-      if (!this._prototypeHasLatestExtensions()) {
+      if (!this._classHasLatestExtensions()) {
         this._resetPrototype();
         this._checkAndCreateExtension();
       }
@@ -161,10 +180,11 @@ export default function withExtensions(Base) {
      * Triggers cleanup and creation of new extended component prototype for component instances that are attached during a theme change
      */
     _handleThemeChange() {
-      if (!this._prototypeHasLatestExtensions()) {
+      if (!this._classHasLatestExtensions()) {
         this._resetPrototype();
-        this._checkAndCreateExtension();
       }
+
+      this._checkAndCreateExtension();
     }
 
     /**
@@ -205,10 +225,10 @@ export default function withExtensions(Base) {
     }
 
     /**
-     * Checks if prototype extensions are out of date with theme
+     * Checks if class extensions are out of date with theme
      * @returns {boolean}
      */
-    _prototypeHasLatestExtensions() {
+    _classHasLatestExtensions() {
       return (
         this.constructor._lastThemeUpdateTimestamp &&
         this.constructor._lastThemeUpdateTimestamp ===
@@ -228,15 +248,30 @@ export default function withExtensions(Base) {
     }
 
     /**
+     * Sets instance tracking property to latest theme timestamp
+     */
+    _markInstanceUpToDate() {
+      this._instanceLastThemeUpdateTimestamp =
+        context.theme.lastUpdateTimestamp;
+    }
+
+    /**
+     * Sets constructor tracking property to latest theme timestamp
+     */
+    _markClassUpToDate() {
+      this.constructor._lastThemeUpdateTimestamp =
+        context.theme.lastUpdateTimestamp;
+    }
+
+    /**
      * Conditionally created extensions once per Component class
      * @returns {boolean}
      */
     _checkAndCreateExtension() {
       // Only setup once per component
-      if (this._prototypeHasLatestExtensions()) {
+      if (this._classHasLatestExtensions()) {
         // track at the instance level as well in case of re-used instances after a theme change
-        this._instanceLastThemeUpdateTimestamp =
-          context.theme.lastUpdateTimestamp;
+        this._markInstanceUpToDate();
         return false;
       }
       this._createExtension();
@@ -319,11 +354,8 @@ export default function withExtensions(Base) {
         }
       });
 
-      this.constructor._lastThemeUpdateTimestamp =
-        context.theme.lastUpdateTimestamp;
-
-      this._instanceLastThemeUpdateTimestamp =
-        context.theme.lastUpdateTimestamp;
+      this._markClassUpToDate();
+      this._markInstanceUpToDate();
     }
   };
 }
