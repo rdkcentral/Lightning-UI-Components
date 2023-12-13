@@ -161,13 +161,10 @@ export default function withExtensions(Base) {
      * Triggers cleanup and creation of new extended component prototype for component instances that are attached during a theme change
      */
     _handleThemeChange() {
-      // Must run a frame after so all active instances may run extensionCleanup first
-      setTimeout(() => {
-        if (!this._prototypeHasLatestExtensions()) {
-          this._resetPrototype();
-          this._checkAndCreateExtension();
-        }
-      }, 0);
+      if (!this._prototypeHasLatestExtensions()) {
+        this._resetPrototype();
+        this._checkAndCreateExtension();
+      }
     }
 
     /**

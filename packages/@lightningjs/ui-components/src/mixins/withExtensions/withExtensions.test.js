@@ -17,10 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import {
-  makeCreateComponent,
-  nextTick
-} from '@lightningjs/ui-components-test-utils';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import withExtensions, { getAllCustomDescriptors } from '.';
 import { context } from '../../globals';
 import { jest } from '@jest/globals';
@@ -153,8 +150,7 @@ describe('withExtensions', () => {
     withExtensionsComponent2,
     withExtensionsComponent3,
     testRenderer,
-    renderTwoInstances,
-    testComponentType;
+    renderTwoInstances;
 
   beforeEach(async () => {
     await context.setTheme({ extensions: extensions });
@@ -292,7 +288,7 @@ describe('withExtensions', () => {
         }
       ]
     });
-    await nextTick();
+
     withExtensionsComponent._update();
     expect(extensionMock).toHaveBeenCalledWith('from string');
   });
@@ -337,7 +333,6 @@ describe('withExtensions', () => {
     const [firstInstance, secondInstance] = renderTwoInstances();
 
     await context.setTheme({ extensions: [] }); // remove extension
-    await nextTick();
     firstInstance._update();
     expect(extensionMock.mock.calls[0][0]).toBe('base component');
     expect(extensionMock).toHaveBeenCalledTimes(1);
@@ -352,14 +347,12 @@ describe('withExtensions', () => {
     const [firstInstance, secondInstance] = renderTwoInstances();
 
     await context.setTheme({ extensions: [] }); // remove extension
-    await nextTick();
     expect(firstInstance._testAddedMethod).toBeUndefined();
     expect(secondInstance._testAddedMethod).toBeUndefined();
   });
 
   it('removes extension getters and setters on theme change', async () => {
     await context.setTheme({ extensions: [] }); // remove extension
-    await nextTick();
     withExtensionsComponent.testGetter = 'test';
     expect(withExtensionsComponent.testGetter).toBe('test');
   });
@@ -374,7 +367,6 @@ describe('withExtensions', () => {
 
     // change theme
     await context.setTheme({ extensions: [] }); // remove extension
-    await nextTick();
 
     expect(firstInstance._instanceNeedsReset()).toBe(true);
     expect(secondInstance._instanceNeedsReset()).toBe(true);
