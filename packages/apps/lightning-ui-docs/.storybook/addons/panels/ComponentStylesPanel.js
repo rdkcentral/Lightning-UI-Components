@@ -22,25 +22,34 @@ import { ComponentStylesTable } from '../components';
 import { globalApp } from '../../utils/themeUtils.js';
 
 let component;
-
+let storybookInit;
 /**
  * @returns the full Component Style Panel add-on
  */
 export default params => {
   const APP = globalApp();
 
-  // NOTE: loads panel properly from story to story but carries over props values from story to story if the props were changed in previous story
+  /**
+   * TODO: update controls when changing from Story to story
+   */
+  const updatePanel = () => {
+    console.log('updatePanel');
+  };
+  // NOTE: loads panel properly from story to story but carries over props values in control but not in the theme from story to story if the props were changed in previous story
   if (APP) {
     component = APP._getFocused().childList.first;
+    //updatePanel();
   }
+
   // NOTE: old logic
-  // only loads panel when changing stories not on initial load
-  // if (APP && storybookInit) {
+  // only loads panel when changing stories not on initial load, a little wonky between stories too
+
+  // if (APP && !storybookInit) {
   //   APP.on('storyChanged', () => {
   //     component = APP._getFocused().childList.first;
-  //     //if (component) updatePanel();
+  //     //if (component) updatePanel(); // NOTE: updatePanel called setFields & updateTone
   //   });
-  //   //storybookInit = true;
+  //   storybookInit = true;
   // }
 
   return (
