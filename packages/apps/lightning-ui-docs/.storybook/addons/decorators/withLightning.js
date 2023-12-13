@@ -34,7 +34,6 @@ let remountProps = {};
  *    - an arg changes an its associated argType has a remount property set to true
  * @returns boolean of if the story component should remount
  */
-
 function shouldTriggerUpdate({ id, args, argTypes, parameters }) {
   const storyChanged = previousID !== id;
   let triggerUpdate = storyChanged;

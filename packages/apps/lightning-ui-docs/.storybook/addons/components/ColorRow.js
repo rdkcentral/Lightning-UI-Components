@@ -1,26 +1,7 @@
 import React, { useState } from 'react';
 import { ColorControl } from '@storybook/blocks';
-import { updateGlobalTheme } from '../../utils/themeUtils';
+import { updateComponentValue } from './componentUtils';
 import { TableRow } from '../components';
-
-// TODO: move to universal location, used for both Number and Color component
-const updateComponentValue = (
-  componentName,
-  styleProp,
-  value,
-  updateGlobals
-) => {
-  updateGlobalTheme(
-    {
-      componentConfig: {
-        [componentName]: {
-          style: { [styleProp]: value }
-        }
-      }
-    },
-    updateGlobals
-  );
-};
 
 /**
  *

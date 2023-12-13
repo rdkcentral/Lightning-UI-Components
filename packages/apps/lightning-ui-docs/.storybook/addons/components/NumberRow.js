@@ -18,27 +18,8 @@
 
 import React, { useState } from 'react';
 import { NumberControl } from '@storybook/blocks';
-import { updateGlobalTheme } from '../../utils/themeUtils';
+import { updateComponentValue } from './componentUtils';
 import TableRow from './TableRow';
-
-// TODO: move this to universal location, used for both Number and Color component
-const updateComponentValue = (
-  componentName,
-  styleProp,
-  value,
-  updateGlobals
-) => {
-  updateGlobalTheme(
-    {
-      componentConfig: {
-        [componentName]: {
-          style: { [styleProp]: value }
-        }
-      }
-    },
-    updateGlobals
-  );
-};
 
 /**
  * @returns a style row with a number control

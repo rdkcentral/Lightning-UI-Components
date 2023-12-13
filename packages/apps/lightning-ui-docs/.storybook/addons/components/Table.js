@@ -20,8 +20,8 @@ import React from 'react';
 
 /**
  *
- * @param {String} title
- * @param {Array} rows
+ * @param {String} title - title of the table
+ * @param {Array} rows - rows of elements
  * @returns a table with Property and Value headers
  */
 export default function Table({ title, rows }) {
