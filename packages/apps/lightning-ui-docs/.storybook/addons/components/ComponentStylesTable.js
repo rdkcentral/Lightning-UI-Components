@@ -47,23 +47,29 @@ function createStyleRows(component, updateGlobals) {
     const rowProps = {
       version: version,
       defaultValue: propValue,
-      componentName: component.constructor.__componentName,
+      componentName: componentName,
       styleProp: prop,
       updateGlobals
     };
-
+    console.log('rowProps', rowProps);
     // logic to add either Color or Number row
     if (styleType === 'color') {
-      acc.push(<ColorRow key={`Color-${prop}`} {...rowProps} />);
+      acc.push(
+        <ColorRow key={`${componentName}-${prop}-${version}`} {...rowProps} />
+      );
     } else if (styleType === 'number') {
-      acc.push(<NumberRow key={`Number-${prop}`} {...rowProps} />);
+      acc.push(
+        <NumberRow key={`${componentName}-${prop}-${version}`} {...rowProps} />
+      );
     }
     return acc;
   }, []);
 
   // NOTE: logic needed, otherwise Tone Row will be added to all stories
   if (rows && rows.length) {
-    rows.unshift(<ToneRow key={`Tone-${componentName}`} {...toneRowProps} />);
+    rows.unshift(
+      <ToneRow key={`Tone-${componentName}-${version}`} {...toneRowProps} />
+    );
     return rows;
   }
 }

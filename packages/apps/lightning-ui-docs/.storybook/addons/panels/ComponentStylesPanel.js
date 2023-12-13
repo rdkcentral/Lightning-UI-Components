@@ -22,7 +22,7 @@ import { ComponentStylesTable } from '../components';
 import { globalApp } from '../../utils/themeUtils.js';
 
 let component;
-let storybookInit;
+//let storybookInit;
 /**
  * @returns the full Component Style Panel add-on
  */

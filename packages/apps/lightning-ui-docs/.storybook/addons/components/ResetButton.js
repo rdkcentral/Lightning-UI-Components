@@ -11,7 +11,7 @@ import { setGlobalTheme } from '../../utils/themeUtils';
 
 export default function ResetButton() {
   const [{ LUITheme }, updateGlobals] = useGlobals();
-  /**
+  /*
    * handles resetting globals && controls??
    */
   const handleReset = () => {
