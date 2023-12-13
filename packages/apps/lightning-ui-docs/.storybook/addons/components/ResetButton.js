@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGlobals } from '@storybook/manager-api';
 import { Button } from '@storybook/components';
+import { setGlobalTheme } from '../../utils/themeUtils';
 
 // TODO: add style to button to properly align in table
 // NOTE: New Feature to mimic controls panel reset button
@@ -16,8 +17,8 @@ export default function ResetButton() {
    */
   const handleReset = () => {
     //TODO: create logic to reset styles in rows
-    //FIXME: this resets just the name, needs to reset component prop values too
-    return updateGlobals({ LUITheme: 'base' });
+    //FIXME: resets to Base, need to reset to selected original theme
+    return setGlobalTheme('base', updateGlobals);
   };
 
   return (
