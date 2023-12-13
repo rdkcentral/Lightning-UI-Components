@@ -117,25 +117,54 @@ export default function withExtensions(Base) {
     }
 
     _construct() {
-      this._setupExtensionBound = this._setupExtension.bind(this);
-      context.on('themeUpdate', this._setupExtensionBound);
+      // On theme change, cleanup all active instance extensions
+      this._resetComponentBound = this._resetComponent.bind(this);
+      context.on('themeUpdate', this._resetComponentBound);
+
+      // Then cleanup prototype
+      this._handleThemeChangeBound = this._handleThemeChange.bind(this);
+      context.on('themeUpdate', this._handleThemeChangeBound);
+
       this._createExtension();
       super._construct();
     }
 
-    _detach() {
-      super._detach();
-      context.off('themeUpdate', this._setupExtensionBound);
+    _attach() {
+      // If you have a component instance that was detached, but then reused, need to check if the extensions need to be updated
+      // Here we are assuming it's ok to run _extensionCleanup at any time, even if the extension code has never run in an update cycle
+      if (this._instanceNeedsReset()) {
+        this._resetComponent();
+      }
+
+      if (!this._prototypeHasLatestExtensions()) {
+        this._resetPrototype();
+        this._createExtension();
+      }
+
+      super._attach();
     }
 
-    _setupExtension() {
-      this._resetComponent();
-      this.constructor._withExtensionsApplied = false;
-      this._createExtension();
+    _detach() {
+      super._detach();
+      context.off('themeUpdate', this._resetComponentBound);
+      context.off('themeUpdate', this._handleThemeChangeBound);
     }
 
     _resetComponent() {
       this._extensionCleanup && this._extensionCleanup();
+    }
+
+    _handleThemeChange() {
+      // Must run a frame after so all active instances may run extensionCleanup first
+      setTimeout(() => {
+        if (!this._prototypeHasLatestExtensions()) {
+          this._resetPrototype();
+          this._createExtension();
+        }
+      }, 0);
+    }
+
+    _resetPrototype() {
       const thisPrototype = Object.getPrototypeOf(this);
 
       // Cleanup added props: just delete
@@ -169,9 +198,25 @@ export default function withExtensions(Base) {
       }
     }
 
+    _prototypeHasLatestExtensions() {
+      return (
+        this.constructor._lastThemeUpdateTimestamp &&
+        this.constructor._lastThemeUpdateTimestamp ===
+          context.theme.lastUpdateTimestamp
+      );
+    }
+    _instanceNeedsReset() {
+      return (
+        this._instanceLastThemeUpdateTimestamp !==
+        context.theme.lastUpdateTimestamp
+      );
+    }
     _createExtension() {
       // Only setup once per component
-      if (this.constructor._withExtensionsApplied) {
+      if (this._prototypeHasLatestExtensions()) {
+        // track at the instance level as well in case of re-used instances after a theme change
+        this._instanceLastThemeUpdateTimestamp =
+          context.theme.lastUpdateTimestamp;
         return;
       }
       class ExtensionBaseClass {}
@@ -246,7 +291,11 @@ export default function withExtensions(Base) {
         }
       });
 
-      this.constructor._withExtensionsApplied = true;
+      this.constructor._lastThemeUpdateTimestamp =
+        context.theme.lastUpdateTimestamp;
+
+      this._instanceLastThemeUpdateTimestamp =
+        context.theme.lastUpdateTimestamp;
     }
   };
 }

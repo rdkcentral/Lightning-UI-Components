@@ -19,7 +19,8 @@
 import lng from '@lightningjs/core';
 
 export interface WithExtensions {
-  _withExtensionsApplied?: boolean;
+  _instanceLastThemeUpdateTimestamp?: number;
+
   get _prototypeChain(): Set<string>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get _extensions(): Record<string, any>[];
@@ -29,9 +30,14 @@ export interface WithExtensions {
   _calculateComponentExtensionLength(): number;
   _createExtension(): void;
   _setupExtension(): void;
+  _instanceNeedsReset(): boolean;
+  _resetPrototype(): void;
+  _handleThemeChange(): void;
 }
 
 export interface WithExtensionsConstructor {
+  _lastThemeUpdateTimestamp?: number;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   new (...args: any[]): WithExtensions;
 }

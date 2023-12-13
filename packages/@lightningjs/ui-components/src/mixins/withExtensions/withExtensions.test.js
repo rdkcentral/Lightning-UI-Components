@@ -17,7 +17,10 @@
  */
 
 import lng from '@lightningjs/core';
-import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+import {
+  makeCreateComponent,
+  nextTick
+} from '@lightningjs/ui-components-test-utils';
 import withExtensions, { getAllCustomDescriptors } from '.';
 import { context } from '../../globals';
 import { jest } from '@jest/globals';
@@ -184,10 +187,10 @@ describe('withExtensions', () => {
     extensionMock.mockClear();
   });
 
-  it('returns true for _withExtensionsApplied to ensure prototypes are only modified once', () => {
-    expect(withExtensionsComponent.constructor._withExtensionsApplied).toBe(
-      true
-    );
+  it('returns the theme timestamp for _lastThemeUpdateTimestamp to ensure prototypes are only modified once', () => {
+    expect(
+      withExtensionsComponent.constructor._lastThemeUpdateTimestamp
+    ).toEqual(expect.any(Number));
   });
 
   it('returns the proper extensions for component1', () => {
@@ -231,15 +234,8 @@ describe('withExtensions', () => {
     expect(extensionMock).toHaveBeenCalledWith('extension 3');
   });
 
-  it('allows extensions to be applied via a string', done => {
-    context.on('themeUpdate', () => {
-      setTimeout(() => {
-        withExtensionsComponent._update();
-        expect(extensionMock).toHaveBeenCalledWith('from string');
-        done();
-      }, 0);
-    });
-    context.setTheme({
+  it('allows extensions to be applied via a string', async () => {
+    await context.setTheme({
       extensions: [
         {
           targetComponent: 'Example',
@@ -254,6 +250,9 @@ describe('withExtensions', () => {
         }
       ]
     });
+    await nextTick();
+    withExtensionsComponent._update();
+    expect(extensionMock).toHaveBeenCalledWith('from string');
   });
 
   it('allows getters and setters to be overwritten at the extension level', () => {
@@ -296,7 +295,7 @@ describe('withExtensions', () => {
     const [firstInstance, secondInstance] = renderTwoInstances();
 
     await context.setTheme({ extensions: [] }); // remove extension
-
+    await nextTick();
     firstInstance._update();
     expect(extensionMock.mock.calls[0][0]).toBe('base component');
     expect(extensionMock).toHaveBeenCalledTimes(1);
@@ -311,14 +310,38 @@ describe('withExtensions', () => {
     const [firstInstance, secondInstance] = renderTwoInstances();
 
     await context.setTheme({ extensions: [] }); // remove extension
+    await nextTick();
     expect(firstInstance._testAddedMethod).toBeUndefined();
     expect(secondInstance._testAddedMethod).toBeUndefined();
   });
 
-  it('removes extension getters and setters on theme chage', async () => {
+  it('removes extension getters and setters on theme change', async () => {
     await context.setTheme({ extensions: [] }); // remove extension
+    await nextTick();
     withExtensionsComponent.testGetter = 'test';
     expect(withExtensionsComponent.testGetter).toBe('test');
+  });
+
+  it('cleans up extensions even if component instances have been detached and reused', async () => {
+    const app = testRenderer.getApp();
+    const [firstInstance, secondInstance] = renderTwoInstances();
+
+    // detach instances
+    app.children = [];
+    app.stage.drawFrame();
+
+    // change theme
+    await context.setTheme({ extensions: [] }); // remove extension
+    await nextTick();
+
+    expect(firstInstance._instanceNeedsReset()).toBe(true);
+    expect(secondInstance._instanceNeedsReset()).toBe(true);
+
+    // re-attach instances
+    app.children = [firstInstance, secondInstance];
+
+    expect(firstInstance._testAddedMethod).toBeUndefined();
+    expect(secondInstance._testAddedMethod).toBeUndefined();
   });
 });
 
