@@ -153,7 +153,8 @@ describe('withExtensions', () => {
     withExtensionsComponent2,
     withExtensionsComponent3,
     testRenderer,
-    renderTwoInstances;
+    renderTwoInstances,
+    testComponentType;
 
   beforeEach(async () => {
     await context.setTheme({ extensions: extensions });
@@ -174,8 +175,9 @@ describe('withExtensions', () => {
 
     renderTwoInstances = () => {
       const app = testRenderer.getApp();
-      const firstInstance = app.stage.c({ type: withExtensions(Example) });
-      const secondInstance = app.stage.c({ type: withExtensions(Example) });
+      const testComponentType = withExtensions(Example);
+      const firstInstance = app.stage.c({ type: testComponentType });
+      const secondInstance = app.stage.c({ type: testComponentType });
       app.children = [firstInstance, secondInstance];
       app.stage.drawFrame();
       extensionMock.mockClear();
@@ -185,12 +187,52 @@ describe('withExtensions', () => {
 
   afterEach(() => {
     extensionMock.mockClear();
+    cleanupMock.mockClear();
   });
 
   it('returns the theme timestamp for _lastThemeUpdateTimestamp to ensure prototypes are only modified once', () => {
     expect(
       withExtensionsComponent.constructor._lastThemeUpdateTimestamp
     ).toEqual(expect.any(Number));
+  });
+
+  it('Calls createExtension method once for  all instances of a component class until the theme is changed', async () => {
+    const app = testRenderer.getApp();
+    const testComponentType = withExtensions(Example);
+    jest.spyOn(testComponentType.prototype, '_createExtension');
+
+    app.stage.c({ type: testComponentType });
+    expect(testComponentType.prototype._createExtension).toHaveBeenCalled();
+
+    jest.clearAllMocks();
+
+    app.stage.c({ type: testComponentType });
+    expect(testComponentType.prototype._createExtension).not.toHaveBeenCalled();
+
+    await context.setTheme({ extensions: [] });
+
+    app.stage.c({ type: testComponentType });
+    expect(testComponentType.prototype._createExtension).toHaveBeenCalled();
+    jest.clearAllMocks();
+  });
+
+  it('Calls createExtension method once for all reused instances of a class when they are attached after a theme change ', async () => {
+    const app = testRenderer.getApp();
+    const testComponentType = withExtensions(Example);
+    jest.spyOn(testComponentType.prototype, '_createExtension');
+    app.children = [];
+
+    const firstInstance = app.stage.c({ type: testComponentType });
+    const secondInstance = app.stage.c({ type: testComponentType });
+    jest.clearAllMocks();
+
+    await context.setTheme({ extensions: [] });
+    app.children = [firstInstance, secondInstance];
+    expect(testComponentType.prototype._createExtension).toHaveBeenCalledTimes(
+      1
+    );
+
+    jest.clearAllMocks();
   });
 
   it('returns the proper extensions for component1', () => {

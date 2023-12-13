@@ -125,7 +125,7 @@ export default function withExtensions(Base) {
       this._handleThemeChangeBound = this._handleThemeChange.bind(this);
       context.on('themeUpdate', this._handleThemeChangeBound);
 
-      this._createExtension();
+      this._checkAndCreateExtension();
       super._construct();
     }
 
@@ -138,7 +138,7 @@ export default function withExtensions(Base) {
 
       if (!this._prototypeHasLatestExtensions()) {
         this._resetPrototype();
-        this._createExtension();
+        this._checkAndCreateExtension();
       }
 
       super._attach();
@@ -150,20 +150,29 @@ export default function withExtensions(Base) {
       context.off('themeUpdate', this._handleThemeChangeBound);
     }
 
+    /**
+     * Runs extensions cleanup methods if they exist.
+     */
     _resetComponent() {
       this._extensionCleanup && this._extensionCleanup();
     }
 
+    /**
+     * Triggers cleanup and creation of new extended component prototype for component instances that are attached during a theme change
+     */
     _handleThemeChange() {
       // Must run a frame after so all active instances may run extensionCleanup first
       setTimeout(() => {
         if (!this._prototypeHasLatestExtensions()) {
           this._resetPrototype();
-          this._createExtension();
+          this._checkAndCreateExtension();
         }
       }, 0);
     }
 
+    /**
+     * Removes added property descriptors from Component's prototype object
+     */
     _resetPrototype() {
       const thisPrototype = Object.getPrototypeOf(this);
 
@@ -198,6 +207,10 @@ export default function withExtensions(Base) {
       }
     }
 
+    /**
+     * Checks if prototype extensions are out of date with theme
+     * @returns {boolean}
+     */
     _prototypeHasLatestExtensions() {
       return (
         this.constructor._lastThemeUpdateTimestamp &&
@@ -205,20 +218,38 @@ export default function withExtensions(Base) {
           context.theme.lastUpdateTimestamp
       );
     }
+
+    /**
+     * Checks if instance extensions are out of date with theme
+     * @returns {boolean}
+     */
     _instanceNeedsReset() {
       return (
         this._instanceLastThemeUpdateTimestamp !==
         context.theme.lastUpdateTimestamp
       );
     }
-    _createExtension() {
+
+    /**
+     * Conditionally created extensions once per Component class
+     * @returns {boolean}
+     */
+    _checkAndCreateExtension() {
       // Only setup once per component
       if (this._prototypeHasLatestExtensions()) {
         // track at the instance level as well in case of re-used instances after a theme change
         this._instanceLastThemeUpdateTimestamp =
           context.theme.lastUpdateTimestamp;
-        return;
+        return false;
       }
+      this._createExtension();
+      return true;
+    }
+
+    /**
+     * Generates the extending class and modifies the component instance prototype.
+     */
+    _createExtension() {
       class ExtensionBaseClass {}
 
       const componentExtensions = this._componentExtensions;

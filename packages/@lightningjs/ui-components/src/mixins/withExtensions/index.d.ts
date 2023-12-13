@@ -29,6 +29,7 @@ export interface WithExtensions {
   _resetComponent(): void;
   _calculateComponentExtensionLength(): number;
   _createExtension(): void;
+  _checkAndCreateExtension(): boolean;
   _setupExtension(): void;
   _instanceNeedsReset(): boolean;
   _resetPrototype(): void;
