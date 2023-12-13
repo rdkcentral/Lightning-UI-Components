@@ -8,6 +8,7 @@ import { TableRow } from '../components';
  * @returns component style row with color control
  */
 export default function ColorRow({
+  version,
   styleProp,
   defaultValue,
   componentName,
@@ -20,7 +21,7 @@ export default function ColorRow({
       control={
         <ColorControl
           name={styleProp}
-          key="prop-2"
+          key={`Color-${componentName}-${styleProp}-${version}`}
           value={fieldValue}
           onChange={val => {
             setValueState(val);

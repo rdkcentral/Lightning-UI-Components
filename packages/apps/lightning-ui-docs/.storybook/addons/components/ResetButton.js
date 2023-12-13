@@ -4,20 +4,18 @@ import { Button } from '@storybook/components';
 import { setGlobalTheme } from '../../utils/themeUtils';
 
 // TODO: add style to button to properly align in table
-// NOTE: New Feature to mimic controls panel reset button
+// NOTE: New Feature to reset panel control values
 /**
  * @returns a reset button that when clicked will reset component style panel back to default style props of component base on theme
  */
 
 export default function ResetButton() {
   const [{ LUITheme }, updateGlobals] = useGlobals();
-
   /**
-   * when Reset Styles button is clicked should reset panel back to base/original? theme props
+   * handles resetting globals && controls??
    */
   const handleReset = () => {
-    //TODO: create logic to reset styles in rows
-    //FIXME: resets to Base, need to reset to selected original theme
+    //FIXME: resets to Base but needs logic to set to what ever theme is selected in ThemePicker
     return setGlobalTheme('base', updateGlobals);
   };
 

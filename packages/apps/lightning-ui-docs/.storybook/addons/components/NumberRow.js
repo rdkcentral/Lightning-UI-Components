@@ -26,6 +26,7 @@ import TableRow from './TableRow';
  */
 
 export default function NumberRow({
+  version,
   styleProp,
   defaultValue,
   componentName,
@@ -39,7 +40,7 @@ export default function NumberRow({
       control={
         <NumberControl
           name={styleProp}
-          key={`Number-${styleProp}`}
+          key={`Number-${componentName}-${styleProp}-${version}`}
           value={fieldValue}
           onChange={val => {
             setValueState(val);

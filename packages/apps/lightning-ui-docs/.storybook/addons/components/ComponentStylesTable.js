@@ -33,10 +33,10 @@ function createStyleRows(component, updateGlobals) {
     componentName: componentName,
     updateGlobals
   };
-
+  let version;
   const rows = Object.keys(style || {}).reduce((acc, prop) => {
     const styleType = getControlType(style[prop]);
-
+    version = new Date().valueOf();
     // format value before passing to row component
     const propValue =
       styleType === 'color'
@@ -45,6 +45,7 @@ function createStyleRows(component, updateGlobals) {
 
     // props passed to Number or Color Rows
     const rowProps = {
+      version: version,
       defaultValue: propValue,
       componentName: component.constructor.__componentName,
       styleProp: prop,
