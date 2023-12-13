@@ -1,6 +1,6 @@
 import { updateGlobalTheme } from '../../utils/themeUtils';
 
-// should contain all functions that are shared between add-on components
+/* should only contain functions that are shared between add-on components* */
 
 /**
  * updates the component's componentConfig with the updated style props and updates globals

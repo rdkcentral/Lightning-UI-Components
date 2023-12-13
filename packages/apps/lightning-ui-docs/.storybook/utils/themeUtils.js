@@ -69,6 +69,9 @@ export function setGlobalTheme(theme, updateGlobals) {
 
 /**
  * updates globalTheme with values past in, creates a custom theme, updates global LUITheme to custom, used in Component Styles and Theme Panels
+ * @param {any} updates - items to be updated
+ * @param {_cb} updateGlobals - callback fn that updates Storybook globals
+ * @param {Boolean} customTheme - if true will update LUI global theme to 'custom'
  */
 
 export const updateGlobalTheme = (

@@ -11,14 +11,18 @@ import { Button } from '@storybook/components';
 export default function ResetButton() {
   const [{ LUITheme }, updateGlobals] = useGlobals();
 
-  const resetPanel = rows => {
+  /**
+   * when Reset Styles button is clicked should reset panel back to base/original? theme props
+   */
+  const handleReset = () => {
     //TODO: create logic to reset styles in rows
-    //NOTE: this resets just the name
+    //FIXME: this resets just the name, needs to reset component prop values too
     return updateGlobals({ LUITheme: 'base' });
   };
+
   return (
     <>
-      <Button small outline label="reset-panel" onClick={resetPanel}>
+      <Button small outline label="reset-panel" onClick={handleReset}>
         Reset Styles
       </Button>
     </>

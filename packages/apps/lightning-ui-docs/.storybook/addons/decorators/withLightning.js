@@ -77,6 +77,9 @@ export const withLightning = (
   StoryComponent,
   { id, args, argTypes, parameters, globals }
 ) => {
+  /**
+   * the Lightning Element in the 'dom'
+   */
   const app = createApp({ theme: globals.LUITheme });
   clearInspector();
   app.announcerEnabled = globals.announce;
@@ -206,6 +209,9 @@ export const withLightning = (
     app.tag('StoryDetails').patch({ content: parameters.storyDetails });
   }
 
+  /**
+   * the first child under StoryComponent
+   */
   const LightningUIComponent = app.tag('StoryComponent').childList.first;
 
   if (LightningUIComponent && Object.keys(args).length) {
