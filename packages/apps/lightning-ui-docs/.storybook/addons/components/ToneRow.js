@@ -30,7 +30,7 @@ export default function ToneRow({ defaultTone, componentName }) {
       control={
         <OptionsControl
           name="tones"
-          key="Tones-one"
+          key={`Tones-${componentName}`}
           type="inline-radio"
           value={tone}
           argType={{ options: ['neutral', 'inverse', 'brand'] }}

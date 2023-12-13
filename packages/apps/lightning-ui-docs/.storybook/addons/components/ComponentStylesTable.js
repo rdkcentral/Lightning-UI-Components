@@ -51,7 +51,7 @@ function createStyleRows(component, updateGlobals) {
       styleProp: prop,
       updateGlobals
     };
-    console.log('rowProps', rowProps);
+
     // logic to add either Color or Number row
     if (styleType === 'color') {
       acc.push(

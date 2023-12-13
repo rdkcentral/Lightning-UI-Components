@@ -15,6 +15,7 @@ export default function ColorRow({
   updateGlobals
 }) {
   const [fieldValue, setValueState] = useState(defaultValue);
+
   return (
     <TableRow
       label={styleProp}
