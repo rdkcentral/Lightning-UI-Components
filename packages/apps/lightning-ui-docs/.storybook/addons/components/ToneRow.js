@@ -6,7 +6,7 @@ import { globalContext } from '../../utils/themeUtils';
 /**
  * @param {String} defaultTone - tone used to set initial state
  * @param {String} componentName - name of the current component
- * @returns row containing tone control set to defaultTone
+ * @returns a component style row with a Tone control set to defaultTone
  */
 export default function ToneRow({ defaultTone, componentName }) {
   const [tone, setToneState] = useState(defaultTone);

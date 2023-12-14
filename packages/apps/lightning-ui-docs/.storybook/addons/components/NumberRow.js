@@ -22,11 +22,10 @@ import { updateComponentValue } from './componentUtils';
 import TableRow from './TableRow';
 
 /**
- * @returns a style row with a number control
+ * @returns a component style row with a Number control
  */
 
 export default function NumberRow({
-  version,
   styleProp,
   defaultValue,
   componentName,

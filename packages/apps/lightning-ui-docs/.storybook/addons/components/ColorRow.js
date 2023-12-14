@@ -4,11 +4,9 @@ import { updateComponentValue } from './componentUtils';
 import { TableRow } from '../components';
 
 /**
- *
- * @returns component style row with color control
+ *  @returns a component style row with a Color control
  */
 export default function ColorRow({
-  version,
   styleProp,
   defaultValue,
   componentName,
