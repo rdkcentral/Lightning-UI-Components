@@ -18,6 +18,12 @@
 
 import React from 'react';
 
+/**
+ *
+ * @param {String} label - used for label of row
+ * @param {Object} control - contains values to create control
+ * @returns returns a row with a label and control object
+ */
 export default function TableRow({ label, control }) {
   return (
     <tr>

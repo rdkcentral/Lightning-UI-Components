@@ -20,30 +20,45 @@ import baseTheme from '@lightningjs/ui-components-theme-base';
 import { utils } from '@lightningjs/ui-components/src';
 import debounce from 'debounce';
 
-// Component Styles Panel
+/**
+ * @returns
+ * used in Component Styles Panel
+ */
 export const globalApp = () =>
   document &&
   document.querySelector('iframe') &&
   document.querySelector('iframe').contentWindow &&
   document.querySelector('iframe').contentWindow.APP;
 
-// Component Styles Panel and Theme Picker
+/**
+ * @returns the context
+ * used in Component Styles Panel and Theme Picker
+ */
 export const globalContext = () =>
   document &&
   document.querySelector('iframe') &&
   document.querySelector('iframe').contentWindow &&
   document.querySelector('iframe').contentWindow.CONTEXT;
 
-// Component Styles Panel, Theme Panel, Theme Picker
+/**
+ * used in Component Styles Panel, Theme Panel, Theme Picker
+ * @returns  the global theme object
+ */
 export const globalTheme = () => {
   const context = globalContext();
   return context && context.theme;
 };
 
-// Theme Panel
+/**
+ * @returns the current theme being used in panel
+ * used in Theme Panel
+ */
 export const getPanelsTheme = () => globalTheme() || baseTheme;
 
-// Theme Picker
+/**
+ * sets global theme to the theme passed in
+ * used in Theme Picker
+ */
 export function setGlobalTheme(theme, updateGlobals) {
   document &&
     document.querySelector('iframe') &&
@@ -52,7 +67,13 @@ export function setGlobalTheme(theme, updateGlobals) {
   if (updateGlobals) updateGlobals({ LUITheme: theme });
 }
 
-// Component Styles and Theme Panels
+/**
+ * updates globalTheme with values past in, creates a custom theme, updates global LUITheme to custom, used in Component Styles and Theme Panels
+ * @param {any} updates - items to be updated
+ * @param {_cb} updateGlobals - callback fn that updates Storybook globals
+ * @param {Boolean} customTheme - if true will update LUI global theme to 'custom'
+ */
+
 export const updateGlobalTheme = (
   updates,
   updateGlobals,
@@ -78,6 +99,11 @@ export const updateGlobalTheme = (
   }
 };
 
+/**
+ * delays update to color value
+ * @returns a color value in proper format
+ */
+
 const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
   updateGlobalTheme(
     { color: { [name]: utils.getValidColor(value) } },
@@ -85,7 +111,9 @@ const debouncedColorUpdate = debounce((name, value, updateGlobals) => {
   );
 }, 500);
 
-// Theme Panel
+/**
+ *  used in Theme Panel
+ */
 export function colorUpdate() {
   debouncedColorUpdate(...arguments);
 }

@@ -18,22 +18,31 @@
 
 import React, { useState } from 'react';
 import { NumberControl } from '@storybook/blocks';
+import { updateComponentValue } from './componentUtils';
 import TableRow from './TableRow';
 
-export default function NumberRow({ label, defaultValue, scope, onChange }) {
-  const [value, setValue] = useState(defaultValue);
+/**
+ * @returns a component style row with a Number control
+ */
+
+export default function NumberRow({
+  styleProp,
+  defaultValue,
+  componentName,
+  updateGlobals
+}) {
+  const [fieldValue, setValueState] = useState(defaultValue);
+
   return (
     <TableRow
-      label={label}
-      scope={scope}
+      label={styleProp}
       control={
         <NumberControl
-          name={label}
-          value={value}
-          min={0} // may need to revisit this if there are ever valid negative values
+          name={styleProp}
+          value={fieldValue}
           onChange={val => {
-            setValue(val);
-            onChange(val);
+            setValueState(val);
+            updateComponentValue(componentName, styleProp, val, updateGlobals);
           }}
         />
       }
