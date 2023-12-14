@@ -192,12 +192,13 @@ export const WithParsing = args =>
     }
   };
 
-export const WithTruncation = () =>
+export const WithTruncation = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         InlineContent: {
           type: InlineContentComponent,
+          ...args,
           w: 500,
           content: [
             'Text',
@@ -220,8 +221,7 @@ export const WithTruncation = () =>
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' },
             ', and this should truncate before going on to a third line.'
-          ],
-          contentWrap: true
+          ]
         }
       };
     }
