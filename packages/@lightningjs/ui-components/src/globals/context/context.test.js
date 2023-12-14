@@ -49,6 +49,8 @@ describe('context', () => {
   describe('context api', () => {
     it('should get the base theme by default', () => {
       const processedBaseTheme = themeManager._processTheme();
+      processedBaseTheme.lastUpdateTimestamp = expect.any(Number);
+
       expect(context.theme).toMatchObject(processedBaseTheme);
     });
 
@@ -73,6 +75,7 @@ describe('context', () => {
 
     it('should not allow context.theme to be set directly', () => {
       const processedBaseTheme = themeManager._processTheme();
+      processedBaseTheme.lastUpdateTimestamp = expect.any(Number);
       context.theme = { foo: 'bar' };
       expect(context.theme).toMatchObject(processedBaseTheme);
     });
@@ -113,6 +116,8 @@ describe('context', () => {
     it('should set a sub theme when with setSubTheme and fetch to appropriate theme when using getSubTheme', () => {
       context.setSubTheme('mySubTheme', { radius: { md: 80 } });
       const baseTheme = context.theme;
+      baseTheme.lastUpdateTimestamp = expect.any(Number);
+
       const subTheme = context.getSubTheme('mySubTheme');
       baseTheme.radius.md = 80;
       expect(subTheme).toMatchObject(baseTheme);
