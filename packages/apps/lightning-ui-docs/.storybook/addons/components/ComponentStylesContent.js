@@ -1,13 +1,7 @@
 import React from 'react';
 import lng from '@lightningjs/core';
 import { useGlobals } from '@storybook/manager-api';
-import {
-  Table,
-  ColorRow,
-  NumberRow,
-  ToneRow,
-  ResetButton
-} from '../components';
+import { Table, ColorRow, NumberRow, ToneRow, ResetButton } from '.';
 import { getControlType, createTitle } from '../../utils/helpers';
 import { globalTheme } from '../../utils/themeUtils';
 
@@ -17,6 +11,9 @@ import { globalTheme } from '../../utils/themeUtils';
  * @returns an array containing rows of component style controls
  */
 function createStyleRows(component, updateGlobals) {
+  /** variable created to make unique keys*/
+  let version;
+
   const style = component._style;
 
   const theme = globalTheme();
@@ -33,7 +30,7 @@ function createStyleRows(component, updateGlobals) {
     componentName: componentName,
     updateGlobals
   };
-  let version;
+
   const rows = Object.keys(style || {}).reduce((acc, prop) => {
     const styleType = getControlType(style[prop]);
     version = new Date().valueOf();
@@ -43,7 +40,7 @@ function createStyleRows(component, updateGlobals) {
         ? lng.StageUtils.getRgbaString(style[prop])
         : style[prop];
 
-    // props passed to Number or Color Rows
+    /** props passed to Number or Color Rows */
     const rowProps = {
       version: version,
       defaultValue: propValue,
@@ -64,8 +61,8 @@ function createStyleRows(component, updateGlobals) {
     }
     return acc;
   }, []);
-
-  // NOTE: logic needed, otherwise Tone Row will be added to all stories
+  console.log(rows);
+  // NOTE: logic needed otherwise Tone Row will be added to all stories
   if (rows && rows.length) {
     rows.unshift(
       <ToneRow key={`Tone-${componentName}-${version}`} {...toneRowProps} />
@@ -81,6 +78,7 @@ function createStyleRows(component, updateGlobals) {
 export default function ComponentStylesTable(component) {
   const [{ LUITheme }, updateGlobals] = useGlobals();
   const styledRows = createStyleRows(component, updateGlobals);
+
   if (styledRows && styledRows.length) {
     return (
       <>

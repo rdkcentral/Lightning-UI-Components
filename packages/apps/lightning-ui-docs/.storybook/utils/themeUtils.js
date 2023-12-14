@@ -42,7 +42,7 @@ export const globalContext = () =>
 
 /**
  * used in Component Styles Panel, Theme Panel, Theme Picker
- * @returns the global theme
+ * @returns  the global theme object
  */
 export const globalTheme = () => {
   const context = globalContext();
