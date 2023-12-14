@@ -22,3 +22,4 @@ export * from './src/globals';
 export * from './src/mixins';
 export * from './src/shaders';
 export * from './src/textures';
+export * from './src/docs/story-components';
