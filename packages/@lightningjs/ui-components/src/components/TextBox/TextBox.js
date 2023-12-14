@@ -321,6 +321,7 @@ export default class TextBox extends Base {
   }
 
   _toggleMarquee(contentTag) {
+    if (!contentTag) return;
     if (this.marquee) {
       contentTag.alpha = 0.001;
       this._Marquee.alpha = 1;

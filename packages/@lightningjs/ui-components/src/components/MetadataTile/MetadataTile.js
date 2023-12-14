@@ -29,18 +29,22 @@ export default class MetadataTile extends MetadataBase {
   }
 
   _updateDetails() {
-    if (this.description) {
+    if (!this.details && !this._Details) {
+      return;
+    }
+    if (this.description && this._Details) {
       this._Details.patch({ content: '' });
       this._Details.alpha = 0;
       this._Details.visible = false;
     } else {
-      this._Details.alpha = 1;
-      this._Details.visible = true;
       super._updateDetails();
     }
   }
 
   _updateDetailsLayout({ h }) {
+    if (!this.details && !this._Details) {
+      return;
+    }
     if (this._Details && !this.description) {
       this._DetailsWrapper.h = h;
       this._DetailsWrapper.alpha = this.style.alpha;
