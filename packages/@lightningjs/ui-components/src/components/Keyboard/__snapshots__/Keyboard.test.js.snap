@@ -11,7 +11,7 @@ exports[`Keyboard renders 1`] = `
       "children": {
         "Items": {
           "active": false,
-          "alpha": 1,
+          "alpha": 0.001,
           "attached": true,
           "boundsMargin": null,
           "children": {
@@ -23,7 +23,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -2704,7 +2704,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -3489,7 +3489,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -6170,7 +6170,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -8879,7 +8879,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -11952,7 +11952,7 @@ exports[`KeyboardInput renders 1`] = `
                   "children": {
                     "Items": {
                       "active": false,
-                      "alpha": 1,
+                      "alpha": 0.001,
                       "attached": true,
                       "boundsMargin": null,
                       "children": {
@@ -11964,7 +11964,7 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
@@ -14673,7 +14673,7 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
@@ -17354,7 +17354,7 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
@@ -20035,7 +20035,7 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
@@ -22716,7 +22716,7 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
