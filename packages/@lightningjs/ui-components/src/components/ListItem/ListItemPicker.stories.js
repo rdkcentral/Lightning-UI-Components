@@ -51,7 +51,8 @@ ListItemPicker.argTypes = {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   shouldCollapse: {
@@ -59,12 +60,16 @@ ListItemPicker.argTypes = {
     description:
       'When in unfocused or disabled mode,if this flag is true the description will collapse (when focused, it will always be expanded)',
     table: {
-      defaultValue: { summary: false }
+      defaultValue: { summary: false },
+      type: { summary: 'boolean' }
     }
   },
   options: {
     control: 'object',
     description: 'List of selectable options',
-    table: { defaultValue: { summary: 'undefined' } }
+    table: {
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'object' }
+    }
   }
 };

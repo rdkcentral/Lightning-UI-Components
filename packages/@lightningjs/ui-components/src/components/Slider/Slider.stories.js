@@ -61,27 +61,30 @@ Basic.argTypes = {
   min: {
     control: 'number',
     description: 'Lower bound of value',
-    table: { defaultValue: { summary: 0 } }
+    table: { defaultValue: { summary: 0 }, type: { summary: 'number' } }
   },
   max: {
     control: 'number',
     description: 'Upper bound of value',
-    table: { defaultValue: { summary: 100 } }
+    table: { defaultValue: { summary: 100 }, type: { summary: 'number' } }
   },
   value: {
     control: 'number',
     description: 'Current value',
-    table: { defaultValue: { summary: '0 or min' } }
+    table: {
+      defaultValue: { summary: '0 or min' },
+      type: { summary: 'number' }
+    }
   },
   step: {
     control: 'number',
     description: '+/- value on change',
-    table: { defaultValue: { summary: 1 } }
+    table: { defaultValue: { summary: 1 }, type: { summary: 'number' } }
   },
   vertical: {
     control: 'boolean',
     description: 'If true, the slider is displayed vertically',
-    table: { defaultValue: { summary: false } }
+    table: { defaultValue: { summary: false }, type: { summary: 'boolean' } }
   }
 };
 

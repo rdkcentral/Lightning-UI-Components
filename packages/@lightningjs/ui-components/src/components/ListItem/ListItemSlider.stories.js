@@ -21,6 +21,10 @@ import { default as ListItemSliderComponent } from './ListItemSlider';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import { Basic as SliderStory } from '../Slider/Slider.stories';
 
+/**
+ * A ListItem component with slider functionality
+ */
+
 export default {
   title: 'Components/ListItem/ListItemSlider'
 };
@@ -44,21 +48,22 @@ ListItemSlider.args = {
   shouldCollapse: false,
   mode: 'focused'
 };
-
 ListItemSlider.argTypes = {
-  ...createModeControl({ summaryValue: ListItemSlider.args.mode }),
+  ...createModeControl({ summaryValue: 'focused' }),
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   value: {
     control: 'number',
     description: 'Current slider value',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'number' }
     }
   },
   shouldCollapse: {
@@ -66,7 +71,8 @@ ListItemSlider.argTypes = {
     description:
       'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',
     table: {
-      defaultValue: { summary: false }
+      defaultValue: { summary: false },
+      type: { summary: 'boolean' }
     }
   }
 };

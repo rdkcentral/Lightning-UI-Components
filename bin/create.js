@@ -28,13 +28,13 @@ const {
   styleTemplate,
   typescriptDefinitionsTemplate,
   exportTemplate,
-  exportTypeScriptDefinitionsTemplate,
+  exportTypeScriptDefinitionsTemplate
 } = require('./templates');
 
 const compDir = './packages/';
 const validDirs = [/* '@lightningjs/ui', */ '@lightningjs/ui-components'];
 
-const [componentDir, componentName] = process.argv.slice(2);
+const [componentDir, componentName, parentName] = process.argv.slice(2);
 
 if (!componentDir || !componentName) {
   throw new Error(`Missing component name or type.
@@ -56,26 +56,39 @@ if (fs.existsSync(workingDir)) {
   throw new Error(message);
 }
 
-
 const componentContent = componentTemplate(componentName, componentDir);
 const storyContent = storyTemplate(componentName, componentDir);
-const mdxContent = docsTemplate(componentName, componentDir);
+const mdxContent = docsTemplate(componentName, parentName, componentDir);
 const testContent = testTemplate(componentName, componentDir);
 const styleContent = styleTemplate(componentName, componentDir);
-const typescriptDefinitionsContent = typescriptDefinitionsTemplate(componentName, componentDir);
+const typescriptDefinitionsContent = typescriptDefinitionsTemplate(
+  componentName,
+  componentDir
+);
 const exportContent = exportTemplate(componentName, componentDir);
-const exportTypescriptDefinitionsContent = exportTypeScriptDefinitionsTemplate(componentName, componentDir);
+const exportTypescriptDefinitionsContent = exportTypeScriptDefinitionsTemplate(
+  componentName,
+  componentDir
+);
 
-fs.mkdirp(workingDir).then(() => {
-  fs.writeFile(`${workingDir}/${componentName}.js`, componentContent);
-  fs.writeFile(`${workingDir}/${componentName}.stories.js`, storyContent);
-  fs.writeFile(`${workingDir}/${componentName}.mdx`, mdxContent);
-  fs.writeFile(`${workingDir}/${componentName}.test.js`, testContent);
-  fs.writeFile(`${workingDir}/${componentName}.styles.js`, styleContent);
-  fs.writeFile(`${workingDir}/${componentName}.d.ts`, typescriptDefinitionsContent);
-  fs.writeFile(`${workingDir}/index.js`, exportContent);
-  fs.writeFile(`${workingDir}/index.d.ts`, exportTypescriptDefinitionsContent);
-}).catch(err => {
-  console.error('component creation failed\n');
-  throw new Error(err);
-});
+fs.mkdirp(workingDir)
+  .then(() => {
+    fs.writeFile(`${workingDir}/${componentName}.js`, componentContent);
+    fs.writeFile(`${workingDir}/${componentName}.stories.js`, storyContent);
+    fs.writeFile(`${workingDir}/${componentName}.mdx`, mdxContent);
+    fs.writeFile(`${workingDir}/${componentName}.test.js`, testContent);
+    fs.writeFile(`${workingDir}/${componentName}.styles.js`, styleContent);
+    fs.writeFile(
+      `${workingDir}/${componentName}.d.ts`,
+      typescriptDefinitionsContent
+    );
+    fs.writeFile(`${workingDir}/index.js`, exportContent);
+    fs.writeFile(
+      `${workingDir}/index.d.ts`,
+      exportTypescriptDefinitionsContent
+    );
+  })
+  .catch(err => {
+    console.error('component creation failed\n');
+    throw new Error(err);
+  });

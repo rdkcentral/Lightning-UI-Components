@@ -22,7 +22,7 @@
 const urlBase =
   'https://github.com/rdkcentral/Lightning-UI-Components/tree/develop/packages/%40lightningjs/ui-components/src/components/';
 
-module.exports = name => `{/* prettier-ignore */}
+module.exports = (name, parentName) => `{/* prettier-ignore */}
 {/*Copyright 2023 Comcast Cable Communications Management, LLC
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -37,12 +37,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 SPDX-License-Identifier: Apache-2.0 */}
 
-import { Meta, Title } from '@storybook/blocks';
+import { Meta, Title, ArgTypes, Description } from '@storybook/blocks';
 import * as ${name}Stories from './${name}.stories';
+import * as ${parentName}Stories from '../${parentName}/${parentName}.stories'; {/** TODO: Make sure the path is correct or removed if not needed **/}
 
 <Meta of={${name}Stories} />
 
-<Title />
+<Title /> 
+
+<Description />  
 
 ## Source
 
@@ -66,11 +69,18 @@ class Basic extends lng.Component {
 
 ## API
 
-### Properties
+### Parent Properties
+{/** TODO: If you added a parent props table check the appropriate props pulled otherwise delete this section. **/}
 
-| name  | type   | required | default | description |
-| ----- | ------ | -------- | ------- | ----------- |
-|       |        |          |         |             |
+{/** TODO: check the path is correct in the url **/}
+${name} has the same properties as [${parentName}](?path=/docs/components-${parentName}--docs)
+
+{/**TODO: check the name of the story of the parent component matches the name here. **/}
+<ArgTypes of={${parentName}Stories.${parentName}} />
+
+### Properties
+{/** TODO: if you change the name of the story from Basic to something else, also update then name here **/}
+<ArgTypes of={${name}Stories.Basic} /> 
 
 ### Style Properties
 

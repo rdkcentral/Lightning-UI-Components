@@ -34,4 +34,4 @@ module.exports = {
   typescriptDefinitionsTemplate,
   exportTemplate,
   exportTypeScriptDefinitionsTemplate
-}
+};

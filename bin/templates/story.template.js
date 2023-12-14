@@ -37,7 +37,10 @@ module.exports = name => {
 
 import lng from '@lightningjs/core';
 import ${name} from '.';
-import { CATEGORIES } from '../../docs/constants';
+
+/**
+ * TODO: Use this JS Comment to add description of component that will be imported into the docs under Description
+ */
 
 export default {
   // TODO: replace CategoryName string with the category this component's story should be nested in. 
@@ -54,15 +57,18 @@ export const Basic = () =>
       };
     }
   };
+
 Basic.args = {
   // argName: undefined
 };
+
 Basic.argTypes = {
   // argName: {
   //   control: '',
   //   description: '',
   //   table: {
-  //     defaultValue: { summary: undefined }
+  //     defaultValue: { summary: undefined },
+  //     type: {summary: 'string'}
   //   }
   // }
 };

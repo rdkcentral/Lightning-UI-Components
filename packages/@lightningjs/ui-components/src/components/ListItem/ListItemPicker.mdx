@@ -17,14 +17,15 @@ limitations under the License.
 SPDX-License-Identifier: Apache-2.0
 \*/}
 
-import { Meta, Title } from '@storybook/blocks';
+import { Meta, Title, ArgTypes, Description } from '@storybook/blocks';
 import * as ListItemPickerStories from './ListItemPicker.stories';
+import * as ListItemStories from './ListItem.stories.js';
 
 <Meta of={ListItemPickerStories} />
 
 <Title />
 
-ListItem component with the ability to let a user pick from a list of options.
+<Description />
 
 ## Source
 
@@ -52,14 +53,18 @@ class Basic extends lng.Component {
 
 ## API
 
+### Parent Properties
+
+`ListItemPicker` has the same properties as `ListItem`
+
+<ArgTypes
+  of={ListItemStories.ListItem}
+  exclude={['suffix', 'prefix', 'title', 'mode']}
+/>
+
 ### Properties
 
-`ListItemPicker` has the same properties as the ones listed in [ListItem](?path=/docs/components-listitem--list-item) in addition to a couple listed below:
-
-| name          | type     | default   | description                      |
-| ------------- | -------- | --------- | -------------------------------- |
-| options       | string[] | undefined | list of selectable options       |
-| selectedIndex | number   | undefined | index of current selected option |
+<ArgTypes of={ListItemPickerStories.ListItemPicker} />
 
 ### Style Properties
 

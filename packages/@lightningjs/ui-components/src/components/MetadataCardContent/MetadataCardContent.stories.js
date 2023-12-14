@@ -58,42 +58,48 @@ MetadataCardContent.argTypes = {
     control: 'number',
     description: 'Width of component',
     table: {
-      defaultValue: { summary: 0 }
+      defaultValue: { summary: 0 },
+      type: { summary: 'number' }
     }
   },
   h: {
     control: 'number',
     description: 'Height of component',
     table: {
-      defaultValue: { summary: 0 }
+      defaultValue: { summary: 0 },
+      type: { summary: 'number' }
     }
   },
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   description: {
     control: 'text',
     description: 'Description text directly below title',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   details: {
     control: 'text',
     description: 'Details text at bottom left of componentDetails text',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   visibleCount: {
     control: { type: 'range', min: 1, max: 10, step: 1 },
     description: 'Number of visible providers',
     table: {
-      defaultValue: { summary: 1 }
+      defaultValue: { summary: 1 },
+      type: { summary: 'number' }
     }
   }
 };
