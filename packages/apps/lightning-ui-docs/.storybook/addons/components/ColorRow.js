@@ -22,7 +22,6 @@ export default function ColorRow({
       control={
         <ColorControl
           name={styleProp}
-          key={`Color-${componentName}-${styleProp}-${version}`}
           value={fieldValue}
           onChange={val => {
             setValueState(val);

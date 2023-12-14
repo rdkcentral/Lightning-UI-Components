@@ -40,7 +40,6 @@ export default function NumberRow({
       control={
         <NumberControl
           name={styleProp}
-          key={`Number-${componentName}-${styleProp}-${version}`}
           value={fieldValue}
           onChange={val => {
             setValueState(val);
