@@ -15,7 +15,6 @@ function createStyleRows(component, updateGlobals) {
   let version;
 
   const style = component._style;
-
   const theme = globalTheme();
   const componentName = component.constructor.__componentName;
 
@@ -61,6 +60,7 @@ function createStyleRows(component, updateGlobals) {
     }
     return acc;
   }, []);
+
   // NOTE: logic needed otherwise Tone Row will be added to all stories
   if (rows && rows.length) {
     rows.unshift(

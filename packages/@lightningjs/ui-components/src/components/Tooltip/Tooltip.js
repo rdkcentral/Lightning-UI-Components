@@ -64,6 +64,7 @@ export default class Tooltip extends Base {
 
   _update() {
     this._updateText();
+    this._updateBackground(); //NOTE: adding _updateBackground() here fixes the issue
   }
 
   _updateText() {
@@ -80,7 +81,7 @@ export default class Tooltip extends Base {
     this._updateTextPosition();
   }
 
-  //NOTE: this only runs on initial load of story
+  //REVIEW: this only runs on initial load the story or when clicking another story and coming back to this story, may be the issue with the tone render issue
   _updateBackground() {
     const backgroundH =
       this._Text.finalH + this.style.paddingY * 2 + this.style.pointerHeight;
