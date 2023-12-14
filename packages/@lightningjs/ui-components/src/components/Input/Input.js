@@ -213,7 +213,7 @@ export default class Input extends Button {
           : this.cursorBlink.stop();
     }
     this._Cursor.smooth = {
-      color: this.style.cursorStyle.textColor
+      color: this.style.cursorStyle.color
     };
   }
 

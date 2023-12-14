@@ -33,9 +33,10 @@ describe('CardRadio', () => {
     cardRadio.subtitle = 'subtitle';
     testRenderer.forceAllUpdates();
     expect(cardRadio._Subtitle.content).toEqual('subtitle');
-    expect(cardRadio._Subtitle.style.textStyle).toMatchObject(
-      cardRadio.style.subtitleTextStyle
-    );
+    expect(cardRadio._Subtitle.style.textStyle).toMatchObject({
+      ...cardRadio.style.subtitleTextStyle,
+      wordWrapWidth: cardRadio._calculateTextWidth()
+    });
   });
 
   it('should update subtitle position', () => {

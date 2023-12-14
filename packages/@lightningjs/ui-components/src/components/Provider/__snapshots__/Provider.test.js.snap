@@ -225,7 +225,6 @@ exports[`Provider renders 1`] = `
                         "precision": 0.6666666666666666,
                         "text": "+1",
                         "textBaseline": "bottom",
-                        "textColor": 4294506490,
                         "type": "TextTexture",
                         "verticalAlign": "middle",
                       },
