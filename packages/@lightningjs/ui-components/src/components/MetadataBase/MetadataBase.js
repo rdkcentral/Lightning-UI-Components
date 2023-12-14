@@ -33,6 +33,7 @@ class MetadataBase extends Base {
   }
 
   static _template() {
+    // Comments indicate where child components are inserted
     return {
       Text: {
         flex: { direction: 'column', justifyContent: 'flex-start' },
@@ -48,11 +49,6 @@ class MetadataBase extends Base {
       // }
     };
   }
-
-  // TODO: why here but no other  components?
-  // _init() {
-  //   this.requestUpdate(true);
-  // }
 
   static get properties() {
     return [
@@ -117,9 +113,11 @@ class MetadataBase extends Base {
       return;
     }
 
-    this._DetailsWrapper.alpha = this.style.alpha;
-    this._DetailsWrapper.w = w;
-    this._DetailsWrapper.h = h;
+    if (this._DetailsWrapper) {
+      this._DetailsWrapper.alpha = this.style.alpha;
+      this._DetailsWrapper.w = w;
+      this._DetailsWrapper.h = h;
+    }
   }
 
   _update() {
@@ -191,9 +189,15 @@ class MetadataBase extends Base {
   resetMarquee() {
     if (this.marquee) {
       if (this.title) {
+        if (!this._Title) {
+          this._updateTitle();
+        }
         this._Title.toggleMarquee();
       }
       if (this.description) {
+        if (!this._Description) {
+          this._updateDescription();
+        }
         this._Description.toggleMarquee();
       }
     }

@@ -31,7 +31,7 @@ describe('MetadataTile', () => {
     [metadataTile, testRenderer] = createComponent(
       {},
       {
-        spyOnMethods: ['_update', '_detailsLoaded']
+        spyOnMethods: ['_update', '_detailsLoaded', '_updateDetails']
       }
     );
   });
@@ -67,11 +67,15 @@ describe('MetadataTile', () => {
 
   it('hides details if description is provided', async () => {
     metadataTile.details = 'details';
-    await metadataTile.__updateSpyPromise;
+    await metadataTile.__detailsLoadedpyPromise;
+    testRenderer.forceAllUpdates();
+
     expect(metadataTile._Details.alpha).toBe(1);
     expect(metadataTile._Details.visible).toBe(true);
     metadataTile.description = 'description';
-    await metadataTile.__updateSpyPromise;
+    await metadataTile.__updateDetailsSpyPromise;
+    testRenderer.forceAllUpdates();
+
     expect(metadataTile._Details.alpha).toBe(0);
     expect(metadataTile._Details.visible).toBe(false);
     expect(metadataTile._DetailsWrapper.h).toBe(0);

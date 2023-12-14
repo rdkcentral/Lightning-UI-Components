@@ -38,9 +38,6 @@ export default class MetadataTile extends MetadataBase {
       this._Details.visible = false;
     } else {
       super._updateDetails();
-      // These shoudl be set by super
-      // this._Details.alpha = 1;
-      // this._Details.visible = true;
     }
   }
 
