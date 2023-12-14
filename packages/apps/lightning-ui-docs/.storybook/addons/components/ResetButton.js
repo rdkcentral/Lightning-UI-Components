@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGlobals } from '@storybook/manager-api';
-import { Button } from '@storybook/components';
+import { IconButton, Icons } from '@storybook/components';
 import { setGlobalTheme } from '../../utils/themeUtils';
 
 // TODO: add style to button to properly align in table
@@ -21,9 +21,13 @@ export default function ResetButton() {
 
   return (
     <>
-      <Button small outline label="reset-panel" onClick={handleReset}>
-        Reset Styles
-      </Button>
+      <IconButton
+        title="reset styles"
+        label="reset-panel"
+        onClick={handleReset}
+      >
+        <Icons icon="undo" />
+      </IconButton>
     </>
   );
 }

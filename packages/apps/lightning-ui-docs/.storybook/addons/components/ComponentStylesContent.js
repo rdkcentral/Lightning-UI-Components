@@ -61,7 +61,6 @@ function createStyleRows(component, updateGlobals) {
     }
     return acc;
   }, []);
-  console.log(rows);
   // NOTE: logic needed otherwise Tone Row will be added to all stories
   if (rows && rows.length) {
     rows.unshift(
@@ -81,13 +80,16 @@ export default function ComponentStylesTable(component) {
 
   if (styledRows && styledRows.length) {
     return (
-      <>
-        <h1>Current Theme: {createTitle(LUITheme)}</h1>
+      <div>
+        <div style={{ display: 'flex' }}>
+          <h1 style={{ flex: 1 }}>Current Theme: {createTitle(LUITheme)}</h1>
+          <ResetButton style={{ flex: 1 }} />
+        </div>
+
         <div>
-          <ResetButton />
           <Table title="Component Level Theme Styles" rows={styledRows} />
         </div>
-      </>
+      </div>
     );
   }
   return <h3>No theme values available on this component.</h3>;
