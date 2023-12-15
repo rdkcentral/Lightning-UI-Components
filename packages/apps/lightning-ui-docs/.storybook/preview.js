@@ -121,6 +121,9 @@ const preview = {
       defaultValue: false
     }
   },
+  /**
+   * adds a global wrapper to insert the Lightning App into the "DOM"
+   */
   decorators: [withLightning]
 };
 export default preview;
