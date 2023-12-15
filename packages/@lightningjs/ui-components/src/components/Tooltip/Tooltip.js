@@ -64,7 +64,7 @@ export default class Tooltip extends Base {
 
   _update() {
     this._updateText();
-    this._updateBackground(); //NOTE: adding _updateBackground() here fixes the issue
+    this._updateBackground();
   }
 
   _updateText() {
@@ -77,12 +77,35 @@ export default class Tooltip extends Base {
   }
 
   _textLoaded() {
-    this._updateBackground();
+    this._updateBackgroundHeight();
     this._updateTextPosition();
   }
 
-  //REVIEW: this only runs on initial load the story or when clicking another story and coming back to this story, may be the issue with the tone render issue
+  /**
+   * patches Background prop updates
+   */
   _updateBackground() {
+    this.patch({
+      Background: {
+        w: this._Background.w,
+        h: this._Background.h,
+        texture: {
+          type: Bubble,
+          w: this._Background.w,
+          h: this._Background.h,
+          radius: this.style.radius,
+          pointerWidth: this.style.pointerWidth,
+          pointerHeight: this.style.pointerHeight,
+          color: this.style.backgroundColor
+        }
+      }
+    });
+  }
+
+  /**
+   * updates height of background when text height or width is changed
+   */
+  _updateBackgroundHeight() {
     const backgroundH =
       this._Text.finalH + this.style.paddingY * 2 + this.style.pointerHeight;
     const backgroundW = this._Text.finalW + this.style.paddingX * 2;
@@ -97,11 +120,7 @@ export default class Tooltip extends Base {
         texture: {
           type: Bubble,
           w: backgroundW,
-          h: backgroundH,
-          radius: this.style.radius,
-          pointerWidth: this.style.pointerWidth,
-          pointerHeight: this.style.pointerHeight,
-          color: this.style.backgroundColor
+          h: backgroundH
         }
       }
     });
