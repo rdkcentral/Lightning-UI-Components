@@ -20,16 +20,35 @@ import React, { useCallback, memo, useEffect } from 'react';
 import { useGlobals, useStorybookApi } from '@storybook/manager-api';
 import { Icons, IconButton } from '@storybook/components';
 import { ADDON_ID, STAGECOLOR_ID } from '../constants';
+import { globalContext } from '../../utils/themeUtils';
 
 export const StageColor = memo(function MyAddonSelector() {
   const [{ stageColor }, updateGlobals] = useGlobals();
   const api = useStorybookApi();
   const isActiveStage = [true, 'true'].includes(stageColor);
+
+  const updateStageThemeTone = () => {
+    const context = globalContext();
+    if (!isActiveStage) {
+      if (context) {
+        context.updateTheme({
+          componentConfig: {
+            [componentName]: {
+              tone: 'inverse'
+            }
+          }
+        });
+      }
+    }
+  };
+
   const toggleStage = useCallback(() => {
+    updateStageThemeTone();
     updateGlobals({
       stageColor: !isActiveStage
     });
   }, [isActiveStage]);
+
   useEffect(() => {
     api.setAddonShortcut(ADDON_ID, {
       label: 'Stage Color Toggle',
