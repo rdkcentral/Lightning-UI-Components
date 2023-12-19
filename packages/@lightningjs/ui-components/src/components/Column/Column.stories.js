@@ -64,7 +64,7 @@ export const Column = args =>
             context.theme.layout.screenH -
             2 * (context.theme.layout.marginY + context.theme.layout.gutterY),
           scrollIndex: args.scrollIndex,
-          items: createItems(Button, 3),
+          items: createItems(Button, 20),
           waitForDimensions: args.waitForDimensions
         }
       };
