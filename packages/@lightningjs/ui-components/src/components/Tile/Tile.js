@@ -598,9 +598,6 @@ export default class Tile extends Surface {
 
       return;
     }
-    // if none of the above apply patch in metadataPatch
-    this._Metadata.patch(this._metadataPatch); // Metadata should never be patched with smooth
-    // then call animateMetadata
     this._animateMetadata();
   }
 
