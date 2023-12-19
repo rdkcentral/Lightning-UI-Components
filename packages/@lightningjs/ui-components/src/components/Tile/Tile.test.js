@@ -348,7 +348,8 @@ describe('Tile', () => {
       tile.patch({
         progressBar: { progress: 0.5 },
         metadataLocation: 'inset',
-        metadata: { title: 'test ' }
+        metadata: { title: 'test ' },
+        mode: 'focused'
       });
       testRenderer.forceAllUpdates();
       expect(tile._metadataY).toBe(
