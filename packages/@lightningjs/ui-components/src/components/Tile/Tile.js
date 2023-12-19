@@ -515,9 +515,7 @@ export default class Tile extends Surface {
   get _metadataTransitions() {
     return {
       y: [
-        this._shouldShowMetadata
-          ? this._metadataY
-          : this._h + this.style.paddingY,
+        this._metadataY,
         this._shouldShowMetadata
           ? this.style.animationEntrance
           : this.style.animationExit
@@ -538,11 +536,14 @@ export default class Tile extends Surface {
   }
 
   get _metadataY() {
-    return this._isInsetMetadata
-      ? this._progressBarY
-        ? this._progressBarY - this.style.paddingYBetweenContent
-        : this._h - this.style.paddingY
-      : this._h + this.style.paddingY;
+    if (this._shouldShowMetadata) {
+      if (this._isInsetMetadata) {
+        return this._progressBarY
+          ? this._progressBarY - this.style.paddingYBetweenContent
+          : this._h - this.style.paddingY;
+      }
+    }
+    return this._h + this.style.paddingY;
   }
 
   get _metadataAlpha() {
@@ -551,19 +552,20 @@ export default class Tile extends Surface {
 
   get _metadataPatch() {
     return {
-      mode: this.mode,
       alpha: this._metadataAlpha,
-      mountX: 0.5,
-      mountY: this._isInsetMetadata ? 1 : 0,
-      marquee: this._isFocusedMode,
       w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
-      y:
-        this.persistentMetadata ||
-        !(this._isInsetMetadata && this._isFocusedMode)
-          ? this._metadataY
-          : this._h + this.style.paddingY,
+      y: this._metadataY,
       ...(this.metadata || {})
+    };
+  }
+
+  get _nonSmoothingMetadataPatch() {
+    return {
+      mode: this.mode,
+      mountX: 0.5,
+      mountY: this._isInsetMetadata ? 1 : 0,
+      marquee: this._isFocusedMode
     };
   }
 
@@ -592,12 +594,14 @@ export default class Tile extends Surface {
           signals: {
             updateComponentDimensions: '_metadataLoaded'
           },
+          ...this._nonSmoothingMetadataPatch,
           ...this._metadataPatch
         }
       });
 
       return;
     }
+    this._Metadata.patch(this._nonSmoothingMetadataPatch);
     this._animateMetadata();
   }
 
