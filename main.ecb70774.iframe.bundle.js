@@ -7518,22 +7518,20 @@ __webpack_require__.d(__webpack_exports__, {
   Z: () => (/* binding */ withThemeStyles)
 });
 
-// EXTERNAL MODULE: ../../../node_modules/@lightningjs/core/dist/lightning.esm.js
-var lightning_esm = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
 // EXTERNAL MODULE: ../../@lightningjs/ui-components/src/utils/index.js
 var utils = __webpack_require__("../../@lightningjs/ui-components/src/utils/index.js");
 // EXTERNAL MODULE: ../../@lightningjs/ui-components/src/globals/context/logger.js
 var logger = __webpack_require__("../../@lightningjs/ui-components/src/globals/context/logger.js");
 ;// CONCATENATED MODULE: ../../@lightningjs/ui-components/src/mixins/withThemeStyles/utils.js
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7559,7 +7557,6 @@ function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == 
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
 
 
 
@@ -8050,7 +8047,7 @@ var generateComponentStyleSource = function generateComponentStyleSource() {
   var solution = parsedStyles.reduce(function (acc, style) {
     return (0,utils/* clone */.d9)(acc, generateSolution(style, modeKeys, toneKeys));
   }, {});
-  var _final = formatStyleObj(removeEmptyObjects(themeParser({
+  var _final = formatStyleObj(removeEmptyObjects(colorParser({
     theme: theme
   }, solution)) || {}, alias);
   var cleanObj = createSharedReferences(_final);
@@ -8058,52 +8055,12 @@ var generateComponentStyleSource = function generateComponentStyleSource() {
 };
 
 /**
- *
- * Default properties directly from @lightningjs/core to ensure correct fallback values
- *
- */
-var lightningTextDefaults = Object.entries(Object.getOwnPropertyDescriptors(lightning_esm/* default */.Z.textures.TextTexture.prototype)).reduce(function (acc, _ref4) {
-  var _ref5 = _slicedToArray(_ref4, 1),
-    prop = _ref5[0];
-  var value = lightning_esm/* default */.Z.textures.TextTexture.prototype[prop];
-  if (prop.startsWith('_') || ['undefined', 'function'].includes(_typeof(value))) return acc;
-  return _objectSpread(_defineProperty({}, prop, value), acc);
-}, {});
-
-// exclude properties are not unique to the Text Texture as they would not
-// be reliable indicators that an object is a text style object
-var textStyleProps = Object.keys(lightningTextDefaults).filter(function (val) {
-  return ['paddingRight', 'paddingLeft', 'offsetY', 'h', 'w'].indexOf(val) === -1;
-});
-
-/**
- * Return whether or not an object contains properties of the Lightning Text texture.
- * @param {object} obj an object to check i
- * @returns {boolean} Returns true if the object contains properties of the Lightning Text texture.
- */
-var isTextStyleObject = function isTextStyleObject(obj) {
-  if (_typeof(obj) !== 'object' || obj === null) {
-    return false;
-  }
-  // check if any of the fields in textStyleProps exist in the object
-  for (var i = 0; i < textStyleProps.length; i++) {
-    var field = textStyleProps[i];
-    if (obj.hasOwnProperty(field)) {
-      return true;
-    }
-  }
-  return false;
-};
-
-/**
- * Parse and process a style object to:
- *  - replace theme strings and process color arrays.
- *  - generate new text style objects to prevent merging with previous objects if the theme changes
+ * Parse and process a style object to replace theme strings and process color arrays.
  * @param {object} targetObject - In most cases, this will be a theme object.
  * @param {object} styleObj - The input style object to be processed.
- * @returns {object} The processed style object with theme strings replaced and color arrays processed and new text style objects generated.
+ * @returns {object} The processed style object with theme strings replaced and color arrays processed.
  */
-var themeParser = function themeParser(targetObject, styleObj) {
+var colorParser = function colorParser(targetObject, styleObj) {
   // Check if targetObject is an object
   if (_typeof(targetObject) !== 'object' || targetObject === null) {
     throw new TypeError('targetObject must be an object.');
@@ -8123,11 +8080,6 @@ var themeParser = function themeParser(targetObject, styleObj) {
     } else if (Array.isArray(value) && value.length === 2) {
       // Process value as a color ['#663399', 1]
       return (0,utils/* getHexColor */.Xv)(value[0], value[1]);
-    }
-    // Ensure text styles contain all default values from Text texture.
-    // This prevents properties that exist on a previous theme persisting on the current theme when switching themes by creating a new object each time.
-    if (_typeof(value) === 'object' && isTextStyleObject(value)) {
-      return _objectSpread(_objectSpread({}, lightningTextDefaults), value);
     }
     return value;
   });
@@ -8301,10 +8253,10 @@ var formatStyleObj = function formatStyleObj(originalObj) {
   // Each function takes 'obj' (initially 'finalStyle') as input and applies transformations
   // The result of the previous function is passed as input to the next function
   // The final transformed style is assigned to 'this._style'
-  return formattersArray.reduce(function (obj, _ref6) {
-    var _ref7 = _slicedToArray(_ref6, 2),
-      func = _ref7[0],
-      args = _ref7[1];
+  return formattersArray.reduce(function (obj, _ref4) {
+    var _ref5 = _slicedToArray(_ref4, 2),
+      func = _ref5[0],
+      args = _ref5[1];
     return func.apply(void 0, [obj].concat(_toConsumableArray(args)));
   }, originalObj);
 };
@@ -8350,6 +8302,8 @@ context/* default */.Z.on('themeUpdate', function () {
   themeStyleCache.clear();
 });
 /* harmony default export */ const cache = (themeStyleCache);
+// EXTERNAL MODULE: ../../../node_modules/@lightningjs/core/dist/lightning.esm.js
+var lightning_esm = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
 ;// CONCATENATED MODULE: ../../@lightningjs/ui-components/src/mixins/withThemeStyles/StyleManager.js
 function StyleManager_typeof(o) { "@babel/helpers - typeof"; return StyleManager_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, StyleManager_typeof(o); }
 function StyleManager_toConsumableArray(arr) { return StyleManager_arrayWithoutHoles(arr) || StyleManager_iterableToArray(arr) || StyleManager_unsupportedIterableToArray(arr) || StyleManager_nonIterableSpread(); }
@@ -12957,4 +12911,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.d628d5a6.iframe.bundle.js.map
+//# sourceMappingURL=main.ecb70774.iframe.bundle.js.map

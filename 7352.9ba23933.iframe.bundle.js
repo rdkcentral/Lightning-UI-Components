@@ -363,7 +363,7 @@ var TitleRow = /*#__PURE__*/function (_Row) {
   }, {
     key: "_updateRow",
     value: function _updateRow() {
-      this.Items.patch({
+      this.applySmooth(this.Items, {
         y: this.title ? this._Title.finalH + this.style.titleMarginBottom : 0
       });
     }
@@ -423,4 +423,4 @@ var TitleRow = /*#__PURE__*/function (_Row) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7352.d5e97db4.iframe.bundle.js.map
+//# sourceMappingURL=7352.9ba23933.iframe.bundle.js.map

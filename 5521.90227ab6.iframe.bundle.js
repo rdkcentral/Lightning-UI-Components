@@ -339,7 +339,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var base = function base(theme) {
   return {
     cursorStyle: {
-      color: theme.color.textNeutral,
+      textColor: theme.color.textNeutral,
       blink: true,
       width: theme.spacer.xs,
       height: theme.spacer.xxl
@@ -369,7 +369,7 @@ var mode = function mode(theme) {
     },
     focused: {
       cursorStyle: {
-        color: theme.color.textInverse
+        textColor: theme.color.textInverse
       },
       eyebrowTextStyle: {
         textColor: theme.color.textNeutral
@@ -631,7 +631,7 @@ var Input = /*#__PURE__*/function (_Button) {
         if (this.cursorBlink) this.isCursorActive ? this.cursorBlink.start() : this.cursorBlink.stop();
       }
       this._Cursor.smooth = {
-        color: this.style.cursorStyle.color
+        color: this.style.cursorStyle.textColor
       };
     }
   }, {
@@ -854,4 +854,4 @@ module.exports = __webpack_require__.p + "static/media/ic_lightning_white_32.06a
 /***/ })
 
 }]);
-//# sourceMappingURL=5521.e2fc3089.iframe.bundle.js.map
+//# sourceMappingURL=5521.90227ab6.iframe.bundle.js.map

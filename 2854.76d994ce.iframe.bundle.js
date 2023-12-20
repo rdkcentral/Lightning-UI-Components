@@ -1175,17 +1175,20 @@ var Tile = /*#__PURE__*/function (_Surface) {
         h: this.style.logoHeight,
         icon: this.logo,
         alpha: this.style.alpha,
-        mountY: 1,
         x: this.style.paddingX,
         y: this._calculateLogoYPosition()
       };
       if (this.logo && (this.persistentMetadata || this._isFocusedMode)) {
         if (!this._Logo) {
-          logoObject.type = Icon/* default */.Z;
+          this.patch({
+            Logo: _objectSpread({
+              type: Icon/* default */.Z,
+              mountY: 1
+            }, logoObject)
+          });
+        } else {
+          this.applySmooth(this._Logo, logoObject);
         }
-        this.patch({
-          Icon: logoObject
-        });
       } else {
         this.patch({
           Icon: undefined
@@ -1195,11 +1198,10 @@ var Tile = /*#__PURE__*/function (_Surface) {
   }, {
     key: "_calculateLogoYPosition",
     value: function _calculateLogoYPosition() {
-      if (this._isInsetMetadata) {
-        return this._metadataY - (this._Metadata ? this._Metadata.h : 0);
-      } else {
-        return this._progressBarY ? this._progressBarY - this.style.paddingYBetweenContent : this._h - this.style.paddingY;
+      if (this._isInsetMetadata && this._Metadata) {
+        return this._metadataY - this._Metadata.h;
       }
+      return this._progressBarY ? this._progressBarY - this.style.paddingYBetweenContent : this._h - this.style.paddingY;
     }
     /* ------------------------------ Artwork ------------------------------ */
   }, {
@@ -1452,7 +1454,7 @@ var Tile = /*#__PURE__*/function (_Surface) {
     key: "_metadataTransitions",
     get: function get() {
       return {
-        y: [this._shouldShowMetadata ? this._metadataY : this._h + this.style.paddingY, this._shouldShowMetadata ? this.style.animationEntrance : this.style.animationExit],
+        y: [this._metadataY, this._shouldShowMetadata ? this.style.animationEntrance : this.style.animationExit],
         alpha: [this._metadataAlpha, this._shouldShowMetadata ? this.style.animationEntrance : this.style.animationExit]
       };
     }
@@ -1467,7 +1469,12 @@ var Tile = /*#__PURE__*/function (_Surface) {
   }, {
     key: "_metadataY",
     get: function get() {
-      return this._isInsetMetadata ? this._progressBarY ? this._progressBarY - this.style.paddingYBetweenContent : this._h - this.style.paddingY : this._h + this.style.paddingY;
+      if (this._shouldShowMetadata) {
+        if (this._isInsetMetadata) {
+          return this._progressBarY ? this._progressBarY - this.style.paddingYBetweenContent : this._h - this.style.paddingY;
+        }
+      }
+      return this._h + this.style.paddingY;
     }
   }, {
     key: "_metadataAlpha",
@@ -1478,15 +1485,21 @@ var Tile = /*#__PURE__*/function (_Surface) {
     key: "_metadataPatch",
     get: function get() {
       return _objectSpread({
-        mode: this.mode,
         alpha: this._metadataAlpha,
-        mountX: 0.5,
-        mountY: this._isInsetMetadata ? 1 : 0,
-        marquee: this._isFocusedMode,
         w: this._w - this.style.paddingX * 2,
         x: this._w / 2,
-        y: this.persistentMetadata || !(this._isInsetMetadata && this._isFocusedMode) ? this._metadataY : this._h + this.style.paddingY
+        y: this._metadataY
       }, this.metadata || {});
+    }
+  }, {
+    key: "_nonSmoothingMetadataPatch",
+    get: function get() {
+      return {
+        mode: this.mode,
+        mountX: 0.5,
+        mountY: this._isInsetMetadata ? 1 : 0,
+        marquee: this._isFocusedMode
+      };
     }
   }, {
     key: "_getMetadataLocation",
@@ -1516,18 +1529,16 @@ var Tile = /*#__PURE__*/function (_Surface) {
       if (!this._Metadata && this._hasMetadata) {
         // Patch in Metadata for the first time
         this._Content.patch({
-          Metadata: _objectSpread({
+          Metadata: _objectSpread(_objectSpread({
             type: MetadataTile/* default */.Z,
             signals: {
               updateComponentDimensions: '_metadataLoaded'
             }
-          }, this._metadataPatch)
+          }, this._nonSmoothingMetadataPatch), this._metadataPatch)
         });
         return;
       }
-      // if none of the above apply patch in metadataPatch
-      this._Metadata.patch(this._metadataPatch); // Metadata should never be patched with smooth
-      // then call animateMetadata
+      this._Metadata.patch(this._nonSmoothingMetadataPatch);
       this._animateMetadata();
     }
   }, {
@@ -1657,4 +1668,4 @@ var Tile = /*#__PURE__*/function (_Surface) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2854.78328811.iframe.bundle.js.map
+//# sourceMappingURL=2854.76d994ce.iframe.bundle.js.map
