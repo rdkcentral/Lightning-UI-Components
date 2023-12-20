@@ -219,8 +219,8 @@ export default class Tile extends Surface {
   }
 
   _calculateLogoYPosition() {
-    if (this._isInsetMetadata) {
-      return this._metadataY - (this._Metadata ? this._Metadata.h : 0);
+    if (this._isInsetMetadata && this._Metadata) {
+      return this._metadataY - this._Metadata.h;
     }
     return this._progressBarY
       ? this._progressBarY - this.style.paddingYBetweenContent
