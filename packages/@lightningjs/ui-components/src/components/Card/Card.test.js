@@ -64,10 +64,12 @@ describe('Card', () => {
     card.title = 'Title';
     testRenderer.forceAllUpdates();
     expect(card._Title.content).toEqual('Title');
-    expect(card._Title.style.textStyle).toMatchObject({
-      ...card.style.titleTextStyle,
-      wordWrapWidth: card._calculateTextWidth()
-    });
+    expect(card._Title.style.textStyle).toMatchObject(
+      card.style.titleTextStyle
+    );
+    expect(card._Title.style.textStyle.wordWrapWidth).toEqual(
+      card._calculateTextWidth()
+    );
     expect(card._Title.style.textStyle.textColor).toEqual(
       card.style.titleTextStyle.textColor
     );

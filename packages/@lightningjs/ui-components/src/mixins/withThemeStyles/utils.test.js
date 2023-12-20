@@ -20,8 +20,7 @@ import {
   getStyleChain,
   formatStyleObj,
   replaceAliasValues,
-  themeParser,
-  lightningTextDefaults
+  colorParser
 } from './utils';
 import log from '../../globals/context/logger';
 
@@ -36,7 +35,7 @@ jest.mock('./utils', () => ({
   getValFromObjPath: jest.fn(),
   removeEmptyObjects: jest.fn(),
   getHexColor: jest.fn(),
-  themeParser: jest.fn()
+  colorParser: jest.fn()
 }));
 
 jest.mock('../../globals/context/logger', () => ({
@@ -922,7 +921,7 @@ describe('generateComponentStyleSource', () => {
   });
 });
 
-describe('themeParser', () => {
+describe('colorParser', () => {
   it('should parse style object with theme strings and color arrays', () => {
     const targetObject = {
       theme: {
@@ -937,7 +936,7 @@ describe('themeParser', () => {
       borderColor: ['#663399', 1]
     };
 
-    const result = themeParser(targetObject, styleObj);
+    const result = colorParser(targetObject, styleObj);
 
     const expectedOutput = {
       backgroundColor: '10',
@@ -954,7 +953,7 @@ describe('themeParser', () => {
 
     const styleObj = {};
 
-    const result = themeParser(targetObject, styleObj);
+    const result = colorParser(targetObject, styleObj);
 
     expect(result).toEqual({});
   });
@@ -966,7 +965,7 @@ describe('themeParser', () => {
       backgroundColor: 'theme.radius.md'
     };
 
-    expect(() => themeParser(targetObject, styleObj)).toThrow(TypeError);
+    expect(() => colorParser(targetObject, styleObj)).toThrow(TypeError);
   });
 
   it('should throw a TypeError if styleObj is not an object', () => {
@@ -976,28 +975,7 @@ describe('themeParser', () => {
 
     const styleObj = 'not an object'; // Passing a string instead of an object
 
-    expect(() => themeParser(targetObject, styleObj)).toThrow(TypeError);
-  });
-
-  it('should generate new text style objects', () => {
-    const targetObject = {
-      theme: {}
-    };
-
-    const styleObj = {
-      textStyle: {
-        fontSize: 12
-      }
-    };
-
-    const result = themeParser(targetObject, styleObj);
-
-    expect(result).toEqual({
-      textStyle: {
-        ...lightningTextDefaults,
-        fontSize: 12
-      }
-    });
+    expect(() => colorParser(targetObject, styleObj)).toThrow(TypeError);
   });
 });
 
