@@ -613,7 +613,10 @@ export const themeParser = (targetObject, styleObj) => {
     // Ensure text styles contain all default values from Text texture.
     // This prevents properties that exist on a previous theme persisting on the current theme when switching themes by creating a new object each time.
     if (typeof value === 'object' && isTextStyleObject(value)) {
-      return { ...lightningTextDefaults, ...value };
+      // TODO: Figure out alternate approach to resetting typography defaults
+      // otherwise these properties are getting carried through the deep-merging process
+      // and causing unexpected behavior for subcomponents, like the Metadata inside of CardContent
+      return { /*...lightningTextDefaults,*/ ...value };
     }
     return value;
   });
