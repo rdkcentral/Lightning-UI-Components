@@ -173,11 +173,14 @@ yarn createComponent <packageName> <componentName> <parentName>
 
 - `packageName`: name of which package the component will be published to (`@lightningjs/ui-components` or `@lightningjs/ui-components`)
 - `componentName`: name of component to be added
+- `parentName`: name of parent component the new components extends
+
+If `parentName` is left out, the component's doc will reference an `undefined` component which can either be changed to reference another component or deleted
 
 Example: add a new component, `MyComponent`, to the `@lightningjs/ui-components` package
 
 ```sh
-yarn createComponent @lightningjs/ui-components MyComponent
+yarn createComponent @lightningjs/ui-components MyComponent ParentComponent
 ```
 
 This will create the following files:
@@ -509,17 +512,18 @@ API documentation lives in `<Type>/<Component>/<Component>.mdx`, below [usage do
 
 If you generated a new component with `yarn createComponent`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding API documentation should follow this pattern:
 
-```js
+```mdx
 ## API
 
 ### Parent Properties
+
 ComponentName has the same properties as [ParentComponentName](?path=/docs/components-parentName--docs)
 
-<ArgTypes of={ParentNameStories.parentName} />
+<ArgTypes of={ParentNameStories.parentName} exclude={['mode']} />
 
 ### Properties
 
-<ArgTypes of={ComponentNameStories.Basic} />
+<ArgTypes of={ComponentNameStories.Basic} exclude={['mode']} />
 
 ### Methods
 
@@ -527,7 +531,7 @@ ComponentName has the same properties as [ParentComponentName](?path=/docs/compo
 
 ### Style Properties
 
-name|type|required|default|description
--|-|-|-|-
--|-|-|-|-
+| name | type | required | default | description |
+| ---- | ---- | -------- | ------- | ----------- |
+| -    | -    | -        | -       | -           |
 ```
