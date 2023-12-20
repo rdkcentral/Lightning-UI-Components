@@ -176,11 +176,14 @@ yarn createComponent <packageName> <componentName>
 
 - `packageName`: name of which package the component will be published to (`@lightningjs/ui-components` or `@lightningjs/ui-components`)
 - `componentName`: name of component to be added
+- `parentName`: name of parent component the new components extends
+
+If `parentName` is left out, the component's doc will reference an `undefined` component which can either be changed to reference another component or deleted
 
 Example: add a new component, `MyComponent`, to the `@lightningjs/ui-components` package
 
 ```sh
-yarn createComponent @lightningjs/ui-components MyComponent
+yarn createComponent @lightningjs/ui-components MyComponent ParentCompent
 ```
 
 This will create the following files:

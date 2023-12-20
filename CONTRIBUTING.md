@@ -513,7 +513,7 @@ If you generated a new component with `yarn createComponent`, a template layout 
 ## API
 
 ### Parent Properties
-ComponentName has the same properties as [ParentComponentName](?path=/docs/components-${parentName}--docs)
+ComponentName has the same properties as [ParentComponentName](?path=/docs/components-parentName--docs)
 
 <ArgTypes of={ParentNameStories.parentName} />
 
