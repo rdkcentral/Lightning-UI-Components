@@ -195,7 +195,6 @@ export default class Tile extends Surface {
     const logoObject = {
       w: this.style.logoWidth,
       h: this.style.logoHeight,
-      icon: this.logo,
       alpha: this.style.alpha,
       x: this.style.paddingX,
       y: this._calculateLogoYPosition()
@@ -207,10 +206,12 @@ export default class Tile extends Surface {
           Logo: {
             type: Icon,
             mountY: 1,
+            icon: this.logo,
             ...logoObject
           }
         });
       } else {
+        this._Logo.icon = this.logo;
         this.applySmooth(this._Logo, logoObject);
       }
     } else {
