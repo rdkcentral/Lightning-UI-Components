@@ -90,7 +90,7 @@ export default class TitleRow extends Row {
   }
 
   _updateRow() {
-    this.Items.patch({
+    this.applySmooth(this.Items, {
       y: this.title ? this._Title.finalH + this.style.titleMarginBottom : 0
     });
   }
