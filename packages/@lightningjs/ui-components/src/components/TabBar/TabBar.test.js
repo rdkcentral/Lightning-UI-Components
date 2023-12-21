@@ -183,11 +183,14 @@ describe('TabBar', () => {
       { tabs },
       { focused: true, spyOnMethods: ['$itemChanged'] }
     );
-    await tabBar.__updateSpyPromise;
+    testRenderer.forceAllUpdates();
+    await tabBar._$itemChangedSpyPromise;
+
     const initialHeight = tabBar.h;
 
     // this triggers the Tabs Row to fire an $itemChanged signal
     tabBar.tabs = [{ rect: true, h: initialHeight + 20, w: 200 }];
+    testRenderer.forceAllUpdates();
     await tabBar._$itemChangedSpyPromise;
 
     expect(tabBar.h).toBeGreaterThan(initialHeight);
