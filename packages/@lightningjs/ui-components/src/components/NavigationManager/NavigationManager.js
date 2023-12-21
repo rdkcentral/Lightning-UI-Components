@@ -168,8 +168,7 @@ export default class NavigationManager extends FocusManager {
       this.Items[lengthDimension] !== nextPosition;
 
     if (this.waitForDimensions) {
-      this.Items.alpha =
-        this.waitForDimensions && loadingChildren.length ? 0.001 : 1;
+      this.Items.alpha = loadingChildren.length ? 0.001 : 1;
     }
 
     this.Items.patch({
