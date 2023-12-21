@@ -67,7 +67,7 @@ describe('MetadataTile', () => {
 
   it('hides details if description is provided', async () => {
     metadataTile.details = 'details';
-    await metadataTile.__detailsLoadedpyPromise;
+    await metadataTile.__detailsLoadedSpyPromise;
     testRenderer.forceAllUpdates();
 
     expect(metadataTile._Details.alpha).toBe(1);
