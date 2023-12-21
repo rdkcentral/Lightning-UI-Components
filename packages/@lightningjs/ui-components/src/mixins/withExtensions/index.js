@@ -147,12 +147,13 @@ export default function withExtensions(Base) {
 
     _attach() {
       // If you have a component instance that was detached, but then reused, need to check if the extensions need to be updated
-      // Here we are assuming it's ok to run _extensionCleanup at any time, even if the extension code has never run in an update cycle
+      // Here we are assuming it's ok to run _extensionCleanup at any time, even if the extension code has never run in an update cycle.
       if (this._instanceNeedsReset()) {
         this._resetComponent();
         this._markInstanceUpToDate();
       }
 
+      // If the theme changes while there are no instances of the component attached, and a component is re-used later, we need to ensure the prototype is reset (removing old extensions), and then re-apply the new extensions.
       if (!this._classHasLatestExtensions()) {
         this._resetPrototype();
         this._checkAndCreateExtension();
