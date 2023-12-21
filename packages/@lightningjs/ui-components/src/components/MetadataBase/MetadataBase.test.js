@@ -26,11 +26,26 @@ const createComponent = makeCreateComponent(MetadataBase, {
 });
 
 describe('MetadataBase', () => {
-  let metadataBase, testRenderer;
+  let metadataBase,
+    testRenderer,
+    metadataBaseWithContent,
+    testRendererWithContent;
 
   beforeEach(() => {
     [metadataBase, testRenderer] = createComponent(
       {},
+      {
+        spyOnMethods: ['_update']
+      }
+    );
+
+    [metadataBaseWithContent, testRendererWithContent] = createComponent(
+      {
+        title: 'BaseTitle',
+        description: 'Base Description',
+        details: 'Base Details',
+        logo: '/test-src'
+      },
       {
         spyOnMethods: ['_update']
       }
@@ -45,6 +60,9 @@ describe('MetadataBase', () => {
   it('renders', () => {
     const tree = testRenderer.toJSON(2);
     expect(tree).toMatchSnapshot();
+
+    const treeWithContent = testRendererWithContent.toJSON(2);
+    expect(treeWithContent).toMatchSnapshot();
   });
 
   it('sets the announce string to the appropriate text content status', () => {
@@ -103,14 +121,14 @@ describe('MetadataBase', () => {
   });
 
   it('should allow marquee-ing title and description text', async () => {
-    expect(metadataBase._Title.marquee).toBeUndefined();
-    expect(metadataBase._Description.marquee).toBeUndefined();
+    expect(metadataBaseWithContent._Title.marquee).toBeUndefined();
+    expect(metadataBaseWithContent._Description.marquee).toBeUndefined();
 
-    metadataBase.marquee = true;
-    await metadataBase.__updateSpyPromise;
+    metadataBaseWithContent.marquee = true;
+    await metadataBaseWithContent.__updateSpyPromise;
 
-    expect(metadataBase._Title.marquee).toBe(true);
-    expect(metadataBase._Description.marquee).toBe(true);
+    expect(metadataBaseWithContent._Title.marquee).toBe(true);
+    expect(metadataBaseWithContent._Description.marquee).toBe(true);
   });
 
   it('updates the Logo and its position', async () => {
@@ -150,7 +168,7 @@ describe('MetadataBase', () => {
     const logoHeight = 50;
     metadataBase.logoWidth = logoWidth;
     metadataBase.logoHeight = logoHeight;
-
+    metadataBase.logo = '/test-src';
     await metadataBase.__updateSpyPromise;
 
     expect(metadataBase.logoWidth).toBe(logoWidth);
@@ -162,6 +180,7 @@ describe('MetadataBase', () => {
   it('should disallow setting the logo width and logo height to undefined and default its value to the logoWidth and logoHeight style properties', async () => {
     metadataBase.logoWidth = undefined;
     metadataBase.logoHeight = undefined;
+    metadataBase.logo = '/test-src';
 
     await metadataBase.__updateSpyPromise;
 
@@ -173,48 +192,73 @@ describe('MetadataBase', () => {
 
   describe('resetMarquee', () => {
     beforeEach(() => {
-      jest.spyOn(metadataBase._Title, 'toggleMarquee');
-      jest.spyOn(metadataBase._Description, 'toggleMarquee');
+      jest.spyOn(metadataBaseWithContent._Title, 'toggleMarquee');
+      jest.spyOn(metadataBaseWithContent._Description, 'toggleMarquee');
     });
     it('should toggle the marquee animation for title', async () => {
-      metadataBase.title = 'title';
-      metadataBase.marquee = true;
-      await metadataBase.__updateSpyPromise;
+      metadataBaseWithContent.title = 'title';
+      metadataBaseWithContent.description = null;
+      metadataBaseWithContent.marquee = true;
+      await metadataBaseWithContent.__updateSpyPromise;
 
-      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Title.toggleMarquee
+      ).not.toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Description.toggleMarquee
+      ).not.toHaveBeenCalled();
 
-      metadataBase.resetMarquee();
+      metadataBaseWithContent.resetMarquee();
 
-      expect(metadataBase._Title.toggleMarquee).toHaveBeenCalled();
-      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
+      expect(metadataBaseWithContent._Title.toggleMarquee).toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Description.toggleMarquee
+      ).not.toHaveBeenCalled();
     });
     it('should toggle the marquee animation for description', async () => {
-      metadataBase.description = 'description';
-      metadataBase.marquee = true;
-      await metadataBase.__updateSpyPromise;
+      metadataBaseWithContent.title = null;
+      metadataBaseWithContent.description = 'description';
+      metadataBaseWithContent.marquee = true;
+      await metadataBaseWithContent.__updateSpyPromise;
+      testRenderer.forceAllUpdates();
 
-      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Title.toggleMarquee
+      ).not.toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Description.toggleMarquee
+      ).not.toHaveBeenCalled();
+      metadataBaseWithContent.resetMarquee();
 
-      metadataBase.resetMarquee();
-
-      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(metadataBase._Description.toggleMarquee).toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Title.toggleMarquee
+      ).not.toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Description.toggleMarquee
+      ).toHaveBeenCalled();
     });
-    it('should toggle the marquee animation if marquee is not enabled', async () => {
-      metadataBase.title = 'title';
-      metadataBase.description = 'description';
-      metadataBase.marquee = false;
-      await metadataBase.__updateSpyPromise;
 
-      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
+    it('should not toggle the marquee animation if marquee is not enabled', async () => {
+      metadataBaseWithContent.title = 'title';
+      metadataBaseWithContent.description = 'description';
+      metadataBaseWithContent.marquee = false;
+      await metadataBaseWithContent.__updateSpyPromise;
 
-      metadataBase.resetMarquee();
+      expect(
+        metadataBaseWithContent._Title.toggleMarquee
+      ).not.toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Description.toggleMarquee
+      ).not.toHaveBeenCalled();
 
-      expect(metadataBase._Title.toggleMarquee).not.toHaveBeenCalled();
-      expect(metadataBase._Description.toggleMarquee).not.toHaveBeenCalled();
+      metadataBaseWithContent.resetMarquee();
+
+      expect(
+        metadataBaseWithContent._Title.toggleMarquee
+      ).not.toHaveBeenCalled();
+      expect(
+        metadataBaseWithContent._Description.toggleMarquee
+      ).not.toHaveBeenCalled();
     });
   });
 

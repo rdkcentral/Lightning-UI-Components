@@ -575,14 +575,7 @@ export default class Tile extends Surface {
   }
 
   _getMetadataLocation() {
-    return this.style.metadataLocation ?? this._metadataLocation;
-  }
-
-  _setMetadataLocation(metadataLocation) {
-    if (metadataLocation) {
-      this.style = { metadataLocation };
-    }
-    return metadataLocation;
+    return this._metadataLocation ?? this.style.metadataLocation;
   }
 
   _updateMetadata() {
