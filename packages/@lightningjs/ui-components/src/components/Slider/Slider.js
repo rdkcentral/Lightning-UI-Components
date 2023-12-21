@@ -109,11 +109,12 @@ export default class Slider extends Base {
     this._updatePositions();
     this._updateArrowAlpha();
     this._updateArrows();
-    this.signal('onChange', this.value, this);
     if (this._valueChanged) {
+      this.signal('onChange', this.value, this);
       this.fireAncestors('$announce', this.announce);
       this._valueChanged = false;
     }
+    this._checkAndSignalSizeChange();
   }
 
   _handleLeft() {
@@ -164,6 +165,19 @@ export default class Slider extends Base {
       }
     });
     this.h = Math.max(this.style.containerHeight, this.style.arrowHeight);
+  }
+
+  _checkAndSignalSizeChange() {
+    if (
+      this.h !== this.prevH ||
+      this._Container.w !== this.prevW ||
+      this.rotation !== this.prevRotation
+    ) {
+      this.signal('onSizeChange', this);
+    }
+    this.prevH = this.h;
+    this.prevW = this._Container.w;
+    this.prevRotation = this.rotation;
   }
 
   _updatePositions() {
