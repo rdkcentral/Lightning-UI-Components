@@ -21,18 +21,16 @@ import { context } from '../../globals';
 /**
  * Note on how instance createExtensions cleanup are handled:
  *
- * 1. If you're a new instance and prototype doesn't have extension, run createExtensions
- *  and mark instance and prototype as up to date
+ * 1. For a new instance, if the prototype doesn't have extensions applied, run createExtensions and mark the instance and the prototype as up to date
  *
  * 2. A second instance will be marked as instance up to date, and createExtension won't need to run
  *
- * 3. If theme changes with instances attached, they all run cleanup, and then each tries to run checkAndCreateExtension.
- * This will run createExtension the first time, and then mark all other instances as up to date without running createExtension
+ * 3. If the theme changes with instances attached, they all run the instance extensionCleanup cycle, and then each tries to run checkAndCreateExtension.
+ * This will run createExtension the first time, and then mark all other instances as up to date without running createExtension.
  *
- * 4. If theme changes when instances exist but are not attached, their cleanup listeners won't run.
- * Instead, on attach, we check if both the instance and prototype needs updating.
- * We don't end up repeatedly calling extensionCleanup on attach because in the _construct hook for a new instance
- * We start with the latest timestamp.
+ * 4. If the theme changes when instances exist but are not attached, their cleanup listeners won't run.
+ * Instead, on attach, we check if both the instance and its prototype need updating.
+ * We don't end up repeatedly calling extensionCleanup on attach because in the _construct hook for a new instance We start with the latest timestamp. This hook is not run when reusing an instance.
  *
  */
 
