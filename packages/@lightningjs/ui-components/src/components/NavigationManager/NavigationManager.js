@@ -167,8 +167,12 @@ export default class NavigationManager extends FocusManager {
       this.Items[crossDimension] !== maxCrossDimensionSize ||
       this.Items[lengthDimension] !== nextPosition;
 
+    if (this.waitForDimensions) {
+      this.Items.alpha =
+        this.waitForDimensions && loadingChildren.length ? 0.001 : 1;
+    }
+
     this.Items.patch({
-      alpha: this.waitForDimensions && loadingChildren.length ? 0.001 : 1,
       [crossDimension]: maxCrossDimensionSize,
       [innerCrossDimension]:
         maxInnerCrossDimensionSize || maxCrossDimensionSize,
