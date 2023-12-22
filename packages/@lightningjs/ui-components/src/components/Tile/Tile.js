@@ -124,8 +124,8 @@ export default class Tile extends Surface {
     this._updateLabel();
     this._updateCheckbox();
     this._updateProgressBar();
-    this._updateLogo();
     this._updateMetadata();
+    this._updateLogo();
   }
 
   /* ------------------------------ Tile ------------------------------ */
@@ -560,8 +560,7 @@ export default class Tile extends Surface {
       alpha: this._metadataAlpha,
       w: this._w - this.style.paddingX * 2,
       x: this._w / 2,
-      y: this._metadataY,
-      ...(this.metadata || {})
+      y: this._metadataY
     };
   }
 
@@ -570,7 +569,8 @@ export default class Tile extends Surface {
       mode: this.mode,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,
-      marquee: this._isFocusedMode
+      marquee: this._isFocusedMode,
+      ...(this.metadata || {})
     };
   }
 
