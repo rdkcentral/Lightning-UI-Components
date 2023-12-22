@@ -109,7 +109,6 @@ describe('TabBar', () => {
   });
 
   it('should display which tab is selected when focused on the tab content', async () => {
-    await tabBar.__updateSpyPromise;
     testRenderer.keyPress('Down');
 
     expect(tabBar._Tabs.items[0].mode).toBe('selected');
@@ -117,7 +116,6 @@ describe('TabBar', () => {
   });
 
   it('should transfer focus back to the tabs on up', async () => {
-    await tabBar.__updateSpyPromise;
     testRenderer.keyPress('Down');
 
     expect(tabBar._Tabs.items[0].mode).toBe('selected');
@@ -185,18 +183,20 @@ describe('TabBar', () => {
       { tabs },
       { focused: true, spyOnMethods: ['$itemChanged'] }
     );
-    await tabBar.__updateSpyPromise;
+    testRenderer.forceAllUpdates();
+    await tabBar._$itemChangedSpyPromise;
+
     const initialHeight = tabBar.h;
 
     // this triggers the Tabs Row to fire an $itemChanged signal
     tabBar.tabs = [{ rect: true, h: initialHeight + 20, w: 200 }];
+    testRenderer.forceAllUpdates();
     await tabBar._$itemChangedSpyPromise;
 
     expect(tabBar.h).toBeGreaterThan(initialHeight);
   });
 
   it('should not repeatedly select the tabs when already selected', async () => {
-    await tabBar.__updateSpyPromise;
     jest.spyOn(tabBar, '_updateTabs');
     expect(tabBar._updateTabs).not.toHaveBeenCalled();
 
@@ -321,20 +321,19 @@ describe('TabBar', () => {
   });
 
   it('should allow overwriting the margin between tabs and tab content', async () => {
-    await tabBar.__updateSpyPromise;
+    testRenderer.forceAllUpdates();
     expect(tabBar._TabContent.y).toBe(
       tabBar._Tabs.h + tabBar.style.tabsMarginBottom
     );
   });
 
   it('should set the tab item spacing', async () => {
-    await tabBar.__updateSpyPromise;
+    testRenderer.forceAllUpdates();
     expect(tabBar._Tabs.style.itemSpacing).toBe(tabBar.style.tabSpacing);
   });
 
   describe('the reset property', () => {
     it('should reselect the first item on unfocus when reset is true', () => {
-      tabBar.__updateSpyPromise;
       tabBar.reset = true;
 
       testRenderer.keyPress('Right');
@@ -346,7 +345,6 @@ describe('TabBar', () => {
       expect(tabBar._Tabs.selectedIndex).toBe(0);
     });
     it('should maintain the current selection on unfocus when reset is false', () => {
-      tabBar.__updateSpyPromise;
       testRenderer.keyPress('Right');
 
       expect(tabBar._Tabs.selectedIndex).toBe(1);

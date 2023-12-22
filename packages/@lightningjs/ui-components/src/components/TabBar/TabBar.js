@@ -140,6 +140,7 @@ export default class TabBar extends Base {
     // triggered when the Tabs Row resizes
     // update the height of TabBar using the latest h value from Tabs
     this._updateTabBarHeight();
+    this._updateTabContent();
   }
 
   _updateTabBarHeight() {

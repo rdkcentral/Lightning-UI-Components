@@ -394,8 +394,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._w === v) return;
       super.w = v;
       this._wSetByUser = true;
-      this._styleManager.clearStyleCache();
-      this._styleManager.update();
+      this._updateThemeComponent();
     }
 
     /**
@@ -414,8 +413,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._h === v) return;
       super.h = v;
       this._hSetByUser = true;
-      this._styleManager.clearStyleCache();
-      this._styleManager.update();
+      this._updateThemeComponent();
     }
   };
 }
