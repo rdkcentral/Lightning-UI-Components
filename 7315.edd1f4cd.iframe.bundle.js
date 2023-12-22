@@ -318,11 +318,12 @@ var Slider = /*#__PURE__*/function (_Base) {
       this._updatePositions();
       this._updateArrowAlpha();
       this._updateArrows();
-      this.signal('onChange', this.value, this);
       if (this._valueChanged) {
+        this.signal('onChange', this.value, this);
         this.fireAncestors('$announce', this.announce);
         this._valueChanged = false;
       }
+      this._checkAndSignalSizeChange();
     }
   }, {
     key: "_handleLeft",
@@ -376,6 +377,16 @@ var Slider = /*#__PURE__*/function (_Base) {
         }
       });
       this.h = Math.max(this.style.containerHeight, this.style.arrowHeight);
+    }
+  }, {
+    key: "_checkAndSignalSizeChange",
+    value: function _checkAndSignalSizeChange() {
+      if (this.h !== this.prevH || this._Container.w !== this.prevW || this.rotation !== this.prevRotation) {
+        this.signal('onSizeChange', this);
+      }
+      this.prevH = this.h;
+      this.prevW = this._Container.w;
+      this.prevRotation = this.rotation;
     }
   }, {
     key: "_updatePositions",
@@ -895,4 +906,4 @@ var GenericType = function GenericType(_ref7) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7315.2a2c0e12.iframe.bundle.js.map
+//# sourceMappingURL=7315.edd1f4cd.iframe.bundle.js.map

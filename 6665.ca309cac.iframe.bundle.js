@@ -236,11 +236,6 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
     return _super.apply(this, arguments);
   }
   _createClass(MetadataBase, [{
-    key: "_init",
-    value: function _init() {
-      this.requestUpdate(true);
-    }
-  }, {
     key: "_titleLoaded",
     value: function _titleLoaded() {
       this._updateLayout();
@@ -266,9 +261,14 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
     value: function _updateDetailsLayout(_ref2) {
       var w = _ref2.w,
         h = _ref2.h;
-      this._DetailsWrapper.alpha = this.style.alpha;
-      this._DetailsWrapper.w = w;
-      this._DetailsWrapper.h = h;
+      if (!this.details && !this._Details) {
+        return;
+      }
+      if (this._DetailsWrapper) {
+        this._DetailsWrapper.alpha = this.style.alpha;
+        this._DetailsWrapper.w = w;
+        this._DetailsWrapper.h = h;
+      }
     }
   }, {
     key: "_update",
@@ -310,6 +310,18 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "_updateTitle",
     value: function _updateTitle() {
+      if (!this.title && !this._Title) {
+        return;
+      }
+      if (!this._Title) {
+        this._Text.childList.addAt({
+          ref: 'Title',
+          type: TextBox/* default */.Z,
+          signals: {
+            textBoxChanged: '_titleLoaded'
+          }
+        }, 0);
+      }
       this._Title.patch({
         content: this.title,
         marquee: this.marquee,
@@ -327,9 +339,15 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
     value: function resetMarquee() {
       if (this.marquee) {
         if (this.title) {
+          if (!this._Title) {
+            this._updateTitle();
+          }
           this._Title.toggleMarquee();
         }
         if (this.description) {
+          if (!this._Description) {
+            this._updateDescription();
+          }
           this._Description.toggleMarquee();
         }
       }
@@ -337,6 +355,19 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "_updateDetails",
     value: function _updateDetails() {
+      if (!this.details && !this._Details) {
+        return;
+      }
+      if (!this._Details) {
+        this._DetailsWrapper.patch({
+          Details: {
+            type: TextBox/* default */.Z,
+            signals: {
+              textBoxChanged: '_detailsLoaded'
+            }
+          }
+        });
+      }
       this._Details.patch({
         content: this.details,
         style: {
@@ -362,6 +393,18 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "_updateDescription",
     value: function _updateDescription() {
+      if (!this.description && !this._Description) {
+        return;
+      }
+      if (!this._Description) {
+        this._Text.childList.add({
+          ref: 'Description',
+          type: TextBox/* default */.Z,
+          signals: {
+            textBoxChanged: '_descriptionLoaded'
+          }
+        });
+      }
       this._Description.patch({
         content: this.description,
         marquee: this.marquee,
@@ -377,9 +420,19 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "_updateLogo",
     value: function _updateLogo() {
+      if (!this.logo && !this._Logo) {
+        return;
+      }
+      if (!this._Logo) {
+        this.patch({
+          Logo: {
+            flexItem: false,
+            type: Icon/* default */.Z
+          }
+        });
+      }
       this.logoPosition = this.logoPosition || 'right';
       this._Logo.patch({
-        type: Icon/* default */.Z,
         w: this.logoWidth,
         h: this.logoHeight,
         icon: this.logo,
@@ -424,7 +477,7 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "syncArray",
     get: function get() {
-      return [].concat(_toConsumableArray(this.title ? [this._Title] : []), _toConsumableArray(this.description ? [this._Description] : []), _toConsumableArray(this.details ? [this._Details] : []));
+      return [].concat(_toConsumableArray(this._Title ? [this._Title] : []), _toConsumableArray(this._Description ? [this._Description] : []), _toConsumableArray(this._Details ? [this._Details] : []));
     }
   }, {
     key: "announce",
@@ -447,37 +500,23 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "_template",
     value: function _template() {
+      // Comments indicate where child components are inserted
       return {
         Text: {
           flex: {
             direction: 'column',
             justifyContent: 'flex-start'
           },
-          Title: {
-            type: TextBox/* default */.Z,
-            signals: {
-              textBoxChanged: '_titleLoaded'
-            }
-          },
+          // Title: {},
           DetailsWrapper: {
-            Details: {
-              type: TextBox/* default */.Z,
-              signals: {
-                textBoxChanged: '_detailsLoaded'
-              }
-            }
-          },
-          Description: {
-            type: TextBox/* default */.Z,
-            signals: {
-              textBoxChanged: '_descriptionLoaded'
-            }
+            // Details: {}
           }
-        },
-        Logo: {
-          flexItem: false,
-          type: Icon/* default */.Z
+          // Description: {}
         }
+        // Logo: {
+        //   flexItem: false,
+        //   type: Icon
+        // }
       };
     }
   }, {
@@ -669,4 +708,4 @@ function withMarqueeSync(Base) {
 /***/ })
 
 }]);
-//# sourceMappingURL=6665.5009c6e4.iframe.bundle.js.map
+//# sourceMappingURL=6665.ca309cac.iframe.bundle.js.map

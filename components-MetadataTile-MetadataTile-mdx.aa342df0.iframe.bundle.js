@@ -274,15 +274,16 @@ var MetadataTile = /*#__PURE__*/function (_MetadataBase) {
   _createClass(MetadataTile, [{
     key: "_updateDetails",
     value: function _updateDetails() {
-      if (this.description) {
+      if (!this.details && !this._Details) {
+        return;
+      }
+      if (this.description && this._Details) {
         this._Details.patch({
           content: ''
         });
         this._Details.alpha = 0;
         this._Details.visible = false;
       } else {
-        this._Details.alpha = 1;
-        this._Details.visible = true;
         _get(_getPrototypeOf(MetadataTile.prototype), "_updateDetails", this).call(this);
       }
     }
@@ -290,6 +291,9 @@ var MetadataTile = /*#__PURE__*/function (_MetadataBase) {
     key: "_updateDetailsLayout",
     value: function _updateDetailsLayout(_ref) {
       var h = _ref.h;
+      if (!this.details && !this._Details) {
+        return;
+      }
       if (this._Details && !this.description) {
         this._DetailsWrapper.h = h;
         this._DetailsWrapper.alpha = this.style.alpha;
@@ -652,4 +656,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-MetadataTile-MetadataTile-mdx.5e34c3ed.iframe.bundle.js.map
+//# sourceMappingURL=components-MetadataTile-MetadataTile-mdx.aa342df0.iframe.bundle.js.map

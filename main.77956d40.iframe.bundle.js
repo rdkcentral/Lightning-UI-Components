@@ -4934,6 +4934,7 @@ var TextBox = /*#__PURE__*/function (_Base) {
   }, {
     key: "_toggleMarquee",
     value: function _toggleMarquee(contentTag) {
+      if (!contentTag) return;
       if (this.marquee) {
         if (contentTag) {
           contentTag.alpha = 0.001;
@@ -7488,21 +7489,24 @@ function withTags(Base) {
     _createClass(_class, [{
       key: "_construct",
       value: function _construct() {
-        var _this = this;
-        var tags = this.constructor.tags || [];
-        tags.forEach(function (tag) {
-          if (_typeof(tag) === 'object') {
-            var name = tag.name,
-              path = tag.path;
-          } else {
-            var name = tag; // eslint-disable-line no-redeclare
-            var path = tag; // eslint-disable-line no-redeclare
-          }
+        var prototype = Object.getPrototypeOf(this);
+        if (!prototype._withTagsInitialized) {
+          var tags = this.constructor.tags || [];
+          tags.forEach(function (tag) {
+            if (_typeof(tag) === 'object') {
+              var name = tag.name,
+                path = tag.path;
+            } else {
+              var name = tag; // eslint-disable-line no-redeclare
+              var path = tag; // eslint-disable-line no-redeclare
+            }
 
-          var key = '_' + name;
-          var descriptor = getPropertyDescriptor(path);
-          Object.defineProperty(Object.getPrototypeOf(_this), key, descriptor);
-        });
+            var key = '_' + name;
+            var descriptor = getPropertyDescriptor(path);
+            Object.defineProperty(prototype, key, descriptor);
+          });
+          prototype._withTagsInitialized = true;
+        }
         _get(_getPrototypeOf(_class.prototype), "_construct", this) && _get(_getPrototypeOf(_class.prototype), "_construct", this).call(this);
       }
     }], [{
@@ -9036,8 +9040,7 @@ function withThemeStyles(Base) {
         if (this._w === v) return;
         _set(withThemeStyles_getPrototypeOf(_class.prototype), "w", v, this, true);
         this._wSetByUser = true;
-        this._styleManager.clearStyleCache();
-        this._styleManager.update();
+        this._updateThemeComponent();
       }
 
       /**
@@ -9059,8 +9062,7 @@ function withThemeStyles(Base) {
         if (this._h === v) return;
         _set(withThemeStyles_getPrototypeOf(_class.prototype), "h", v, this, true);
         this._hSetByUser = true;
-        this._styleManager.clearStyleCache();
-        this._styleManager.update();
+        this._updateThemeComponent();
       }
     }], [{
       key: "name",
@@ -12920,4 +12922,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.c460ffca.iframe.bundle.js.map
+//# sourceMappingURL=main.77956d40.iframe.bundle.js.map

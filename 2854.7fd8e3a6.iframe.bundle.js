@@ -652,15 +652,16 @@ var MetadataTile = /*#__PURE__*/function (_MetadataBase) {
   _createClass(MetadataTile, [{
     key: "_updateDetails",
     value: function _updateDetails() {
-      if (this.description) {
+      if (!this.details && !this._Details) {
+        return;
+      }
+      if (this.description && this._Details) {
         this._Details.patch({
           content: ''
         });
         this._Details.alpha = 0;
         this._Details.visible = false;
       } else {
-        this._Details.alpha = 1;
-        this._Details.visible = true;
         _get(_getPrototypeOf(MetadataTile.prototype), "_updateDetails", this).call(this);
       }
     }
@@ -668,6 +669,9 @@ var MetadataTile = /*#__PURE__*/function (_MetadataBase) {
     key: "_updateDetailsLayout",
     value: function _updateDetailsLayout(_ref) {
       var h = _ref.h;
+      if (!this.details && !this._Details) {
+        return;
+      }
       if (this._Details && !this.description) {
         this._DetailsWrapper.h = h;
         this._DetailsWrapper.alpha = this.style.alpha;
@@ -1504,18 +1508,8 @@ var Tile = /*#__PURE__*/function (_Surface) {
   }, {
     key: "_getMetadataLocation",
     value: function _getMetadataLocation() {
-      var _this$style$metadataL;
-      return (_this$style$metadataL = this.style.metadataLocation) !== null && _this$style$metadataL !== void 0 ? _this$style$metadataL : this._metadataLocation;
-    }
-  }, {
-    key: "_setMetadataLocation",
-    value: function _setMetadataLocation(metadataLocation) {
-      if (metadataLocation) {
-        this.style = {
-          metadataLocation: metadataLocation
-        };
-      }
-      return metadataLocation;
+      var _this$_metadataLocati;
+      return (_this$_metadataLocati = this._metadataLocation) !== null && _this$_metadataLocati !== void 0 ? _this$_metadataLocati : this.style.metadataLocation;
     }
   }, {
     key: "_updateMetadata",
@@ -1668,4 +1662,4 @@ var Tile = /*#__PURE__*/function (_Surface) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2854.0c119bbc.iframe.bundle.js.map
+//# sourceMappingURL=2854.7fd8e3a6.iframe.bundle.js.map

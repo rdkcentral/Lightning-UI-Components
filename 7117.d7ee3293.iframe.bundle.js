@@ -454,7 +454,7 @@ var ScrollWrapper = /*#__PURE__*/function (_Base) {
     }
   }, {
     key: "_updateScrollContainerSize",
-    value: function _updateScrollContainerSize(sliderValue, slider) {
+    value: function _updateScrollContainerSize(slider) {
       if (this._sliderWidth !== slider._Container.h) {
         this._sliderWidth = slider._Container.h;
         this._updateScrollContainer();
@@ -550,7 +550,7 @@ var ScrollWrapper = /*#__PURE__*/function (_Base) {
           type: ScrollSlider,
           vertical: true,
           signals: {
-            onChange: '_updateScrollContainerSize'
+            onSizeChange: '_updateScrollContainerSize'
           },
           announce: ' '
         }
@@ -1210,4 +1210,4 @@ var Surface = /*#__PURE__*/function (_Base) {
 /***/ })
 
 }]);
-//# sourceMappingURL=7117.9ac559a9.iframe.bundle.js.map
+//# sourceMappingURL=7117.d7ee3293.iframe.bundle.js.map

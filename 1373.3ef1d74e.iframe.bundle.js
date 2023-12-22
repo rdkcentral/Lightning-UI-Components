@@ -397,6 +397,7 @@ var TabBar = /*#__PURE__*/function (_Base) {
       // triggered when the Tabs Row resizes
       // update the height of TabBar using the latest h value from Tabs
       this._updateTabBarHeight();
+      this._updateTabContent();
     }
   }, {
     key: "_updateTabBarHeight",
@@ -1218,4 +1219,4 @@ var ButtonSmall = /*#__PURE__*/function (_Button) {
 /***/ })
 
 }]);
-//# sourceMappingURL=1373.7bc0df91.iframe.bundle.js.map
+//# sourceMappingURL=1373.3ef1d74e.iframe.bundle.js.map
