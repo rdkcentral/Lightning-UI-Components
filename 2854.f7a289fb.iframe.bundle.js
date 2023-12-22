@@ -1191,7 +1191,7 @@ var Tile = /*#__PURE__*/function (_Surface) {
         }
       } else {
         this.patch({
-          Icon: undefined
+          Logo: undefined
         });
       }
     }
@@ -1668,4 +1668,4 @@ var Tile = /*#__PURE__*/function (_Surface) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2854.76d994ce.iframe.bundle.js.map
+//# sourceMappingURL=2854.f7a289fb.iframe.bundle.js.map

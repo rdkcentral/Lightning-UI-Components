@@ -3848,9 +3848,10 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
         }
       }
       var itemChanged = this.Items[crossDimension] !== maxCrossDimensionSize || this.Items[lengthDimension] !== nextPosition;
-      this.Items.patch((_this$Items$patch = {
-        alpha: this.waitForDimensions && loadingChildren.length ? 0.001 : 1
-      }, _defineProperty(_this$Items$patch, crossDimension, maxCrossDimensionSize), _defineProperty(_this$Items$patch, innerCrossDimension, maxInnerCrossDimensionSize || maxCrossDimensionSize), _defineProperty(_this$Items$patch, lengthDimension, nextPosition + (this._totalAddedWidth || 0)), _this$Items$patch));
+      if (this.waitForDimensions) {
+        this.Items.alpha = loadingChildren.length ? 0.001 : 1;
+      }
+      this.Items.patch((_this$Items$patch = {}, _defineProperty(_this$Items$patch, crossDimension, maxCrossDimensionSize), _defineProperty(_this$Items$patch, innerCrossDimension, maxInnerCrossDimensionSize || maxCrossDimensionSize), _defineProperty(_this$Items$patch, lengthDimension, nextPosition + (this._totalAddedWidth || 0)), _this$Items$patch));
       this._autoResize();
       this._centerItemsInParent(childrenToCenter);
       this._updateLastScrollIndex();
@@ -12911,4 +12912,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.ecb70774.iframe.bundle.js.map
+//# sourceMappingURL=main.d4688c7f.iframe.bundle.js.map
