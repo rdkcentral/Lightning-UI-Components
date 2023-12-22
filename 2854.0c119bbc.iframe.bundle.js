@@ -1108,8 +1108,8 @@ var Tile = /*#__PURE__*/function (_Surface) {
       this._updateLabel();
       this._updateCheckbox();
       this._updateProgressBar();
-      this._updateLogo();
       this._updateMetadata();
+      this._updateLogo();
     }
 
     /* ------------------------------ Tile ------------------------------ */
@@ -1484,22 +1484,22 @@ var Tile = /*#__PURE__*/function (_Surface) {
   }, {
     key: "_metadataPatch",
     get: function get() {
-      return _objectSpread({
+      return {
         alpha: this._metadataAlpha,
         w: this._w - this.style.paddingX * 2,
         x: this._w / 2,
         y: this._metadataY
-      }, this.metadata || {});
+      };
     }
   }, {
     key: "_nonSmoothingMetadataPatch",
     get: function get() {
-      return {
+      return _objectSpread({
         mode: this.mode,
         mountX: 0.5,
         mountY: this._isInsetMetadata ? 1 : 0,
         marquee: this._isFocusedMode
-      };
+      }, this.metadata || {});
     }
   }, {
     key: "_getMetadataLocation",
@@ -1668,4 +1668,4 @@ var Tile = /*#__PURE__*/function (_Surface) {
 /***/ })
 
 }]);
-//# sourceMappingURL=2854.f7a289fb.iframe.bundle.js.map
+//# sourceMappingURL=2854.0c119bbc.iframe.bundle.js.map

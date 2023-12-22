@@ -4935,13 +4935,21 @@ var TextBox = /*#__PURE__*/function (_Base) {
     key: "_toggleMarquee",
     value: function _toggleMarquee(contentTag) {
       if (this.marquee) {
-        contentTag.alpha = 0.001;
-        this._Marquee.alpha = 1;
-        this._Marquee.startScrolling();
+        if (contentTag) {
+          contentTag.alpha = 0.001;
+        }
+        if (this._Marquee) {
+          this._Marquee.alpha = 1;
+          this._Marquee.startScrolling();
+        }
       } else {
-        contentTag.alpha = 1;
-        this._Marquee.alpha = 0.001;
-        this._Marquee.stopScrolling();
+        if (contentTag) {
+          contentTag.alpha = 1;
+        }
+        if (this._Marquee) {
+          this._Marquee.alpha = 0.001;
+          this._Marquee.stopScrolling();
+        }
       }
     }
   }, {
@@ -12912,4 +12920,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.d4688c7f.iframe.bundle.js.map
+//# sourceMappingURL=main.c460ffca.iframe.bundle.js.map
