@@ -33,19 +33,22 @@ export default function withTags(Base) {
     }
 
     _construct() {
-      const tags = this.constructor.tags || [];
-      tags.forEach(tag => {
-        if (typeof tag === 'object') {
-          var { name, path } = tag;
-        } else {
-          var name = tag; // eslint-disable-line no-redeclare
-          var path = tag; // eslint-disable-line no-redeclare
-        }
-        const key = '_' + name;
-        const descriptor = getPropertyDescriptor(path);
-        Object.defineProperty(Object.getPrototypeOf(this), key, descriptor);
-      });
-
+      const prototype = Object.getPrototypeOf(this);
+      if (!prototype._withTagsInitialized) {
+        const tags = this.constructor.tags || [];
+        tags.forEach(tag => {
+          if (typeof tag === 'object') {
+            var { name, path } = tag;
+          } else {
+            var name = tag; // eslint-disable-line no-redeclare
+            var path = tag; // eslint-disable-line no-redeclare
+          }
+          const key = '_' + name;
+          const descriptor = getPropertyDescriptor(path);
+          Object.defineProperty(prototype, key, descriptor);
+        });
+        prototype._withTagsInitialized = true;
+      }
       super._construct && super._construct();
     }
   };
