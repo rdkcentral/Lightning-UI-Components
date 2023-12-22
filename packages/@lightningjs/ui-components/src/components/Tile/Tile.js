@@ -214,7 +214,7 @@ export default class Tile extends Surface {
         this.applySmooth(this._Logo, logoObject);
       }
     } else {
-      this.patch({ Icon: undefined });
+      this.patch({ Logo: undefined });
     }
   }
 
