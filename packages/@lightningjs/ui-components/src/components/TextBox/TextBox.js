@@ -322,13 +322,21 @@ export default class TextBox extends Base {
 
   _toggleMarquee(contentTag) {
     if (this.marquee) {
-      contentTag.alpha = 0.001;
-      this._Marquee.alpha = 1;
-      this._Marquee.startScrolling();
+      if (contentTag) {
+        contentTag.alpha = 0.001;
+      }
+      if (this._Marquee) {
+        this._Marquee.alpha = 1;
+        this._Marquee.startScrolling();
+      }
     } else {
-      contentTag.alpha = 1;
-      this._Marquee.alpha = 0.001;
-      this._Marquee.stopScrolling();
+      if (contentTag) {
+        contentTag.alpha = 1;
+      }
+      if (this._Marquee) {
+        this._Marquee.alpha = 0.001;
+        this._Marquee.stopScrolling();
+      }
     }
   }
 
