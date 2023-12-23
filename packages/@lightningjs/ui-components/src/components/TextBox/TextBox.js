@@ -321,7 +321,7 @@ export default class TextBox extends Base {
   }
 
   _toggleMarquee(contentTag) {
-    if (!contentTag) return;
+    // do not just return if there is no contentTag, we may still need to alpha the Marquee
     if (this.marquee) {
       if (contentTag) {
         contentTag.alpha = 0.001;
