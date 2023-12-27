@@ -135,14 +135,17 @@ export default class TabBar extends Base {
       selectedIndex: this._isFocusedMode ? this._Tabs.selectedIndex : undefined
     });
   }
-
+  /**
+   * triggered when the Tabs Row resizes
+   */
   $itemChanged() {
-    // triggered when the Tabs Row resizes
-    // update the height of TabBar using the latest h value from Tabs
     this._updateTabBarHeight();
     this._updateTabContent();
   }
 
+  /**
+   * update the height of TabBar using the latest h value from Tabs
+   */
   _updateTabBarHeight() {
     let h;
     if (this.collapse) {
@@ -213,5 +216,24 @@ export default class TabBar extends Base {
     if (this.reset) {
       this.resetTabs();
     }
+  }
+  /**
+   * NOTE: below getters/setters were exposed in v4 but not used in current code
+   * selected, selectedIndex, and tabs
+   */
+  get selected() {
+    return this._Container.selected;
+  }
+
+  get selectedIndex() {
+    return this._Container.selectedIndex;
+  }
+
+  set selectedIndex(index) {
+    this._Container.selectedIndex = index;
+  }
+
+  get tabs() {
+    return this._Container.items;
   }
 }
