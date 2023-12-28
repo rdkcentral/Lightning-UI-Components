@@ -4934,7 +4934,7 @@ var TextBox = /*#__PURE__*/function (_Base) {
   }, {
     key: "_toggleMarquee",
     value: function _toggleMarquee(contentTag) {
-      if (!contentTag) return;
+      // do not just return if there is no contentTag, we may still need to alpha the Marquee
       if (this.marquee) {
         if (contentTag) {
           contentTag.alpha = 0.001;
@@ -12922,4 +12922,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.77956d40.iframe.bundle.js.map
+//# sourceMappingURL=main.b792f6f9.iframe.bundle.js.map
