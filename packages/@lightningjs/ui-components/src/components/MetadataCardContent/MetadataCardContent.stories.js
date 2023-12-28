@@ -46,7 +46,8 @@ MetadataCardContent.args = {
   w: 600,
   h: 250,
   title: 'Title',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  description:
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   details: 'Details',
   visibleCount: 3,
   mode: 'unfocused'
@@ -83,12 +84,12 @@ MetadataCardContent.argTypes = {
     }
   },
   descriptionDetails: {
-      control: 'object',
-      description: 'Description details directly under the details text',
-      table: {
-        defaultValue: { summary: 'undefined' }
-      }
-    },
+    control: 'object',
+    description: 'Description details directly under the details text',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  },
   details: {
     control: 'text',
     description: 'Details text at bottom left of componentDetails text',
