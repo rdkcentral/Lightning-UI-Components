@@ -61,7 +61,8 @@ MetadataCardContent.args = {
       icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
       title: 'Rotten Tomatoes rating'
     }
-  ],details: 'Details',
+  ],
+  details: 'Details',
   visibleCount: 3,
   mode: 'unfocused'
 };
