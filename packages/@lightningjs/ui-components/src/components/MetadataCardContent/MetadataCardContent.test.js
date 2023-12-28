@@ -51,13 +51,21 @@ describe('MetadataCardContent', () => {
   it('sets the announce string to the appropriate text content status', () => {
     const title = 'Title';
     const description = 'Description';
+    const descriptionDetails = 'Description Details';
     const details = 'Details';
     const provider = { providers: [{ icon: 'test.png', announce: 'test' }] };
-    metadataCardContent.patch({ title, description, details, provider });
+    metadataCardContent.patch({
+      title,
+      description,
+      descriptionDetails,
+      details,
+      provider
+    });
     testRenderer.forceAllUpdates();
     expect(metadataCardContent.announce).toEqual([
       title,
       description,
+      descriptionDetails,
       details,
       ['test']
     ]);
@@ -84,6 +92,16 @@ describe('MetadataCardContent', () => {
     metadataCardContent.description = description;
     await metadataCardContent.__updateSpyPromise;
     expect(metadataCardContent._Description.content).toBe(description);
+  });
+
+  it('updates the description details', async () => {
+    const descriptionDetails = 'descriptionDetails text';
+    expect(metadataCardContent.descriptionDetails).toBe(undefined);
+    metadataCardContent.descriptionDetails = descriptionDetails;
+    await metadataCardContent.__updateSpyPromise;
+    expect(metadataCardContent._DescriptionDetails.content).toBe(
+      descriptionDetails
+    );
   });
 
   it('updates the details', async () => {
