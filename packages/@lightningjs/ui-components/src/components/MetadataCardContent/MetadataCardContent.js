@@ -68,7 +68,13 @@ export default class MetadataCardContent extends MetadataBase {
   }
 
   static get properties() {
-    return ['description', 'descriptionDetails', 'details', 'provider', 'title'];
+    return [
+      'description',
+      'descriptionDetails',
+      'details',
+      'provider',
+      'title'
+    ];
   }
 
   static get tags() {
