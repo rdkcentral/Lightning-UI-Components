@@ -19,6 +19,7 @@
 export const base = theme => ({
   detailsTextStyle: theme.typography.body3,
   descriptionTextStyle: { maxLines: 3 },
+  descriptionDetailsTextStyle: theme.typography.body3,
   fadeWidth: theme.spacer.md * theme.spacer.md,
   provider: {
     itemSize: theme.spacer.xxxl + theme.spacer.md

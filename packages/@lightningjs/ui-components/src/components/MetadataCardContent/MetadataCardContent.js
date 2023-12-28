@@ -40,6 +40,10 @@ export default class MetadataCardContent extends MetadataBase {
         },
         Description: {
           type: TextBox
+        },
+        DescriptionDetails: {
+          mountY: -0.5,
+          type: TextBox
         }
       },
       DetailsWrapper: {
@@ -64,7 +68,7 @@ export default class MetadataCardContent extends MetadataBase {
   }
 
   static get properties() {
-    return ['description', 'details', 'provider', 'title'];
+    return ['description', 'descriptionDetails', 'details', 'provider', 'title'];
   }
 
   static get tags() {
@@ -77,6 +81,10 @@ export default class MetadataCardContent extends MetadataBase {
       {
         name: 'Description',
         path: 'Text.Description'
+      },
+      {
+        name: 'DescriptionDetails',
+        path: 'Text.DescriptionDetails'
       },
       'DetailsWrapper',
       {
@@ -129,6 +137,7 @@ export default class MetadataCardContent extends MetadataBase {
     this._Text.w = this.w;
     this._updateTitle();
     this._updateDescription();
+    this._updateDescriptionDetails();
     this._updateDetails();
   }
 
@@ -140,6 +149,17 @@ export default class MetadataCardContent extends MetadataBase {
           ...this.style.descriptionTextStyle,
           wordWrap: true,
           wordWrapWidth: this._Text.w
+        }
+      }
+    });
+  }
+
+  _updateDescriptionDetails() {
+    this._DescriptionDetails.patch({
+      content: this.descriptionDetails,
+      style: {
+        textStyle: {
+          ...this.style.descriptionDetailsTextStyle
         }
       }
     });
@@ -235,6 +255,7 @@ export default class MetadataCardContent extends MetadataBase {
       this._announce || [
         this._Title && this._Title.announce,
         this._Description && this._Description.announce,
+        this._DescriptionDetails && this._DescriptionDetails.announce,
         this._Details && this._Details.announce,
         this._Provider && this._Provider.announce
       ]

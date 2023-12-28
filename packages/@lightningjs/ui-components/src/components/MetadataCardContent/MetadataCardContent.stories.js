@@ -46,7 +46,7 @@ MetadataCardContent.args = {
   w: 600,
   h: 250,
   title: 'Title',
-  description: descriptionSample,
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   details: 'Details',
   visibleCount: 3,
   mode: 'unfocused'
@@ -58,48 +58,49 @@ MetadataCardContent.argTypes = {
     control: 'number',
     description: 'Width of component',
     table: {
-      defaultValue: { summary: 0 },
-      type: { summary: 'number' }
+      defaultValue: { summary: 0 }
     }
   },
   h: {
     control: 'number',
     description: 'Height of component',
     table: {
-      defaultValue: { summary: 0 },
-      type: { summary: 'number' }
+      defaultValue: { summary: 0 }
     }
   },
   title: {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: 'undefined' },
-      type: { summary: 'string' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   description: {
     control: 'text',
     description: 'Description text directly below title',
     table: {
-      defaultValue: { summary: 'undefined' },
-      type: { summary: 'string' }
+      defaultValue: { summary: 'undefined' }
     }
   },
+  descriptionDetails: {
+      control: 'object',
+      description: 'Description details directly under the details text',
+      table: {
+        defaultValue: { summary: 'undefined' }
+      }
+    },
   details: {
     control: 'text',
     description: 'Details text at bottom left of componentDetails text',
     table: {
-      defaultValue: { summary: 'undefined' },
-      type: { summary: 'string' }
+      defaultValue: { summary: 'undefined' }
     }
   },
   visibleCount: {
     control: { type: 'range', min: 1, max: 10, step: 1 },
     description: 'Number of visible providers',
     table: {
-      defaultValue: { summary: 1 },
-      type: { summary: 'number' }
+      defaultValue: { summary: 1 }
     }
   }
 };
