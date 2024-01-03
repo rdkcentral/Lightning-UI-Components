@@ -104,7 +104,8 @@ export const SignalHandling = () =>
         },
         Text: {
           y: 60,
-          type: TextBox
+          type: TextBox,
+          content: 'Value: 0'
         }
       };
     }
