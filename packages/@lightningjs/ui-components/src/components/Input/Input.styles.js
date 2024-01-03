@@ -30,6 +30,11 @@ export const base = theme => ({
     maxLines: 1,
     textColor: theme.color.textNeutral
   },
+  textStyle: {
+    ...theme.typography.body1,
+    maxLines: 1,
+    textColor: theme.color.textNeutral
+  },
   helpTextStyle: {
     ...theme.typography.caption1,
     maxLines: 1,
