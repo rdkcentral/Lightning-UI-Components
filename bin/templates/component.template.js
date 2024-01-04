@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module.exports = name => {
+module.exports = (name, parentName) => {
   return `/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
@@ -35,10 +35,10 @@ module.exports = name => {
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Base from '../Base';
+import ${parentName} from '../${parentName}';
 import * as styles from './${name}.styles.js';
 
-export default class ${name} extends Base {
+export default class ${name} extends ${parentName} {
   static get __componentName() {
     return '${name}';
   }
