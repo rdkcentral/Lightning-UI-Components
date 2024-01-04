@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Button from './Button.js';
+import Button from './Button';
 import * as styles from './ButtonSmall.styles.js';
 
 export default class ButtonSmall extends Button {
