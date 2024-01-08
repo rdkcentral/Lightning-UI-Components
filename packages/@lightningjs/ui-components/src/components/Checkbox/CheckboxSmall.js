@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Checkbox from './Checkbox.js';
+import Checkbox from './Checkbox';
 import * as styles from './CheckboxSmall.styles.js';
 
 export default class CheckboxSmall extends Checkbox {

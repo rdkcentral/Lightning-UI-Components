@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Card from './Card.js';
+import Card from './Card';
 import TextBox from '../TextBox';
 import * as styles from './CardTitle.styles';
 

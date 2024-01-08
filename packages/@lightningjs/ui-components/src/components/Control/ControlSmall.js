@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Control from './Control.js';
+import Control from './Control';
 import * as styles from './ControlSmall.styles.js';
 
 export default class ControlSmall extends Control {

@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Card from '../Card/Card';
+import Card from '../Card';
 import utils from '../../utils';
 import Tile from '../Tile';
 import MetadataCardContent from '../MetadataCardContent';
