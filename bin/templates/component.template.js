@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-module.exports = (name, parentName) => {
+module.exports = (name, parentName='Base') => {
   return `/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
