@@ -26,7 +26,7 @@ export const base = theme => ({
   },
   descriptionTextStyle: {
     ...theme.typography.body2,
-    textColor: theme.color.textNeutralSecondary,
+    textColor: theme.color.textNeutral,
     wordWrap: true,
     maxLines: 3
   },
