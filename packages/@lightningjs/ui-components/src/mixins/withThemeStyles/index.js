@@ -93,7 +93,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         super._construct();
         return;
       }
-    
+
       this._hSetByUser = false;
       this._wSetByUser = false;
 
