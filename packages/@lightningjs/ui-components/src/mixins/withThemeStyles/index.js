@@ -106,7 +106,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         this.queueThemeUpdate();
       });
       this._withThemeStylesSetupComplete = true;
-      super._construct();
+      super._construct(); // Important that this is called at the bottom to ensure that withThemeStyles is only initialized once per component to prevent potential memory leaks
     }
 
     /**
