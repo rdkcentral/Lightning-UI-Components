@@ -93,8 +93,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         super._construct();
         return;
       }
-      super._construct();
-
+    
       this._hSetByUser = false;
       this._wSetByUser = false;
 
@@ -107,6 +106,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         this.queueThemeUpdate();
       });
       this._withThemeStylesSetupComplete = true;
+      super._construct();
     }
 
     /**
