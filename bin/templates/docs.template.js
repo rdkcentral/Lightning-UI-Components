@@ -76,11 +76,11 @@ class Basic extends lng.Component {
 ${name} has the same properties as [${parentName}](?path=/docs/components-${parentName}--docs)
 
 {/**TODO: check the name of the story of the parent component matches the name here. **/}
-<ArgTypes of={${parentName}Stories.${parentName}} />
+<ArgTypes of={${parentName}Stories.${parentName}} exclude={['mode']} />
 
 ### Properties
 {/** TODO: if you change the name of the story from Basic to something else, also update then name here **/}
-<ArgTypes of={${name}Stories.Basic} /> 
+<ArgTypes of={${name}Stories.Basic} exclude={['mode']} /> 
 
 ### Style Properties
 
