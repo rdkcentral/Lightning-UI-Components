@@ -146,7 +146,11 @@ export default class Tile extends Surface {
   get _gradient() {
     if (this._isCircleLayout) return false;
     return Boolean(
-      this._isInsetMetadata && this._hasMetadata && this._shouldShowMetadata
+      (this._isInsetMetadata &&
+        this._hasMetadata &&
+        this._shouldShowMetadata) ||
+        this.progressBar?.progress > 0 ||
+        this._shouldShowLogo
     );
   }
 
@@ -196,12 +200,12 @@ export default class Tile extends Surface {
       w: this.style.logoWidth,
       h: this.style.logoHeight,
       icon: this.logo,
-      alpha: this.style.alpha,
+      alpha: this._shouldShowLogo ? this.style.alpha : 0.001,
       x: this.style.paddingX,
       y: this._calculateLogoYPosition()
     };
 
-    if (this.logo && (this.persistentMetadata || this._isFocusedMode)) {
+    if (this._shouldShowLogo) {
       if (!this._Logo) {
         this.patch({
           Logo: {
@@ -213,7 +217,7 @@ export default class Tile extends Surface {
       } else {
         this.applySmooth(this._Logo, logoObject);
       }
-    } else {
+    } else if (!this.logo) {
       this.patch({ Logo: undefined });
     }
   }
@@ -226,6 +230,11 @@ export default class Tile extends Surface {
       ? this._progressBarY - this.style.paddingYBetweenContent
       : this._h - this.style.paddingY;
   }
+
+  get _shouldShowLogo() {
+    return this.logo && (this.persistentMetadata || this._isFocusedMode);
+  }
+
   /* ------------------------------ Artwork ------------------------------ */
 
   _updateArtwork() {

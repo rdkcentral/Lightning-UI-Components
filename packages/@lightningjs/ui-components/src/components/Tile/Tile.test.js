@@ -444,7 +444,7 @@ describe('Tile', () => {
         progress: 0.5
       };
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(false);
+      expect(tile._gradient).toBe(true);
       tile.progressBar = {
         progress: 0
       };
