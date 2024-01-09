@@ -196,6 +196,10 @@ export default class Tile extends Surface {
   /* ------------------------------ Logo ------------------------------ */
 
   _updateLogo() {
+    if (!this.logo) {
+      this.patch({ Logo: undefined });
+      return;
+    }
     const logoObject = {
       w: this.style.logoWidth,
       h: this.style.logoHeight,
@@ -204,21 +208,16 @@ export default class Tile extends Surface {
       x: this.style.paddingX,
       y: this._calculateLogoYPosition()
     };
-
-    if (this._shouldShowLogo) {
-      if (!this._Logo) {
-        this.patch({
-          Logo: {
-            type: Icon,
-            mountY: 1,
-            ...logoObject
-          }
-        });
-      } else {
-        this.applySmooth(this._Logo, logoObject);
-      }
-    } else if (!this.logo) {
-      this.patch({ Logo: undefined });
+    if (!this._Logo) {
+      this.patch({
+        Logo: {
+          type: Icon,
+          mountY: 1,
+          ...logoObject
+        }
+      });
+    } else {
+      this.applySmooth(this._Logo, logoObject);
     }
   }
 
