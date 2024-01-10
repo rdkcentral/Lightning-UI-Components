@@ -143,14 +143,14 @@ export default class Tile extends Surface {
     return this._h; // Ensure that surface respects the correct height when metadata is displayed below
   }
 
-  get _gradient() {
-    if (this._isCircleLayout) return false;
+  get _shouldShowGradient() {
     return Boolean(
-      (this._isInsetMetadata &&
+      ((this._isInsetMetadata &&
         this._hasMetadata &&
         this._shouldShowMetadata) ||
         this.progressBar?.progress > 0 ||
-        this._shouldShowLogo
+        this._shouldShowLogo) &&
+        !this._isCircleLayout
     );
   }
 
@@ -252,7 +252,7 @@ export default class Tile extends Surface {
         radius: this.style?.radius,
         ...this.artwork?.style
       },
-      gradient: this._gradient,
+      gradient: this._shouldShowGradient,
       shouldScale: this._isFocusedMode
     });
   }
