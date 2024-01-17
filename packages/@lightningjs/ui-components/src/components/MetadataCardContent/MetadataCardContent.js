@@ -42,7 +42,6 @@ export default class MetadataCardContent extends MetadataBase {
           type: TextBox
         },
         DescriptionDetails: {
-          mountY: -0.5,
           type: TextBox
         }
       },
@@ -165,7 +164,10 @@ export default class MetadataCardContent extends MetadataBase {
       content: this.descriptionDetails,
       style: {
         textStyle: {
-          ...this.style.descriptionDetailsTextStyle
+          ...this.style.descriptionDetailsTextStyle,
+          maxLines: 1,
+          wordWrap: true,
+          wordWrapWidth: this._Text.w     
         }
       }
     });
