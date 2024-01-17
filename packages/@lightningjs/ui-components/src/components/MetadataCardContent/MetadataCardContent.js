@@ -167,7 +167,7 @@ export default class MetadataCardContent extends MetadataBase {
           ...this.style.descriptionDetailsTextStyle,
           maxLines: 1,
           wordWrap: true,
-          wordWrapWidth: this._Text.w     
+          wordWrapWidth: this._Text.w
         }
       },
       y: this.style.descriptionDetailsStyle.paddingY
