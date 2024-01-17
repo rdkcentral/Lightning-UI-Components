@@ -430,7 +430,7 @@ describe('Tile', () => {
     });
 
     it('returns the proper value for gradient when has metadata is in focus and layout is inset', async () => {
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(false);
       // Overwrite _hasMetadata to always be true for test
       Object.defineProperty(tile, '_hasMetadata', {
         get() {
@@ -439,12 +439,12 @@ describe('Tile', () => {
       });
       testRenderer.focus();
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(false);
       tile.progressBar = {
         progress: 0.5
       };
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(true);
       tile.progressBar = {
         progress: 0
       };
@@ -453,17 +453,17 @@ describe('Tile', () => {
       testRenderer.unfocus();
       await tile.__updateSpyPromise;
 
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(false);
       testRenderer.focus();
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(false);
       tile.metadataLocation = 'inset';
       tile.progressBar = {
         progress: 0.7
       };
       testRenderer.focus();
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(true);
+      expect(tile._shouldShowGradient).toBe(true);
     });
   });
 
