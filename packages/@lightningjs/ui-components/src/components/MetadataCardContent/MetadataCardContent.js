@@ -169,7 +169,8 @@ export default class MetadataCardContent extends MetadataBase {
           wordWrap: true,
           wordWrapWidth: this._Text.w     
         }
-      }
+      },
+      y: this.style.descriptionDetailsStyle.paddingY
     });
   }
 
