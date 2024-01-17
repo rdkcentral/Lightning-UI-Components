@@ -68,7 +68,7 @@ Basic.argTypes = {
   //   description: '',
   //   table: {
   //     defaultValue: { summary: undefined },
-  //     type: {summary: 'string'}
+  //     type: {summary: 'string'} //TODO: update this with the appropriate type if not string
   //   }
   // }
 };

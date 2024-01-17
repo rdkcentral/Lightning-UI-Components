@@ -56,7 +56,7 @@ if (fs.existsSync(workingDir)) {
   throw new Error(message);
 }
 
-const componentContent = componentTemplate(componentName, componentDir);
+const componentContent = componentTemplate(componentName, parentName, componentDir);
 const storyContent = storyTemplate(componentName, componentDir);
 const mdxContent = docsTemplate(componentName, parentName, componentDir);
 const testContent = testTemplate(componentName, componentDir);
