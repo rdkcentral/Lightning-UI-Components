@@ -73,7 +73,13 @@ describe('CardContent', () => {
     });
     testRenderer.forceAllUpdates();
     expect(cardContent.announce).toEqual([
-      [title, description, descriptionDetails, details, [...Array(3).fill(logoAnnounce), '+2']],
+      [
+        title,
+        description,
+        descriptionDetails,
+        details,
+        [...Array(3).fill(logoAnnounce), '+2']
+      ],
       [undefined, badge.title, label.title, `${progressBar.progress * 100}%`]
     ]);
   });
