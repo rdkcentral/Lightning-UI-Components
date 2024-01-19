@@ -59,18 +59,20 @@ class Basic extends lng.Component {
 
 ### Properties
 
-| name        | type                                                  | required | default   | description                                                                               |
-| ----------- | ----------------------------------------------------- | -------- | --------- | ----------------------------------------------------------------------------------------- |
-| title       | string                                                | false    | undefined | title text                                                                                |
-| description | string                                                | false    | undefined | description text directly below title                                                     |
-| details     | string                                                | false    | undefined | details text at bottom left of component                                                  |
-| provider    | [Provider](?path=/docs/components-provider--provider) | false    | undefined | an object of [Provider](?path=/docs/components-provider--provider) properties to patch in |
+| name               | type                                           | required | default   | description                                                                               |
+| -----------        | ---------------------------------------------- | -------- | --------- | ----------------------------------------------------------------------------------------- |
+| title              | string                                         | false    | undefined | title text                                                                                |
+| description        | string                                         | false    | undefined | description text directly below title                                                     |
+| descriptionDetails | string                                         | false    | undefined | details text directly below description                                                   |
+| details            | string                                         | false    | undefined | details text at bottom left of component                                                  |
+| provider           | [Provider](?path=/docs/components-provider--provider) | false    | undefined | an object of [Provider](?path=/docs/components-provider--provider) properties to patch in |
 
 ### Style Properties
 
-| name             | type             | description                                                                              |
-| ---------------- | ---------------- | ---------------------------------------------------------------------------------------- |
-| detailsTextStyle | string \| object | text style for details                                                                   |
-| providerStyle    | object           | style properties to pass along to the [Provider](?path=/docs/components-provider--basic) |
+| name                    | type             | description                                                                              |
+| ----------------------- | ---------------- | ---------------------------------------------------------------------------------------- |
+| detailsTextStyle        | string \| object | text style for details                                                                   |
+| descriptionDetailsStyle | object           | style for description details                                                            |
+| providerStyle           | object           | style properties to pass along to the [Provider](?path=/docs/components-provider--basic) |
 
 ### Methods

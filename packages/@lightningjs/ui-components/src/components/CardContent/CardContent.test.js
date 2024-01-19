@@ -47,6 +47,7 @@ describe('CardContent', () => {
   it('sets the announce string to the metadata text from both the metadata component on the right and the tile on the left', () => {
     const title = 'Title';
     const description = 'Description';
+    const descriptionDetails = 'Description Details';
     const details = 'Details';
     const logoAnnounce = 'Lightning';
     const providers = Array(5).fill({
@@ -60,6 +61,7 @@ describe('CardContent', () => {
       metadata: {
         title,
         description,
+        descriptionDetails,
         details,
         provider: { providers, visibleCount: 3 }
       },
@@ -71,7 +73,13 @@ describe('CardContent', () => {
     });
     testRenderer.forceAllUpdates();
     expect(cardContent.announce).toEqual([
-      [title, description, details, [...Array(3).fill(logoAnnounce), '+2']],
+      [
+        title,
+        description,
+        descriptionDetails,
+        details,
+        [...Array(3).fill(logoAnnounce), '+2']
+      ],
       [undefined, badge.title, label.title, `${progressBar.progress * 100}%`]
     ]);
   });

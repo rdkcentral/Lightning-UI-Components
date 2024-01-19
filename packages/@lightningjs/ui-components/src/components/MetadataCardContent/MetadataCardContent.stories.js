@@ -20,6 +20,8 @@ import lng from '@lightningjs/core';
 import { default as MetadataCardContentComponent } from '.';
 import xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';
 import { createModeControl } from '../../docs/utils';
+import { getHexColor } from '../../utils';
+import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 
 export default {
   title: 'Components/MetadataCardContent'
@@ -47,6 +49,19 @@ MetadataCardContent.args = {
   h: 250,
   title: 'Title',
   description: descriptionSample,
+  descriptionDetails: [
+    '94%',
+    {
+      icon: lightningbolt,
+      style: { color: getHexColor('00ff00') },
+      title: 'Green Lightning Bolt'
+    },
+    '86%',
+    {
+      icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+      title: 'Rotten Tomatoes rating'
+    }
+  ],
   details: 'Details',
   visibleCount: 3,
   mode: 'unfocused'
@@ -81,6 +96,14 @@ MetadataCardContent.argTypes = {
   description: {
     control: 'text',
     description: 'Description text directly below title',
+    table: {
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
+    }
+  },
+  descriptionDetails: {
+    control: 'object',
+    description: 'Description details directly below the description text',
     table: {
       defaultValue: { summary: 'undefined' },
       type: { summary: 'string' }
