@@ -12,8 +12,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/components/MetadataCardContent/MetadataCardContent.js");
-/* harmony import */ var _assets_images_Xfinity_Provider_Logo_Square_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../@lightningjs/ui-components/src/assets/images/Xfinity-Provider-Logo-Square.png");
-/* harmony import */ var _docs_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../@lightningjs/ui-components/src/docs/utils.js");
+/* harmony import */ var _assets_images_Xfinity_Provider_Logo_Square_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("../../@lightningjs/ui-components/src/assets/images/Xfinity-Provider-Logo-Square.png");
+/* harmony import */ var _docs_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("../../@lightningjs/ui-components/src/docs/utils.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../@lightningjs/ui-components/src/utils/index.js");
+/* harmony import */ var _assets_images_ic_lightning_white_32_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../@lightningjs/ui-components/src/assets/images/ic_lightning_white_32.png");
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -165,25 +167,25 @@ function _getPrototypeOf(o) {
 /* eslint-disable */
 // @ts-nocheck
 // @ts-expect-error (Converted from ts-ignore)
-var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as MetadataCardContentComponent } from '.';\nimport xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';\nimport { createModeControl } from '../../docs/utils';\n\nexport default {\n  title: 'Components/MetadataCardContent'\n};\n\nexport const MetadataCardContent = () =>\n  class MetadataCardContent extends lng.Component {\n    static _template() {\n      return {\n        MetadataCardContent: {\n          type: MetadataCardContentComponent\n        }\n      };\n    }\n  };\n\nMetadataCardContent.storyName = 'MetadataCardContent';\n\n// used to show example of longer text in description\nconst descriptionSample =\n  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';\n\nMetadataCardContent.args = {\n  w: 600,\n  h: 250,\n  title: 'Title',\n  description: descriptionSample,\n  details: 'Details',\n  visibleCount: 3,\n  mode: 'unfocused'\n};\n\nMetadataCardContent.argTypes = {\n  ...createModeControl({ summaryValue: MetadataCardContent.args.mode }),\n  w: {\n    control: 'number',\n    description: 'Width of component',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  },\n  h: {\n    control: 'number',\n    description: 'Height of component',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  },\n  title: {\n    control: 'text',\n    description: 'Title text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  description: {\n    control: 'text',\n    description: 'Description text directly below title',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  details: {\n    control: 'text',\n    description: 'Details text at bottom left of componentDetails text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  visibleCount: {\n    control: { type: 'range', min: 1, max: 10, step: 1 },\n    description: 'Number of visible providers',\n    table: {\n      defaultValue: { summary: 1 },\n      type: { summary: 'number' }\n    }\n  }\n};\n\nMetadataCardContent.parameters = {\n  argActions: {\n    visibleCount(visibleCount, component) {\n      component.tag('MetadataCardContent').provider = {\n        visibleCount: visibleCount,\n        providers: Array(10).fill({\n          icon: xfinityProviderLogoSquare,\n          announce: 'xFinity',\n          visibleCount: 3\n        })\n      };\n    }\n  }\n};\n";
+var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as MetadataCardContentComponent } from '.';\nimport xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';\nimport { createModeControl } from '../../docs/utils';\nimport { getHexColor } from '../../utils';\nimport lightningbolt from '../../assets/images/ic_lightning_white_32.png';\n\nexport default {\n  title: 'Components/MetadataCardContent'\n};\n\nexport const MetadataCardContent = () =>\n  class MetadataCardContent extends lng.Component {\n    static _template() {\n      return {\n        MetadataCardContent: {\n          type: MetadataCardContentComponent\n        }\n      };\n    }\n  };\n\nMetadataCardContent.storyName = 'MetadataCardContent';\n\n// used to show example of longer text in description\nconst descriptionSample =\n  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';\n\nMetadataCardContent.args = {\n  w: 600,\n  h: 250,\n  title: 'Title',\n  description: descriptionSample,\n  descriptionDetails: [\n    '94%',\n    {\n      icon: lightningbolt,\n      style: { color: getHexColor('00ff00') },\n      title: 'Green Lightning Bolt'\n    },\n    '86%',\n    {\n      icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',\n      title: 'Rotten Tomatoes rating'\n    }\n  ],\n  details: 'Details',\n  visibleCount: 3,\n  mode: 'unfocused'\n};\n\nMetadataCardContent.argTypes = {\n  ...createModeControl({ summaryValue: MetadataCardContent.args.mode }),\n  w: {\n    control: 'number',\n    description: 'Width of component',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  },\n  h: {\n    control: 'number',\n    description: 'Height of component',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  },\n  title: {\n    control: 'text',\n    description: 'Title text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  description: {\n    control: 'text',\n    description: 'Description text directly below title',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  descriptionDetails: {\n    control: 'object',\n    description: 'Description details directly below the description text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  details: {\n    control: 'text',\n    description: 'Details text at bottom left of componentDetails text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  visibleCount: {\n    control: { type: 'range', min: 1, max: 10, step: 1 },\n    description: 'Number of visible providers',\n    table: {\n      defaultValue: { summary: 1 },\n      type: { summary: 'number' }\n    }\n  }\n};\n\nMetadataCardContent.parameters = {\n  argActions: {\n    visibleCount(visibleCount, component) {\n      component.tag('MetadataCardContent').provider = {\n        visibleCount: visibleCount,\n        providers: Array(10).fill({\n          icon: xfinityProviderLogoSquare,\n          announce: 'xFinity',\n          visibleCount: 3\n        })\n      };\n    }\n  }\n};\n";
 // @ts-expect-error (Converted from ts-ignore)
 var __LOCATIONS_MAP__ = {
   "MetadataCardContent": {
     "startLoc": {
       "col": 35,
-      "line": 28
+      "line": 30
     },
     "endLoc": {
       "col": 3,
-      "line": 37
+      "line": 39
     },
     "startBody": {
       "col": 35,
-      "line": 28
+      "line": 30
     },
     "endBody": {
       "col": 3,
-      "line": 37
+      "line": 39
     }
   }
 };
@@ -210,27 +212,29 @@ var __LOCATIONS_MAP__ = {
 
 
 
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   parameters: {
     "storySource": {
-      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as MetadataCardContentComponent } from '.';\nimport xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';\nimport { createModeControl } from '../../docs/utils';\n\nexport default {\n  title: 'Components/MetadataCardContent'\n};\n\nexport const MetadataCardContent = () =>\n  class MetadataCardContent extends lng.Component {\n    static _template() {\n      return {\n        MetadataCardContent: {\n          type: MetadataCardContentComponent\n        }\n      };\n    }\n  };\n\nMetadataCardContent.storyName = 'MetadataCardContent';\n\n// used to show example of longer text in description\nconst descriptionSample =\n  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';\n\nMetadataCardContent.args = {\n  w: 600,\n  h: 250,\n  title: 'Title',\n  description: descriptionSample,\n  details: 'Details',\n  visibleCount: 3,\n  mode: 'unfocused'\n};\n\nMetadataCardContent.argTypes = {\n  ...createModeControl({ summaryValue: MetadataCardContent.args.mode }),\n  w: {\n    control: 'number',\n    description: 'Width of component',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  },\n  h: {\n    control: 'number',\n    description: 'Height of component',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  },\n  title: {\n    control: 'text',\n    description: 'Title text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  description: {\n    control: 'text',\n    description: 'Description text directly below title',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  details: {\n    control: 'text',\n    description: 'Details text at bottom left of componentDetails text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  visibleCount: {\n    control: { type: 'range', min: 1, max: 10, step: 1 },\n    description: 'Number of visible providers',\n    table: {\n      defaultValue: { summary: 1 },\n      type: { summary: 'number' }\n    }\n  }\n};\n\nMetadataCardContent.parameters = {\n  argActions: {\n    visibleCount(visibleCount, component) {\n      component.tag('MetadataCardContent').provider = {\n        visibleCount: visibleCount,\n        providers: Array(10).fill({\n          icon: xfinityProviderLogoSquare,\n          announce: 'xFinity',\n          visibleCount: 3\n        })\n      };\n    }\n  }\n};\n",
+      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as MetadataCardContentComponent } from '.';\nimport xfinityProviderLogoSquare from '../../assets/images/Xfinity-Provider-Logo-Square.png';\nimport { createModeControl } from '../../docs/utils';\nimport { getHexColor } from '../../utils';\nimport lightningbolt from '../../assets/images/ic_lightning_white_32.png';\n\nexport default {\n  title: 'Components/MetadataCardContent'\n};\n\nexport const MetadataCardContent = () =>\n  class MetadataCardContent extends lng.Component {\n    static _template() {\n      return {\n        MetadataCardContent: {\n          type: MetadataCardContentComponent\n        }\n      };\n    }\n  };\n\nMetadataCardContent.storyName = 'MetadataCardContent';\n\n// used to show example of longer text in description\nconst descriptionSample =\n  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';\n\nMetadataCardContent.args = {\n  w: 600,\n  h: 250,\n  title: 'Title',\n  description: descriptionSample,\n  descriptionDetails: [\n    '94%',\n    {\n      icon: lightningbolt,\n      style: { color: getHexColor('00ff00') },\n      title: 'Green Lightning Bolt'\n    },\n    '86%',\n    {\n      icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',\n      title: 'Rotten Tomatoes rating'\n    }\n  ],\n  details: 'Details',\n  visibleCount: 3,\n  mode: 'unfocused'\n};\n\nMetadataCardContent.argTypes = {\n  ...createModeControl({ summaryValue: MetadataCardContent.args.mode }),\n  w: {\n    control: 'number',\n    description: 'Width of component',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  },\n  h: {\n    control: 'number',\n    description: 'Height of component',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  },\n  title: {\n    control: 'text',\n    description: 'Title text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  description: {\n    control: 'text',\n    description: 'Description text directly below title',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  descriptionDetails: {\n    control: 'object',\n    description: 'Description details directly below the description text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  details: {\n    control: 'text',\n    description: 'Details text at bottom left of componentDetails text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  visibleCount: {\n    control: { type: 'range', min: 1, max: 10, step: 1 },\n    description: 'Number of visible providers',\n    table: {\n      defaultValue: { summary: 1 },\n      type: { summary: 'number' }\n    }\n  }\n};\n\nMetadataCardContent.parameters = {\n  argActions: {\n    visibleCount(visibleCount, component) {\n      component.tag('MetadataCardContent').provider = {\n        visibleCount: visibleCount,\n        providers: Array(10).fill({\n          icon: xfinityProviderLogoSquare,\n          announce: 'xFinity',\n          visibleCount: 3\n        })\n      };\n    }\n  }\n};\n",
       "locationsMap": {
         "metadata-card-content": {
           "startLoc": {
             "col": 35,
-            "line": 28
+            "line": 30
           },
           "endLoc": {
             "col": 3,
-            "line": 37
+            "line": 39
           },
           "startBody": {
             "col": 35,
-            "line": 28
+            "line": 30
           },
           "endBody": {
             "col": 3,
-            "line": 37
+            "line": 39
           }
         }
       }
@@ -268,11 +272,21 @@ MetadataCardContent.args = {
   h: 250,
   title: 'Title',
   description: descriptionSample,
+  descriptionDetails: ['94%', {
+    icon: _assets_images_ic_lightning_white_32_png__WEBPACK_IMPORTED_MODULE_2__,
+    style: {
+      color: (0,_utils__WEBPACK_IMPORTED_MODULE_3__/* .getHexColor */ .Xv)('00ff00')
+    },
+    title: 'Green Lightning Bolt'
+  }, '86%', {
+    icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
+    title: 'Rotten Tomatoes rating'
+  }],
   details: 'Details',
   visibleCount: 3,
   mode: 'unfocused'
 };
-MetadataCardContent.argTypes = _objectSpread(_objectSpread({}, (0,_docs_utils__WEBPACK_IMPORTED_MODULE_2__/* .createModeControl */ .Ys)({
+MetadataCardContent.argTypes = _objectSpread(_objectSpread({}, (0,_docs_utils__WEBPACK_IMPORTED_MODULE_4__/* .createModeControl */ .Ys)({
   summaryValue: MetadataCardContent.args.mode
 })), {}, {
   w: {
@@ -323,6 +337,18 @@ MetadataCardContent.argTypes = _objectSpread(_objectSpread({}, (0,_docs_utils__W
       }
     }
   },
+  descriptionDetails: {
+    control: 'object',
+    description: 'Description details directly below the description text',
+    table: {
+      defaultValue: {
+        summary: 'undefined'
+      },
+      type: {
+        summary: 'string'
+      }
+    }
+  },
   details: {
     control: 'text',
     description: 'Details text at bottom left of componentDetails text',
@@ -359,7 +385,7 @@ MetadataCardContent.parameters = {
       component.tag('MetadataCardContent').provider = {
         visibleCount: _visibleCount,
         providers: Array(10).fill({
-          icon: _assets_images_Xfinity_Provider_Logo_Square_png__WEBPACK_IMPORTED_MODULE_3__,
+          icon: _assets_images_Xfinity_Provider_Logo_Square_png__WEBPACK_IMPORTED_MODULE_5__,
           announce: 'xFinity',
           visibleCount: 3
         })
@@ -429,6 +455,9 @@ var base = function base(theme) {
     detailsTextStyle: theme.typography.body3,
     descriptionTextStyle: {
       maxLines: 3
+    },
+    descriptionDetailsStyle: {
+      paddingY: 5
     },
     fadeWidth: theme.spacer.md * theme.spacer.md,
     provider: {
@@ -585,6 +614,7 @@ var MetadataCardContent = /*#__PURE__*/function (_MetadataBase) {
       this._Text.w = this.w;
       this._updateTitle();
       this._updateDescription();
+      this._updateDescriptionDetails();
       this._updateDetails();
     }
   }, {
@@ -598,6 +628,21 @@ var MetadataCardContent = /*#__PURE__*/function (_MetadataBase) {
             wordWrapWidth: this._Text.w
           })
         }
+      });
+    }
+  }, {
+    key: "_updateDescriptionDetails",
+    value: function _updateDescriptionDetails() {
+      this._DescriptionDetails.patch({
+        content: this.descriptionDetails,
+        style: {
+          textStyle: _objectSpread(_objectSpread({}, this.style.descriptionDetailsTextStyle), {}, {
+            maxLines: 1,
+            wordWrap: true,
+            wordWrapWidth: this._Text.w
+          })
+        },
+        y: this.style.descriptionDetailsStyle.paddingY
       });
     }
   }, {
@@ -691,7 +736,7 @@ var MetadataCardContent = /*#__PURE__*/function (_MetadataBase) {
   }, {
     key: "announce",
     get: function get() {
-      return this._announce || [this._Title && this._Title.announce, this._Description && this._Description.announce, this._Details && this._Details.announce, this._Provider && this._Provider.announce];
+      return this._announce || [this._Title && this._Title.announce, this._Description && this._Description.announce, this._DescriptionDetails && this._DescriptionDetails.announce, this._Details && this._Details.announce, this._Provider && this._Provider.announce];
     },
     set: function set(announce) {
       _set(_getPrototypeOf(MetadataCardContent.prototype), "announce", announce, this, true);
@@ -720,6 +765,9 @@ var MetadataCardContent = /*#__PURE__*/function (_MetadataBase) {
           },
           Description: {
             type: TextBox/* default */.Z
+          },
+          DescriptionDetails: {
+            type: TextBox/* default */.Z
           }
         },
         DetailsWrapper: {
@@ -745,7 +793,7 @@ var MetadataCardContent = /*#__PURE__*/function (_MetadataBase) {
   }, {
     key: "properties",
     get: function get() {
-      return ['description', 'details', 'provider', 'title'];
+      return ['description', 'descriptionDetails', 'details', 'provider', 'title'];
     }
   }, {
     key: "tags",
@@ -756,6 +804,9 @@ var MetadataCardContent = /*#__PURE__*/function (_MetadataBase) {
       }, {
         name: 'Description',
         path: 'Text.Description'
+      }, {
+        name: 'DescriptionDetails',
+        path: 'Text.DescriptionDetails'
       }, 'DetailsWrapper', {
         name: 'DetailsFader',
         path: 'DetailsWrapper.DetailsFader'
@@ -1075,7 +1126,14 @@ var Provider = /*#__PURE__*/function (_Base) {
 
 module.exports = __webpack_require__.p + "static/media/Xfinity-Provider-Logo-Square.d3aaa87c.png";
 
+/***/ }),
+
+/***/ "../../@lightningjs/ui-components/src/assets/images/ic_lightning_white_32.png":
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "static/media/ic_lightning_white_32.06aecfeb.png";
+
 /***/ })
 
 }]);
-//# sourceMappingURL=1682.01a33ccf.iframe.bundle.js.map
+//# sourceMappingURL=1682.d0481ee6.iframe.bundle.js.map

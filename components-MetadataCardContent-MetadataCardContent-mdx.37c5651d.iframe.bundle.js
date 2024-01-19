@@ -480,6 +480,18 @@ function _createMdxContent(props) {
           })]
         }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "descriptionDetails"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "string"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "false"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "undefined"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "details text directly below description"
+          })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "details"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "string"
@@ -532,6 +544,14 @@ function _createMdxContent(props) {
             children: "string | object"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "text style for details"
+          })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "descriptionDetailsStyle"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "object"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "style for description details"
           })]
         }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
@@ -611,4 +631,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-MetadataCardContent-MetadataCardContent-mdx.024249e1.iframe.bundle.js.map
+//# sourceMappingURL=components-MetadataCardContent-MetadataCardContent-mdx.37c5651d.iframe.bundle.js.map
