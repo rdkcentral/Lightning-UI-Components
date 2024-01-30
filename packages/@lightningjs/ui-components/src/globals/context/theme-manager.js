@@ -27,7 +27,7 @@ import logger from './logger.js';
 import events from './events.js';
 import { fontLoader, cleanupFonts } from './fonts.js';
 import { THEME_KEY_REPLACER } from './constants.js';
-
+import { applyExtension } from './applyExtension.js';
 const merge = {
   all: objArray => {
     let result = {};
@@ -158,6 +158,8 @@ class ThemeManager {
 
   async setTheme(themeConfig) {
     let value;
+
+    const testExtensions = themeConfig.testExtensions;
     if (Array.isArray(themeConfig)) {
       value = merge.all(themeConfig);
     } else {
@@ -176,6 +178,16 @@ class ThemeManager {
     if (theme.font && theme.font.length) {
       await this._loadFonts(theme.font);
     }
+
+    // Here we would if theme.extensions check
+    if (testExtensions) {
+      testExtensions.forEach(({ components, extension }) => {
+        components.forEach(compClass => {
+          applyExtension(compClass, extension);
+        });
+      });
+    }
+
     this._refreshSubThemes();
     this._emit('themeExtensionsUpdate');
     this._emit('themeUpdate'); // Notify components that an update cycle is required
