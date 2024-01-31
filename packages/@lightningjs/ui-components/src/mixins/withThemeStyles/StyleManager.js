@@ -80,7 +80,7 @@ export default class StyleManager extends lng.EventEmitter {
    */
   destroy() {
     this.isActive = false;
-    this._cleanupCache();
+    // this._cleanupCache();
     // Remove event listeners and subscriptions
     this.clearListeners();
     // Set references to null
@@ -125,14 +125,7 @@ export default class StyleManager extends lng.EventEmitter {
    * @returns {string} - The generated cache key.
    */
   _generateCacheKey(name) {
-    const cacheKey = [
-      name,
-      this.component.constructor.__componentName,
-      this._customStyleHash
-    ]
-      .filter(Boolean)
-      .join('_');
-    return cacheKey;
+    return name + this.component.constructor.__componentName;
   }
 
   /**
@@ -152,6 +145,7 @@ export default class StyleManager extends lng.EventEmitter {
   /**
    * Called when component is destroyed
    */
+  // TODO: perf note, iterating all styles in the cache for all detaching instances seems like a lot
   _cleanupCache() {
     if (!this.component) return;
     cache.forEach(({ ids, payload }, name) => {
@@ -201,11 +195,13 @@ export default class StyleManager extends lng.EventEmitter {
       let styleSource = this._getCache('styleSource')?.payload;
 
       if (!styleSource) {
+        // console.log('miss style source');
         // Style source does not exist so it will need to be generated. We attempt to run this function only when necessary for optimal performance
         styleSource = generateComponentStyleSource({
           alias: this.component.constructor.aliasStyles,
           componentConfig: this.component._componentConfig,
-          inlineStyle: this.component._componentLevelStyle,
+          inlineStyle: {},
+          // inlineStyle: this.component._componentLevelStyle,
           styleChain: getStyleChainMemoized(this.component),
           theme: this.component.theme
         });
@@ -214,16 +210,17 @@ export default class StyleManager extends lng.EventEmitter {
       }
 
       // Attempt to fetch style from cache
-      let style = this._getCache(`style_${mode}_${tone}`)?.payload;
+      // let style = this._getCache(`style_${mode}_${tone}`)?.payload;
 
-      if (!style) {
-        // Style does not exist so will also need to be generated
-        style = generateStyle(this.component, styleSource);
-        this._addCache(`style_${mode}_${tone}`, style);
-      }
-
-      this._style = style;
+      // if (!style) {
+      //   // Style does not exist so will also need to be generated
+      //   style = generateStyle(this.component, styleSource);
+      //   this._addCache(`style_${mode}_${tone}`, style);
+      // }
+      const style = generateStyle(this.component, styleSource);
+      this._style = { ...style, ...this.component._componentLevelStyle };
       this.emit('styleUpdate', this.style);
+      // console.log(JSON.stringify(Object.fromEntries(cache.entries())));
     } catch (error) {
       context.error('styleManager: ', error.message);
     }
@@ -252,27 +249,5 @@ export default class StyleManager extends lng.EventEmitter {
 
       return acc;
     }, {});
-  }
-
-  /**
-   * Simple check to see if this component can leverage caching. Components using .style cannot use the cache at this time
-   */
-  get _customStyleHash() {
-    const hasCustomStyle =
-      Boolean(
-        Object.keys(this.component.constructor.__mixinStyle || {}).length
-      ) ||
-      Boolean(Object.keys(this.component._componentLevelStyle || {}).length);
-
-    if (hasCustomStyle) {
-      return getHash(
-        clone(
-          this.component.constructor.__mixinStyle || {},
-          this.component._componentLevelStyle || {}
-        )
-      );
-    }
-
-    return undefined;
   }
 }

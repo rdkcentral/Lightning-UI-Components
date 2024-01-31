@@ -132,6 +132,8 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * and updates the component's properties accordingly. If the properties are unchanged, no action is taken.
      * This method is crucial for ensuring the component's properties are synchronized with the theme.
      */
+
+    // Think there are some perf impacts here
     _updatePropDefaults() {
       // If the current properties are the same as the previous configuration, no update is needed
       if (
@@ -287,7 +289,15 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         context.error('style must be an object');
         return;
       }
+
+      // Prevent styleManager update cycle if override styles are the same.
+      const styleString = JSON.stringify(v);
+      if (styleString === this._componentLevelStyleString) {
+        return;
+      }
+
       this._componentLevelStyle = v;
+      this._componentLevelStyleString = styleString;
       this._styleManager.clearStyleCache();
       this._styleManager.update();
     }
@@ -320,6 +330,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       context.info(
         'style config is deprecated. Please use style = { base: {}, tone: {}, mode: {} }'
       );
+
       this._styleConfig = v;
       this._styleManager.update();
     }
