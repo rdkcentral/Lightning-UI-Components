@@ -99,10 +99,10 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
 
       this._styleManager = new StyleManager({ component: this });
       this._style = this._styleManager.style; // Set the style for the first time. After this is will be updated by events
-      this._updatePropDefaults();
+      // this._updatePropDefaults();
       this._styleManager.on('styleUpdate', () => {
         this._style = this._styleManager.style;
-        this._updatePropDefaults();
+        // this._updatePropDefaults();
         this.queueThemeUpdate();
       });
       this._withThemeStylesSetupComplete = true;
