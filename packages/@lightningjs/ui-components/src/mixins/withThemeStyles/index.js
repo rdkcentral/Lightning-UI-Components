@@ -118,10 +118,10 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       super._setup && super._setup();
       this._targetSubTheme = getSubTheme(this);
       if (this._targetSubTheme) {
-        this._styleManager.clearListeners();
-        this._styleManager.setupListeners();
-        this._styleManager.clearStyleCache();
-        this._styleManager.clearSourceCache();
+        // this._styleManager.clearListeners();
+        // this._styleManager.setupListeners();
+        // this._styleManager.clearStyleCache();
+        // this._styleManager.clearSourceCache();
         this._styleManager.update();
       }
     }
@@ -176,7 +176,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      */
     _detach() {
       super._detach();
-      this._styleManager.destroy();
+      //this._styleManager.destroy();
     }
 
     /**
@@ -288,7 +288,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         return;
       }
       this._componentLevelStyle = v;
-      this._styleManager.clearStyleCache();
+      // this._styleManager.clearStyleCache();
       this._styleManager.update();
     }
 

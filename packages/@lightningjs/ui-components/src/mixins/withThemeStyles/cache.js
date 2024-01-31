@@ -1,9 +1,9 @@
 import { context } from '../../globals/index.js';
 
-const themeStyleCache = new Map();
+const themeStyleCache = new WeakMap();
 
-context.on('themeUpdate', () => {
-  themeStyleCache.clear();
-});
+// context.on('themeUpdate', () => {
+//   themeStyleCache && themeStyleCache.clear();
+// });
 
 export default themeStyleCache;
