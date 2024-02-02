@@ -196,6 +196,22 @@ export default class TabBar extends Base {
     return tabs;
   }
 
+  _getTabs() {
+    return this._Tabs.items;
+  }
+
+  get selected() {
+    return this._Tabs.selected;
+  }
+
+  get selectedIndex() {
+    return this._Tabs.selectedIndex;
+  }
+
+  set selectedIndex(index) {
+    this._Tabs.selectedIndex = index;
+  }
+
   get _collapsedHeight() {
     return this._Tabs.h;
   }
