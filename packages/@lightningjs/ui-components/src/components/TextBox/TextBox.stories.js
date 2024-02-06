@@ -40,7 +40,7 @@ export const Basic = () =>
           type: TextBox,
           fixed: true,
           w: 600,
-          style: { textStyle: { maxLines: 3 } }
+          style: { textStyle: { maxLines: 3, textAlign: 'center' } }
         }
       };
     }

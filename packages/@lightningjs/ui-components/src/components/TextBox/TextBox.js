@@ -71,7 +71,9 @@ export default class TextBox extends Base {
     ];
   }
 
-  _setDimensions(w, h) {
+  _setDimensions(options) {
+    const { w, h } = options;
+    console.log(options, w, h);
     let width = w;
     let height = h;
     if (!this._isInlineContent) {
@@ -79,10 +81,12 @@ export default class TextBox extends Base {
       height = this._Text.texture.getRenderHeight();
     }
 
-    const sizeChanged = this.w !== width || this.h !== height;
+    const sizeChanged = this.w !== width || this.h !== h;
 
     if (width && height && sizeChanged) {
-      this.h = height;
+      console.log('update height', height);
+
+      this.h = height * this.stage.getRenderPrecision();
       if (!this.fixed) {
         this.w = width;
       }
@@ -121,6 +125,7 @@ export default class TextBox extends Base {
     this._marqueeContentListenerAttached = false;
     this._marqueeOverrideLoopX = undefined;
     this._resetMarqueePromise();
+    this.firstTime = true;
   }
 
   _update() {
@@ -198,14 +203,31 @@ export default class TextBox extends Base {
 
     if (this._Text) {
       this._Text.patch({
+        w: w => w,
         y: this.style.offsetY,
-        x: this.style.offsetX,
+        x: this.style.offsetX
+      });
+    }
+    const textString = JSON.stringify({
+      ...lightningTextDefaults, // order matters this should always be first
+      ...fontStyle
+    });
+    if (this._content.includes * 'Lorem') {
+      console.log(textString);
+      console.log(this._textString);
+      console.log(this._content);
+    }
+
+    if (this._Text && textString !== this._textString) {
+      this._Text.patch({
         text: {
           ...lightningTextDefaults, // order matters this should always be first
           ...fontStyle
         }
       });
+      this._textString = textString;
     }
+    this.firstTime = false;
   }
 
   // keep this out of the update lifecycle
