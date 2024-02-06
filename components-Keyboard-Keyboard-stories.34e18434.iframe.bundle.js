@@ -481,6 +481,7 @@ var Keyboard = /*#__PURE__*/function (_Base) {
       var rows = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var keyboard = arguments.length > 1 ? arguments[1] : undefined;
       return rows.map(function (keys) {
+        var _this$_currentKeyboar;
         return {
           type: _Row__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z,
           autoResizeHeight: true,
@@ -492,6 +493,7 @@ var Keyboard = /*#__PURE__*/function (_Base) {
             itemSpacing: _this.style.keySpacing
           },
           items: _this._createKeys(keys, keyboard),
+          selectedIndex: ((_this$_currentKeyboar = _this._currentKeyboard) === null || _this$_currentKeyboar === void 0 || (_this$_currentKeyboar = _this$_currentKeyboar.selected) === null || _this$_currentKeyboar === void 0 ? void 0 : _this$_currentKeyboar.selectedIndex) || 0,
           waitForDimensions: true
         };
       });
@@ -792,4 +794,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Keyboard-Keyboard-stories.552fdaa6.iframe.bundle.js.map
+//# sourceMappingURL=components-Keyboard-Keyboard-stories.34e18434.iframe.bundle.js.map

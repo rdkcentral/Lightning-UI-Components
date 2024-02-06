@@ -459,6 +459,24 @@ var TabBar = /*#__PURE__*/function (_Base) {
       return tabs;
     }
   }, {
+    key: "_getTabs",
+    value: function _getTabs() {
+      return this._Tabs.items;
+    }
+  }, {
+    key: "selected",
+    get: function get() {
+      return this._Tabs.selected;
+    }
+  }, {
+    key: "selectedIndex",
+    get: function get() {
+      return this._Tabs.selectedIndex;
+    },
+    set: function set(index) {
+      this._Tabs.selectedIndex = index;
+    }
+  }, {
     key: "_collapsedHeight",
     get: function get() {
       return this._Tabs.h;
@@ -1379,4 +1397,4 @@ var ButtonSmall = /*#__PURE__*/function (_Button) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8905.d960255f.iframe.bundle.js.map
+//# sourceMappingURL=8905.c5d7ef37.iframe.bundle.js.map
