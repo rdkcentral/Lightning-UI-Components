@@ -17,7 +17,12 @@
  */
 
 import FocusManager from '../FocusManager';
-import NavigationManager from '../NavigationManager';
+import type { StylePartial } from '../../types/lui';
+import NavigationManager, {
+  NavigationManagerStyle
+} from '../NavigationManager';
+
+type RowStyle = NavigationManagerStyle;
 
 declare namespace Row {
   export interface TemplateSpec extends NavigationManager.TemplateSpec {
@@ -72,6 +77,10 @@ declare class Row<
    * This will be called on every new render.
    */
   onScreenEffect(): void;
+
+  // Accessors
+  get style(): RowStyle;
+  set style(v: StylePartial<RowStyle>);
 }
 
-export default Row;
+export { Row as default, RowStyle };

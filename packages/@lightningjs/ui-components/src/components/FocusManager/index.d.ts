@@ -16,6 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import FocusManager from './FocusManager';
+import FocusManager, { FocusManagerStyle } from './FocusManager';
 
-export { FocusManager as default };
+export { FocusManager as default, FocusManagerStyle };

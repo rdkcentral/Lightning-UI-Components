@@ -18,7 +18,11 @@
 
 import lng from '@lightningjs/core';
 import FocusManager from '../FocusManager/FocusManager';
-import NavigationManager from '../NavigationManager';
+import NavigationManager, {
+  NavigationManagerStyle
+} from '../NavigationManager';
+
+type ColumnStyle = NavigationManagerStyle;
 
 declare namespace Column {
   export interface TemplateSpec extends NavigationManager.TemplateSpec {
@@ -67,4 +71,4 @@ declare class Column<
   $columnChanged(): void;
 }
 
-export default Column;
+export { Column as default, ColumnStyle };

@@ -18,7 +18,7 @@
 
 export { default as Artwork, ArtworkStyle } from './Artwork';
 export { default as Badge, BadgeStyle } from './Badge';
-export { default as Base } from './Base';
+export { default as Base, BaseStyle } from './Base';
 export { default as Button, ButtonSmall, ButtonStyle } from './Button';
 export {
   default as Card,
@@ -39,10 +39,10 @@ export {
   CardContentStyle
 } from './CardContent';
 export { default as Checkbox, CheckboxStyle } from './Checkbox';
-export { default as Column } from './Column';
+export { default as Column, ColumnStyle } from './Column';
 export { default as Control, ControlSmall, ControlStyle } from './Control';
 export { default as ControlRow, ControlRowStyle } from './ControlRow';
-export { default as FocusManager } from './FocusManager';
+export { default as FocusManager, FocusManagerStyle } from './FocusManager';
 export { default as Gradient, GradientStyle } from './Gradient';
 export { default as GridOverlay } from './GridOverlay';
 export { default as Icon, IconStyle } from './Icon';
@@ -84,7 +84,7 @@ export {
 export { default as ProgressBar, ProgressBarStyle } from './ProgressBar';
 export { default as Provider, ProviderStyle } from './Provider';
 export { default as Radio, RadioStyle } from './Radio';
-export { default as Row } from './Row';
+export { default as Row, RowStyle } from './Row';
 export { default as ScrollWrapper, ScrollWrapperStyle } from './ScrollWrapper';
 export { default as Shadow, ShadowStyle } from './Shadow';
 export { default as Slider, SliderStyle } from './Slider';

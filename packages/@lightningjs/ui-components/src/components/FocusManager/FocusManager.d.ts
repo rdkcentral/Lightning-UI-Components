@@ -17,13 +17,15 @@
  */
 
 import lng from '@lightningjs/core';
-import Base from '../Base';
+import Base, { BaseStyle } from '../Base';
 
 export type NavigationDirectionType = 'none' | 'column' | 'row';
 
 export type FocusItemsType = Array<
   lng.Component.NewPatchTemplate<lng.Component.Constructor> | lng.Component
 >;
+
+type FocusManagerStyle = BaseStyle;
 
 declare namespace FocusManager {
   export interface TemplateSpec extends Base.TemplateSpec {
@@ -189,4 +191,4 @@ declare class FocusManager<
   get _Items(): lng.Component;
 }
 
-export default FocusManager;
+export { FocusManager as default, FocusManagerStyle };

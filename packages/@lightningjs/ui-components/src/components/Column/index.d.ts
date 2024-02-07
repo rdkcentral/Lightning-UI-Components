@@ -16,6 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Column from './Column';
+import Column, { ColumnStyle } from './Column';
 
-export { Column as default };
+export { Column as default, ColumnStyle };
