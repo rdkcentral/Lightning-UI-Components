@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import * as styles from './Icon.styles.js';
-import { context } from '../../globals';
+import context from '../../globals/context/index.js';
 import { getValidColor } from '../../utils';
 import CustomImageTexture from '../../textures/CustomImageTexture';
 

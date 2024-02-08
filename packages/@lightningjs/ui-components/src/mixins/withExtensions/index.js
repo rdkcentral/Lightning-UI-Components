@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { context } from '../../globals';
+import context from '../../globals/context/index.js';
 
 const SUFFIX = '__original';
 

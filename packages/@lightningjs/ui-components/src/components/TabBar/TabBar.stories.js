@@ -27,7 +27,7 @@ import { createModeControl } from '../../docs/utils';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import Row from '../Row';
 import Column from '../Column';
-import { context } from '../../globals';
+import context from '../../globals/context/index.js';
 import Tab from './Tab.js';
 import TabBarComponent from '.';
 

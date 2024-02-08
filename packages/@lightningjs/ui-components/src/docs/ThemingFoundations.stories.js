@@ -18,7 +18,11 @@
 
 import lng from '@lightningjs/core';
 import context from '../globals/context';
-import { Base, Column, TextBox, Tile, Button } from '../components';
+import Base from '../components/Base/Base';
+import Column from '../components/Column/Column';
+import TextBox from '../components/TextBox/TextBox';
+import Tile from '../components/Tile/Tile';
+import Button from '../components/Button/Button';
 import tileImage from '../assets/images/tile-image.png';
 
 export default {

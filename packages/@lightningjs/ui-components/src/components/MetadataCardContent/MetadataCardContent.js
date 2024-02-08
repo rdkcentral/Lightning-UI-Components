@@ -19,7 +19,7 @@
 import MetadataBase from '../MetadataBase';
 import TextBox from '../TextBox';
 import Provider from '../Provider';
-import { FadeShader } from '../../shaders';
+import FadeShader from '../../shaders/FadeShader';
 import * as styles from './MetadataCardContent.styles.js';
 
 export default class MetadataCardContent extends MetadataBase {

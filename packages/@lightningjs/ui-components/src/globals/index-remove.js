@@ -17,5 +17,5 @@
  */
 
 export { default as context } from './context';
-export { updateManager } from './global-update-manager/GlobalUpdateManager.js';
+export { updateManager } from './global-update-manager/GlobalUpdateManager';
 export { default as pool } from './pool';

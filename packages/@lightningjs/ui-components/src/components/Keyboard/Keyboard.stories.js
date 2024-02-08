@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import { createModeControl } from '../../docs/utils';
-import { context } from '../../globals';
+import context from '../../globals/context/index.js';
 import utils from '../../utils';
 import { default as KeyboardComponent } from './Keyboard';
 

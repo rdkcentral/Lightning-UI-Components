@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import MarqueeComponent from '.';
 import InlineContent from '../InlineContent';
-import { context } from '../../globals';
+import context from '../../globals/context/index.js';
 
 export default {
   title: 'Components/Marquee'

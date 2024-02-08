@@ -17,15 +17,13 @@
  */
 
 import lng from '@lightningjs/core';
-import { context } from '../../globals';
-import {
-  withUpdates,
-  withTags,
-  withHandleKey,
-  withLayout,
-  withThemeStyles,
-  withExtensions
-} from '../../mixins';
+import context from '../../globals/context/index.js';
+import withUpdates from '../../mixins/withUpdates';
+import withTags from '../../mixins/withTags';
+import withHandleKey from '../../mixins/withHandleKey';
+import withLayout from '../../mixins/withLayout';
+import withThemeStyles from '../../mixins/withThemeStyles';
+import withExtensions from '../../mixins/withExtensions';
 import { isComponentOnScreen } from '../../utils';
 
 class Base extends lng.Component {

@@ -23,7 +23,7 @@ import {
 } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
 import withUpdates from '.';
-import { context } from '../../globals';
+import context from '../../globals/context/index.js';
 const updateMock = jest.fn();
 
 describe('withUpdates', () => {

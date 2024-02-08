@@ -19,7 +19,7 @@
 import { jest } from '@jest/globals';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import TextBox from '.';
-import { context } from '../../globals';
+import context from '../../globals/context/index.js';
 
 import { getValidColor } from '../../utils';
 

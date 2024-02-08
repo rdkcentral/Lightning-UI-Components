@@ -19,8 +19,8 @@
 import Base from '../Base';
 import Icon from '../Icon';
 import TextBox from '../TextBox';
-import { FadeShader } from '../../shaders';
-import { withMarqueeSync } from '../../mixins';
+import FadeShader from '../../shaders/FadeShader';
+import withMarqueeSync from '../../mixins/withMarqueeSync';
 import * as styles from './MetadataBase.styles';
 
 class MetadataBase extends Base {
