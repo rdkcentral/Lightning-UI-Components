@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import * as styles from './Toggle.styles.js';
+import * as styles from './Toggle.styles';
 
 export default class Toggle extends Base {
   static get __componentName() {

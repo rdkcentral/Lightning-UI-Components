@@ -17,8 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import withThemeStylesMixin from './index.js';
-import context from '../../globals/context/index.js';
+import withThemeStylesMixin from './index';
+import context from '../../globals/context/index';
 
 export default {
   title: 'Utilities/withThemeStyles'

@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import { getWidthByUpCount } from '../../utils';
 import { default as RowComponent } from '.';
 import Column from '../Column';
-import context from '../../globals/context/index.js';
+import context from '../../globals/context/index';
 import { createModeControl } from '../../docs/utils';
 import { SignalButton } from '../../docs/story-components';
 import Button from '../Button';

@@ -17,7 +17,7 @@
  */
 
 import Control from './Control';
-import * as styles from './ControlSmall.styles.js';
+import * as styles from './ControlSmall.styles';
 
 export default class ControlSmall extends Control {
   static get __componentName() {

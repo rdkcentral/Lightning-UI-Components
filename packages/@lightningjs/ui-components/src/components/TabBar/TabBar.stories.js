@@ -20,15 +20,15 @@ import lng from '@lightningjs/core';
 import Base from '../Base';
 import Tile from '../Tile';
 import Button from '../Button';
-import ButtonSmall from '../Button/ButtonSmall.js';
+import ButtonSmall from '../Button/ButtonSmall';
 import Icon from '../Icon';
 import viewAllIcon from '../../assets/images/view_all.png';
 import { createModeControl } from '../../docs/utils';
 import lightningIcon from '../../assets/images/ic_lightning_white_32.png';
 import Row from '../Row';
 import Column from '../Column';
-import context from '../../globals/context/index.js';
-import Tab from './Tab.js';
+import context from '../../globals/context/index';
+import Tab from './Tab';
 import TabBarComponent from '.';
 
 export default {

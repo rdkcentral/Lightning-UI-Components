@@ -25,7 +25,7 @@ import { default as withEditItemsMixin } from '.';
 /**
  * Shared Args and Arg Types from Row
  */
-import * as RowProps from '../../components/Row/Row.stories.js';
+import * as RowProps from '../../components/Row/Row.stories';
 export default {
   title: 'Utilities/withEditItems',
   parameters: {

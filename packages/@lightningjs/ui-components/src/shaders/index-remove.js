@@ -16,4 +16,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as FadeShader } from './FadeShader.js';
+export { default as FadeShader } from './FadeShader';

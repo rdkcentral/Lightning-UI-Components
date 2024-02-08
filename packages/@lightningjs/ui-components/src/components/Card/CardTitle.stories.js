@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as CardTitleComponent } from './CardTitle.js';
+import { default as CardTitleComponent } from './CardTitle';
 import { createModeControl } from '../../docs/utils';
 
 export default {

@@ -16,5 +16,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as default } from './Control.js';
-export { default as ControlSmall } from './ControlSmall.js';
+export { default as default } from './Control';
+export { default as ControlSmall } from './ControlSmall';

@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import context from '../../globals/context/index.js';
+import context from '../../globals/context/index';
 import withUpdates from '../../mixins/withUpdates';
 import withTags from '../../mixins/withTags';
 import withHandleKey from '../../mixins/withHandleKey';

@@ -20,8 +20,8 @@ import lng from '@lightningjs/core';
 import { getValidColor, reduceFraction } from '../../utils';
 import Base from '../Base';
 import Gradient from '../Gradient';
-import * as styles from './Artwork.styles.js';
-import context from '../../globals/context/index.js';
+import * as styles from './Artwork.styles';
+import context from '../../globals/context/index';
 import CustomImageTexture from '../../textures/CustomImageTexture';
 
 export default class Artwork extends Base {

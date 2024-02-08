@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Toggle from './Toggle.js';
-import * as styles from './ToggleSmall.styles.js';
+import Toggle from './Toggle';
+import * as styles from './ToggleSmall.styles';
 
 export default class ToggleSmall extends Toggle {
   static get __componentName() {

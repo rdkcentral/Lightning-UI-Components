@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as CardSectionComponent } from './CardSection.js';
+import { default as CardSectionComponent } from './CardSection';
 import sectionIcon from '../../assets/images/ic_check_circle_outline_inverse_24.png';
 import { createModeControl } from '../../docs/utils';
 

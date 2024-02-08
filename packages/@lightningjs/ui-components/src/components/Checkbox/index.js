@@ -16,5 +16,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as default } from './Checkbox.js';
-export { default as CheckBoxSmall } from './Checkbox.js';
+export { default as default } from './Checkbox';
+export { default as CheckBoxSmall } from './Checkbox';

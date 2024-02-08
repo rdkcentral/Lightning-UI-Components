@@ -21,7 +21,7 @@ export {
   generateAbbrevConfig,
   defaultAbbrevConfig
 } from './withAnnouncer';
-export { default as Speech } from './withAnnouncer/Speech.js';
+export { default as Speech } from './withAnnouncer/Speech';
 export { default as withClassCache } from './withClassCache';
 export { default as withHandleKey } from './withHandleKey';
 export { default as withLayout } from './withLayout';

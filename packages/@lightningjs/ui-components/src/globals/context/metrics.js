@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import logger from './logger.js';
+import logger from './logger';
 class Metrics {
   constructor() {
     this._keyMetricsCallback = undefined;

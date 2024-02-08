@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as styles from './Input.styles.js';
+import * as styles from './Input.styles';
 import Button from '../Button';
 import TextBox from '../TextBox';
 

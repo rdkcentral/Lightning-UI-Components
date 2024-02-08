@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import ListItemPicker from './ListItemPicker.js';
+import ListItemPicker from './ListItemPicker';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 
 const createListItemPicker = makeCreateComponent(ListItemPicker);

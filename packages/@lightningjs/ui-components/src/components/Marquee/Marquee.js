@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as styles from './Marquee.styles.js';
+import * as styles from './Marquee.styles';
 import FadeShader from '../../shaders/FadeShader';
 import utils from '../../utils';
 import Base from '../Base';

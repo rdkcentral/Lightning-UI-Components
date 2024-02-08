@@ -16,11 +16,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Speech from './Speech.js';
-import { translateAbbrev } from './abbreviations.js';
+import Speech from './Speech';
+import { translateAbbrev } from './abbreviations';
 import { debounce } from '../../utils';
 
-export { generateAbbrevConfig, defaultAbbrevConfig } from './abbreviations.js';
+export { generateAbbrevConfig, defaultAbbrevConfig } from './abbreviations';
 
 const fiveMinutes = 300 * 1000;
 

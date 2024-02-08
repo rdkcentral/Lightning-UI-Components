@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Tile from '../../components/Tile/Tile';
 import Row from '../../components/Row/Row';
-import context from '../../globals/context/index.js';
+import context from '../../globals/context/index';
 import withHandleKeyMixin from '.';
 
 context.config({

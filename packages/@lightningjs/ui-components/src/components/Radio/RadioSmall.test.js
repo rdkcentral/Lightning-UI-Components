@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import RadioSmall from './RadioSmall.js';
+import RadioSmall from './RadioSmall';
 
 const createRadio = makeCreateComponent(RadioSmall);
 

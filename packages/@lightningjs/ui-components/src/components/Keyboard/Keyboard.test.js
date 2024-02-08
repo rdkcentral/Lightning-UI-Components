@@ -18,12 +18,12 @@
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import Keyboard from '.';
-import KeyboardInput from './KeyboardInput.js';
-import KeyboardQwerty from './KeyboardQwerty.js';
-import KeyboardNumbers from './KeyboardNumbers.js';
-import KeyboardFullscreen from './KeyboardFullscreen.js';
-import KeyboardEmail from './KeyboardEmail.js';
-import KeyboardSearch from './KeyboardSearch.js';
+import KeyboardInput from './KeyboardInput';
+import KeyboardQwerty from './KeyboardQwerty';
+import KeyboardNumbers from './KeyboardNumbers';
+import KeyboardFullscreen from './KeyboardFullscreen';
+import KeyboardEmail from './KeyboardEmail';
+import KeyboardSearch from './KeyboardSearch';
 const createKeyboard = makeCreateComponent(Keyboard);
 const createKeyboardSearch = makeCreateComponent(KeyboardSearch);
 const createKeyboardInput = makeCreateComponent(KeyboardInput);

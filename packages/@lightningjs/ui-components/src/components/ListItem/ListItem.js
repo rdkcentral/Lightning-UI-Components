@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as styles from './ListItem.styles.js';
+import * as styles from './ListItem.styles';
 import Button from '../Button';
 import TextBox from '../TextBox';
 import Icon from '../Icon';

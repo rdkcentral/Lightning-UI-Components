@@ -17,7 +17,7 @@
  */
 
 import Button from '../Button';
-import * as styles from './Key.styles.js';
+import * as styles from './Key.styles';
 import Icon from '../Icon';
 
 const isUpperCase = string => /^[A-Z]$/.test(string);

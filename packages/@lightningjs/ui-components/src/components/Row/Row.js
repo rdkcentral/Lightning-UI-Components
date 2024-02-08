@@ -17,7 +17,7 @@
  */
 
 import NavigationManager from '../NavigationManager';
-import * as styles from './Row.styles.js';
+import * as styles from './Row.styles';
 import { getX } from '../../utils';
 
 export default class Row extends NavigationManager {

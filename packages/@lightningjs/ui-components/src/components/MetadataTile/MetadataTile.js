@@ -17,7 +17,7 @@
  */
 
 import MetadataBase from '../MetadataBase';
-import * as styles from './MetadataTile.styles.js';
+import * as styles from './MetadataTile.styles';
 
 export default class MetadataTile extends MetadataBase {
   static get __componentName() {

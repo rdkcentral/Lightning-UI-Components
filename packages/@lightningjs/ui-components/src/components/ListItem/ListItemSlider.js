@@ -18,7 +18,7 @@
 
 import NestedSlider from './NestedSlider';
 import ListItem from './ListItem';
-import * as styles from './ListItemSlider.styles.js';
+import * as styles from './ListItemSlider.styles';
 import TextBox from '../TextBox';
 
 export default class ListItemSlider extends ListItem {

@@ -17,7 +17,7 @@
  */
 
 import Base from '../Base';
-import * as styles from './Knob.styles.js';
+import * as styles from './Knob.styles';
 import lng from '@lightningjs/core';
 
 export default class Knob extends Base {

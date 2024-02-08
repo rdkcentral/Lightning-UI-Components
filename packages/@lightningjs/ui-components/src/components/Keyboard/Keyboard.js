@@ -16,12 +16,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import context from '../../globals/context/index.js';
+import context from '../../globals/context/index';
 import Base from '../Base';
 import Key from '../Key';
 import Row from '../Row';
 import Column from '../Column';
-import * as styles from './Keyboard.styles.js';
+import * as styles from './Keyboard.styles';
 
 const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
