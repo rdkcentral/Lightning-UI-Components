@@ -1,4 +1,4 @@
-import { context } from '../../globals/index.js';
+import context from '../../globals/context/index.js';
 
 const themeStyleCache = new Map();
 

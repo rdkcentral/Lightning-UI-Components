@@ -23,7 +23,7 @@ import {
   generateStyle,
   getHash
 } from './utils.js';
-import { context } from '../../globals/index.js';
+import context from '../../globals/context/index.js';
 import { clone } from '../../utils/index.js';
 import cache from './cache.js';
 import lng from '@lightningjs/core';

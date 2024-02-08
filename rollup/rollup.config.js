@@ -71,7 +71,7 @@ export default cliArgs => [
       getBabelOutputPlugin({
         presets: ['@babel/preset-env']
       }),
-      terser({ keep_classnames: true, keep_fnames: true })
+     // terser({ keep_classnames: true, keep_fnames: true })
     ]
   },
   {
