@@ -139,7 +139,10 @@ export default class InlineContent extends Base {
 
   _notifyAncestors() {
     this.fireAncestors('$loadedInlineContent', this);
-    this.signal('loadedInlineContent', this.finalW, this.multiLineHeight);
+    this.signal('loadedInlineContent', {
+      w: this.finalW,
+      h: this.multiLineHeight
+    });
   }
 
   _contentLoaded() {
