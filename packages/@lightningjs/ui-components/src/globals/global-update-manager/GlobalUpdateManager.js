@@ -23,7 +23,18 @@ class GlobalUpdateManager {
     this._updateThemeSet = new Set();
     this._requestUpdateSet = new Set();
     this._timeout = null;
+    this.isInitialized = false;
     this._runUpdatesTimeoutHandler = this._runUpdatesTimeoutHandler.bind(this);
+  }
+
+  init(stage) {
+    if (!this._initialized) {
+      this.isInitialized = true;
+      this.stage = stage;
+      this.stage.on('frameStart', () => {
+        this._runUpdatesTimeoutHandler();
+      });
+    }
   }
 
   _runUpdatesTimeoutHandler() {
@@ -36,7 +47,6 @@ class GlobalUpdateManager {
       }
     });
     this._updateThemeSet.clear();
-
     this._requestUpdateSet.forEach(component => {
       try {
         component.requestUpdate();
@@ -61,9 +71,6 @@ class GlobalUpdateManager {
 
   addUpdateTheme(component) {
     this._updateThemeSet.add(component);
-    if (!this._timeout) {
-      this._timeout = setTimeout(this._runUpdatesTimeoutHandler, 0);
-    }
   }
 
   deleteUpdateTheme(component) {
@@ -74,9 +81,6 @@ class GlobalUpdateManager {
 
   addRequestUpdate(component) {
     this._requestUpdateSet.add(component);
-    if (!this._timeout) {
-      this._timeout = setTimeout(this._runUpdatesTimeoutHandler, 0);
-    }
   }
 
   deleteRequestUpdate(component) {

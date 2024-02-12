@@ -101,6 +101,9 @@ export default function withUpdates(Base) {
     _construct() {
       const prototype = Object.getPrototypeOf(this);
       if (!prototype._withUpdatesInitialized) {
+        if (!updateManager.isInitialized) {
+          updateManager.init(this.stage);
+        }
         // create custom accessors and mutators for the props in the properties array
         const props = this.constructor.properties || [];
         props.forEach(name => {
