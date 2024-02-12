@@ -22,7 +22,6 @@ class GlobalUpdateManager {
   constructor() {
     this._updateThemeSet = new Set();
     this._requestUpdateSet = new Set();
-    this._timeout = null;
     this.isInitialized = false;
     this._runUpdatesTimeoutHandler = this._runUpdatesTimeoutHandler.bind(this);
   }
@@ -38,7 +37,6 @@ class GlobalUpdateManager {
   }
 
   _runUpdatesTimeoutHandler() {
-    this._timeout = null;
     this._updateThemeSet.forEach(component => {
       try {
         component._updateThemeComponent();
@@ -63,9 +61,6 @@ class GlobalUpdateManager {
    * @returns
    */
   flush() {
-    // If there is no timeout then there is definately nothing to update
-    if (!this._timeout) return;
-    clearTimeout(this._timeout);
     this._runUpdatesTimeoutHandler();
   }
 
