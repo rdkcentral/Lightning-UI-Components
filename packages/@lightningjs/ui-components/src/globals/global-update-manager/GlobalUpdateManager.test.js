@@ -18,8 +18,11 @@
 
 import context from '../context';
 import { updateManager } from './GlobalUpdateManager.js';
-import { nextTick } from '@lightningjs/ui-components-test-utils';
 import { jest } from '@jest/globals';
+import lng from '@lightningjs/core';
+
+const stageEmitterInstance = new lng.EventEmitter();
+updateManager.init(stageEmitterInstance);
 
 describe('GlobalUpdateManager', () => {
   describe('addUpdateTheme', () => {
@@ -29,10 +32,10 @@ describe('GlobalUpdateManager', () => {
       };
       updateManager.addUpdateTheme(fakeComponent);
       expect(fakeComponent._updateThemeComponent).not.toHaveBeenCalled();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent._updateThemeComponent).toHaveBeenCalledTimes(1);
-      await nextTick();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent._updateThemeComponent).toHaveBeenCalledTimes(1);
     });
 
@@ -44,9 +47,10 @@ describe('GlobalUpdateManager', () => {
       updateManager.addUpdateTheme(fakeComponent);
       updateManager.addUpdateTheme(fakeComponent);
       updateManager.addUpdateTheme(fakeComponent);
-      await nextTick();
-      await nextTick();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent._updateThemeComponent).toHaveBeenCalledTimes(1);
     });
   });
@@ -61,10 +65,10 @@ describe('GlobalUpdateManager', () => {
       updateManager.addUpdateTheme(fakeComponent);
       updateManager.deleteUpdateTheme(fakeComponent);
       expect(fakeComponent._updateThemeComponent).not.toHaveBeenCalled();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent._updateThemeComponent).not.toHaveBeenCalled();
-      await nextTick();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent._updateThemeComponent).not.toHaveBeenCalled();
     });
 
@@ -83,9 +87,9 @@ describe('GlobalUpdateManager', () => {
         requestUpdate: jest.fn()
       };
       updateManager.addRequestUpdate(fakeComponent);
-      await nextTick();
-      await nextTick();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent.requestUpdate).toHaveBeenCalledTimes(1);
     });
 
@@ -98,10 +102,11 @@ describe('GlobalUpdateManager', () => {
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.addRequestUpdate(fakeComponent);
       expect(fakeComponent.requestUpdate).not.toHaveBeenCalled();
-      await nextTick();
+
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent.requestUpdate).toHaveBeenCalledTimes(1);
-      await nextTick();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent.requestUpdate).toHaveBeenCalledTimes(1);
     });
   });
@@ -116,10 +121,10 @@ describe('GlobalUpdateManager', () => {
       updateManager.addRequestUpdate(fakeComponent);
       updateManager.deleteRequestUpdate(fakeComponent);
       expect(fakeComponent.requestUpdate).not.toHaveBeenCalled();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent.requestUpdate).not.toHaveBeenCalled();
-      await nextTick();
-      await nextTick();
+      stageEmitterInstance.emit('frameStart');
+      stageEmitterInstance.emit('frameStart');
       expect(fakeComponent.requestUpdate).not.toHaveBeenCalled();
     });
 
@@ -177,7 +182,7 @@ describe('GlobalUpdateManager', () => {
     updateManager.addUpdateTheme(fakeComponent);
     updateManager.addUpdateTheme(fakeComponent2);
     expect(callLog).toEqual([]);
-    await nextTick();
+    stageEmitterInstance.emit('frameStart');
     expect(callLog).toEqual([
       '_updateThemeComponent',
       '_updateThemeComponent',
@@ -197,7 +202,7 @@ describe('GlobalUpdateManager', () => {
     };
     updateManager.addRequestUpdate(fakeComponent);
     updateManager.addUpdateTheme(fakeComponent);
-    await nextTick();
+    stageEmitterInstance.emit('frameStart');
     expect(context.error).toHaveBeenNthCalledWith(
       1,
       'Error updating component themes',

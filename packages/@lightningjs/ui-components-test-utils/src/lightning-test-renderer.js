@@ -111,6 +111,7 @@ function create(Component, options = {}) {
   app.stage.transitions.defaultTransitionSettings.duration = 0;
   app.children = Component;
   app.updateFocusPath();
+  updateManager.init(app.stage);
   return {
     toJSON: (children = 1) => toJSON(app.childList.first, { children }),
     update: () => {
