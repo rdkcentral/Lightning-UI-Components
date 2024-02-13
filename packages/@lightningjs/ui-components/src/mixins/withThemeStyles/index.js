@@ -415,5 +415,11 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       this._hSetByUser = true;
       this._updateThemeComponent();
     }
+
+    set hNoUser(v) {
+      if (this._h === v) return;
+      super.h = v;
+      this._updateThemeComponent();
+    }
   };
 }

@@ -272,7 +272,8 @@ export default class Button extends Surface {
     // Using the "get h" return statement does not force an update to the inspector,
     // whereas this will ensure the "height" attribute is updated
     if (!this._hSetByUser && !this.style.h) {
-      this._h = this.style.textStyle.lineHeight + this.style.paddingY * 2;
+      // TODO: name this prop... We still want updated tiggered on height change
+      this.hNoUser = this.style.textStyle.lineHeight + this.style.paddingY * 2;
     }
 
     // TODO breaks row resizing if this is wrapped in the width conditional above
