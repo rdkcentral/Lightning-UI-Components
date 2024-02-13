@@ -52,26 +52,32 @@ export default cliArgs => [
   },
   {
     input: './index.js',
+    external: ['@lightningjs/core'],
     output: {
       sourcemap: true,
       file: cliArgs.name
         ? `./dist/${cliArgs.name}.min.mjs`
         : './dist/bundle.min.mjs',
-      format: 'esm'
-    },
-    treeshake: {
-      preset: 'smallest',
-      moduleSideEffects: false // Important to make sure final bundle only includes necessary imports from os lightning/ui
+      format: 'es'
     },
     plugins: [
       resolve({ exportConditions: ['node'] }),
-      peerDepsExternal(),
+      //peerDepsExternal(),
       image(),
       json(),
-      getBabelOutputPlugin({
-        presets: ['@babel/preset-env']
-      }),
-     // terser({ keep_classnames: true, keep_fnames: true })
+      // getBabelOutputPlugin({
+      //   presets: ['@babel/preset-env']
+      // }),
+      terser({ 
+        module: true, 
+        mangle: false, 
+        compress: false,  
+        format: {
+          beautify: true, // Output more readable code
+        }, 
+        keep_classnames: true, 
+        keep_fnames: true 
+      })
     ]
   },
   {
