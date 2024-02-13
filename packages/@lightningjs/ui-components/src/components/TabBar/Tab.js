@@ -68,18 +68,50 @@ export default class Tab extends Surface {
   }
 
   _onTextBoxChanged() {
-    this._updateContent();
-    this._updateTabSize();
+    this._updateSizing();
   }
 
   _update() {
-    super._update();
     this._updateIcon();
     this._updateText();
-    this._updateContent();
-    this._updateTabSize();
+    this._updateSizing();
   }
 
+  _updateSizing() {
+    this._updateContent();
+    this._updateTabSize();
+    this._updatePositions();
+    super._update();
+  }
+
+  _updatePositions() {
+    if (this._Icon) {
+      const iconPatch = {
+        y: this._Content.h / 2
+      };
+      if (this.title) {
+        iconPatch.x = 0;
+        iconPatch.mountX = 0;
+      } else {
+        iconPatch.x = this._Content.w / 2;
+        iconPatch.mountX = 0.5;
+      }
+      this._Icon.patch(iconPatch);
+    }
+    if (this._Text) {
+      const textPatch = {
+        y: this._Content.h / 2
+      };
+      if (this.icon) {
+        textPatch.x = this._iconW + this.style.iconMarginRight;
+        textPatch.mountX = 0;
+      } else {
+        textPatch.x = this._Content.w / 2;
+        textPatch.mountX = 0.5;
+      }
+      this._Text.patch(textPatch);
+    }
+  }
   _updateIcon() {
     if (!this.icon) {
       this._Content.patch({ Icon: undefined });
@@ -89,19 +121,11 @@ export default class Tab extends Surface {
       icon: this.icon,
       w: this.style.iconSize,
       h: this.style.iconSize,
-      y: this._Content.h / 2,
+
       style: {
         color: this.style.contentColor
       }
     };
-
-    if (this.title) {
-      iconPatch.x = 0;
-      iconPatch.mountX = 0;
-    } else {
-      iconPatch.x = this._Content.w / 2;
-      iconPatch.mountX = 0.5;
-    }
 
     if (this._Icon) {
       this._Icon.patch(iconPatch);
@@ -119,16 +143,8 @@ export default class Tab extends Surface {
   _updateText() {
     const textPatch = {
       content: this.title,
-      style: { textStyle: this.style.textStyle },
-      y: this._Content.h / 2
+      style: { textStyle: this.style.textStyle }
     };
-    if (this.icon) {
-      textPatch.x = this._iconW + this.style.iconMarginRight;
-      textPatch.mountX = 0;
-    } else {
-      textPatch.x = this._Content.w / 2;
-      textPatch.mountX = 0.5;
-    }
 
     this._Text.patch(textPatch);
   }
