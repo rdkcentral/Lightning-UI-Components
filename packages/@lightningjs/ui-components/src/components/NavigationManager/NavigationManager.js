@@ -315,12 +315,19 @@ export default class NavigationManager extends FocusManager {
     }
 
     item = this._withAfterUpdate(item);
+    return item;
   }
 
   _appendLazyItem(item) {
+    const { lengthDimension, axis } = this._directionPropNames;
+    const lastChild = this._Items.children[this.items.length - 1];
+    const nextPosition =
+      lastChild[lengthDimension] +
+      (lastChild.extraItemSpacing || 0) +
+      this.style.itemSpacing;
+    item[axis] = nextPosition;
     this._appendItem(item);
-    this.queueRequestUpdate();
-    this._refocus();
+    this.requestUpdate();
   }
 
   $itemChanged() {
