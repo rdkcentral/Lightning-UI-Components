@@ -208,10 +208,6 @@ export default class Row extends NavigationManager {
     this.onScreenEffect(this.onScreenItems);
   }
 
-  _performRender() {
-    this._render(this.selected, this.prevSelected);
-  }
-
   _isOnScreen(child) {
     if (!child) return false;
 

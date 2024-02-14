@@ -104,10 +104,6 @@ export default class Column extends NavigationManager {
     this.onScreenEffect(this.onScreenItems);
   }
 
-  _performRender() {
-    this._render(this.selected, this.prevSelected);
-  }
-
   checkSkipPlinko(prev, next) {
     // If previous doesn't have skip plinko or previous is the first or last item
     if (

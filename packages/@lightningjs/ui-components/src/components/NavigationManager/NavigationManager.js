@@ -298,8 +298,9 @@ export default class NavigationManager extends FocusManager {
     });
   }
 
-  // can be overwritten
-  _performRender() {}
+  _performRender() {
+    this._render(this.selected, this.prevSelected);
+  }
 
   _appendItem(item) {
     this.shouldSmooth = false;
