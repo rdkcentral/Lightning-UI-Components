@@ -302,8 +302,8 @@ export default class NavigationManager extends FocusManager {
     this._render(this.selected, this.prevSelected);
   }
 
-  _appendItem(item) {
-    this.shouldSmooth = false;
+  _appendItem(item, shouldStopSmooth = true) {
+    this.shouldSmooth = !shouldStopSmooth;
     item.parentFocus = this.hasFocus();
     item = this.Items.childList.a(item);
 
@@ -324,11 +324,14 @@ export default class NavigationManager extends FocusManager {
     const lastChild = this._Items.children[this.items.length - 1];
     const nextPosition =
       lastChild[lengthDimension] +
+      lastChild[axis] +
       (lastChild.extraItemSpacing || 0) +
       this.style.itemSpacing;
-    item[axis] = nextPosition;
-    this._appendItem(item);
-    this.requestUpdate();
+
+    const appended = this._appendItem(item, false);
+
+    appended[axis] = nextPosition;
+    this._Items[lengthDimension] += nextPosition + item[lengthDimension];
   }
 
   $itemChanged() {
