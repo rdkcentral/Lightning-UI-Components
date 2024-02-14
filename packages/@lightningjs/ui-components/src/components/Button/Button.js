@@ -256,6 +256,9 @@ export default class Button extends Surface {
   }
 
   _updateSurfaceDimensions() {
+    const startW = this.w;
+    const startH = this.h;
+
     let newWidth = this.w;
     if (this.fixed) {
       newWidth = this._w;
@@ -276,8 +279,10 @@ export default class Button extends Surface {
       this.hNoUser = this.style.textStyle.lineHeight + this.style.paddingY * 2;
     }
 
-    // TODO breaks row resizing if this is wrapped in the width conditional above
-    this.fireAncestors('$itemChanged');
+    // Only fire if changed
+    if (this.w !== startW || this.h !== startH) {
+      this.fireAncestors('$itemChanged');
+    }
   }
 
   _calcDynamicWidth() {
