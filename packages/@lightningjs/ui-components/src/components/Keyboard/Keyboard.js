@@ -123,7 +123,7 @@ export default class Keyboard extends Base {
         type: Row,
         autoResizeHeight: true,
         autoResizeWidth: true,
-        centerInParent: this.centerKeyboard,
+        centerInParent: this.centerKeys,
         neverScroll: true,
         wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true,
         style: {
