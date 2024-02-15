@@ -82,6 +82,10 @@ class GlobalUpdateManager {
     // See note in deleteRequestUpdate()
     this._requestUpdateSet.delete(component);
   }
+
+  hasQueuedRequestFor(component) {
+    return this._requestUpdateSet.has(component);
+  }
 }
 
 export const updateManager = new GlobalUpdateManager();

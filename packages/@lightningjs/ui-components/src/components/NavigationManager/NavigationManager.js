@@ -118,6 +118,10 @@ export default class NavigationManager extends FocusManager {
 
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
+      // If child has a queued update, run it first so it is sized before layout happens.
+      if (child.requestEarlyUpdate) {
+        child.requestEarlyUpdate();
+      }
       const childCrossDimensionSize = this._calcCrossDimensionSize(child);
 
       if (
