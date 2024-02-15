@@ -171,7 +171,7 @@ export default class FocusManager extends Base {
     // If the first item has skip focus when appended get the next focusable item
     const initialSelection = this.Items.children[this.selectedIndex];
     if (initialSelection && initialSelection.skipFocus) {
-      this.selectNext();
+      this.selectNext(false);
     }
   }
 
@@ -259,8 +259,8 @@ export default class FocusManager extends Base {
     return false;
   }
 
-  selectNext() {
-    this.shouldSmooth = true;
+  selectNext(forceSmoothValue) {
+    this.shouldSmooth = forceSmoothValue ?? true;
     if (this._lazyItems && this._lazyItems.length) {
       delayForAnimation(() => {
         this._appendLazyItem(this._lazyItems.splice(0, 1)[0]);
