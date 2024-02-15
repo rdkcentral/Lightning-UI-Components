@@ -36,7 +36,10 @@ export const themeSelect = theme => {
       targetTheme = {};
       break;
   }
-  return context.setTheme(targetTheme);
+
+  return targetTheme.name && context.theme.name !== targetTheme.name
+    ? context.setTheme(targetTheme)
+    : Promise.resolve();
 };
 
 // registers all window events needed on load
