@@ -130,11 +130,24 @@ export const withLightning = (
             this._refocus(); // Force Lightning to reset focus
           }
           _setup() {
-            // This ensures the component as it's args before the first update cycle. Fixes some flashing in storybook.
-            // TODO: confirm if this can be the whole args object or if we have to process it somehow
-            this.componentTarget.patch({
-              ...args
-            });
+            // This ensures the component has its args before the first update cycle.
+            if (Object.keys(args).length) {
+              const argsToPatch = {};
+              for (const prop in args) {
+                // Apply arguments from controls
+                const propValue =
+                  'undefined' !== typeof args[prop]
+                    ? args[prop]
+                    : parameters.argTypes[prop].defaultValue;
+                if (!parameters.argActions || !parameters.argActions[prop]) {
+                  argsToPatch[prop] = propValue;
+                }
+              }
+              this.componentTarget.patch({
+                ...argsToPatch
+              });
+            }
+
             setTimeout(() => {
               this.fireAncestors('$storyChanged');
             });
