@@ -77,11 +77,24 @@ describe('withUpdates', () => {
     });
   });
 
+  it('requestEarlyUpdate does nothing if update not queued', done => {
+    updateMock.mockClear();
+    const updateRan = WithUpdatesComponent.requestEarlyUpdate();
+    expect(updateRan).toBe(false);
+    expect(updateMock).toHaveBeenCalledTimes(0);
+
+    setTimeout(() => {
+      expect(updateMock).toHaveBeenCalledTimes(0);
+      done();
+    });
+  });
+
   it('allows for requestEarlyUpdate to request an earlier update', done => {
     updateMock.mockClear();
     WithUpdatesComponent.title = 'Test';
     WithUpdatesComponent.score = 5;
-    WithUpdatesComponent.requestEarlyUpdate();
+    const updateRan = WithUpdatesComponent.requestEarlyUpdate();
+    expect(updateRan).toBe(true);
     expect(updateMock).toHaveBeenCalledTimes(1);
 
     setTimeout(() => {
