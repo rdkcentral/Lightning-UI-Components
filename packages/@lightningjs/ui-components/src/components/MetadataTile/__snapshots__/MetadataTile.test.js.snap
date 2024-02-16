@@ -72,7 +72,7 @@ exports[`MetadataTile renders 1`] = `
       "visible": true,
       "w": 400,
       "x": 0,
-      "y": 150,
+      "y": 16,
       "zIndex": 0,
     },
   },
