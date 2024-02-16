@@ -133,13 +133,13 @@ class MetadataBase extends Base {
   }
 
   _updateLayout() {
-    this._updatePositions();
+    this._Text.h = this._textH();
     this._updateMetadataHeight();
+    this._updatePositions();
     this._updateLogo();
   }
 
   _updatePositions() {
-    this._Text.h = this._textH();
     this._Text.x =
       this.logo && this.logoPosition === 'left'
         ? this.logoWidth + this.style.logoPadding
