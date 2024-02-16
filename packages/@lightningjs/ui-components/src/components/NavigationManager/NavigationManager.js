@@ -119,10 +119,9 @@ export default class NavigationManager extends FocusManager {
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
 
-      // If child has a queued update, run it first so it is sized before layout happens.
-      // If there's no queued update, check for a layout method and run that.
       if (child.requestEarlyUpdate) {
-        if (!child.requestEarlyUpdate()) {
+        const updateDidRun = child.requestEarlyUpdate();
+        if (!updateDidRun && (child.w === 0 || child.h === 0)) {
           child._updateLayout && child._updateLayout();
         }
       }
