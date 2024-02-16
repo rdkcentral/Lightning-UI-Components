@@ -77,6 +77,19 @@ describe('withUpdates', () => {
     });
   });
 
+  it('allows for requestEarlyUpdate to request an earlier update', done => {
+    updateMock.mockClear();
+    WithUpdatesComponent.title = 'Test';
+    WithUpdatesComponent.score = 5;
+    WithUpdatesComponent.requestEarlyUpdate();
+    expect(updateMock).toHaveBeenCalledTimes(1);
+
+    setTimeout(() => {
+      expect(updateMock).toHaveBeenCalledTimes(1);
+      done();
+    });
+  });
+
   it('allows custom getter', () => {
     WithUpdatesComponent._getTitle = () => {
       return 'Custom Getter';
