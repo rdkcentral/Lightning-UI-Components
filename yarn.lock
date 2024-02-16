@@ -3345,6 +3345,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lightningjs/monorepo@workspace:."
   dependencies:
+    "@babel/plugin-transform-optional-chaining": ^7.23.4
     "@commitlint/cli": ^17.1.2
     "@commitlint/config-conventional": ^17.1.0
     "@rollup/plugin-babel": ^6.0.2
@@ -3416,9 +3417,11 @@ __metadata:
   resolution: "@lightningjs/ui-components@workspace:packages/@lightningjs/ui-components"
   dependencies:
     "@babel/core": ^7.19.3
+    "@babel/plugin-transform-nullish-coalescing-operator": ^7.23.4
     "@lightningjs/ui-components-test-utils": "workspace:^"
     "@lightningjs/ui-components-theme-base": "workspace:^"
     "@mdx-js/react": ^1.6.22
+    "@rollup/plugin-babel": ^6.0.4
     babel-jest: ^29.0.3
     babel-loader: ^8.2.5
     debounce: ^1.2.1
@@ -3431,7 +3434,7 @@ __metadata:
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@lightningjs/core": 2.11.0
+    "@lightningjs/core": ^2.7.0
   languageName: unknown
   linkType: soft
 
@@ -4499,7 +4502,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-babel@npm:^6.0.2":
+"@rollup/plugin-babel@npm:^6.0.2, @rollup/plugin-babel@npm:^6.0.4":
   version: 6.0.4
   resolution: "@rollup/plugin-babel@npm:6.0.4"
   dependencies:

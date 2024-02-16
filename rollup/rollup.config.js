@@ -62,12 +62,12 @@ export default cliArgs => [
     },
     plugins: [
       resolve({ exportConditions: ['node'] }),
-      //peerDepsExternal(),
+      peerDepsExternal(),
       image(),
       json(),
-      // getBabelOutputPlugin({
-      //   presets: ['@babel/preset-env']
-      // }),
+      getBabelOutputPlugin({
+        plugins: ['@babel/plugin-transform-optional-chaining', '@babel/plugin-transform-nullish-coalescing-operator']
+      }),
       terser({ 
         module: true, 
         mangle: false, 

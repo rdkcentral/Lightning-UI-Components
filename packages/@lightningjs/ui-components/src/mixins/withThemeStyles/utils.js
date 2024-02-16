@@ -354,10 +354,10 @@ export const generateSolution = (
   const solution = {};
 
   const uniqueModes = getUniqueProperties([
+    'unfocused', // Unfocused must be at the end for proper fallback since base === 'unfocused' in many cases
     'focused',
     'disabled',
-    ...modeKeys,
-    'unfocused' // Unfocused must be at the end for proper fallback since base === 'unfocused' in many cases
+    ...modeKeys
   ]);
 
   const uniqueTones = getUniqueProperties([
