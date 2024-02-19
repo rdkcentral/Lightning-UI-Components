@@ -310,8 +310,8 @@ export default class NavigationManager extends FocusManager {
   // can be overwritten
   _performRender() {}
 
-  _appendItem(item, shouldStopSmooth = true) {
-    this.shouldSmooth = !shouldStopSmooth;
+  _appendItem(item, shouldSmoothOverride) {
+    this.shouldSmooth = shouldSmoothOverride ?? false;
     item.parentFocus = this.hasFocus();
     item = this.Items.childList.a(item);
 
@@ -336,7 +336,7 @@ export default class NavigationManager extends FocusManager {
       (lastChild.extraItemSpacing || 0) +
       this.style.itemSpacing;
 
-    const appended = this._appendItem(item, false);
+    const appended = this._appendItem(item, true);
 
     // Update w/o recalculating  whole layout
     appended[axis] = nextPosition;
