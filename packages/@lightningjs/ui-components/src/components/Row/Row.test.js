@@ -24,6 +24,7 @@ import {
 import { jest } from '@jest/globals';
 import Tile from '../Tile';
 import Row from '.';
+import { nextTick } from '@lightningjs/ui-components-test-utils';
 
 const baseItem = {
   type: lng.Component,
@@ -42,7 +43,6 @@ const properties = {
   title: 'My Row',
   h: 80,
   w: 496,
-  upCount: 5,
   signals: {
     selectedChange: 'selectedChangeMock'
   },
@@ -431,31 +431,31 @@ describe('Row', () => {
       done();
     });
 
-    it('should pass on screen items to onScreenEffect', done => {
+    it('should pass on screen items to onScreenEffect', async () => {
       row.w = 200;
+      row.clipping = true;
+      testRenderer.forceAllUpdates();
+
       const onScreenEffect = jest.fn();
       row.onScreenEffect = onScreenEffect;
       testRenderer.keyPress('Right');
-      testRenderer.update();
+      await nextTick();
+      expect(onScreenEffect).toBeCalled();
+      const onScreenItems = onScreenEffect.mock.calls[0][0].map(item =>
+        row.items.indexOf(item)
+      );
 
-      row._whenEnabled.then(() => {
-        expect(onScreenEffect).toBeCalled();
-        const onScreenItems = onScreenEffect.mock.calls[0][0].map(item =>
-          row.items.indexOf(item)
-        );
-        const expected = row.items
-          .filter(item => {
-            const x1 = item.x;
-            const x2 = item.x + item.w;
-            return (
-              x2 + row.Items.transition('x').targetValue > 0 &&
-              x1 + row.Items.transition('x').targetValue < row.w
-            );
-          })
-          .map(item => row.items.indexOf(item));
-        expect(onScreenItems).toEqual(expected);
-        done();
-      });
+      const expected = row.items
+        .filter(item => {
+          const x1 = item.x;
+          const x2 = item.x + item.w;
+          return (
+            x2 + row.Items.transition('x').targetValue >= 0 &&
+            x1 + row.Items.transition('x').targetValue <= row.w
+          );
+        })
+        .map(item => row.items.indexOf(item));
+      expect(onScreenItems).toEqual(expected);
     });
 
     describe('with scrollMount=0.5', () => {
