@@ -26,7 +26,6 @@ import {
   getX,
   getY,
   isComponentOnScreen,
-  delayForAnimation,
   getShortestDistance
 } from '../../utils';
 
@@ -260,12 +259,11 @@ export default class FocusManager extends Base {
   }
 
   selectNext(forceSmoothValue) {
-    this.shouldSmooth = forceSmoothValue ?? true;
     if (this._lazyItems && this._lazyItems.length) {
-      delayForAnimation(() => {
-        this._appendLazyItem(this._lazyItems.splice(0, 1)[0]);
-      });
+      this._appendLazyItem(this._lazyItems.splice(0, 1)[0]);
     }
+    this.shouldSmooth = forceSmoothValue ?? true;
+
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
     if (
       (this.selectedIndex === this.Items.children.length - 1 &&
