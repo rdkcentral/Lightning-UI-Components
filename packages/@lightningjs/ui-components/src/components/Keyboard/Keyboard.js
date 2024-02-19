@@ -188,9 +188,7 @@ export default class Keyboard extends Base {
             counter++;
             keyRows[counter] = [];
           }
-          if (data[idx].length > 0) {
-            keyRows[counter].push(data[idx]);
-          }
+          keyRows[counter].push(data[idx]);
         }
         return keyRows; // TODO: Swap to a reduce
       } else if (this.inline) {
