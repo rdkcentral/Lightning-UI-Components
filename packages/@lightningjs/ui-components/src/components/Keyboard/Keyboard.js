@@ -276,7 +276,9 @@ export default class Keyboard extends Base {
   }
 
   get _currentKeyboard() {
-    return this.tag(capitalize(this._currentFormat));
+    return this._currentFormat
+      ? this.tag(capitalize(this._currentFormat))
+      : null;
   }
 
   set columnCount(columnCount) {
