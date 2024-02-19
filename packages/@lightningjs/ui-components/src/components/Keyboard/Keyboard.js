@@ -139,7 +139,12 @@ export default class Keyboard extends Base {
   _createKeys(keys = [], keyboard) {
     return keys.map(keyProps => {
       if (!keyProps) {
-        return { skipFocus: true };
+        return {
+          type: this.keyComponent || Key, // allows use of a custom Key component if specified
+          keySpacing: this.style.keySpacing,
+          skipFocus: true,
+          alpha: 0.01
+        };
       }
 
       const key = {
@@ -183,7 +188,9 @@ export default class Keyboard extends Base {
             counter++;
             keyRows[counter] = [];
           }
-          keyRows[counter].push(data[idx]);
+          if (data[idx].length > 0) {
+            keyRows[counter].push(data[idx]);
+          }
         }
         return keyRows; // TODO: Swap to a reduce
       } else if (this.inline) {
