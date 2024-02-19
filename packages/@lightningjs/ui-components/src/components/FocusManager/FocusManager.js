@@ -261,11 +261,11 @@ export default class FocusManager extends Base {
     return false;
   }
 
-  selectNext(forceSmoothValue) {
+  selectNext(shouldSmoothOverride) {
     if (this._lazyItems && this._lazyItems.length) {
       this._appendLazyItem(this._lazyItems.splice(0, 1)[0]);
     }
-    this.shouldSmooth = forceSmoothValue ?? true;
+    this.shouldSmooth = shouldSmoothOverride ?? true;
 
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
     if (

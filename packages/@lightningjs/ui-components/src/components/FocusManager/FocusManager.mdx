@@ -159,6 +159,6 @@ A no-op function that is called when `selectedIndex` is set. Can be overridden b
 
 Selects the previous item in the FocusManager's children. If wrapSelected is true, it selects the last item if the focus is currently on the first item.
 
-#### selectNext(): void
+#### selectNext(shouldSmoothOverride?: boolean): void
 
-Selects the next item in the FocusManager's children. If wrapSelected is true, it selects the first item if the focus is currently on the last item.
+Selects the next item in the FocusManager's children. If wrapSelected is true, it selects the first item if the focus is currently on the last item. `shouldSmoothOverride` overrides the value of shouldSmooth before the next element is selected.

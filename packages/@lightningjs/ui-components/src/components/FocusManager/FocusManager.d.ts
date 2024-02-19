@@ -176,9 +176,9 @@ declare class FocusManager<
   /**
    * Selects next item. If this.wrapSelected=true, will select the first element in the list if focus is currently on the last item.
    * emits the `selectedChange` signal
-   * @param forceSmoothValue allows setting the shouldSmooth value before the select update
+   * @param shouldSmoothOverride allows setting the shouldSmooth value before the select update
    */
-  selectNext(forceSmoothValue?: boolean): void;
+  selectNext(shouldSmoothOverride?: boolean): void;
 
   /**
    * Selects previous item. If this.wrapSelected=true, will select the last element in the list if focus is currently on the first item.
