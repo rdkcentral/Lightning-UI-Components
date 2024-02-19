@@ -113,6 +113,9 @@ export default class FocusManager extends Base {
       x: this.itemPosX,
       y: this.itemPosY
     });
+    if (this._lazyItems) {
+      this._lazyItems = null;
+    }
   }
 
   _appendLazyItem(item) {
