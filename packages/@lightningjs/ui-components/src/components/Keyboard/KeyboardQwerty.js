@@ -294,11 +294,9 @@ export default class KeyboardQwerty extends Keyboard {
           { title: '_', announce: 'underscore, button' },
           { title: '.', announce: 'period, button' },
           { title: '-', announce: 'dash, button' },
-          '',
-          '',
           {
             title: 'shift',
-            size: 'md',
+            size: 'xl',
             toggle: 'accentsUpper',
             announce: 'shift off, button',
             keyId: 'shift'
@@ -390,11 +388,9 @@ export default class KeyboardQwerty extends Keyboard {
           { title: '.', announce: 'period, button' },
           { title: '-', announce: 'dash, button' },
           { title: '_', announce: 'underscore, button' },
-          '',
-          '',
           {
             title: 'shift',
-            size: 'md',
+            size: 'xl',
             toggle: 'accents',
             announce: 'shift off, button',
             keyId: 'shift'
