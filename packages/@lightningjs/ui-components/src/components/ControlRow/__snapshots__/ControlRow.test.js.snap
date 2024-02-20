@@ -9,7 +9,7 @@ exports[`ControlRow renders 1`] = `
       "attached": true,
       "boundsMargin": null,
       "children": {
-        "Element-37": {
+        "Element-35": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -41,7 +41,7 @@ exports[`ControlRow renders 1`] = `
           "y": 109.5,
           "zIndex": 0,
         },
-        "Element-38": {
+        "Element-36": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -73,7 +73,7 @@ exports[`ControlRow renders 1`] = `
           "y": 109.5,
           "zIndex": 0,
         },
-        "Element-39": {
+        "Element-37": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -283,9 +283,9 @@ exports[`ControlRow renders 1`] = `
           "ref": null,
           "renderOfScreen": undefined,
           "renderToTexture": false,
-          "scale": 1.2,
-          "scaleX": 1.2,
-          "scaleY": 1.2,
+          "scale": 1,
+          "scaleX": 1,
+          "scaleY": 1,
           "state": "",
           "tag": [Function],
           "type": "Tile",
@@ -295,7 +295,7 @@ exports[`ControlRow renders 1`] = `
           "y": 0,
           "zIndex": 0,
         },
-        "Element-45": {
+        "Element-43": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -517,7 +517,7 @@ exports[`ControlRow renders 1`] = `
           "y": 0,
           "zIndex": 0,
         },
-        "Element-51": {
+        "Element-49": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -549,7 +549,7 @@ exports[`ControlRow renders 1`] = `
           "y": 109.5,
           "zIndex": 0,
         },
-        "Element-52": {
+        "Element-50": {
           "active": true,
           "alpha": 1,
           "attached": true,
