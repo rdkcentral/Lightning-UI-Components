@@ -41,7 +41,7 @@ export const tone = theme => ({
     mode: {
       disabled: {
         strokeColor: theme.color.fillNeutralDisabled,
-        backgroundColor: theme.color.fillInverselDisabled,
+        backgroundColor: theme.color.fillInverseDisabled,
         backgroundColorChecked: theme.color.fillNeutralDisabled,
         knobColor: theme.color.fillNeutralDisabled,
         knobColorChecked: theme.color.fillInverseDisabled
@@ -73,7 +73,7 @@ export const tone = theme => ({
     mode: {
       disabled: {
         strokeColor: theme.color.fillNeutralDisabled,
-        backgroundColor: theme.color.fillInverselDisabled,
+        backgroundColor: theme.color.fillInverseDisabled,
         backgroundColorChecked: theme.color.fillNeutralDisabled,
         knobColor: theme.color.fillNeutralDisabled,
         knobColorChecked: theme.color.fillInverseDisabled
