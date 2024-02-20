@@ -24,10 +24,7 @@ import {
   pool,
   context
 } from '@lightningjs/ui-components/src';
-import {
-  themeSelect,
-  themeSelectFromMessageEvent
-} from './.storybook/utils/registerEvents';
+import { themeSelectFromMessageEvent } from './.storybook/utils/registerEvents';
 
 /**
  * creates the Lightning App and attaches it to the DOM for use in Storybook
@@ -75,23 +72,7 @@ export const createApp = parameters => {
     }
 
     _attach() {
-      setTimeout(() => {
-        if (parameters.theme) {
-          themeSelect(parameters.theme).then(() => {
-            window.addEventListener(
-              'message',
-              themeSelectFromMessageEvent,
-              false
-            );
-          });
-        } else {
-          window.addEventListener(
-            'message',
-            themeSelectFromMessageEvent,
-            false
-          );
-        }
-      });
+      window.addEventListener('message', themeSelectFromMessageEvent, false);
     }
 
     $storyChanged() {
