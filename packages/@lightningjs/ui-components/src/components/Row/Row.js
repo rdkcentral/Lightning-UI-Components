@@ -139,7 +139,8 @@ export default class Row extends NavigationManager {
         -prevX +
         this.prevSelected.w +
         this.style.itemSpacing +
-        (this.selected.extraItemSpacing || 0)
+        (this.selected.extraItemSpacing || 0) +
+        this.itemPosX
       );
     } else if (prev) {
       // otherwise, no start/stop indexes, perform normal lazy scroll
@@ -153,7 +154,7 @@ export default class Row extends NavigationManager {
         return;
       }
       if (prevIndex > this.selectedIndex) {
-        itemsContainerX = -selectedX;
+        itemsContainerX = -selectedX + this.itemPosX;
       } else if (prevIndex < this.selectedIndex) {
         itemsContainerX = this.w - selectedX - this.selected.w;
       }
@@ -177,8 +178,9 @@ export default class Row extends NavigationManager {
 
     if (this.Items.children[itemIndex]) {
       itemsContainerX = this.Items.children[itemIndex].transition('x')
-        ? -this.Items.children[itemIndex].transition('x').targetValue
-        : -this.Items.children[itemIndex].x;
+        ? -this.Items.children[itemIndex].transition('x').targetValue +
+          this.itemPosX
+        : -this.Items.children[itemIndex].x + this.itemPosX;
     }
 
     return itemsContainerX;

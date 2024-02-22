@@ -82,20 +82,14 @@ export default class Column extends NavigationManager {
         .y;
       const smoothObj = [
         -(scrollItem || this.Items.childList.first).transition('y')
-          .targetValue + (scrollItem === this.selected ? scrollOffset : 0),
+          .targetValue +
+          (scrollItem === this.selected ? scrollOffset : 0) +
+          this.itemPosY,
         this.style.itemTransition
       ];
       const scrollTarget =
         -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
-      this.applySmooth(
-        this.Items,
-        {
-          y: scrollTarget
-        },
-        {
-          y: smoothObj
-        }
-      );
+      this.applySmooth(this.Items, { y: scrollTarget }, { y: smoothObj });
       if (!this.shouldSmooth) {
         this._updateTransitionTarget(this.Items, 'y', scrollTarget);
       }

@@ -455,7 +455,10 @@ export default class NavigationManager extends FocusManager {
     }
 
     const itemsStartCoord = this._isRow ? this._itemsX : this._itemsY;
-    return itemsStartCoord < 0 && shouldScroll;
+    return (
+      itemsStartCoord < (this._isRow ? this.itemPosX : this.itemPosY) &&
+      shouldScroll
+    );
   }
 
   get _canScrollNext() {
