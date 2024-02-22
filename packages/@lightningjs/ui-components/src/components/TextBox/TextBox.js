@@ -72,6 +72,9 @@ export default class TextBox extends Base {
   }
 
   _setDimensions({ w, h }) {
+    // This is where dimensions are looping and causing the component to stretch infinitely.
+    !this._isInlineContent && console.trace(w, h);
+
     let width = w;
     let height = h;
     if (!this._isInlineContent) {
