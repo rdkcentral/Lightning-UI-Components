@@ -1,129 +1,26 @@
 "use strict";
-(self["webpackChunklightning_ui_docs"] = self["webpackChunklightning_ui_docs"] || []).push([[9658,2494,9140,95,7883,4390,1195,1819,1216,8152,4497,9256,9495,5748,7309,120,3929,9718,4804,6598,7613,1325,8869],{
+(self["webpackChunklightning_ui_docs"] = self["webpackChunklightning_ui_docs"] || []).push([[2228,2494,9140,95,7883,4390,1195,1819,1216,8152,4497,9256,9495,5748,7309,120,3929,9718,4804,6598,7613,1325,8869],{
 
-/***/ "../../@lightningjs/ui-components/src/components/Toggle/ToggleSmall.stories.js":
+/***/ "../../@lightningjs/ui-components/src/components/Toggle/Toggle.stories.js":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  ToggleSmall: () => (/* binding */ ToggleSmall),
-  __namedExportsOrder: () => (/* binding */ __namedExportsOrder),
-  "default": () => (/* binding */ ToggleSmall_stories)
-});
-
-// NAMESPACE OBJECT: ../../@lightningjs/ui-components/src/components/Toggle/ToggleSmall.styles.js
-var ToggleSmall_styles_namespaceObject = {};
-__webpack_require__.r(ToggleSmall_styles_namespaceObject);
-__webpack_require__.d(ToggleSmall_styles_namespaceObject, {
-  base: () => (base)
-});
-
-// EXTERNAL MODULE: ../../../node_modules/@lightningjs/core/dist/lightning.esm.js
-var lightning_esm = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
-// EXTERNAL MODULE: ../../@lightningjs/ui-components/src/components/Toggle/Toggle.js + 1 modules
-var Toggle = __webpack_require__("../../@lightningjs/ui-components/src/components/Toggle/Toggle.js");
-;// CONCATENATED MODULE: ../../@lightningjs/ui-components/src/components/Toggle/ToggleSmall.styles.js
-/**
- * Copyright 2023 Comcast Cable Communications Management, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
-var base = function base(theme) {
-  var knobSize = theme.spacer.lg;
-  var knobPadding = theme.spacer.xxs;
-  var strokeWidth = theme.stroke.sm;
-  return {
-    height: knobSize + (knobPadding + strokeWidth) * 2,
-    knobWidth: knobSize,
-    knobHeight: knobSize,
-    knobRadius: knobSize / 2,
-    knobPadding: knobPadding,
-    strokeWidth: strokeWidth,
-    width: (strokeWidth + knobPadding * 2 + knobSize) * 2
-  };
-};
-;// CONCATENATED MODULE: ../../@lightningjs/ui-components/src/components/Toggle/ToggleSmall.js
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-/**
- * Copyright 2023 Comcast Cable Communications Management, LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
-
-
-var ToggleSmall_ToggleSmall = /*#__PURE__*/function (_Toggle) {
-  _inherits(ToggleSmall, _Toggle);
-  var _super = _createSuper(ToggleSmall);
-  function ToggleSmall() {
-    _classCallCheck(this, ToggleSmall);
-    return _super.apply(this, arguments);
-  }
-  _createClass(ToggleSmall, null, [{
-    key: "__componentName",
-    get: function get() {
-      return 'ToggleSmall';
-    }
-  }, {
-    key: "__themeStyle",
-    get: function get() {
-      return ToggleSmall_styles_namespaceObject;
-    }
-  }]);
-  return ToggleSmall;
-}(Toggle/* default */.Z);
-
-// EXTERNAL MODULE: ../../@lightningjs/ui-components/src/docs/utils.js
-var utils = __webpack_require__("../../@lightningjs/ui-components/src/docs/utils.js");
-;// CONCATENATED MODULE: ../../@lightningjs/ui-components/src/components/Toggle/ToggleSmall.stories.js
-function ToggleSmall_stories_typeof(o) {
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Toggle: () => (/* binding */ Toggle),
+/* harmony export */   __namedExportsOrder: () => (/* binding */ __namedExportsOrder),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/components/Toggle/Toggle.js");
+/* harmony import */ var _docs_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../@lightningjs/ui-components/src/docs/utils.js");
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return ToggleSmall_stories_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, ToggleSmall_stories_typeof(o);
+  }, _typeof(o);
 }
 function ownKeys(e, r) {
   var t = Object.keys(e);
@@ -147,7 +44,7 @@ function _objectSpread(e) {
   return e;
 }
 function _defineProperty(obj, key, value) {
-  key = ToggleSmall_stories_toPropertyKey(key);
+  key = _toPropertyKey(key);
   if (key in obj) {
     Object.defineProperty(obj, key, {
       value: value,
@@ -160,43 +57,43 @@ function _defineProperty(obj, key, value) {
   }
   return obj;
 }
-function ToggleSmall_stories_classCallCheck(instance, Constructor) {
+function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-function ToggleSmall_stories_defineProperties(target, props) {
+function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, ToggleSmall_stories_toPropertyKey(descriptor.key), descriptor);
+    Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
   }
 }
-function ToggleSmall_stories_createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) ToggleSmall_stories_defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) ToggleSmall_stories_defineProperties(Constructor, staticProps);
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", {
     writable: false
   });
   return Constructor;
 }
-function ToggleSmall_stories_toPropertyKey(t) {
-  var i = ToggleSmall_stories_toPrimitive(t, "string");
-  return "symbol" == ToggleSmall_stories_typeof(i) ? i : String(i);
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : String(i);
 }
-function ToggleSmall_stories_toPrimitive(t, r) {
-  if ("object" != ToggleSmall_stories_typeof(t) || !t) return t;
+function _toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r || "default");
-    if ("object" != ToggleSmall_stories_typeof(i)) return i;
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return ("string" === r ? String : Number)(t);
 }
-function ToggleSmall_stories_inherits(subClass, superClass) {
+function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
@@ -210,44 +107,44 @@ function ToggleSmall_stories_inherits(subClass, superClass) {
   Object.defineProperty(subClass, "prototype", {
     writable: false
   });
-  if (superClass) ToggleSmall_stories_setPrototypeOf(subClass, superClass);
+  if (superClass) _setPrototypeOf(subClass, superClass);
 }
-function ToggleSmall_stories_setPrototypeOf(o, p) {
-  ToggleSmall_stories_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
     o.__proto__ = p;
     return o;
   };
-  return ToggleSmall_stories_setPrototypeOf(o, p);
+  return _setPrototypeOf(o, p);
 }
-function ToggleSmall_stories_createSuper(Derived) {
-  var hasNativeReflectConstruct = ToggleSmall_stories_isNativeReflectConstruct();
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
   return function _createSuperInternal() {
-    var Super = ToggleSmall_stories_getPrototypeOf(Derived),
+    var Super = _getPrototypeOf(Derived),
       result;
     if (hasNativeReflectConstruct) {
-      var NewTarget = ToggleSmall_stories_getPrototypeOf(this).constructor;
+      var NewTarget = _getPrototypeOf(this).constructor;
       result = Reflect.construct(Super, arguments, NewTarget);
     } else {
       result = Super.apply(this, arguments);
     }
-    return ToggleSmall_stories_possibleConstructorReturn(this, result);
+    return _possibleConstructorReturn(this, result);
   };
 }
-function ToggleSmall_stories_possibleConstructorReturn(self, call) {
-  if (call && (ToggleSmall_stories_typeof(call) === "object" || typeof call === "function")) {
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
     throw new TypeError("Derived constructors may only return object or undefined");
   }
-  return ToggleSmall_stories_assertThisInitialized(self);
+  return _assertThisInitialized(self);
 }
-function ToggleSmall_stories_assertThisInitialized(self) {
+function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self;
 }
-function ToggleSmall_stories_isNativeReflectConstruct() {
+function _isNativeReflectConstruct() {
   if (typeof Reflect === "undefined" || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
   if (typeof Proxy === "function") return true;
@@ -258,21 +155,21 @@ function ToggleSmall_stories_isNativeReflectConstruct() {
     return false;
   }
 }
-function ToggleSmall_stories_getPrototypeOf(o) {
-  ToggleSmall_stories_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
     return o.__proto__ || Object.getPrototypeOf(o);
   };
-  return ToggleSmall_stories_getPrototypeOf(o);
+  return _getPrototypeOf(o);
 }
 /* eslint-disable */
 // @ts-nocheck
 // @ts-expect-error (Converted from ts-ignore)
-var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { ToggleSmall as ToggleSmallComponent } from '.';\nimport { createModeControl } from '../../docs/utils';\n\nexport default {\n  title: 'Components/Toggle/ToggleSmall'\n};\n\nexport const ToggleSmall = () =>\n  class ToggleSmall extends lng.Component {\n    static _template() {\n      return {\n        flex: { direction: 'column' },\n        ToggleSmall: {\n          type: ToggleSmallComponent,\n          onEnter: toggle => {\n            alert('Sample onEnter override');\n            toggle.toggle();\n            return true;\n          }\n        }\n      };\n    }\n  };\nToggleSmall.storyName = 'ToggleSmall';\nToggleSmall.args = {\n  checked: false,\n  mode: 'focused'\n};\nToggleSmall.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  checked: {\n    control: 'boolean',\n    description: 'The state of the toggle being checked',\n    table: {\n      defaultValue: { summary: false }\n    }\n  }\n};\n";
+var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as ToggleComponent } from '.';\nimport { createModeControl } from '../../docs/utils';\n\nexport default {\n  title: 'Components/Toggle/Toggle'\n};\n\nexport const Toggle = () =>\n  class Toggle extends lng.Component {\n    static _template() {\n      return {\n        flex: { direction: 'column' },\n        Toggle: {\n          type: ToggleComponent,\n          onEnter: toggle => {\n            alert('Sample onEnter override');\n            toggle.toggle();\n            return true;\n          }\n        }\n      };\n    }\n  };\nToggle.args = {\n  checked: false,\n  mode: 'focused'\n};\n\nToggle.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  checked: {\n    control: 'boolean',\n    description: 'The state of the toggle being checked',\n    table: {\n      defaultValue: { summary: false }\n    }\n  }\n};\n";
 // @ts-expect-error (Converted from ts-ignore)
 var __LOCATIONS_MAP__ = {
-  "ToggleSmall": {
+  "Toggle": {
     "startLoc": {
-      "col": 27,
+      "col": 22,
       "line": 27
     },
     "endLoc": {
@@ -280,7 +177,7 @@ var __LOCATIONS_MAP__ = {
       "line": 42
     },
     "startBody": {
-      "col": 27,
+      "col": 22,
       "line": 27
     },
     "endBody": {
@@ -311,14 +208,14 @@ var __LOCATIONS_MAP__ = {
 
 
 
-/* harmony default export */ const ToggleSmall_stories = ({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   parameters: {
     "storySource": {
-      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { ToggleSmall as ToggleSmallComponent } from '.';\nimport { createModeControl } from '../../docs/utils';\n\nexport default {\n  title: 'Components/Toggle/ToggleSmall'\n};\n\nexport const ToggleSmall = () =>\n  class ToggleSmall extends lng.Component {\n    static _template() {\n      return {\n        flex: { direction: 'column' },\n        ToggleSmall: {\n          type: ToggleSmallComponent,\n          onEnter: toggle => {\n            alert('Sample onEnter override');\n            toggle.toggle();\n            return true;\n          }\n        }\n      };\n    }\n  };\nToggleSmall.storyName = 'ToggleSmall';\nToggleSmall.args = {\n  checked: false,\n  mode: 'focused'\n};\nToggleSmall.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  checked: {\n    control: 'boolean',\n    description: 'The state of the toggle being checked',\n    table: {\n      defaultValue: { summary: false }\n    }\n  }\n};\n",
+      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as ToggleComponent } from '.';\nimport { createModeControl } from '../../docs/utils';\n\nexport default {\n  title: 'Components/Toggle/Toggle'\n};\n\nexport const Toggle = () =>\n  class Toggle extends lng.Component {\n    static _template() {\n      return {\n        flex: { direction: 'column' },\n        Toggle: {\n          type: ToggleComponent,\n          onEnter: toggle => {\n            alert('Sample onEnter override');\n            toggle.toggle();\n            return true;\n          }\n        }\n      };\n    }\n  };\nToggle.args = {\n  checked: false,\n  mode: 'focused'\n};\n\nToggle.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  checked: {\n    control: 'boolean',\n    description: 'The state of the toggle being checked',\n    table: {\n      defaultValue: { summary: false }\n    }\n  }\n};\n",
       "locationsMap": {
-        "toggle-small": {
+        "toggle": {
           "startLoc": {
-            "col": 27,
+            "col": 22,
             "line": 27
           },
           "endLoc": {
@@ -326,7 +223,7 @@ var __LOCATIONS_MAP__ = {
             "line": 42
           },
           "startBody": {
-            "col": 27,
+            "col": 22,
             "line": 27
           },
           "endBody": {
@@ -337,25 +234,25 @@ var __LOCATIONS_MAP__ = {
       }
     }
   },
-  title: 'Components/Toggle/ToggleSmall'
+  title: 'Components/Toggle/Toggle'
 });
-var ToggleSmall = function ToggleSmall() {
+var Toggle = function Toggle() {
   return /*#__PURE__*/function (_lng$Component) {
-    ToggleSmall_stories_inherits(ToggleSmall, _lng$Component);
-    var _super = ToggleSmall_stories_createSuper(ToggleSmall);
-    function ToggleSmall() {
-      ToggleSmall_stories_classCallCheck(this, ToggleSmall);
+    _inherits(Toggle, _lng$Component);
+    var _super = _createSuper(Toggle);
+    function Toggle() {
+      _classCallCheck(this, Toggle);
       return _super.apply(this, arguments);
     }
-    ToggleSmall_stories_createClass(ToggleSmall, null, [{
+    _createClass(Toggle, null, [{
       key: "_template",
       value: function _template() {
         return {
           flex: {
             direction: 'column'
           },
-          ToggleSmall: {
-            type: ToggleSmall_ToggleSmall,
+          Toggle: {
+            type: ___WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z,
             onEnter: function onEnter(toggle) {
               alert('Sample onEnter override');
               toggle.toggle();
@@ -365,15 +262,14 @@ var ToggleSmall = function ToggleSmall() {
         };
       }
     }]);
-    return ToggleSmall;
-  }(lightning_esm/* default */.Z.Component);
+    return Toggle;
+  }(_lightningjs_core__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z.Component);
 };
-ToggleSmall.storyName = 'ToggleSmall';
-ToggleSmall.args = {
+Toggle.args = {
   checked: false,
   mode: 'focused'
 };
-ToggleSmall.argTypes = _objectSpread(_objectSpread({}, (0,utils/* createModeControl */.Ys)({
+Toggle.argTypes = _objectSpread(_objectSpread({}, (0,_docs_utils__WEBPACK_IMPORTED_MODULE_2__/* .createModeControl */ .Ys)({
   summaryValue: 'focused'
 })), {}, {
   checked: {
@@ -386,16 +282,16 @@ ToggleSmall.argTypes = _objectSpread(_objectSpread({}, (0,utils/* createModeCont
     }
   }
 });
-ToggleSmall.parameters = {
-  ...ToggleSmall.parameters,
+Toggle.parameters = {
+  ...Toggle.parameters,
   docs: {
-    ...ToggleSmall.parameters?.docs,
+    ...Toggle.parameters?.docs,
     source: {
-      originalSource: "() => class ToggleSmall extends lng.Component {\n  static _template() {\n    return {\n      flex: {\n        direction: 'column'\n      },\n      ToggleSmall: {\n        type: ToggleSmallComponent,\n        onEnter: toggle => {\n          alert('Sample onEnter override');\n          toggle.toggle();\n          return true;\n        }\n      }\n    };\n  }\n}",
-      ...ToggleSmall.parameters?.docs?.source
+      originalSource: "() => class Toggle extends lng.Component {\n  static _template() {\n    return {\n      flex: {\n        direction: 'column'\n      },\n      Toggle: {\n        type: ToggleComponent,\n        onEnter: toggle => {\n          alert('Sample onEnter override');\n          toggle.toggle();\n          return true;\n        }\n      }\n    };\n  }\n}",
+      ...Toggle.parameters?.docs?.source
     }
   }
-};;const __namedExportsOrder = ["ToggleSmall"];
+};;const __namedExportsOrder = ["Toggle"];
 
 /***/ }),
 
@@ -464,7 +360,7 @@ var tone = function tone(theme) {
       mode: {
         disabled: {
           strokeColor: theme.color.fillNeutralDisabled,
-          backgroundColor: theme.color.fillInverselDisabled,
+          backgroundColor: theme.color.fillInverseDisabled,
           backgroundColorChecked: theme.color.fillNeutralDisabled,
           knobColor: theme.color.fillNeutralDisabled,
           knobColorChecked: theme.color.fillInverseDisabled
@@ -496,7 +392,7 @@ var tone = function tone(theme) {
       mode: {
         disabled: {
           strokeColor: theme.color.fillNeutralDisabled,
-          backgroundColor: theme.color.fillInverselDisabled,
+          backgroundColor: theme.color.fillInverseDisabled,
           backgroundColorChecked: theme.color.fillNeutralDisabled,
           knobColor: theme.color.fillNeutralDisabled,
           knobColorChecked: theme.color.fillInverseDisabled
@@ -1002,4 +898,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Toggle-ToggleSmall-stories.a407e9dc.iframe.bundle.js.map
+//# sourceMappingURL=components-Toggle-Toggle-stories.0cd29aa4.iframe.bundle.js.map

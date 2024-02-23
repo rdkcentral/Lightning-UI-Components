@@ -507,7 +507,11 @@ var Keyboard = /*#__PURE__*/function (_Base) {
       return keys.map(function (keyProps) {
         if (!keyProps) {
           return {
-            skipFocus: true
+            type: _this2.keyComponent || _Key__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z,
+            // allows use of a custom Key component if specified
+            keySpacing: _this2.style.keySpacing,
+            skipFocus: true,
+            alpha: 0.01
           };
         }
         var key = {
@@ -656,7 +660,7 @@ var Keyboard = /*#__PURE__*/function (_Base) {
   }, {
     key: "_currentKeyboard",
     get: function get() {
-      return this.tag(capitalize(this._currentFormat));
+      return this._currentFormat ? this.tag(capitalize(this._currentFormat)) : null;
     }
   }, {
     key: "columnCount",
@@ -794,4 +798,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Keyboard-Keyboard-stories.34e18434.iframe.bundle.js.map
+//# sourceMappingURL=components-Keyboard-Keyboard-stories.7ef5ed72.iframe.bundle.js.map

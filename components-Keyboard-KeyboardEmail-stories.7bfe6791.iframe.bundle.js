@@ -1,19 +1,19 @@
 "use strict";
-(self["webpackChunklightning_ui_docs"] = self["webpackChunklightning_ui_docs"] || []).push([[1895],{
+(self["webpackChunklightning_ui_docs"] = self["webpackChunklightning_ui_docs"] || []).push([[9641],{
 
-/***/ "../../@lightningjs/ui-components/src/components/Keyboard/KeyboardQwerty.stories.js":
+/***/ "../../@lightningjs/ui-components/src/components/Keyboard/KeyboardEmail.stories.js":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   KeyboardQwerty: () => (/* binding */ KeyboardQwerty),
+/* harmony export */   KeyboardEmail: () => (/* binding */ KeyboardEmail),
 /* harmony export */   __namedExportsOrder: () => (/* binding */ __namedExportsOrder),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
 /* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("../../@lightningjs/ui-components/src/globals/context/index.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("../../@lightningjs/ui-components/src/utils/index.js");
-/* harmony import */ var _KeyboardQwerty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/components/Keyboard/KeyboardQwerty.js");
+/* harmony import */ var _KeyboardEmail__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/components/Keyboard/KeyboardEmail.js");
 /* harmony import */ var _Keyboard_stories__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("../../@lightningjs/ui-components/src/components/Keyboard/Keyboard.stories.js");
 function _typeof(o) {
   "@babel/helpers - typeof";
@@ -131,12 +131,12 @@ function _getPrototypeOf(o) {
 /* eslint-disable */
 // @ts-nocheck
 // @ts-expect-error (Converted from ts-ignore)
-var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { context } from '../../globals';\nimport utils from '../../utils';\nimport { default as KeyboardQwertyComponent } from './KeyboardQwerty';\nimport { Keyboard } from './Keyboard.stories';\n\nexport default {\n  title: 'Components/Keyboard/KeyboardQwerty'\n};\n\nexport const KeyboardQwerty = () =>\n  class KeyboardQwerty extends lng.Component {\n    static _template() {\n      return {\n        Keyboard: {\n          type: KeyboardQwertyComponent,\n          defaultFormat: 'lowercase'\n        },\n        w: utils.getWidthByUpCount(context.theme, 1)\n      };\n    }\n  };\n\nKeyboardQwerty.storyName = 'KeyboardQwerty';\n\nKeyboardQwerty.args = {\n  centerKeyboard: false,\n  mode: 'focused'\n};\n\nKeyboardQwerty.argTypes = Keyboard.sharedArgTypes;\nKeyboardQwerty.parameters = {};\n";
+var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { context } from '../../globals';\nimport utils from '../../utils';\nimport { default as KeyboardEmailComponent } from './KeyboardEmail';\nimport { Keyboard } from './Keyboard.stories';\n\nexport default {\n  title: 'Components/Keyboard/KeyboardEmail'\n};\n\nexport const KeyboardEmail = () =>\n  class KeyboardEmail extends lng.Component {\n    static _template() {\n      return {\n        Keyboard: {\n          type: KeyboardEmailComponent,\n          defaultFormat: 'lowercase'\n        },\n        w: utils.getWidthByUpCount(context.theme, 1)\n      };\n    }\n  };\nKeyboardEmail.args = {\n  centerKeyboard: false,\n  mode: 'focused'\n};\nKeyboardEmail.storyName = 'KeyboardEmail';\nKeyboardEmail.argTypes = Keyboard.sharedArgTypes;\nKeyboardEmail.parameters = {};\n";
 // @ts-expect-error (Converted from ts-ignore)
 var __LOCATIONS_MAP__ = {
-  "KeyboardQwerty": {
+  "KeyboardEmail": {
     "startLoc": {
-      "col": 30,
+      "col": 29,
       "line": 29
     },
     "endLoc": {
@@ -144,7 +144,7 @@ var __LOCATIONS_MAP__ = {
       "line": 40
     },
     "startBody": {
-      "col": 30,
+      "col": 29,
       "line": 29
     },
     "endBody": {
@@ -180,11 +180,11 @@ var __LOCATIONS_MAP__ = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   parameters: {
     "storySource": {
-      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { context } from '../../globals';\nimport utils from '../../utils';\nimport { default as KeyboardQwertyComponent } from './KeyboardQwerty';\nimport { Keyboard } from './Keyboard.stories';\n\nexport default {\n  title: 'Components/Keyboard/KeyboardQwerty'\n};\n\nexport const KeyboardQwerty = () =>\n  class KeyboardQwerty extends lng.Component {\n    static _template() {\n      return {\n        Keyboard: {\n          type: KeyboardQwertyComponent,\n          defaultFormat: 'lowercase'\n        },\n        w: utils.getWidthByUpCount(context.theme, 1)\n      };\n    }\n  };\n\nKeyboardQwerty.storyName = 'KeyboardQwerty';\n\nKeyboardQwerty.args = {\n  centerKeyboard: false,\n  mode: 'focused'\n};\n\nKeyboardQwerty.argTypes = Keyboard.sharedArgTypes;\nKeyboardQwerty.parameters = {};\n",
+      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { context } from '../../globals';\nimport utils from '../../utils';\nimport { default as KeyboardEmailComponent } from './KeyboardEmail';\nimport { Keyboard } from './Keyboard.stories';\n\nexport default {\n  title: 'Components/Keyboard/KeyboardEmail'\n};\n\nexport const KeyboardEmail = () =>\n  class KeyboardEmail extends lng.Component {\n    static _template() {\n      return {\n        Keyboard: {\n          type: KeyboardEmailComponent,\n          defaultFormat: 'lowercase'\n        },\n        w: utils.getWidthByUpCount(context.theme, 1)\n      };\n    }\n  };\nKeyboardEmail.args = {\n  centerKeyboard: false,\n  mode: 'focused'\n};\nKeyboardEmail.storyName = 'KeyboardEmail';\nKeyboardEmail.argTypes = Keyboard.sharedArgTypes;\nKeyboardEmail.parameters = {};\n",
       "locationsMap": {
-        "keyboard-qwerty": {
+        "keyboard-email": {
           "startLoc": {
-            "col": 30,
+            "col": 29,
             "line": 29
           },
           "endLoc": {
@@ -192,7 +192,7 @@ var __LOCATIONS_MAP__ = {
             "line": 40
           },
           "startBody": {
-            "col": 30,
+            "col": 29,
             "line": 29
           },
           "endBody": {
@@ -203,56 +203,56 @@ var __LOCATIONS_MAP__ = {
       }
     }
   },
-  title: 'Components/Keyboard/KeyboardQwerty'
+  title: 'Components/Keyboard/KeyboardEmail'
 });
-var KeyboardQwerty = function KeyboardQwerty() {
+var KeyboardEmail = function KeyboardEmail() {
   return /*#__PURE__*/function (_lng$Component) {
-    _inherits(KeyboardQwerty, _lng$Component);
-    var _super = _createSuper(KeyboardQwerty);
-    function KeyboardQwerty() {
-      _classCallCheck(this, KeyboardQwerty);
+    _inherits(KeyboardEmail, _lng$Component);
+    var _super = _createSuper(KeyboardEmail);
+    function KeyboardEmail() {
+      _classCallCheck(this, KeyboardEmail);
       return _super.apply(this, arguments);
     }
-    _createClass(KeyboardQwerty, null, [{
+    _createClass(KeyboardEmail, null, [{
       key: "_template",
       value: function _template() {
         return {
           Keyboard: {
-            type: _KeyboardQwerty__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z,
+            type: _KeyboardEmail__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z,
             defaultFormat: 'lowercase'
           },
           w: _utils__WEBPACK_IMPORTED_MODULE_2__/* ["default"].getWidthByUpCount */ .ZP.getWidthByUpCount(_globals__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z.theme, 1)
         };
       }
     }]);
-    return KeyboardQwerty;
+    return KeyboardEmail;
   }(_lightningjs_core__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z.Component);
 };
-KeyboardQwerty.storyName = 'KeyboardQwerty';
-KeyboardQwerty.args = {
+KeyboardEmail.args = {
   centerKeyboard: false,
   mode: 'focused'
 };
-KeyboardQwerty.argTypes = _Keyboard_stories__WEBPACK_IMPORTED_MODULE_4__.Keyboard.sharedArgTypes;
-KeyboardQwerty.parameters = {};
-KeyboardQwerty.parameters = {
-  ...KeyboardQwerty.parameters,
+KeyboardEmail.storyName = 'KeyboardEmail';
+KeyboardEmail.argTypes = _Keyboard_stories__WEBPACK_IMPORTED_MODULE_4__.Keyboard.sharedArgTypes;
+KeyboardEmail.parameters = {};
+KeyboardEmail.parameters = {
+  ...KeyboardEmail.parameters,
   docs: {
-    ...KeyboardQwerty.parameters?.docs,
+    ...KeyboardEmail.parameters?.docs,
     source: {
-      originalSource: "() => class KeyboardQwerty extends lng.Component {\n  static _template() {\n    return {\n      Keyboard: {\n        type: KeyboardQwertyComponent,\n        defaultFormat: 'lowercase'\n      },\n      w: utils.getWidthByUpCount(context.theme, 1)\n    };\n  }\n}",
-      ...KeyboardQwerty.parameters?.docs?.source
+      originalSource: "() => class KeyboardEmail extends lng.Component {\n  static _template() {\n    return {\n      Keyboard: {\n        type: KeyboardEmailComponent,\n        defaultFormat: 'lowercase'\n      },\n      w: utils.getWidthByUpCount(context.theme, 1)\n    };\n  }\n}",
+      ...KeyboardEmail.parameters?.docs?.source
     }
   }
-};;const __namedExportsOrder = ["KeyboardQwerty"];
+};;const __namedExportsOrder = ["KeyboardEmail"];
 
 /***/ }),
 
-/***/ "../../@lightningjs/ui-components/src/components/Keyboard/KeyboardQwerty.js":
+/***/ "../../@lightningjs/ui-components/src/components/Keyboard/KeyboardEmail.js":
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Z: () => (/* binding */ KeyboardQwerty)
+/* harmony export */   Z: () => (/* binding */ KeyboardEmail)
 /* harmony export */ });
 /* harmony import */ var _Keyboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/components/Keyboard/Keyboard.js");
 /* harmony import */ var _Keyboard_styles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("../../@lightningjs/ui-components/src/components/Keyboard/Keyboard.styles.js");
@@ -291,21 +291,21 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
-  _inherits(KeyboardQwerty, _Keyboard);
-  var _super = _createSuper(KeyboardQwerty);
-  function KeyboardQwerty() {
-    _classCallCheck(this, KeyboardQwerty);
+var KeyboardEmail = /*#__PURE__*/function (_Keyboard) {
+  _inherits(KeyboardEmail, _Keyboard);
+  var _super = _createSuper(KeyboardEmail);
+  function KeyboardEmail() {
+    _classCallCheck(this, KeyboardEmail);
     return _super.apply(this, arguments);
   }
-  _createClass(KeyboardQwerty, [{
+  _createClass(KeyboardEmail, [{
     key: "_construct",
     value: function _construct() {
-      _get(_getPrototypeOf(KeyboardQwerty.prototype), "_construct", this).call(this);
-      this.formats = this.qwertyFormat;
+      _get(_getPrototypeOf(KeyboardEmail.prototype), "_construct", this).call(this);
+      this.formats = this.emailFormat;
     }
   }, {
-    key: "qwertyFormat",
+    key: "emailFormat",
     get: function get() {
       return {
         uppercase: [['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', {
@@ -326,20 +326,44 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           announce: 'accents, button',
           keyId: 'accents'
         }], ['Z', 'X', 'C', 'V', 'B', 'N', 'M', {
-          title: '_',
-          announce: 'underscore, button'
-        }, {
           title: '.',
           announce: 'period, button'
         }, {
           title: '-',
           announce: 'dash, button'
         }, {
+          title: '_',
+          announce: 'underscore, button'
+        }, {
           title: 'shift',
           size: 'md',
           toggle: 'lowercase',
           announce: 'shift off, button',
           keyId: 'shift'
+        }], [{
+          title: '.com',
+          announce: 'dot, com',
+          size: 'md'
+        }, {
+          title: '.net',
+          announce: 'dot, net',
+          size: 'md'
+        }, {
+          title: '.edu',
+          announce: 'dot, edu',
+          size: 'md'
+        }, {
+          title: '.org',
+          announce: 'dot, org',
+          size: 'md'
+        }, {
+          title: '.co',
+          announce: 'dot, co',
+          size: 'md'
+        }, {
+          title: '.uk',
+          announce: 'dot, uk',
+          size: 'md'
         }], [{
           title: 'Clear',
           size: 'lg',
@@ -389,6 +413,30 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           announce: 'shift on, button',
           keyId: 'shift'
         }], [{
+          title: '.com',
+          announce: 'dot, com',
+          size: 'md'
+        }, {
+          title: '.net',
+          announce: 'dot, net',
+          size: 'md'
+        }, {
+          title: '.edu',
+          announce: 'dot, edu',
+          size: 'md'
+        }, {
+          title: '.org',
+          announce: 'dot, org',
+          size: 'md'
+        }, {
+          title: '.co',
+          announce: 'dot, co',
+          size: 'md'
+        }, {
+          title: '.uk',
+          announce: 'dot, uk',
+          size: 'md'
+        }], [{
           title: 'Clear',
           size: 'lg',
           keyId: 'clear',
@@ -420,7 +468,7 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
-        }], ['î', 'ô', 'û', 'ã', 'ñ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', {
+        }], ['î', 'ô', 'û', 'ã', 'ñ', {
           title: '_',
           announce: 'underscore, button'
         }, {
@@ -431,10 +479,34 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           announce: 'dash, button'
         }, {
           title: 'shift',
-          size: 'md',
+          size: 'xl',
           toggle: 'accentsUpper',
           announce: 'shift off, button',
           keyId: 'shift'
+        }], [{
+          title: '.com',
+          announce: 'dot, com',
+          size: 'md'
+        }, {
+          title: '.net',
+          announce: 'dot, net',
+          size: 'md'
+        }, {
+          title: '.edu',
+          announce: 'dot, edu',
+          size: 'md'
+        }, {
+          title: '.org',
+          announce: 'dot, org',
+          size: 'md'
+        }, {
+          title: '.co',
+          announce: 'dot, co',
+          size: 'md'
+        }, {
+          title: '.uk',
+          announce: 'dot, uk',
+          size: 'md'
         }], [{
           title: 'Clear',
           size: 'lg',
@@ -467,7 +539,7 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
-        }], ['Î', 'Ô', 'Û', 'Ã', 'Ñ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', {
+        }], ['Î', 'Ô', 'Û', 'Ã', 'Ñ', {
           title: '.',
           announce: 'period, button'
         }, {
@@ -478,10 +550,34 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           announce: 'underscore, button'
         }, {
           title: 'shift',
-          size: 'md',
+          size: 'xl',
           toggle: 'accents',
           announce: 'shift off, button',
           keyId: 'shift'
+        }], [{
+          title: '.com',
+          announce: 'dot, com',
+          size: 'md'
+        }, {
+          title: '.net',
+          announce: 'dot, net',
+          size: 'md'
+        }, {
+          title: '.edu',
+          announce: 'dot, edu',
+          size: 'md'
+        }, {
+          title: '.org',
+          announce: 'dot, org',
+          size: 'md'
+        }, {
+          title: '.co',
+          announce: 'dot, co',
+          size: 'md'
+        }, {
+          title: '.uk',
+          announce: 'dot, uk',
+          size: 'md'
         }], [{
           title: 'Clear',
           size: 'lg',
@@ -587,6 +683,30 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           title: '+',
           announce: 'plus sign, button'
         }], [{
+          title: '.com',
+          announce: 'dot, com',
+          size: 'md'
+        }, {
+          title: '.net',
+          announce: 'dot, net',
+          size: 'md'
+        }, {
+          title: '.edu',
+          announce: 'dot, edu',
+          size: 'md'
+        }, {
+          title: '.org',
+          announce: 'dot, org',
+          size: 'md'
+        }, {
+          title: '.co',
+          announce: 'dot, co',
+          size: 'md'
+        }, {
+          title: '.uk',
+          announce: 'dot, uk',
+          size: 'md'
+        }], [{
           title: 'Clear',
           size: 'lg',
           keyId: 'clear',
@@ -607,7 +727,7 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
   }], [{
     key: "__componentName",
     get: function get() {
-      return 'KeyboardQwerty';
+      return 'KeyboardEmail';
     }
   }, {
     key: "__themeStyle",
@@ -615,11 +735,11 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
       return _Keyboard_styles_js__WEBPACK_IMPORTED_MODULE_0__;
     }
   }]);
-  return KeyboardQwerty;
+  return KeyboardEmail;
 }(_Keyboard__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
 
 
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Keyboard-KeyboardQwerty-stories.dd2d4d9d.iframe.bundle.js.map
+//# sourceMappingURL=components-Keyboard-KeyboardEmail-stories.7bfe6791.iframe.bundle.js.map

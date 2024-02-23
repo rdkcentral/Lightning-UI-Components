@@ -1430,7 +1430,7 @@ var tone = function tone(theme) {
       mode: {
         disabled: {
           strokeColor: theme.color.fillNeutralDisabled,
-          backgroundColor: theme.color.fillInverselDisabled,
+          backgroundColor: theme.color.fillInverseDisabled,
           backgroundColorChecked: theme.color.fillNeutralDisabled,
           knobColor: theme.color.fillNeutralDisabled,
           knobColorChecked: theme.color.fillInverseDisabled
@@ -1462,7 +1462,7 @@ var tone = function tone(theme) {
       mode: {
         disabled: {
           strokeColor: theme.color.fillNeutralDisabled,
-          backgroundColor: theme.color.fillInverselDisabled,
+          backgroundColor: theme.color.fillInverseDisabled,
           backgroundColorChecked: theme.color.fillNeutralDisabled,
           knobColor: theme.color.fillNeutralDisabled,
           knobColorChecked: theme.color.fillInverseDisabled
@@ -1705,4 +1705,4 @@ module.exports = __webpack_require__.p + "static/media/Xfinity-Provider-Logo-Squ
 /***/ })
 
 }]);
-//# sourceMappingURL=2077.6a8f9287.iframe.bundle.js.map
+//# sourceMappingURL=2077.90722f5e.iframe.bundle.js.map

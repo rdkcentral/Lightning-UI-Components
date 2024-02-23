@@ -944,7 +944,7 @@ var KeyboardEmail = /*#__PURE__*/function (_Keyboard) {
           size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
-        }], ['î', 'ô', 'û', 'ã', 'ñ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', {
+        }], ['î', 'ô', 'û', 'ã', 'ñ', {
           title: '_',
           announce: 'underscore, button'
         }, {
@@ -955,7 +955,7 @@ var KeyboardEmail = /*#__PURE__*/function (_Keyboard) {
           announce: 'dash, button'
         }, {
           title: 'shift',
-          size: 'md',
+          size: 'xl',
           toggle: 'accentsUpper',
           announce: 'shift off, button',
           keyId: 'shift'
@@ -1015,18 +1015,18 @@ var KeyboardEmail = /*#__PURE__*/function (_Keyboard) {
           size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
-        }], ['Î', 'Ô', 'Û', 'Ã', 'Ñ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', {
-          title: '_',
-          announce: 'underscore, button'
-        }, {
+        }], ['Î', 'Ô', 'Û', 'Ã', 'Ñ', {
           title: '.',
           announce: 'period, button'
         }, {
           title: '-',
           announce: 'dash, button'
         }, {
+          title: '_',
+          announce: 'underscore, button'
+        }, {
           title: 'shift',
-          size: 'md',
+          size: 'xl',
           toggle: 'accents',
           announce: 'shift off, button',
           keyId: 'shift'
@@ -1389,7 +1389,7 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
-        }], ['î', 'ô', 'û', 'ã', 'ñ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', {
+        }], ['î', 'ô', 'û', 'ã', 'ñ', {
           title: '_',
           announce: 'underscore, button'
         }, {
@@ -1400,7 +1400,7 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           announce: 'dash, button'
         }, {
           title: 'shift',
-          size: 'md',
+          size: 'xl',
           toggle: 'accentsUpper',
           announce: 'shift off, button',
           keyId: 'shift'
@@ -1436,7 +1436,7 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           size: 'md',
           toggle: 'lowercase',
           announce: 'alpha mode, button'
-        }], ['Î', 'Ô', 'Û', 'Ã', 'Ñ', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', {
+        }], ['Î', 'Ô', 'Û', 'Ã', 'Ñ', {
           title: '.',
           announce: 'period, button'
         }, {
@@ -1447,7 +1447,7 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
           announce: 'underscore, button'
         }, {
           title: 'shift',
-          size: 'md',
+          size: 'xl',
           toggle: 'accents',
           announce: 'shift off, button',
           keyId: 'shift'
@@ -1591,4 +1591,4 @@ var KeyboardQwerty = /*#__PURE__*/function (_Keyboard) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Keyboard-KeyboardInput-stories.109e9cae.iframe.bundle.js.map
+//# sourceMappingURL=components-Keyboard-KeyboardInput-stories.5f4bbe6d.iframe.bundle.js.map

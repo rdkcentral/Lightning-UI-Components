@@ -287,14 +287,14 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "_updateLayout",
     value: function _updateLayout() {
-      this._updatePositions();
+      this._Text.h = this._textH();
       this._updateMetadataHeight();
+      this._updatePositions();
       this._updateLogo();
     }
   }, {
     key: "_updatePositions",
     value: function _updatePositions() {
-      this._Text.h = this._textH();
       this._Text.x = this.logo && this.logoPosition === 'left' ? this.logoWidth + this.style.logoPadding : 0;
       this._Text.y = (this.h - this._Text.h) / 2;
     }
@@ -708,4 +708,4 @@ function withMarqueeSync(Base) {
 /***/ })
 
 }]);
-//# sourceMappingURL=9587.fd286090.iframe.bundle.js.map
+//# sourceMappingURL=9587.2de1cb6f.iframe.bundle.js.map

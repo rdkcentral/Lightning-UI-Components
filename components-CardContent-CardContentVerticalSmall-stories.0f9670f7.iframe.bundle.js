@@ -115,6 +115,7 @@ var CardContentVerticalSmall_CardContentVerticalSmall = /*#__PURE__*/function (_
     key: "_setMetadata",
     value: function _setMetadata(metadata) {
       return _objectSpread(_objectSpread({}, metadata), {}, {
+        marquee: this._isFocusedMode,
         details: undefined,
         provider: undefined
       });
@@ -590,4 +591,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-CardContent-CardContentVerticalSmall-stories.34fdcc34.iframe.bundle.js.map
+//# sourceMappingURL=components-CardContent-CardContentVerticalSmall-stories.0f9670f7.iframe.bundle.js.map

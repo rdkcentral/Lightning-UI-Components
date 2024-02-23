@@ -370,11 +370,11 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 var base = function base(theme) {
   return {
     width: (0,utils/* getWidthByUpCount */.OO)(theme, 1),
+    titleMarginBottom: theme.spacer.lg,
     titleMarginLeft: theme.layout.gutterX,
     titleTextStyle: _objectSpread(_objectSpread({}, theme.typography.headline1), {}, {
       textColor: theme.color.textNeutral
-    }),
-    titleMarginBottom: theme.spacer.lg
+    })
   };
 };
 var tone = function tone(theme) {
@@ -478,20 +478,32 @@ var TitleRow = /*#__PURE__*/function (_Row) {
   }, {
     key: "_updateTitle",
     value: function _updateTitle() {
-      if (this.title) {
-        this._Title.patch({
-          x: this.style.titleMarginLeft,
-          content: this.title,
-          style: {
-            textStyle: this.style.titleTextStyle
-          }
-        });
-      } else if (this._Title) {
-        this._Title.patch({
-          h: 0,
-          content: ''
-        });
+      if (!this.title) {
+        if (this._Title) {
+          this.patch({
+            Title: undefined
+          });
+        }
+        return;
       }
+      var titlePatch = {
+        x: this.style.titleMarginLeft,
+        content: this.title,
+        style: {
+          textStyle: this.style.titleTextStyle
+        }
+      };
+      if (!this._Title) {
+        titlePatch = TitleRow_objectSpread({
+          type: TextBox/* default */.Z,
+          signals: {
+            textBoxChanged: '_titleLoaded'
+          }
+        }, titlePatch);
+      }
+      this.patch({
+        Title: titlePatch
+      });
     }
   }, {
     key: "_updateRow",
@@ -519,18 +531,6 @@ var TitleRow = /*#__PURE__*/function (_Row) {
       return TitleRow_styles_namespaceObject;
     }
   }, {
-    key: "_template",
-    value: function _template() {
-      return TitleRow_objectSpread({
-        Title: {
-          type: TextBox/* default */.Z,
-          signals: {
-            textBoxChanged: '_titleLoaded'
-          }
-        }
-      }, _get(_getPrototypeOf(TitleRow), "_template", this).call(this));
-    }
-  }, {
     key: "properties",
     get: function get() {
       return [].concat(_toConsumableArray(_get(_getPrototypeOf(TitleRow), "properties", this)), ['title']);
@@ -556,4 +556,4 @@ var TitleRow = /*#__PURE__*/function (_Row) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5289.bc23aef1.iframe.bundle.js.map
+//# sourceMappingURL=5289.afc5f487.iframe.bundle.js.map
