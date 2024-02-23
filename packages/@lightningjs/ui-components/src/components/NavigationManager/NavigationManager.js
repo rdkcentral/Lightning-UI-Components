@@ -235,7 +235,7 @@ export default class NavigationManager extends FocusManager {
       })[axis] + itemPos;
     const lastChild = this.Items.childList.last;
     const endOfLastChild = lastChild
-      ? this._calcAxisPosition(lastChild) + lastChild[lengthDimension] - itemPos
+      ? this._calcAxisPosition(lastChild) + lastChild[lengthDimension]
       : 0;
     if (endOfLastChild > this[lengthDimension]) {
       let lastScrollIndex;
