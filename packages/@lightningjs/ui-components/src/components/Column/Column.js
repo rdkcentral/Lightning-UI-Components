@@ -36,12 +36,37 @@ export default class Column extends NavigationManager {
     };
   }
 
+  _isOnScreenForScrolling(child) {
+    if (!child) return false;
+
+    const y = getY(child);
+    if (!Number.isFinite(y)) return false;
+    const itemsTransitionY = this.getTransitionYTargetValue();
+    const columnY = this.core.renderContext.py;
+    let itemY = columnY + itemsTransitionY + y;
+    let yModifier;
+
+    // This section here takes the difference between a possible target value
+    // and subtracts it from the current child x. That value then is subtracted from the initial
+    // itemX value calculated on the core renderContext px value to more accurately
+    // calculate the item's location on screen when it's own x value will be updating.
+    if (child.transition('y')) {
+      yModifier = child.y - child.transition('y').targetValue;
+      itemY = itemY - yModifier;
+    }
+    return itemY >= columnY && itemY + child.h <= columnY + this.h;
+  }
+
   _shouldScroll() {
     let shouldScroll = this.alwaysScroll;
     if (!shouldScroll && !this.neverScroll) {
+      const isCompletelyOnScreen = this._isOnScreenForScrolling(this.selected);
       const lastChild = this.Items.childList.last;
       shouldScroll =
-        lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
+        lastChild &&
+        (this.shouldScrollUp() ||
+          this.shouldScrollDown() ||
+          !isCompletelyOnScreen);
     }
 
     if (this.selectedIndex < this.scrollIndex) {
@@ -49,6 +74,24 @@ export default class Column extends NavigationManager {
     }
 
     return shouldScroll;
+  }
+
+  _getScrollY() {
+    let itemsContainerY;
+    let itemIndex = this.selectedIndex - this.scrollIndex;
+    itemIndex = itemIndex < 0 ? 0 : itemIndex;
+    if (itemIndex === this._firstFocusableIndex()) {
+      itemIndex = 0;
+    }
+
+    if (this.Items.children[itemIndex]) {
+      itemsContainerY = this.Items.children[itemIndex].transition('y')
+        ? -this.Items.children[itemIndex].transition('y').targetValue +
+          this.itemPosY
+        : -this.Items.children[itemIndex].y + this.itemPosY;
+    }
+
+    return itemsContainerY;
   }
 
   _render(next, prev) {
@@ -65,32 +108,16 @@ export default class Column extends NavigationManager {
     } else if (next && !next.selectedIndex) {
       next.selectedIndex = 0;
     }
+
+    let itemsContainerY;
     if (!this.Items.children.length) {
-      this.applySmooth(this.Items, { y: this.itemPosY });
-      if (!this.shouldSmooth) {
-        this._updateTransitionTarget(this.Items, 'y', this.itemPosY);
-      }
+      itemsContainerY = this.itemPosY;
     } else if (this._shouldScroll()) {
-      let scrollItem =
-        this.selectedIndex > this._lastScrollIndex
-          ? this.Items.children[this._lastScrollIndex - this.scrollIndex]
-          : this.selected;
-      if (this.Items.children[this._firstFocusableIndex()] === scrollItem) {
-        scrollItem = this.Items.children[0];
-      }
-      const scrollOffset =
-        (this.Items.children[this.scrollIndex] || { y: 0 }).y + this.itemPosY;
+      itemsContainerY = this._getScrollY();
+    }
 
-      const newY =
-        -(scrollItem || this.Items.childList.first).transition('y')
-          .targetValue + (scrollItem === this.selected ? scrollOffset : 0);
-      const smoothObj = [newY, this.style.itemTransition];
-      const scrollTarget = newY;
-
-      this.applySmooth(this.Items, { y: scrollTarget }, { y: smoothObj });
-      if (!this.shouldSmooth) {
-        this._updateTransitionTarget(this.Items, 'y', scrollTarget);
-      }
+    if (itemsContainerY !== undefined) {
+      this.updatePositionOnAxis(this.Items, itemsContainerY);
     }
 
     this.onScreenEffect(this.onScreenItems);
