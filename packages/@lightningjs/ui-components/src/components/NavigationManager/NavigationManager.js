@@ -228,21 +228,21 @@ export default class NavigationManager extends FocusManager {
       return;
     }
 
-    const scrollOffset = (this.Items.children[this.scrollIndex] || {
-      [axis]: 0
-    })[axis];
+    const itemPos = this._isRow ? this.itemPosX : this.itemPosY;
+    const scrollOffset =
+      (this.Items.children[this.scrollIndex] || {
+        [axis]: 0
+      })[axis] + itemPos;
     const lastChild = this.Items.childList.last;
     const endOfLastChild = lastChild
-      ? this._calcAxisPosition(lastChild) + lastChild[lengthDimension]
+      ? this._calcAxisPosition(lastChild) + lastChild[lengthDimension] + itemPos
       : 0;
     if (endOfLastChild > this[lengthDimension]) {
       let lastScrollIndex;
       for (let i = this.Items.children.length - 1; i >= 0; i--) {
         const childPosition = this._calcAxisPosition(this.Items.children[i]);
-        const itemPos = this._isRow ? this.itemPosX : this.itemPosY;
         const canScrollToChild =
-          childPosition + this[lengthDimension] - scrollOffset - itemPos >
-          endOfLastChild;
+          childPosition + this[lengthDimension] - scrollOffset > endOfLastChild;
         if (canScrollToChild) {
           lastScrollIndex = i;
         } else {

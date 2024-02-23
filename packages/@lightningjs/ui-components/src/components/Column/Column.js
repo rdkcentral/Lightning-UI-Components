@@ -86,7 +86,6 @@ export default class Column extends NavigationManager {
           .targetValue + (scrollItem === this.selected ? scrollOffset : 0);
       const smoothObj = [newY, this.style.itemTransition];
       const scrollTarget = newY;
-      // -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
 
       this.applySmooth(this.Items, { y: scrollTarget }, { y: smoothObj });
       if (!this.shouldSmooth) {
