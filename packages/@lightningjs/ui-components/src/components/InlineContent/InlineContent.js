@@ -100,7 +100,8 @@ export default class InlineContent extends Base {
 
         // text not separated by icons/badges are grouped together
         if (isText(item)) {
-          if (typeof this._parsedContent[index + 1] === 'string') {
+          const nextItem = this._parsedContent[index + 1];
+          if (nextItem && isText(nextItem)) {
             base.flexItem.marginRight = 0;
           }
           this.childList.a(this._createText(base, item));
@@ -375,15 +376,18 @@ export default class InlineContent extends Base {
    * @return { array }
    */
   _formatSpaces(parsedContent) {
-    const whitespace = /(\s+)/;
+    // retain the white space next to the appropriate word, then filter by the empty string,
+    // otherwise all whitespace is stripped and the flexItem's marginRight adds its own space
+    // which can be a different space size than the text would apply between words
+    const whitespace = /(.+?\s+)/;
     return flatten(
       (parsedContent || []).reduce((acc, item) => {
         let parsed = item;
         if (isText(item)) {
           if (typeof item === 'object') {
             const formattedWords = item.text
-              .split(whitespace)
-              .map(word => ({ ...item, text: word.trim() }));
+              .split(whitespace) // split after whitespace character (which adds empty strings)
+              .map(word => word && { ...item, text: word }); // check for empty string before adding
             acc.push(...formattedWords);
             return acc;
           }

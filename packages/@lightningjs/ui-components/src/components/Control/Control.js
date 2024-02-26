@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import ButtonSmall from '../Button/ButtonSmall.js';
+import { ButtonSmall } from '../Button';
 import Icon from '../Icon';
 import * as styles from './Control.styles.js';
 

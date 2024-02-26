@@ -124,30 +124,33 @@ export default class Tile extends Surface {
     this._updateLabel();
     this._updateCheckbox();
     this._updateProgressBar();
-    this._updateLogo();
     this._updateMetadata();
+    this._updateLogo();
   }
 
   /* ------------------------------ Tile ------------------------------ */
 
-  set h(v) {
-    super.h = v;
-  }
-
-  get h() {
+  _getRenderHeight() {
+    // if there is Metadata below the Tile, override _getRenderHeight
+    // in order to return the fully calculated height,
+    // not the height stored in "_h" for just the tile image
     return !this._isInsetMetadata
-      ? super.h + ((this._Metadata && this._Metadata.h) || 0)
-      : super.h;
+      ? this._h + (this._Metadata?.h + this.style.paddingY || 0)
+      : super._getRenderHeight();
   }
 
   get innerH() {
     return this._h; // Ensure that surface respects the correct height when metadata is displayed below
   }
 
-  get _gradient() {
-    if (this._isCircleLayout) return false;
+  get _shouldShowGradient() {
     return Boolean(
-      this._isInsetMetadata && this._hasMetadata && this._shouldShowMetadata
+      ((this._isInsetMetadata &&
+        this._hasMetadata &&
+        this._shouldShowMetadata) ||
+        this.progressBar?.progress > 0 ||
+        this._shouldShowLogo) &&
+        !this._isCircleLayout
     );
   }
 
@@ -193,35 +196,44 @@ export default class Tile extends Surface {
   /* ------------------------------ Logo ------------------------------ */
 
   _updateLogo() {
+    if (!this.logo) {
+      this.patch({ Logo: undefined });
+      return;
+    }
     const logoObject = {
       w: this.style.logoWidth,
       h: this.style.logoHeight,
       icon: this.logo,
-      alpha: this.style.alpha,
-      mountY: 1,
+      alpha: this._shouldShowLogo ? this.style.alpha : 0.001,
       x: this.style.paddingX,
       y: this._calculateLogoYPosition()
     };
-
-    if (this.logo && (this.persistentMetadata || this._isFocusedMode)) {
-      if (!this._Logo) {
-        logoObject.type = Icon;
-      }
-      this.patch({ Icon: logoObject });
+    if (!this._Logo) {
+      this.patch({
+        Logo: {
+          type: Icon,
+          mountY: 1,
+          ...logoObject
+        }
+      });
     } else {
-      this.patch({ Icon: undefined });
+      this.applySmooth(this._Logo, logoObject);
     }
   }
 
   _calculateLogoYPosition() {
-    if (this._isInsetMetadata) {
-      return this._metadataY - (this._Metadata ? this._Metadata.h : 0);
-    } else {
-      return this._progressBarY
-        ? this._progressBarY - this.style.paddingYBetweenContent
-        : this._h - this.style.paddingY;
+    if (this._isInsetMetadata && this._Metadata) {
+      return this._metadataY - this._Metadata.h;
     }
+    return this._progressBarY
+      ? this._progressBarY - this.style.paddingYBetweenContent
+      : this._h - this.style.paddingY;
   }
+
+  get _shouldShowLogo() {
+    return this.logo && (this.persistentMetadata || this._isFocusedMode);
+  }
+
   /* ------------------------------ Artwork ------------------------------ */
 
   _updateArtwork() {
@@ -240,7 +252,7 @@ export default class Tile extends Surface {
         radius: this.style?.radius,
         ...this.artwork?.style
       },
-      gradient: this._gradient,
+      gradient: this._shouldShowGradient,
       shouldScale: this._isFocusedMode
     });
   }
@@ -516,9 +528,7 @@ export default class Tile extends Surface {
   get _metadataTransitions() {
     return {
       y: [
-        this._shouldShowMetadata
-          ? this._metadataY
-          : this._h + this.style.paddingY,
+        this._metadataY,
         this._shouldShowMetadata
           ? this.style.animationEntrance
           : this.style.animationExit
@@ -539,11 +549,14 @@ export default class Tile extends Surface {
   }
 
   get _metadataY() {
-    return this._isInsetMetadata
-      ? this._progressBarY
-        ? this._progressBarY - this.style.paddingYBetweenContent
-        : this._h - this.style.paddingY
-      : this._h + this.style.paddingY;
+    if (this._shouldShowMetadata) {
+      if (this._isInsetMetadata) {
+        return this._progressBarY
+          ? this._progressBarY - this.style.paddingYBetweenContent
+          : this._h - this.style.paddingY;
+      }
+    }
+    return this._h + this.style.paddingY;
   }
 
   get _metadataAlpha() {
@@ -552,31 +565,25 @@ export default class Tile extends Surface {
 
   get _metadataPatch() {
     return {
-      mode: this.mode,
       alpha: this._metadataAlpha,
+      w: this._w - this.style.paddingX * 2,
+      x: this._w / 2,
+      y: this._metadataY
+    };
+  }
+
+  get _nonSmoothingMetadataPatch() {
+    return {
+      mode: this.mode,
       mountX: 0.5,
       mountY: this._isInsetMetadata ? 1 : 0,
       marquee: this._isFocusedMode,
-      w: this._w - this.style.paddingX * 2,
-      x: this._w / 2,
-      y:
-        this.persistentMetadata ||
-        !(this._isInsetMetadata && this._isFocusedMode)
-          ? this._metadataY
-          : this._h + this.style.paddingY,
       ...(this.metadata || {})
     };
   }
 
   _getMetadataLocation() {
-    return this.style.metadataLocation ?? this._metadataLocation;
-  }
-
-  _setMetadataLocation(metadataLocation) {
-    if (metadataLocation) {
-      this.style = { metadataLocation };
-    }
-    return metadataLocation;
+    return this._metadataLocation ?? this.style.metadataLocation;
   }
 
   _updateMetadata() {
@@ -593,15 +600,14 @@ export default class Tile extends Surface {
           signals: {
             updateComponentDimensions: '_metadataLoaded'
           },
+          ...this._nonSmoothingMetadataPatch,
           ...this._metadataPatch
         }
       });
 
       return;
     }
-    // if none of the above apply patch in metadataPatch
-    this._Metadata.patch(this._metadataPatch); // Metadata should never be patched with smooth
-    // then call animateMetadata
+    this._Metadata.patch(this._nonSmoothingMetadataPatch);
     this._animateMetadata();
   }
 
@@ -624,6 +630,11 @@ export default class Tile extends Surface {
   _metadataLoaded() {
     this._animateMetadata();
     this._updateLogo();
+
+    // if the metadata height has changed, the height of the entire Tile has changed
+    // and the inspector must be updated via _getRenderHeight()
+    this._updateDimensions();
+
     // Send event to columns/rows that the height has been updated since metadata will be displayed below the Tile
     if (!this._isInsetMetadata) {
       this.fireAncestors('$itemChanged');

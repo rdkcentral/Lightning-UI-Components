@@ -81,7 +81,7 @@ generateSubStory({
   baseStory: CardContentHorizontalLarge,
   subStory: MetadataStory,
   targetProperty: 'metadata',
-  include: ['title', 'description', 'details']
+  include: ['title', 'description', 'descriptionDetails', 'details']
 });
 
 CardContentHorizontalLarge.storyName = 'CardContentHorizontalLarge';

@@ -48,7 +48,8 @@ export {
   KeyboardFullscreen,
   KeyboardNumbers,
   KeyboardQwerty,
-  KeyboardInput
+  KeyboardInput,
+  KeyboardSearch
 } from './Keyboard';
 export { default as Knob } from './Knob/Knob.js';
 export { default as Label } from './Label/Label.js';

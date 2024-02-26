@@ -103,6 +103,7 @@ export const Basic = args =>
           },
           content: [
             'Text',
+            ' and some icons',
             {
               icon: lightningbolt,
               title: 'Green Lightning Bolt',
@@ -113,7 +114,7 @@ export const Basic = args =>
               icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',
               title: 'Rotten Tomatoes rating'
             },
-            'and more text',
+            'and more text ',
             {
               text: 'with some red ',
               style: { textColor: getHexColor('FF6194') }
@@ -191,12 +192,13 @@ export const WithParsing = args =>
     }
   };
 
-export const WithTruncation = () =>
+export const WithTruncation = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
         InlineContent: {
           type: InlineContentComponent,
+          ...args,
           w: 500,
           content: [
             'Text',
@@ -219,8 +221,7 @@ export const WithTruncation = () =>
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' },
             ', and this should truncate before going on to a third line.'
-          ],
-          contentWrap: true
+          ]
         }
       };
     }

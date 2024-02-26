@@ -46,7 +46,8 @@ Card.argTypes = {
     control: 'text',
     description: 'Title text',
     table: {
-      defaultValue: { summary: 'undefined' }
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   }
 };

@@ -15,11 +15,19 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
+import { utils } from '@lightningjs/ui-components/src';
 
+/**
+ * @returns returns number in a Hex Alpha Array format
+ */
 export function convertNumToHexAlphaArray(color) {
   const [r, g, b, a] = getRgbaString(color);
   return [rgbToHex(r, g, b).toUpperCase(), a * 100];
 }
+
+/**
+ * @returns a color in Rgba format
+ */
 
 export function getRgbaString(color) {
   const r = ((color / 65536) | 0) % 256;
@@ -29,11 +37,42 @@ export function getRgbaString(color) {
   return [r, g, b, a.toFixed(2)];
 }
 
+/**
+ * @returns returns a color in hex format
+ */
 export function componentToHex(c) {
   const hex = c.toString(16);
   return hex.length == 1 ? '0' + hex : hex;
 }
 
+/**
+ * @returns a color converted from rgb to hex
+ */
 export function rgbToHex(r, g, b) {
   return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+/**
+ * @returns string of control type to use
+ */
+export function getControlType(value) {
+  try {
+    if (utils.getValidColor(value)) {
+      return 'color';
+    } else if (typeof value === 'number') {
+      return 'number';
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+/**
+ * @returns capitalized current theme
+ */
+export function createTitle(LUITheme) {
+  // NOTE: need the if statement because the first few loads are undefined which errors the utils function
+  if (LUITheme !== undefined) {
+    return utils.capitalizeFirstLetter(LUITheme);
+  }
 }

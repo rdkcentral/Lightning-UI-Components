@@ -71,7 +71,7 @@ export default class Key extends Button {
   }
 
   static get properties() {
-    return [...super.properties, 'icon', 'size', 'toggle'];
+    return [...super.properties, 'icon', 'size', 'toggle', 'keySpacing'];
   }
 
   static get aliasStyles() {
@@ -84,13 +84,19 @@ export default class Key extends Button {
   _construct() {
     super._construct();
     this._size = 'sm';
-    this._fixed = true;
+    this._keySpacing = 0;
   }
 
   _update() {
-    this.w = this.style.sizes[this.size] || this.style.sizes.sm;
     this._updatePrefixStyle();
     super._update();
+  }
+
+  _calcDynamicWidth() {
+    const sizeMultiplier = this.style.sizes[this.size || 'sm'];
+    const baseSize = this.style.baseWidth * sizeMultiplier;
+    const padding = this.keySpacing * (sizeMultiplier - 1);
+    return baseSize + padding;
   }
 
   _updatePrefixStyle() {

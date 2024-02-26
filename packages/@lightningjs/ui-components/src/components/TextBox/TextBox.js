@@ -146,12 +146,21 @@ export default class TextBox extends Base {
   _updateInlineContent() {
     this.patch({ Text: undefined });
 
-    const inlineContentPatch = InlineContent.properties.reduce((acc, prop) => {
-      if (this[prop] != undefined) {
-        acc[prop] = this[prop];
+    const inlineContentPatch = InlineContent.properties.reduce(
+      (acc, prop) => {
+        if (this[prop] != undefined) {
+          acc[prop] = this[prop];
+        }
+        return acc;
+      },
+      // ensure all styles are passed down as well
+      {
+        style: {
+          ...this.style,
+          textStyle: this._textStyleSet
+        }
       }
-      return acc;
-    }, {});
+    );
 
     if (this._textStyleSet.wordWrapWidth) {
       inlineContentPatch.w = this._textStyleSet.wordWrapWidth;
@@ -222,10 +231,8 @@ export default class TextBox extends Base {
   }
 
   _updateMarquee() {
-    const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
-
     if (this._Marquee && !this.marquee) {
-      this._toggleMarquee(contentTag);
+      this._toggleMarquee(this._contentTag);
     }
 
     if (this.marquee) {
@@ -247,11 +254,13 @@ export default class TextBox extends Base {
 
       if (this._isInlineContent) {
         this._InlineContent.w = 0; // ensure we're copying the full, unwrapped inlineContent
-        marqueePatch.contentTexture = contentTag.getTexture();
+        marqueePatch.title = undefined;
+        marqueePatch.contentTexture = this._contentTag.getTexture();
         marqueePatch.w = this._textStyleSet.wordWrapWidth || this.w;
       } else {
+        marqueePatch.contentTexture = undefined;
         marqueePatch.title = {
-          text: contentTag.text.text,
+          text: this._contentTag.text.text,
           ...this._textStyleSet,
           wordWrapWidth: 0, // ensures that the text will marquee and not wrap
           maxLines: 1
@@ -266,10 +275,10 @@ export default class TextBox extends Base {
       }
       if ('undefined' !== typeof this._marqueeOverrideLoopX) {
         this._awaitMarqueeOverrideX.then(() => {
-          this._toggleMarquee(contentTag);
+          this._toggleMarquee(this._contentTag);
         });
       } else {
-        this._toggleMarquee(contentTag);
+        this._toggleMarquee(this._contentTag);
       }
     }
   }
@@ -307,21 +316,33 @@ export default class TextBox extends Base {
     return fontStyle;
   }
 
+  get _contentTag() {
+    return this._isInlineContent ? this._InlineContent : this._Text;
+  }
+
   _toggleMarquee(contentTag) {
+    // do not just return if there is no contentTag, we may still need to alpha the Marquee
     if (this.marquee) {
-      contentTag.alpha = 0.001;
-      this._Marquee.alpha = 1;
-      this._Marquee.startScrolling();
+      if (contentTag) {
+        contentTag.alpha = 0.001;
+      }
+      if (this._Marquee) {
+        this._Marquee.alpha = 1;
+        this._Marquee.startScrolling();
+      }
     } else {
-      contentTag.alpha = 1;
-      this._Marquee.alpha = 0.001;
-      this._Marquee.stopScrolling();
+      if (contentTag) {
+        contentTag.alpha = 1;
+      }
+      if (this._Marquee) {
+        this._Marquee.alpha = 0.001;
+        this._Marquee.stopScrolling();
+      }
     }
   }
 
   toggleMarquee() {
-    const contentTag = this._isInlineContent ? this._InlineContent : this._Text;
-    this._toggleMarquee(contentTag);
+    this._toggleMarquee(this._contentTag);
   }
 
   get announce() {

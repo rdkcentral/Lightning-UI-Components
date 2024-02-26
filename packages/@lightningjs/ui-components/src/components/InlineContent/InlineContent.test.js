@@ -141,8 +141,7 @@ describe('InlineContent', () => {
       },
       'and ',
       { badge: 'HD' },
-      ' ',
-      'badge ',
+      ' badge ',
       'test.'
     ]);
   });

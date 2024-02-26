@@ -17,9 +17,16 @@
  */
 
 export const base = theme => ({
+  // TODO radius from design or token change
+  titleTextStyle: {
+    ...theme.typography.headline3,
+    wordWrap: true,
+    maxLines: 2,
+    textColor: theme.color.textNeutral
+  },
   descriptionTextStyle: {
     ...theme.typography.body2,
-    textColor: theme.color.textNeutralSecondary,
+    textColor: theme.color.textNeutral,
     wordWrap: true,
     maxLines: 3
   },

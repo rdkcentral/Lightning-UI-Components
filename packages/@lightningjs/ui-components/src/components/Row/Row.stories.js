@@ -40,6 +40,7 @@ const sharedArgs = {
   lazyScroll: false,
   neverScroll: false,
   scrollIndex: 0,
+  waitForDimensions: false,
   mode: 'focused'
 };
 
@@ -67,6 +68,12 @@ const sharedArgTypes = {
     control: 'boolean',
     description:
       'Will only scroll the row if the item is off screen and alwaysScroll and neverScroll are both false',
+    table: { defaultValue: { summary: false } }
+  },
+  waitForDimensions: {
+    control: 'boolean',
+    description:
+      "If true, the Row will wait for all child elements' w and h to be set before displaying the Row",
     table: { defaultValue: { summary: false } }
   }
 };
@@ -145,14 +152,15 @@ class Title extends lng.Component {
  * Stories for various versions of the component
  */
 
-export const Row = () =>
+export const Row = args =>
   class Row extends lng.Component {
     static _template() {
       return {
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1),
-          items: createItems(Button, 12)
+          items: createItems(Button, 12),
+          waitForDimensions: args.waitForDimensions
         }
       };
     }
@@ -324,7 +332,8 @@ SkipFocus.argTypes = {
 
 export const LazyScrollIndexes = ({
   startLazyScrollIndex,
-  stopLazyScrollIndex
+  stopLazyScrollIndex,
+  waitForDimensions
 }) =>
   class LazyScrollIndexes extends lng.Component {
     static _template() {
@@ -339,7 +348,8 @@ export const LazyScrollIndexes = ({
             } ${i === stopLazyScrollIndex ? '(stop lazy scroll)' : ''}`
           })),
           startLazyScrollIndex,
-          stopLazyScrollIndex
+          stopLazyScrollIndex,
+          waitForDimensions: waitForDimensions
         }
       };
     }
@@ -379,6 +389,7 @@ export const AddingItems = args =>
           w: getWidthByUpCount(context.theme, 1), // x offset from preview.js * 2
           lazyUpCount: args.lazyUpCount,
           lazyUpCountBuffer: args.lazyUpCountBuffer,
+          waitForDimensions: args.waitForDimensions,
           signals: {
             append: 'appendButton',
             appendAt: 'appendButtonAt',
@@ -475,7 +486,8 @@ export const LazyUpCount = args =>
           w: getWidthByUpCount(context.theme, 1), // x offset from preview.js * 2
           lazyUpCount: args.lazyUpCount,
           lazyUpCountBuffer: args.lazyUpCountBuffer,
-          items: createItems(Button, 12)
+          items: createItems(Button, 12),
+          waitForDimensions: args.waitForDimensions
         }
       };
     }
@@ -509,13 +521,14 @@ LazyUpCount.parameters = {
     'There are 12 items passed to this Row. The number of items that are initially rendered equals the sum of the lazyUpCount and the lazyUpCountBuffer properties. Each time the next item is selected, an additional item is added to the end of the Row until all 12 items have been rendered.'
 };
 
-export const RemovingItems = () =>
+export const RemovingItems = args =>
   class RemovingItems extends lng.Component {
     static _template() {
       return {
         Row: {
           type: RowComponent,
           w: getWidthByUpCount(context.theme, 1), // x offset from preview.js * 2
+          waitForDimensions: args.waitForDimensions,
           signals: {
             removeAt: 'removeButton'
           },

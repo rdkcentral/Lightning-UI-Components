@@ -16,14 +16,17 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const base = theme => ({
-  height: theme.spacer.md * 3,
-  strokeRadius: theme.radius.md * 0.75,
-  strokeWeight: theme.stroke.sm,
-  knobWidth: theme.spacer.lg,
-  knobHeight: theme.spacer.lg,
-  knobRadius: theme.radius.sm,
-  knobPadding: theme.spacer.xs,
-  knobXChecked: theme.spacer.xl + theme.spacer.xs,
-  width: theme.spacer.md * 6
-});
+export const base = theme => {
+  const knobSize = theme.spacer.lg;
+  const knobPadding = theme.spacer.xxs;
+  const strokeWidth = theme.stroke.sm;
+  return {
+    height: knobSize + (knobPadding + strokeWidth) * 2,
+    knobWidth: knobSize,
+    knobHeight: knobSize,
+    knobRadius: knobSize / 2,
+    knobPadding,
+    strokeWidth,
+    width: (strokeWidth + knobPadding * 2 + knobSize) * 2
+  };
+};

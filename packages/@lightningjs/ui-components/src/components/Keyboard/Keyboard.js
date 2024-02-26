@@ -110,7 +110,8 @@ export default class Keyboard extends Base {
           },
           autoResizeWidth: true,
           autoResizeHeight: true,
-          neverScroll: true
+          neverScroll: true,
+          waitForDimensions: true
         }
       });
     }
@@ -128,7 +129,9 @@ export default class Keyboard extends Base {
         style: {
           itemSpacing: this.style.keySpacing
         },
-        items: this._createKeys(keys, keyboard)
+        items: this._createKeys(keys, keyboard),
+        selectedIndex: this._currentKeyboard?.selected?.selectedIndex || 0,
+        waitForDimensions: true
       };
     });
   }
@@ -136,11 +139,17 @@ export default class Keyboard extends Base {
   _createKeys(keys = [], keyboard) {
     return keys.map(keyProps => {
       if (!keyProps) {
-        return { skipFocus: true };
+        return {
+          type: this.keyComponent || Key, // allows use of a custom Key component if specified
+          keySpacing: this.style.keySpacing,
+          skipFocus: true,
+          alpha: 0.01
+        };
       }
 
       const key = {
-        type: this.keyComponent || Key // allows use of a custom Key component if specified
+        type: this.keyComponent || Key, // allows use of a custom Key component if specified
+        keySpacing: this.style.keySpacing
       };
 
       if (typeof keyProps === 'object') {
@@ -152,7 +161,7 @@ export default class Keyboard extends Base {
 
         if (keyIcon && keyIcon.icon) {
           return {
-            type: this.keyComponent || Key,
+            ...key,
             ...keyProps,
             ...this.style.keyProps?.[iconName],
             style: {
@@ -272,7 +281,9 @@ export default class Keyboard extends Base {
   }
 
   get _currentKeyboard() {
-    return this.tag(capitalize(this._currentFormat));
+    return this._currentFormat
+      ? this.tag(capitalize(this._currentFormat))
+      : null;
   }
 
   set columnCount(columnCount) {

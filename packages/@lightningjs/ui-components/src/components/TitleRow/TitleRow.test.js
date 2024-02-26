@@ -67,7 +67,7 @@ describe('TitleRow', () => {
       const titleA = 'Title';
       const titleB = 'New Title';
 
-      expect(titleRow._Title.content).toBe('');
+      expect(titleRow._Title).toBe(undefined);
 
       titleRow.title = titleA;
 
@@ -87,10 +87,7 @@ describe('TitleRow', () => {
       expect(titleRow._Title.content).toBe(title);
       titleRow.title = undefined;
       testRenderer.forceAllUpdates();
-      expect(titleRow._Title).toMatchObject({
-        h: 0,
-        content: ''
-      });
+      expect(titleRow._Title).toBe(undefined);
     });
     it('should update the row placement after the title has loaded', async () => {
       [titleRow, testRenderer] = createComponent(
@@ -102,12 +99,12 @@ describe('TitleRow', () => {
           spyOnMethods: ['_titleLoaded']
         }
       );
-      expect(titleRow._Items.y).toBe(titleRow.style.rowMarginTop);
+      expect(titleRow._Items.y).toBe(titleRow.style.titleMarginBottom);
 
       await titleRow.__titleLoadedSpyPromise;
 
       expect(titleRow._Items.y).toBe(
-        titleRow._Title.finalH + titleRow.style.rowMarginTop
+        titleRow._Title.finalH + titleRow.style.titleMarginBottom
       );
     });
   });

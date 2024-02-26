@@ -31,8 +31,12 @@ import Surface, { SurfaceStyle } from '../Surface';
 type TileStyle = SurfaceStyle & {
   animationEntrance: lng.types.TransitionSettings.Literal;
   animationExit: lng.types.TransitionSettings.Literal;
+  /** @deprecated */
   iconWidth: number;
+  logoWidth: number;
+  /** @deprecated */
   iconHeight: number;
+  logoHeight: number;
   metadataLocation: 'standard' | 'inset';
   paddingX: number;
   paddingY: number;

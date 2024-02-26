@@ -62,7 +62,8 @@ export default class TabBar extends Base {
     this._isTabsFocused = true;
   }
 
-  _selectedTabChange() {
+  _selectedTabChange(selected, prevSelected) {
+    this.fireAncestors('$tabChanged', selected, prevSelected, this);
     if (
       typeof this._tabContent === 'object' &&
       typeof this._tabContent.then === 'function'
@@ -139,6 +140,7 @@ export default class TabBar extends Base {
     // triggered when the Tabs Row resizes
     // update the height of TabBar using the latest h value from Tabs
     this._updateTabBarHeight();
+    this._updateTabContent();
   }
 
   _updateTabBarHeight() {
@@ -179,10 +181,12 @@ export default class TabBar extends Base {
       this._updateTabs();
       this._updateTabBarHeight();
     }
+    return false;
   }
 
   _handleUp() {
     this.selectTabs();
+    return false;
   }
 
   _setTabs(tabs) {
@@ -190,6 +194,22 @@ export default class TabBar extends Base {
     this._tabContent = tabs.map(tab => tab.tabContent || {});
     this._Tabs.items = tabs;
     return tabs;
+  }
+
+  _getTabs() {
+    return this._Tabs.items;
+  }
+
+  get selected() {
+    return this._Tabs.selected;
+  }
+
+  get selectedIndex() {
+    return this._Tabs.selectedIndex;
+  }
+
+  set selectedIndex(index) {
+    this._Tabs.selectedIndex = index;
   }
 
   get _collapsedHeight() {

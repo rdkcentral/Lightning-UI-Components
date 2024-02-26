@@ -427,6 +427,50 @@ describe('Slider', () => {
     });
   });
 
+  describe('onSizeChange signal', () => {
+    beforeEach(() => {
+      Slider.prototype.signal = jest.fn();
+      [slider, testRenderer] = createSlider({
+        value: 50
+      });
+    });
+
+    it('is fired on init', () => {
+      [slider, testRenderer] = createSlider({
+        value: 50
+      });
+      expect(slider.signal).toBeCalledWith('onSizeChange', slider);
+    });
+
+    it('is fired if vertical toggled', () => {
+      Slider.prototype.signal.mockReset();
+      slider.vertical = true;
+      testRenderer.forceAllUpdates();
+      expect(slider.signal).toBeCalledWith('onSizeChange', slider);
+    });
+
+    it('is fired if width changes', () => {
+      slider.w = 10;
+      Slider.prototype.signal.mockReset();
+      slider.w = 100;
+      testRenderer.forceAllUpdates();
+      expect(slider.signal).toBeCalledWith('onSizeChange', slider);
+    });
+
+    it('is fired if style.containerHeight changes', () => {
+      Slider.prototype.signal.mockReset();
+      slider.style = { containerHeight: 200 };
+      testRenderer.forceAllUpdates();
+      expect(slider.signal).toBeCalledWith('onSizeChange', slider);
+    });
+    it('is fired if style.arrowHeight changes', () => {
+      Slider.prototype.signal.mockReset();
+      slider.style = { arrowHeight: 200 };
+      testRenderer.forceAllUpdates();
+      expect(slider.signal).toBeCalledWith('onSizeChange', slider);
+    });
+  });
+
   describe('when a vertical slider is rendered', () => {
     beforeEach(() => {
       [slider, testRenderer] = createSlider({ vertical: true });

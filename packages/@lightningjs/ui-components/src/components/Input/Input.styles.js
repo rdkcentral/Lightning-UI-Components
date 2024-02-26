@@ -30,6 +30,11 @@ export const base = theme => ({
     maxLines: 1,
     textColor: theme.color.textNeutral
   },
+  textStyle: {
+    ...theme.typography.body1,
+    maxLines: 1,
+    textColor: theme.color.textNeutral
+  },
   helpTextStyle: {
     ...theme.typography.caption1,
     maxLines: 1,
@@ -37,7 +42,8 @@ export const base = theme => ({
   },
   minWidth: getWidthByUpCount(theme, 4),
   paddingX: theme.spacer.xl,
-  paddingY: theme.spacer.xl
+  paddingY: theme.spacer.xl,
+  backgroundColor: theme.color.interactiveNeutral
 });
 
 export const mode = theme => ({

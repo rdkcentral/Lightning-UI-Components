@@ -21,7 +21,64 @@ import { updateManager } from '../../globals';
 import { context } from '../../globals';
 import { getComponentConfig, getSubTheme } from './utils';
 import { capitalizeFirstLetter } from '../../utils';
-import utils from '../../utils';
+
+/**
+ * Merges two objects based on the following rules:
+ * 1. If a key exists in both objects, use the value from the second object.
+ * 2. If a key exists in the first object but not in the second, set the value to undefined.
+ * 3. If a key exists in the second object but not in the first, include it in the result.
+ * 4. Maintain the structure of the first object and augment it with extra keys from the second object.
+ *
+ * @param {Object|Array} firstObj - The first object, providing the structure to match.
+ * @param {Object|Array} secondObj - The second object, whose values take precedence.
+ * @returns {Object|Array} A new object with a merged structure and values.
+ */
+function mergeObjectsWithSecondDominant(firstObj, secondObj) {
+  if (firstObj !== null && typeof firstObj === 'object') {
+    if (Array.isArray(firstObj)) {
+      return firstObj.map((item, index) =>
+        mergeObjectsWithSecondDominant(
+          item,
+          Array.isArray(secondObj) ? secondObj[index] : undefined
+        )
+      );
+    } else {
+      const result = {};
+      // Combine keys from both objects to ensure all keys are covered
+      const allKeys = new Set([
+        ...Object.keys(firstObj),
+        ...Object.keys(secondObj)
+      ]);
+      allKeys.forEach(key => {
+        // Recurse for nested objects or arrays
+        if (typeof firstObj[key] === 'object' && firstObj[key] !== null) {
+          result[key] = mergeObjectsWithSecondDominant(
+            firstObj[key],
+            secondObj[key] || {}
+          );
+        } else if (
+          typeof secondObj[key] === 'object' &&
+          secondObj[key] !== null
+        ) {
+          result[key] = mergeObjectsWithSecondDominant(
+            firstObj[key] || {},
+            secondObj[key]
+          );
+        } else {
+          // Use value from the second object if available, else set to undefined
+          result[key] = secondObj.hasOwnProperty(key)
+            ? secondObj[key]
+            : undefined;
+        }
+      });
+      return result;
+    }
+  } else {
+    // Return non-object values directly
+    return firstObj;
+  }
+}
+
 /**
  * A higher-order function that returns a class with theme styles.
  * @param {function} Base - The base class to extend.
@@ -36,14 +93,12 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         super._construct();
         return;
       }
-      super._construct();
 
       this._hSetByUser = false;
       this._wSetByUser = false;
 
       this._styleManager = new StyleManager({ component: this });
       this._style = this._styleManager.style; // Set the style for the first time. After this is will be updated by events
-
       this._updatePropDefaults();
       this._styleManager.on('styleUpdate', () => {
         this._style = this._styleManager.style;
@@ -51,6 +106,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
         this.queueThemeUpdate();
       });
       this._withThemeStylesSetupComplete = true;
+      super._construct(); // Important that this is called at the bottom to ensure that withThemeStyles is only initialized once per component to prevent potential memory leaks
     }
 
     /**
@@ -70,25 +126,35 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       }
     }
 
+    /**
+     * Updates the default properties of the component based on the current theme.
+     * It compares the previous component configuration properties with the current style manager properties,
+     * and updates the component's properties accordingly. If the properties are unchanged, no action is taken.
+     * This method is crucial for ensuring the component's properties are synchronized with the theme.
+     */
     _updatePropDefaults() {
-      // Add support for properties passed through the theme
-      const componentConfigProps = this._styleManager.props || {};
+      // If the current properties are the same as the previous configuration, no update is needed
       if (
-        Object.keys(componentConfigProps).length &&
-        this.constructor.properties &&
-        this.constructor.properties.length
+        JSON.stringify(this._styleManager.props) ===
+        JSON.stringify(this._prevComponentConfigProps)
       ) {
-        Object.keys(componentConfigProps).forEach(key => {
-          if (this.constructor.properties.includes(key)) {
-            this[`_${key}`] =
-              typeof this[`_${key}`] === 'object' &&
-              this[`_${key}`] !== null &&
-              !Array.isArray(this[`_${key}`])
-                ? utils.clone(this[`_${key}`] || {}, componentConfigProps[key])
-                : componentConfigProps[key];
-          }
-        });
+        return;
       }
+      // Compare current properties with previous configuration and get the payload
+      const payload = this._prevComponentConfigProps
+        ? mergeObjectsWithSecondDominant(
+            this._prevComponentConfigProps || {},
+            this._styleManager.props || {}
+          )
+        : this._styleManager.props || {};
+
+      // Store a deep copy of the current properties for future comparison
+      this._prevComponentConfigProps =
+        this._styleManager.props &&
+        JSON.parse(JSON.stringify(this._styleManager.props));
+
+      // This will be used by withUpdates to set defaults
+      this.__componentConfigProps = payload;
     }
 
     /**
@@ -328,8 +394,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._w === v) return;
       super.w = v;
       this._wSetByUser = true;
-      this._styleManager.clearStyleCache();
-      this._styleManager.update();
+      this._updateThemeComponent();
     }
 
     /**
@@ -337,7 +402,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      * @return {number}
      */
     get h() {
-      return (this._hSetByUser && this._h) || this.style?.h || 0;
+      return (this._hSetByUser && this._h) || this.style?.h || this._h || 0;
     }
 
     /**
@@ -348,8 +413,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (this._h === v) return;
       super.h = v;
       this._hSetByUser = true;
-      this._styleManager.clearStyleCache();
-      this._styleManager.update();
+      this._updateThemeComponent();
     }
   };
 }

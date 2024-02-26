@@ -58,7 +58,8 @@ export {
   KeyboardFullscreen,
   KeyboardNumbers,
   KeyboardQwerty,
-  KeyboardInput
+  KeyboardInput,
+  KeyboardSearch
 } from './Keyboard';
 export { default as Knob, KnobStyle } from './Knob';
 export { default as Label, LabelStyle } from './Label';

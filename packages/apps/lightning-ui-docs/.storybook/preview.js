@@ -19,7 +19,7 @@
 // these two lines need to be in this order
 // to wait until the inspector is enabled before attaching it
 import { withLightning } from './addons/decorators/withLightning';
-import { registerEventListeners } from './utils/registerEvents';
+import { registerEventListeners, themeSelect } from './utils/registerEvents';
 import { themes } from '@storybook/theming';
 
 // loads window event listeners
@@ -41,7 +41,11 @@ const preview = {
       sort: 'requiredFirst'
     },
     docs: {
-      theme: themes.dark
+      theme: themes.dark,
+      argTypes: {
+        sort: 'alpha',
+        exclude: ['mode']
+      }
     },
     options: {
       /** NOTE:  v7 storySort must be self-contained function & no reference to outside variables
@@ -117,6 +121,12 @@ const preview = {
       defaultValue: false
     }
   },
-  decorators: [withLightning]
+  decorators: [withLightning],
+  loaders: [
+    async ({ globals }) => {
+      await themeSelect(globals.LUITheme);
+      return;
+    }
+  ]
 };
 export default preview;

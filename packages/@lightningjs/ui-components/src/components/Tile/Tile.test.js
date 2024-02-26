@@ -195,7 +195,7 @@ describe('Tile', () => {
     it('updates artwork scale when imageScale is updated', async () => {
       tile.artwork = { src: sampleImage };
       testRenderer.focus();
-      expect(tile._Artwork.style.imageScale).toBe(tile.style.imageScale); // base theme does not have a image scale change on focus
+      expect(tile._Artwork.style.imageScale).toBe(1); // imageScale for Artwork is 1
       tile.artwork.style = { imageScale: 2 };
       await tile.__updateArtworkSpyPromise;
       expect(tile._Artwork.style.imageScale).toBe(2);
@@ -348,7 +348,8 @@ describe('Tile', () => {
       tile.patch({
         progressBar: { progress: 0.5 },
         metadataLocation: 'inset',
-        metadata: { title: 'test ' }
+        metadata: { title: 'test ' },
+        mode: 'focused'
       });
       testRenderer.forceAllUpdates();
       expect(tile._metadataY).toBe(
@@ -429,7 +430,7 @@ describe('Tile', () => {
     });
 
     it('returns the proper value for gradient when has metadata is in focus and layout is inset', async () => {
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(false);
       // Overwrite _hasMetadata to always be true for test
       Object.defineProperty(tile, '_hasMetadata', {
         get() {
@@ -438,12 +439,12 @@ describe('Tile', () => {
       });
       testRenderer.focus();
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(false);
       tile.progressBar = {
         progress: 0.5
       };
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(true);
       tile.progressBar = {
         progress: 0
       };
@@ -452,17 +453,17 @@ describe('Tile', () => {
       testRenderer.unfocus();
       await tile.__updateSpyPromise;
 
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(false);
       testRenderer.focus();
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(false);
+      expect(tile._shouldShowGradient).toBe(false);
       tile.metadataLocation = 'inset';
       tile.progressBar = {
         progress: 0.7
       };
       testRenderer.focus();
       await tile.__updateSpyPromise;
-      expect(tile._gradient).toBe(true);
+      expect(tile._shouldShowGradient).toBe(true);
     });
   });
 

@@ -23,7 +23,9 @@ import KeyboardQwerty from './KeyboardQwerty.js';
 import KeyboardNumbers from './KeyboardNumbers.js';
 import KeyboardFullscreen from './KeyboardFullscreen.js';
 import KeyboardEmail from './KeyboardEmail.js';
+import KeyboardSearch from './KeyboardSearch.js';
 const createKeyboard = makeCreateComponent(Keyboard);
+const createKeyboardSearch = makeCreateComponent(KeyboardSearch);
 const createKeyboardInput = makeCreateComponent(KeyboardInput);
 const createKeyboardQwerty = makeCreateComponent(KeyboardQwerty);
 const createKeyboardNumbers = makeCreateComponent(KeyboardNumbers);
@@ -42,6 +44,8 @@ describe('Keyboard', () => {
 
   afterEach(() => {
     testRenderer.destroy();
+    keyboard = null;
+    testRenderer = null;
   });
 
   it('renders', () => {
@@ -259,6 +263,15 @@ describe('Keyboard', () => {
     });
     keyboard._whenEnabled.then(() => {
       expect(Object.keys(keyboard.formats)).toHaveLength(5);
+    });
+  });
+
+  it('should create a KeyboardSearch format keyboard which has 1 format', () => {
+    [keyboard, testRenderer] = createKeyboardSearch();
+
+    keyboard._whenEnabled.then(() => {
+      expect(Object.keys(keyboard.formats)).toHaveLength(1);
+      expect(keyboard.defaultFormat).toEqual('uppercase');
     });
   });
 });

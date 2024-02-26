@@ -19,7 +19,7 @@ exports[`CheckboxSmall renders 1`] = `
           "enabled": false,
           "flex": false,
           "flexItem": false,
-          "h": 12,
+          "h": 10,
           "hasFinalFocus": false,
           "hasFocus": false,
           "isComponent": true,

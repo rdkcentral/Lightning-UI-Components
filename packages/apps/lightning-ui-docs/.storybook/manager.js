@@ -45,28 +45,28 @@ addons.register(ids.ADDON_ID, () => {
     match: ({ viewMode }) => viewMode === 'story', // show only in story
     render: Announce
   });
-  //   // Theme Picker
+  // Theme Picker
   addons.add(ids.THEMEPICKER_ID, {
     type: types.TOOL,
     title: 'Theme',
     match: ({ viewMode }) => viewMode === 'story',
     render: ThemePicker
   });
-  //   // Theme Download tool
+  // Theme Download tool
   addons.add(ids.DOWNLOAD_ID, {
     type: types.TOOL,
     title: 'Download Button',
     match: ({ viewMode }) => viewMode === 'story',
     render: ThemeDownload
   });
-  //   // Stage Color Toggle
+  // Stage Color Toggle
   addons.add(ids.STAGECOLOR_ID, {
     type: types.TOOL,
     title: 'Stage Color',
     match: ({ viewMode }) => viewMode === 'story',
     render: StageColor
   });
-  //   // Grid Overlay Panel
+  // Grid Overlay Panel
   addons.add(ids.GRIDOVERLAY_ID, {
     type: types.PANEL,
     title: 'Grid Layout Overlay',
@@ -74,7 +74,7 @@ addons.register(ids.ADDON_ID, () => {
     render: params => GridOverlayPanel(params)
   });
 
-  //   // Component Style Panel
+  // Component Style Panel
   addons.add(ids.COMPONENTSTYLES_ID, {
     type: types.PANEL,
     title: 'Component Style Theme Values',
@@ -82,7 +82,7 @@ addons.register(ids.ADDON_ID, () => {
     render: params => ComponentStylesPanel(params)
   });
 
-  //   // Global Theme Panel
+  // Global Theme Panel
   addons.add(ids.THEMEPANEL_ID, {
     type: types.PANEL,
     title: 'Global Theme Values',

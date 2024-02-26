@@ -132,7 +132,7 @@ export function getShortestDistance(coordinate, element) {
   return Math.min(distanceToStart, distanceToMiddle, distanceToEnd);
 }
 
-export function isComponentOnScreen(component) {
+export function isComponentOnScreen(component, offsets = {}) {
   if (!component) return false;
 
   const {
@@ -143,8 +143,29 @@ export function isComponentOnScreen(component) {
   const stageH = component.stage.h / component.stage.getRenderPrecision();
   const stageW = component.stage.w / component.stage.getRenderPrecision();
 
-  const wVis = px >= 0 && px + w <= stageW;
-  const hVis = py >= 0 && py + h <= stageH;
+  let finalX = px;
+  let finalY = py;
+  // keep track of the different between the the absolute world position and relative position
+  const relativeOffsetX = px - component.x;
+  const relativeOffsetY = py - component.y;
+  const offsetX = offsets.offsetX - relativeOffsetX || 0;
+  const offsetY = offsets.offsetY - relativeOffsetY || 0;
+  // if the current component is animating, apply the relative offset to the transition value
+  if (component.transition('x')) {
+    finalX = px - component.x + component.transition('x').targetValue;
+  }
+  if (component.transition('y')) {
+    finalY = py - component.y + component.transition('y').targetValue;
+  }
+  // apply any offset passed into the function
+  // this is mainly used to parent components that are transitioning,
+  // like in the case of Rows nested inside of Columns where the Rows themselves do not animate,
+  // but their parent container does
+  finalX += offsetX;
+  finalY += offsetY;
+
+  const wVis = finalX >= 0 && finalX + w <= stageW;
+  const hVis = finalY >= 0 && finalY + h <= stageH;
 
   if (!wVis || !hVis) return false;
 
@@ -157,12 +178,13 @@ export function isComponentOnScreen(component) {
     ] = scissor;
 
     const withinLeftClippingBounds =
-      Math.round(px + w) >= Math.round(leftBounds);
+      Math.round(finalX + w) >= Math.round(leftBounds);
     const withinRightClippingBounds =
-      Math.round(px) <= Math.round(leftBounds + clipWidth);
-    const withinTopClippingBounds = Math.round(py + h) >= Math.round(topBounds);
+      Math.round(finalX) <= Math.round(leftBounds + clipWidth);
+    const withinTopClippingBounds =
+      Math.round(finalY + h) >= Math.round(topBounds);
     const withinBottomClippingBounds =
-      Math.round(py + h) <= Math.round(topBounds + clipHeight);
+      Math.round(finalY + h) <= Math.round(topBounds + clipHeight);
 
     return (
       withinLeftClippingBounds &&

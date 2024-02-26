@@ -57,7 +57,8 @@ export default class NavigationManager extends FocusManager {
       'autoResizeWidth',
       'autoResizeHeight',
       'lazyUpCount',
-      'lazyUpCountBuffer'
+      'lazyUpCountBuffer',
+      'waitForDimensions'
     ];
   }
 
@@ -113,10 +114,19 @@ export default class NavigationManager extends FocusManager {
     let maxCrossDimensionSize = 0;
     let maxInnerCrossDimensionSize = 0;
     const childrenToCenter = [];
+    const loadingChildren = [];
 
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
       const childCrossDimensionSize = this._calcCrossDimensionSize(child);
+
+      if (
+        this.waitForDimensions &&
+        (!childCrossDimensionSize || !child[lengthDimension])
+      ) {
+        loadingChildren.push(child);
+      }
+
       maxCrossDimensionSize = max(
         maxCrossDimensionSize,
         childCrossDimensionSize
@@ -156,6 +166,10 @@ export default class NavigationManager extends FocusManager {
     const itemChanged =
       this.Items[crossDimension] !== maxCrossDimensionSize ||
       this.Items[lengthDimension] !== nextPosition;
+
+    if (this.waitForDimensions) {
+      this.Items.alpha = loadingChildren.length ? 0.001 : 1;
+    }
 
     this.Items.patch({
       [crossDimension]: maxCrossDimensionSize,
@@ -498,5 +512,18 @@ export default class NavigationManager extends FocusManager {
     return this._scrollIndex !== undefined
       ? this._scrollIndex
       : this.style.scrollIndex;
+  }
+
+  isFullyOnScreen({ offsetX = 0, offsetY = 0 } = {}) {
+    // if the NavigationManager is nested in another Focus Manager
+    // (like a Row inside of a Column),
+    // the `isComponentOnScreen` method needs to account for
+    // how much the Items container is moving as it scrolls
+    const focusmanager = this.parent?.parent;
+    if (focusmanager instanceof FocusManager) {
+      offsetX += focusmanager.Items.transition('x').targetValue || 0;
+      offsetY += focusmanager.Items.transition('y').targetValue || 0;
+    }
+    return super.isFullyOnScreen({ offsetX, offsetY });
   }
 }

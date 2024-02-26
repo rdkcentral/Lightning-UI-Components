@@ -19,3 +19,7 @@
 export { default as Table } from './Table.js';
 export { default as TableRow } from './TableRow';
 export { default as NumberRow } from './NumberRow';
+export { default as ColorRow } from './ColorRow.js';
+export { default as ToneRow } from './ToneRow.js';
+export { default as ResetButton } from './ResetButton.js';
+export { default as ComponentStylesContent } from './ComponentStylesContent.js';

@@ -24,22 +24,30 @@ The following is a set of guidelines for contributing to `@lightningjs/ui-compon
 
 ## Table of Contents
 
-- [I don't want to read this whole thing I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
-- [How Can I Contribute?](#how-can-i-contribute)
-  - [Reporting Bugs](#reporting-bugs)
-  - [Suggesting Enhancements](#suggesting-enhancements)
-  - [Your First Code Contribution](#your-first-code-contribution)
-  - [Pull Requests](#pull-requests)
-- [Style Guides](#style-guides)
-  - [TypeScript](#typescript)
-  - [Git Commit Messages](#git-commit-messages)
-  - [JavaScript Style Guide](#javascript-style-guide)
-  - [Test Style Guide](#test-style-guide)
-  - [Documentation Style Guide](#documentation-style-guide)
-    - [Live Examples](#live-examples)
-    - [Storybook](#storybook)
-    - [Usage Documentation](#usage-documentation)
-    - [API Documentation](#api-documentation)
+- [Contributing to `@lightningjs/ui-components`](#contributing-to-lightningjsui-components)
+  - [Table of Contents](#table-of-contents)
+  - [I don't want to read this whole thing I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
+  - [How Can I Contribute?](#how-can-i-contribute)
+    - [Reporting Bugs](#reporting-bugs)
+      - [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
+    - [Suggesting Enhancements](#suggesting-enhancements)
+      - [Before Submitting An Enhancement Suggestion](#before-submitting-an-enhancement-suggestion)
+      - [How Do I Submit A (Good) Enhancement Suggestion?](#how-do-i-submit-a-good-enhancement-suggestion)
+    - [Your First Code Contribution](#your-first-code-contribution)
+  - [Installation](#installation)
+    - [Installing dependencies](#installing-dependencies)
+    - [Starting the project](#starting-the-project)
+  - [New component](#new-component)
+    - [Requirements](#requirements)
+    - [Development](#development)
+    - [Pull Requests](#pull-requests)
+  - [Style Guides](#style-guides)
+    - [TypeScript](#typescript)
+    - [Git Commit Messages](#git-commit-messages)
+    - [JavaScript Style Guide](#javascript-style-guide)
+    - [Test Style Guide](#test-style-guide)
+  - [`spyOnMethods`](#spyonmethods)
+    - [Documentation Style Guide](#documentation-style-guide)
 
 ## I don't want to read this whole thing I just have a question!!!
 
@@ -160,16 +168,19 @@ Before a new component will be reviewed, it must meet the following prerequisite
 If you are creating a new component, you can bootstrap the required file structure with:
 
 ```sh
-yarn createComponent <packageName> <componentName>
+yarn createComponent <packageName> <componentName> <parentName>
 ```
 
 - `packageName`: name of which package the component will be published to (`@lightningjs/ui-components` or `@lightningjs/ui-components`)
 - `componentName`: name of component to be added
+- `parentName`: name of parent component the new components extends
+
+If `parentName` is left out, the component's doc will reference an `undefined` component which can either be changed to reference another component or deleted
 
 Example: add a new component, `MyComponent`, to the `@lightningjs/ui-components` package
 
 ```sh
-yarn createComponent @lightningjs/ui-components MyComponent
+yarn createComponent @lightningjs/ui-components MyComponent ParentComponent
 ```
 
 This will create the following files:
@@ -360,7 +371,7 @@ Storybook will generate an ID for each story that follows the pattern `component
 **Storybook**
 <a id="storybook" />
 
-This section is dedicated to some specifics around our implementation of [Storybook](https://storybook.js.org), which is using Storybook v6.0. If you are new to Storybook (or even 6.0), we highly recommend you check out their [updated documentation](https://storybook.js.org/docs/react/writing-stories/introduction).
+This section is dedicated to some specifics around our implementation of [Storybook](https://storybook.js.org), which is using Storybook v7.5. If you are new to Storybook (or even 7), we highly recommend you check out their [Get Started documentation](https://storybook.js.org/docs/7.5/get-started/whats-a-story).
 
 You can add interactivity to your documentation with **args**. For the purposes of this project, you will likely only encounter **actions** and **controls**. We're going to walk through a simple example to illustrate the concepts that are necessary to understand for writing stories in the project.
 
@@ -426,7 +437,7 @@ Let's break down **argTypes** first. Defining **argTypes** on the story function
 
 Shifting focus to **args**, we can see that we have a definition for `'title'` but not for `'onEnter'`. Setting the **args** object on a story function tells Storybook what the _default values_ will be for controls defined in **argTypes**.
 
-Check out the [args docs](https://storybook.js.org/docs/react/writing-stories/args) and [essential addons docs](https://storybook.js.org/docs/react/essentials/introduction) for additional details.
+Check out the [args docs](https://storybook.js.org/docs/7.5/writing-stories/args) and [Controls Essential addon docs](https://storybook.js.org/docs/7.5/essentials/controls) for additional details.
 
 Now, let's say you want to execute some side effect when an arg value changes. To do this, we're going to introduce a new concept that _is not explicitly a part of Storybook_, `parameters.argActions`.
 
@@ -461,15 +472,18 @@ Usage documentation lives in `<Type>/<Component>/<Component>.mdx`. [MDX](https:/
 If you generated a new component with `yarn createComponent`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding usage steps should look like this example:
 
 ```js
-import { Canvas, Story } from '@storybook/addon-docs';
-import <Component> from '.';
+import { Meta, Title, ArgTypes, Description } from '@storybook/blocks';
+import * as ComponentNameStories from './ComponentNameStories.stories';
 
-// title, description, etc. (eg # <Component>)
+<Meta of={ComponentNameStories} />
+
+<Title /> /* this will be the H1 on the page */
+
+<Description /> /* taken from JS Doc in Story */
 
 ## Usage
 
 Implementation description here
-
 
 // example implementation
 import lng from '@lightningjs/core';
@@ -482,20 +496,12 @@ class Example extends lng.Component {
     };
   }
 }
-
-// Embed live example from Storybook
-<Canvas>
-  <Story id="mycomponent--basic" />
-</Canvas>
 ```
-
-The `<Canvas>` component will supply the source code for the `<Story>` inside, so only use code blocks when you want to illustrate something explicit without an example. The `id` value for `<Story>` can be derived from the URL path of the story you are trying to embed.
 
 In summary, documenting usage is as follows:
 
 - description of usage
-- [optional] implementation code block and/or
-- [optional] Storybook example
+- [optional] implementation code block
 
 Repeat this pattern for as many usage variations as you see fit.
 
@@ -506,24 +512,26 @@ API documentation lives in `<Type>/<Component>/<Component>.mdx`, below [usage do
 
 If you generated a new component with `yarn createComponent`, a template layout should exist for your component. If you are contributing to an existing component, follow the patterns established there. Adding API documentation should follow this pattern:
 
-```
+```mdx
 ## API
+
+### Parent Properties
+
+ComponentName has the same properties as [ParentComponentName](?path=/docs/components-parentName--docs)
+
+<ArgTypes of={ParentNameStories.parentName} exclude={['mode']} />
 
 ### Properties
 
-name|type|required|default|description
--|-|-|-
--|-|-|-
+<ArgTypes of={ComponentNameStories.Basic} exclude={['mode']} />
 
 ### Methods
 
 #### methodName(argument:type): returnValue | void
 
-description
+### Style Properties
 
-##### Arguments
-
-name|type|required|default|description
--|-|-|-|-
--|-|-|-|-
+| name | type | required | default | description |
+| ---- | ---- | -------- | ------- | ----------- |
+| -    | -    | -        | -       | -           |
 ```

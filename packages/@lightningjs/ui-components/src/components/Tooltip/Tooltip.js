@@ -64,6 +64,7 @@ export default class Tooltip extends Base {
 
   _update() {
     this._updateText();
+    this._updateBackground();
   }
 
   _updateText() {
@@ -76,15 +77,38 @@ export default class Tooltip extends Base {
   }
 
   _textLoaded() {
-    this._updateBackground();
+    this._updateBackgroundHeight();
     this._updateTextPosition();
   }
 
+  /**
+   * patches Background prop updates
+   */
   _updateBackground() {
+    this.patch({
+      Background: {
+        w: this._Background.w,
+        h: this._Background.h,
+        texture: {
+          type: Bubble,
+          w: this._Background.w,
+          h: this._Background.h,
+          radius: this.style.radius,
+          pointerWidth: this.style.pointerWidth,
+          pointerHeight: this.style.pointerHeight,
+          color: this.style.backgroundColor
+        }
+      }
+    });
+  }
+
+  /**
+   * updates height of background when text height or width is changed
+   */
+  _updateBackgroundHeight() {
     const backgroundH =
       this._Text.finalH + this.style.paddingY * 2 + this.style.pointerHeight;
     const backgroundW = this._Text.finalW + this.style.paddingX * 2;
-
     this.patch({
       w: backgroundW,
       h: backgroundH,
@@ -96,11 +120,7 @@ export default class Tooltip extends Base {
         texture: {
           type: Bubble,
           w: backgroundW,
-          h: backgroundH,
-          radius: this.style.radius,
-          pointerWidth: this.style.pointerWidth,
-          pointerHeight: this.style.pointerHeight,
-          color: this.style.backgroundColor
+          h: backgroundH
         }
       }
     });

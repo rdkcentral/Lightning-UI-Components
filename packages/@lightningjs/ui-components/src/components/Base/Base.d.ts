@@ -103,7 +103,7 @@ declare class Base<
   /**
    * returns true if this component is fully within the stage and boundsMargin
    */
-  isFullyOnScreen(): boolean;
+  isFullyOnScreen(offsets: { offsetX: number; offsetY: number }): boolean;
 
   // TODO: for future reference these accessors should technically be public
   /**

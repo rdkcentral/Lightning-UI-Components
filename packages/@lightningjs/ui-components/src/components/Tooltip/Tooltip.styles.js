@@ -17,14 +17,14 @@
  */
 
 export const base = theme => ({
-  marginBottom: theme.spacer.xxxl,
+  marginBottom: theme.spacer.xl,
   paddingX: theme.spacer.lg,
   paddingY: theme.spacer.md,
-  pointerWidth: theme.spacer.xl,
-  pointerHeight: theme.spacer.md + theme.spacer.xs,
-  radius: theme.radius.md,
+  pointerWidth: theme.spacer.xxl,
+  pointerHeight: theme.spacer.lg,
+  radius: theme.radius.sm,
   textStyle: {
-    ...theme.typography.caption1,
+    ...theme.typography.body3,
     textColor: theme.color.textInverse
   },
   transition: theme.animation.utility // TODO: should delay and duration be xfast?

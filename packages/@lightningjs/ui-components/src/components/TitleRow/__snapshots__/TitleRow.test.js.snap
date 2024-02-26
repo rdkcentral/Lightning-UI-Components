@@ -9,7 +9,7 @@ exports[`TitleRow renders 1`] = `
       "attached": true,
       "boundsMargin": null,
       "children": {
-        "Element-16": {
+        "Element-14": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -44,7 +44,7 @@ exports[`TitleRow renders 1`] = `
           "y": 0,
           "zIndex": 0,
         },
-        "Element-17": {
+        "Element-15": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -79,7 +79,7 @@ exports[`TitleRow renders 1`] = `
           "y": 0,
           "zIndex": 0,
         },
-        "Element-18": {
+        "Element-16": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -114,7 +114,7 @@ exports[`TitleRow renders 1`] = `
           "y": 0,
           "zIndex": 0,
         },
-        "Element-19": {
+        "Element-17": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -149,7 +149,7 @@ exports[`TitleRow renders 1`] = `
           "y": 0,
           "zIndex": 0,
         },
-        "Element-20": {
+        "Element-18": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -184,7 +184,7 @@ exports[`TitleRow renders 1`] = `
           "y": 0,
           "zIndex": 0,
         },
-        "Element-21": {
+        "Element-19": {
           "active": true,
           "alpha": 1,
           "attached": true,
@@ -219,7 +219,7 @@ exports[`TitleRow renders 1`] = `
           "y": 0,
           "zIndex": 0,
         },
-        "Element-22": {
+        "Element-20": {
           "active": true,
           "alpha": 1,
           "attached": true,

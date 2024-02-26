@@ -64,7 +64,8 @@ export const Column = args =>
             context.theme.layout.screenH -
             2 * (context.theme.layout.marginY + context.theme.layout.gutterY),
           scrollIndex: args.scrollIndex,
-          items: createItems(Button, 20)
+          items: createItems(Button, 20),
+          waitForDimensions: args.waitForDimensions
         }
       };
     }
@@ -73,7 +74,8 @@ export const Column = args =>
 Column.args = {
   scroll: 1,
   scrollIndex: 0,
-  alwaysScroll: false
+  alwaysScroll: false,
+  waitForDimensions: false
 };
 
 Column.argTypes = {
@@ -93,6 +95,12 @@ Column.argTypes = {
     control: 'boolean',
     description:
       'Determines whether the column will stop scrolling as it nears the bottom to prevent white space',
+    table: { defaultValue: { summary: false } }
+  },
+  waitForDimensions: {
+    control: 'boolean',
+    description:
+      "If true, the Column will wait for all child elements' w and h to be set before displaying the Column",
     table: { defaultValue: { summary: false } }
   }
 };

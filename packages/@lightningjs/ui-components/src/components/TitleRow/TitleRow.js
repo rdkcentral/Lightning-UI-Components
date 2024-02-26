@@ -30,24 +30,16 @@ export default class TitleRow extends Row {
     return styles;
   }
 
-  static _template() {
-    return {
-      Title: {
-        type: TextBox,
-        signals: {
-          textBoxChanged: '_titleLoaded'
-        }
-      },
-      ...super._template()
-    };
-  }
-
   static get properties() {
     return [...super.properties, 'title'];
   }
 
   static get tags() {
     return [...super.tags, 'Title'];
+  }
+
+  static get aliasStyles() {
+    return [{ prev: 'rowMarginTop', curr: 'titleMarginBottom' }];
   }
 
   _titleLoaded() {
@@ -71,23 +63,33 @@ export default class TitleRow extends Row {
   }
 
   _updateTitle() {
-    if (this.title) {
-      this._Title.patch({
-        x: this.style.titleMarginLeft,
-        content: this.title,
-        style: { textStyle: this.style.titleTextStyle }
-      });
-    } else if (this._Title) {
-      this._Title.patch({
-        h: 0,
-        content: ''
-      });
+    if (!this.title) {
+      if (this._Title) {
+        this.patch({ Title: undefined });
+      }
+      return;
     }
+
+    let titlePatch = {
+      x: this.style.titleMarginLeft,
+      content: this.title,
+      style: { textStyle: this.style.titleTextStyle }
+    };
+    if (!this._Title) {
+      titlePatch = {
+        type: TextBox,
+        signals: {
+          textBoxChanged: '_titleLoaded'
+        },
+        ...titlePatch
+      };
+    }
+    this.patch({ Title: titlePatch });
   }
 
   _updateRow() {
-    this.Items.patch({
-      y: this._Title.finalH + this.style.rowMarginTop
+    this.applySmooth(this.Items, {
+      y: this.title ? this._Title.finalH + this.style.titleMarginBottom : 0
     });
   }
 

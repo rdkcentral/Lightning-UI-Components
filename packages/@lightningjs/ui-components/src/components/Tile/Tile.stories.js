@@ -78,7 +78,7 @@ Tile.argTypes = {
   },
   logo: {
     control: 'select',
-    options: [xfinityLogo, 'null'],
+    options: [xfinityLogo, null],
     description: 'Icon source',
     table: {
       defaultValue: { summary: 'undefined' }

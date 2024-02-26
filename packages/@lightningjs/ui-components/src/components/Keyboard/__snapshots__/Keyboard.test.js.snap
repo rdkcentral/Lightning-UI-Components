@@ -11,7 +11,7 @@ exports[`Keyboard renders 1`] = `
       "children": {
         "Items": {
           "active": false,
-          "alpha": 1,
+          "alpha": 0.001,
           "attached": true,
           "boundsMargin": null,
           "children": {
@@ -23,7 +23,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -130,7 +130,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -368,7 +367,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -606,7 +604,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -844,7 +841,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -1082,7 +1078,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -1320,7 +1315,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -1558,7 +1552,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -1796,7 +1789,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -2034,7 +2026,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -2272,7 +2263,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -2510,7 +2500,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 130,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -2715,7 +2704,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -2822,7 +2811,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 210,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -3060,7 +3048,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 450,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -3160,7 +3147,7 @@ exports[`Keyboard renders 1`] = `
                           ],
                           "visible": true,
                           "w": 0,
-                          "x": 235,
+                          "x": 155,
                           "y": 45,
                           "zIndex": 2,
                         },
@@ -3190,7 +3177,7 @@ exports[`Keyboard renders 1`] = `
                       "tag": [Function],
                       "type": "Key",
                       "visible": true,
-                      "w": 470,
+                      "w": 310,
                       "x": 10,
                       "y": 0,
                       "zIndex": 0,
@@ -3298,7 +3285,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 210,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -3503,7 +3489,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -3610,7 +3596,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -3848,7 +3833,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -4086,7 +4070,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -4324,7 +4307,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -4562,7 +4544,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -4800,7 +4781,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -5038,7 +5018,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -5276,7 +5255,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -5514,7 +5492,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -5752,7 +5729,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -5990,7 +5966,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 130,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -6195,7 +6170,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -6302,7 +6277,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -6540,7 +6514,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -6778,7 +6751,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -7016,7 +6988,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -7254,7 +7225,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -7492,7 +7462,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -7730,7 +7699,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -7968,7 +7936,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -8206,7 +8173,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -8709,7 +8675,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4279769113,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -8810,7 +8775,7 @@ exports[`Keyboard renders 1`] = `
                           "visible": true,
                           "w": 0,
                           "x": 35,
-                          "y": [Function],
+                          "y": 45,
                           "zIndex": 2,
                         },
                       },
@@ -8914,7 +8879,7 @@ exports[`Keyboard renders 1`] = `
               "children": {
                 "Items": {
                   "active": false,
-                  "alpha": 1,
+                  "alpha": 0.001,
                   "attached": true,
                   "boundsMargin": null,
                   "children": {
@@ -9021,7 +8986,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -9259,7 +9223,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -9497,7 +9460,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 130,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -9735,7 +9697,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -9973,7 +9934,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -10211,7 +10171,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -10449,7 +10408,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -10687,7 +10645,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -10925,7 +10882,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -11163,7 +11119,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -11401,7 +11356,6 @@ exports[`Keyboard renders 1`] = `
                                         "textColor": 4294506490,
                                         "type": "TextTexture",
                                         "verticalAlign": "middle",
-                                        "wordWrapWidth": 50,
                                       },
                                       "visible": true,
                                       "w": 0,
@@ -11871,7 +11825,7 @@ exports[`KeyboardInput renders 1`] = `
                   "visible": true,
                   "w": 0,
                   "x": 30,
-                  "y": [Function],
+                  "y": 0,
                   "zIndex": 2,
                 },
                 "Eyebrow": {
@@ -11947,7 +11901,7 @@ exports[`KeyboardInput renders 1`] = `
                   "visible": true,
                   "w": 0,
                   "x": 30,
-                  "y": 122,
+                  "y": 130,
                   "zIndex": 0,
                 },
               },
@@ -11956,7 +11910,7 @@ exports[`KeyboardInput renders 1`] = `
               "enabled": true,
               "flex": false,
               "flexItem": false,
-              "h": 92,
+              "h": 100,
               "hasFinalFocus": true,
               "hasFocus": true,
               "isComponent": true,
@@ -11998,11 +11952,11 @@ exports[`KeyboardInput renders 1`] = `
                   "children": {
                     "Items": {
                       "active": false,
-                      "alpha": 1,
+                      "alpha": 0.001,
                       "attached": true,
                       "boundsMargin": null,
                       "children": {
-                        "Element-8236": {
+                        "Element-8840": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -12010,11 +11964,11 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-8238": {
+                                "Element-8842": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -12117,7 +12071,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -12252,7 +12205,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8241": {
+                                "Element-8845": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -12355,7 +12308,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -12490,7 +12442,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8244": {
+                                "Element-8848": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -12593,7 +12545,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -12728,7 +12679,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8247": {
+                                "Element-8851": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -12831,7 +12782,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -12966,7 +12916,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8250": {
+                                "Element-8854": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -13069,7 +13019,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -13204,7 +13153,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8253": {
+                                "Element-8857": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -13307,7 +13256,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -13442,7 +13390,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8256": {
+                                "Element-8860": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -13545,7 +13493,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -13680,7 +13627,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8259": {
+                                "Element-8863": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -13783,7 +13730,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -13918,7 +13864,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8262": {
+                                "Element-8866": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -14021,7 +13967,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -14156,7 +14101,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8265": {
+                                "Element-8869": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -14259,7 +14204,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -14394,7 +14338,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8268": {
+                                "Element-8872": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -14456,7 +14400,7 @@ exports[`KeyboardInput renders 1`] = `
                                               "attached": true,
                                               "boundsMargin": null,
                                               "children": {
-                                                "Element-8419": {
+                                                "Element-9023": {
                                                   "active": false,
                                                   "alpha": 1,
                                                   "attached": true,
@@ -14721,7 +14665,7 @@ exports[`KeyboardInput renders 1`] = `
                           "y": 0,
                           "zIndex": 0,
                         },
-                        "Element-8271": {
+                        "Element-8875": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -14729,11 +14673,11 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-8273": {
+                                "Element-8877": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -14836,7 +14780,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -14971,7 +14914,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8276": {
+                                "Element-8880": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -15074,7 +15017,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -15209,7 +15151,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8279": {
+                                "Element-8883": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -15312,7 +15254,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -15447,7 +15388,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8282": {
+                                "Element-8886": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -15550,7 +15491,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -15685,7 +15625,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8285": {
+                                "Element-8889": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -15788,7 +15728,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -15923,7 +15862,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8288": {
+                                "Element-8892": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16026,7 +15965,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -16161,7 +16099,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8291": {
+                                "Element-8895": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16264,7 +16202,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -16399,7 +16336,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8294": {
+                                "Element-8898": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16502,7 +16439,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -16637,7 +16573,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8297": {
+                                "Element-8901": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16740,7 +16676,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -16875,7 +16810,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8300": {
+                                "Element-8904": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -16978,7 +16913,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -17113,7 +17047,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8303": {
+                                "Element-8907": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -17216,7 +17150,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 130,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -17413,7 +17346,7 @@ exports[`KeyboardInput renders 1`] = `
                           "y": 10,
                           "zIndex": 0,
                         },
-                        "Element-8306": {
+                        "Element-8910": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -17421,11 +17354,11 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-8308": {
+                                "Element-8912": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -17528,7 +17461,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -17663,7 +17595,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8311": {
+                                "Element-8915": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -17766,7 +17698,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -17901,7 +17832,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8314": {
+                                "Element-8918": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18004,7 +17935,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -18139,7 +18069,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8317": {
+                                "Element-8921": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18242,7 +18172,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -18377,7 +18306,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8320": {
+                                "Element-8924": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18480,7 +18409,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -18615,7 +18543,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8323": {
+                                "Element-8927": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18718,7 +18646,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -18853,7 +18780,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8326": {
+                                "Element-8930": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -18956,7 +18883,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -19091,7 +19017,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8329": {
+                                "Element-8933": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -19194,7 +19120,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -19329,7 +19254,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8332": {
+                                "Element-8936": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -19432,7 +19357,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -19567,7 +19491,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8335": {
+                                "Element-8939": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -19670,7 +19594,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -19805,7 +19728,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8338": {
+                                "Element-8942": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -19908,7 +19831,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 130,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -20105,7 +20027,7 @@ exports[`KeyboardInput renders 1`] = `
                           "y": 20,
                           "zIndex": 0,
                         },
-                        "Element-8341": {
+                        "Element-8945": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -20113,11 +20035,11 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-8343": {
+                                "Element-8947": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -20220,7 +20142,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -20355,7 +20276,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8346": {
+                                "Element-8950": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -20458,7 +20379,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -20593,7 +20513,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8349": {
+                                "Element-8953": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -20696,7 +20616,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -20831,7 +20750,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8352": {
+                                "Element-8956": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -20934,7 +20853,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -21069,7 +20987,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8355": {
+                                "Element-8959": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -21172,7 +21090,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -21307,7 +21224,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8358": {
+                                "Element-8962": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -21410,7 +21327,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -21545,7 +21461,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8361": {
+                                "Element-8965": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -21648,7 +21564,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -21783,7 +21698,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8364": {
+                                "Element-8968": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -21886,7 +21801,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -22021,7 +21935,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8367": {
+                                "Element-8971": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -22124,7 +22038,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -22259,7 +22172,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8370": {
+                                "Element-8974": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -22362,7 +22275,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 50,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -22497,7 +22409,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8373": {
+                                "Element-8977": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -22600,7 +22512,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 130,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -22797,7 +22708,7 @@ exports[`KeyboardInput renders 1`] = `
                           "y": 30,
                           "zIndex": 0,
                         },
-                        "Element-8376": {
+                        "Element-8980": {
                           "active": false,
                           "alpha": 1,
                           "attached": true,
@@ -22805,11 +22716,11 @@ exports[`KeyboardInput renders 1`] = `
                           "children": {
                             "Items": {
                               "active": false,
-                              "alpha": 1,
+                              "alpha": 0.001,
                               "attached": true,
                               "boundsMargin": null,
                               "children": {
-                                "Element-8378": {
+                                "Element-8982": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -22912,7 +22823,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 210,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -23047,7 +22957,7 @@ exports[`KeyboardInput renders 1`] = `
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8381": {
+                                "Element-8985": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -23150,7 +23060,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 450,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -23250,7 +23159,7 @@ exports[`KeyboardInput renders 1`] = `
                                       ],
                                       "visible": true,
                                       "w": 0,
-                                      "x": 235,
+                                      "x": 155,
                                       "y": 45,
                                       "zIndex": 2,
                                     },
@@ -23280,12 +23189,12 @@ exports[`KeyboardInput renders 1`] = `
                                   "tag": [Function],
                                   "type": "Key",
                                   "visible": true,
-                                  "w": 470,
+                                  "w": 310,
                                   "x": 10,
                                   "y": 0,
                                   "zIndex": 0,
                                 },
-                                "Element-8384": {
+                                "Element-8988": {
                                   "active": false,
                                   "alpha": 1,
                                   "attached": true,
@@ -23388,7 +23297,6 @@ exports[`KeyboardInput renders 1`] = `
                                                     "textColor": 4294506490,
                                                     "type": "TextTexture",
                                                     "verticalAlign": "middle",
-                                                    "wordWrapWidth": 210,
                                                   },
                                                   "visible": true,
                                                   "w": 0,
@@ -23681,7 +23589,7 @@ exports[`KeyboardInput renders 1`] = `
               "visible": true,
               "w": 1920,
               "x": 0,
-              "y": 202,
+              "y": 110,
               "zIndex": 0,
             },
           },
@@ -23690,7 +23598,7 @@ exports[`KeyboardInput renders 1`] = `
           "enabled": true,
           "flex": false,
           "flexItem": false,
-          "h": 202,
+          "h": 110,
           "isComponent": undefined,
           "mount": 0,
           "mountX": 0,

@@ -40,7 +40,7 @@ export default class ScrollWrapper extends Base {
         type: ScrollSlider,
         vertical: true,
         signals: {
-          onChange: '_updateScrollContainerSize'
+          onSizeChange: '_updateScrollContainerSize'
         },
         announce: ' '
       }
@@ -326,7 +326,7 @@ export default class ScrollWrapper extends Base {
     return content;
   }
 
-  _updateScrollContainerSize(sliderValue, slider) {
+  _updateScrollContainerSize(slider) {
     if (this._sliderWidth !== slider._Container.h) {
       this._sliderWidth = slider._Container.h;
       this._updateScrollContainer();
