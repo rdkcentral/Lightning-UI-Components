@@ -228,9 +228,11 @@ export default class NavigationManager extends FocusManager {
       return;
     }
 
-    const scrollOffset = (this.Items.children[this.scrollIndex] || {
-      [axis]: 0
-    })[axis];
+    const itemPos = this._isRow ? this.itemPosX : this.itemPosY;
+    const scrollOffset =
+      (this.Items.children[this.scrollIndex] || {
+        [axis]: 0
+      })[axis] + itemPos;
     const lastChild = this.Items.childList.last;
     const endOfLastChild = lastChild
       ? this._calcAxisPosition(lastChild) + lastChild[lengthDimension]
@@ -455,7 +457,10 @@ export default class NavigationManager extends FocusManager {
     }
 
     const itemsStartCoord = this._isRow ? this._itemsX : this._itemsY;
-    return itemsStartCoord < 0 && shouldScroll;
+    return (
+      itemsStartCoord < (this._isRow ? this.itemPosX : this.itemPosY) &&
+      shouldScroll
+    );
   }
 
   get _canScrollNext() {
@@ -467,7 +472,7 @@ export default class NavigationManager extends FocusManager {
       endOfItemsPosition = Math.abs(this._itemsX - this.w);
     }
     if (this._isColumn) {
-      endOfItemsPosition = Math.abs(this.itemPosY - this.h);
+      endOfItemsPosition = Math.abs(this._itemsY - this.h);
     }
 
     return (
@@ -487,6 +492,10 @@ export default class NavigationManager extends FocusManager {
 
   get _itemsX() {
     return getX(this.Items);
+  }
+
+  get _itemsY() {
+    return getY(this.Items);
   }
 
   _getAlwaysScroll() {
