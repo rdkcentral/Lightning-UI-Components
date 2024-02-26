@@ -58,8 +58,11 @@ export default class Column extends NavigationManager {
   }
 
   _shouldScroll() {
-    let shouldScroll = this.alwaysScroll;
-    if (!shouldScroll && !this.neverScroll) {
+    if (this.alwaysScroll) {
+      return true;
+    }
+    let shouldScroll = false;
+    if (!this.neverScroll) {
       const isCompletelyOnScreen = this._isOnScreenForScrolling(this.selected);
       const lastChild = this.Items.childList.last;
       shouldScroll =

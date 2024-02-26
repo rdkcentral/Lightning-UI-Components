@@ -75,18 +75,19 @@ export default class Row extends NavigationManager {
   _shouldScroll() {
     const prevIndex = this.Items.childList.getIndex(this.prevSelected);
     if (
-      this.lazyScroll &&
-      (this.selectedIndex < this.startLazyScrollIndex ||
-        this.selectedIndex > this.stopLazyScrollIndex ||
-        (prevIndex < this.startLazyScrollIndex &&
-          this.selectedIndex === this.startLazyScrollIndex) ||
-        (prevIndex > this.stopLazyScrollIndex &&
-          this.selectedIndex === this.stopLazyScrollIndex))
+      this.alwaysScroll ||
+      (this.lazyScroll &&
+        (this.selectedIndex < this.startLazyScrollIndex ||
+          this.selectedIndex > this.stopLazyScrollIndex ||
+          (prevIndex < this.startLazyScrollIndex &&
+            this.selectedIndex === this.startLazyScrollIndex) ||
+          (prevIndex > this.stopLazyScrollIndex &&
+            this.selectedIndex === this.stopLazyScrollIndex)))
     ) {
       return true;
     }
 
-    let shouldScroll = this.alwaysScroll || this._selectedPastAdded;
+    let shouldScroll = this._selectedPastAdded;
     if (!shouldScroll && !this.neverScroll) {
       const isCompletelyOnScreen = this._isOnScreenForScrolling(this.selected);
 
