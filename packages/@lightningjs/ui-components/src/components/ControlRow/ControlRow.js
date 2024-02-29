@@ -71,8 +71,7 @@ export default class ControlRow extends TitleRow {
         items: itemsToAppend,
         selectedIndex: this.leftControls.length,
         startLazyScrollIndex: this.leftControls.length,
-        stopLazyScrollIndex:
-          this.leftControls.length + this.contentItems.length - 1
+        stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
       });
     }
   }
@@ -144,8 +143,7 @@ export default class ControlRow extends TitleRow {
     }
 
     this.patch({
-      stopLazyScrollIndex:
-        this.leftControls.length + this.contentItems.length - 1
+      stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
     });
   }
 
@@ -163,8 +161,7 @@ export default class ControlRow extends TitleRow {
       }
 
       this.patch({
-        stopLazyScrollIndex:
-          this.leftControls.length + this.contentItems.length - 1
+        stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
       });
     }
   }
@@ -180,8 +177,7 @@ export default class ControlRow extends TitleRow {
 
     this.patch({
       startLazyScrollIndex: this.leftControls.length,
-      stopLazyScrollIndex:
-        this.leftControls.length + this.contentItems.length - 1
+      stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
     });
   }
 
@@ -198,8 +194,7 @@ export default class ControlRow extends TitleRow {
 
     this.patch({
       startLazyScrollIndex: this.leftControls.length,
-      stopLazyScrollIndex:
-        this.leftControls.length + this.contentItems.length - 1
+      stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
     });
   }
 
@@ -217,8 +212,7 @@ export default class ControlRow extends TitleRow {
 
       this.patch({
         startLazyScrollIndex: this.leftControls.length,
-        stopLazyScrollIndex:
-          this.leftControls.length + this.contentItems.length - 1
+        stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
       });
     }
   }
@@ -234,8 +228,7 @@ export default class ControlRow extends TitleRow {
 
     this.patch({
       startLazyScrollIndex: this.leftControls.length,
-      stopLazyScrollIndex:
-        this.leftControls.length + this.contentItems.length - 1
+      stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
     });
   }
 
