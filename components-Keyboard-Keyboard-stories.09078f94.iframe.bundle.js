@@ -469,8 +469,7 @@ var Keyboard = /*#__PURE__*/function (_Base) {
           },
           autoResizeWidth: true,
           autoResizeHeight: true,
-          neverScroll: true,
-          waitForDimensions: true
+          neverScroll: true
         }));
       }
     }
@@ -486,15 +485,14 @@ var Keyboard = /*#__PURE__*/function (_Base) {
           type: _Row__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z,
           autoResizeHeight: true,
           autoResizeWidth: true,
-          centerInParent: _this.centerKeyboard,
+          centerInParent: _this.centerKeys,
           neverScroll: true,
           wrapSelected: _this.rowWrap !== undefined ? _this.rowWrap : true,
           style: {
             itemSpacing: _this.style.keySpacing
           },
           items: _this._createKeys(keys, keyboard),
-          selectedIndex: ((_this$_currentKeyboar = _this._currentKeyboard) === null || _this$_currentKeyboar === void 0 || (_this$_currentKeyboar = _this$_currentKeyboar.selected) === null || _this$_currentKeyboar === void 0 ? void 0 : _this$_currentKeyboar.selectedIndex) || 0,
-          waitForDimensions: true
+          selectedIndex: ((_this$_currentKeyboar = _this._currentKeyboard) === null || _this$_currentKeyboar === void 0 || (_this$_currentKeyboar = _this$_currentKeyboar.selected) === null || _this$_currentKeyboar === void 0 ? void 0 : _this$_currentKeyboar.selectedIndex) || 0
         };
       });
     }
@@ -798,4 +796,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Keyboard-Keyboard-stories.7ef5ed72.iframe.bundle.js.map
+//# sourceMappingURL=components-Keyboard-Keyboard-stories.09078f94.iframe.bundle.js.map

@@ -1022,10 +1022,12 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.p, {
       children: "Selects the previous item in the FocusManager's children. If wrapSelected is true, it selects the last item if the focus is currently on the first item."
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h4, {
-      id: "selectnext-void",
-      children: "selectNext(): void"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.p, {
-      children: "Selects the next item in the FocusManager's children. If wrapSelected is true, it selects the first item if the focus is currently on the last item."
+      id: "selectnextshouldsmoothoverride-boolean-void",
+      children: "selectNext(shouldSmoothOverride?: boolean): void"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
+      children: ["Selects the next item in the FocusManager's children. If wrapSelected is true, it selects the first item if the focus is currently on the last item. ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
+        children: "shouldSmoothOverride"
+      }), " overrides the value of shouldSmooth before the next element is selected."]
     })]
   });
 }
@@ -1088,4 +1090,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-FocusManager-FocusManager-mdx.0ff11b54.iframe.bundle.js.map
+//# sourceMappingURL=components-FocusManager-FocusManager-mdx.7dee96a5.iframe.bundle.js.map

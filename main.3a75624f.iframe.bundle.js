@@ -1051,17 +1051,56 @@ var Column = /*#__PURE__*/function (_NavigationManager) {
     return _super.apply(this, arguments);
   }
   _createClass(Column, [{
+    key: "_isOnScreenForScrolling",
+    value: function _isOnScreenForScrolling(child) {
+      if (!child) return false;
+      var y = (0,utils/* getY */.Ff)(child);
+      if (!Number.isFinite(y)) return false;
+      var itemsTransitionY = this.getTransitionYTargetValue();
+      var columnY = this.core.renderContext.py;
+      var itemY = columnY + itemsTransitionY + y;
+      var yModifier;
+
+      // This section here takes the difference between a possible target value
+      // and subtracts it from the current child x. That value then is subtracted from the initial
+      // itemX value calculated on the core renderContext px value to more accurately
+      // calculate the item's location on screen when it's own x value will be updating.
+      if (child.transition('y')) {
+        yModifier = child.y - child.transition('y').targetValue;
+        itemY = itemY - yModifier;
+      }
+      return itemY >= columnY && itemY + child.h <= columnY + this.h;
+    }
+  }, {
     key: "_shouldScroll",
     value: function _shouldScroll() {
-      var shouldScroll = this.alwaysScroll;
-      if (!shouldScroll && !this.neverScroll) {
+      if (this.alwaysScroll) {
+        return true;
+      }
+      var shouldScroll = false;
+      if (!this.neverScroll) {
+        var isCompletelyOnScreen = this._isOnScreenForScrolling(this.selected);
         var lastChild = this.Items.childList.last;
-        shouldScroll = lastChild && (this.shouldScrollUp() || this.shouldScrollDown());
+        shouldScroll = lastChild && (this.shouldScrollUp() || this.shouldScrollDown() || !isCompletelyOnScreen);
       }
       if (this.selectedIndex < this.scrollIndex) {
         shouldScroll = false;
       }
       return shouldScroll;
+    }
+  }, {
+    key: "_getScrollY",
+    value: function _getScrollY() {
+      var itemsContainerY;
+      var itemIndex = this.selectedIndex - this.scrollIndex;
+      itemIndex = itemIndex < 0 ? 0 : itemIndex;
+      if (itemIndex === this._firstFocusableIndex()) {
+        itemIndex = 0;
+      }
+      if (this.Items.children[itemIndex]) {
+        itemsContainerY = this.Items.children[itemIndex].transition('y') ? -this.Items.children[itemIndex].transition('y').targetValue + this.itemPosY : -this.Items.children[itemIndex].y + this.itemPosY;
+      }
+      return itemsContainerY;
     }
   }, {
     key: "_render",
@@ -1073,31 +1112,14 @@ var Column = /*#__PURE__*/function (_NavigationManager) {
       } else if (next && !next.selectedIndex) {
         next.selectedIndex = 0;
       }
+      var itemsContainerY;
       if (!this.Items.children.length) {
-        this.applySmooth(this.Items, {
-          y: this.itemPosY
-        });
-        if (!this.shouldSmooth) {
-          this._updateTransitionTarget(this.Items, 'y', this.itemPosY);
-        }
+        itemsContainerY = this.itemPosY;
       } else if (this._shouldScroll()) {
-        var scrollItem = this.selectedIndex > this._lastScrollIndex ? this.Items.children[this._lastScrollIndex - this.scrollIndex] : this.selected;
-        if (this.Items.children[this._firstFocusableIndex()] === scrollItem) {
-          scrollItem = this.Items.children[0];
-        }
-        var scrollOffset = (this.Items.children[this.scrollIndex] || {
-          y: 0
-        }).y;
-        var smoothObj = [-(scrollItem || this.Items.childList.first).transition('y').targetValue + (scrollItem === this.selected ? scrollOffset : 0), this.style.itemTransition];
-        var scrollTarget = -scrollItem.y + (scrollItem === this.selected ? scrollOffset : 0);
-        this.applySmooth(this.Items, {
-          y: scrollTarget
-        }, {
-          y: smoothObj
-        });
-        if (!this.shouldSmooth) {
-          this._updateTransitionTarget(this.Items, 'y', scrollTarget);
-        }
+        itemsContainerY = this._getScrollY();
+      }
+      if (itemsContainerY !== undefined) {
+        this.updatePositionOnAxis(this.Items, itemsContainerY);
       }
       this.onScreenEffect(this.onScreenItems);
     }
@@ -1349,6 +1371,12 @@ var FocusManager = /*#__PURE__*/function (_Base) {
         x: this.itemPosX,
         y: this.itemPosY
       });
+
+      // This fixes an issue when trying to call set items if there are already items held in _lazyItems.
+      // Going to follow up on a review of this feature.
+      if (this._lazyItems) {
+        this._lazyItems = null;
+      }
     }
   }, {
     key: "_appendLazyItem",
@@ -1404,7 +1432,7 @@ var FocusManager = /*#__PURE__*/function (_Base) {
       // If the first item has skip focus when appended get the next focusable item
       var initialSelection = this.Items.children[this.selectedIndex];
       if (initialSelection && initialSelection.skipFocus) {
-        this.selectNext();
+        this.selectNext(false);
       }
     }
   }, {
@@ -1494,14 +1522,12 @@ var FocusManager = /*#__PURE__*/function (_Base) {
     }
   }, {
     key: "selectNext",
-    value: function selectNext() {
+    value: function selectNext(shouldSmoothOverride) {
       var _this2 = this;
-      this.shouldSmooth = true;
       if (this._lazyItems && this._lazyItems.length) {
-        (0,_utils__WEBPACK_IMPORTED_MODULE_0__/* .delayForAnimation */ .ss)(function () {
-          _this2._appendLazyItem(_this2._lazyItems.splice(0, 1)[0]);
-        });
+        this._appendLazyItem(this._lazyItems.splice(0, 1)[0]);
       }
+      this.shouldSmooth = shouldSmoothOverride !== null && shouldSmoothOverride !== void 0 ? shouldSmoothOverride : true;
       var hasFocusable = !!(this.items || []).filter(function (i) {
         return !i.skipFocus;
       }).length;
@@ -3819,6 +3845,12 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
       var loadingChildren = [];
       for (var i = 0; i < this.Items.children.length; i++) {
         var child = this.Items.children[i];
+        if (child.requestEarlyUpdate) {
+          var updateDidRun = child.requestEarlyUpdate();
+          if (!updateDidRun && (child.w === 0 || child.h === 0)) {
+            child._updateLayout && child._updateLayout();
+          }
+        }
         var childCrossDimensionSize = this._calcCrossDimensionSize(child);
         if (this.waitForDimensions && (!childCrossDimensionSize || !child[lengthDimension])) {
           loadingChildren.push(child);
@@ -3905,7 +3937,8 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
         this._lastScrollIndex = this.Items.children.length - 1;
         return;
       }
-      var scrollOffset = (this.Items.children[this.scrollIndex] || _defineProperty({}, axis, 0))[axis];
+      var itemPos = this._isRow ? this.itemPosX : this.itemPosY;
+      var scrollOffset = (this.Items.children[this.scrollIndex] || _defineProperty({}, axis, 0))[axis] + itemPos;
       var lastChild = this.Items.childList.last;
       var endOfLastChild = lastChild ? this._calcAxisPosition(lastChild) + lastChild[lengthDimension] : 0;
       if (endOfLastChild > this[lengthDimension]) {
@@ -3972,8 +4005,8 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
     value: function _performRender() {}
   }, {
     key: "_appendItem",
-    value: function _appendItem(item) {
-      this.shouldSmooth = false;
+    value: function _appendItem(item, shouldSmoothOverride) {
+      this.shouldSmooth = shouldSmoothOverride !== null && shouldSmoothOverride !== void 0 ? shouldSmoothOverride : false;
       item.parentFocus = this.hasFocus();
       item = this.Items.childList.a(item);
       var crossDimension = this._directionPropNames.crossDimension;
@@ -3984,13 +4017,21 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
         item[crossDimension] = item[crossDimension] || itemCrossSize;
       }
       item = this._withAfterUpdate(item);
+      return item;
     }
   }, {
     key: "_appendLazyItem",
     value: function _appendLazyItem(item) {
-      this._appendItem(item);
-      this.queueRequestUpdate();
-      this._refocus();
+      var _this$_directionPropN5 = this._directionPropNames,
+        lengthDimension = _this$_directionPropN5.lengthDimension,
+        axis = _this$_directionPropN5.axis;
+      var lastChild = this._Items.children[this.items.length - 1];
+      var nextPosition = lastChild[lengthDimension] + lastChild[axis] + (lastChild.extraItemSpacing || 0) + this.style.itemSpacing;
+      var appended = this._appendItem(item, true);
+
+      // Update w/o recalculating  whole layout
+      appended[axis] = nextPosition;
+      this._Items[lengthDimension] += nextPosition + item[lengthDimension];
     }
   }, {
     key: "$itemChanged",
@@ -4014,7 +4055,7 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
       items.forEach(function (item) {
         return _this2._appendItem(item);
       });
-      this.queueRequestUpdate();
+      this.requestUpdate();
       this._refocus();
     }
   }, {
@@ -4029,10 +4070,10 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
         (_this$_lazyItems2 = this._lazyItems).splice.apply(_this$_lazyItems2, [addAtIdx, 0].concat(_toConsumableArray(items)));
         return;
       }
-      var _this$_directionPropN5 = this._directionPropNames,
-        crossDimension = _this$_directionPropN5.crossDimension,
-        lengthDimension = _this$_directionPropN5.lengthDimension,
-        innerLengthDimension = _this$_directionPropN5.innerLengthDimension;
+      var _this$_directionPropN6 = this._directionPropNames,
+        crossDimension = _this$_directionPropN6.crossDimension,
+        lengthDimension = _this$_directionPropN6.lengthDimension,
+        innerLengthDimension = _this$_directionPropN6.innerLengthDimension;
       var addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
       this.shouldSmooth = false;
       this._lastAppendedIdx = addIndex;
@@ -4128,21 +4169,21 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
         shouldScroll = this.selectedIndex >= this.scrollIndex;
       }
       var itemsStartCoord = this._isRow ? this._itemsX : this._itemsY;
-      return itemsStartCoord < 0 && shouldScroll;
+      return itemsStartCoord < (this._isRow ? this.itemPosX : this.itemPosY) && shouldScroll;
     }
   }, {
     key: "_canScrollNext",
     get: function get() {
-      var _this$_directionPropN6 = this._directionPropNames,
-        axis = _this$_directionPropN6.axis,
-        lengthDimension = _this$_directionPropN6.lengthDimension;
+      var _this$_directionPropN7 = this._directionPropNames,
+        axis = _this$_directionPropN7.axis,
+        lengthDimension = _this$_directionPropN7.lengthDimension;
       var lastChild = this.Items.childList.last;
       var endOfItemsPosition;
       if (this._isRow) {
         endOfItemsPosition = Math.abs(this._itemsX - this.w);
       }
       if (this._isColumn) {
-        endOfItemsPosition = Math.abs(this.itemPosY - this.h);
+        endOfItemsPosition = Math.abs(this._itemsY - this.h);
       }
       return this.selectedIndex > this.scrollIndex &&
       // end of Items container < end of last item
@@ -4162,6 +4203,11 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
     key: "_itemsX",
     get: function get() {
       return (0,utils/* getX */.nZ)(this.Items);
+    }
+  }, {
+    key: "_itemsY",
+    get: function get() {
+      return (0,utils/* getY */.Ff)(this.Items);
     }
   }, {
     key: "_getAlwaysScroll",
@@ -4373,10 +4419,10 @@ var Row = /*#__PURE__*/function (_NavigationManager) {
     key: "_shouldScroll",
     value: function _shouldScroll() {
       var prevIndex = this.Items.childList.getIndex(this.prevSelected);
-      if (this.lazyScroll && (this.selectedIndex < this.startLazyScrollIndex || this.selectedIndex > this.stopLazyScrollIndex || prevIndex < this.startLazyScrollIndex && this.selectedIndex === this.startLazyScrollIndex || prevIndex > this.stopLazyScrollIndex && this.selectedIndex === this.stopLazyScrollIndex)) {
+      if (this.alwaysScroll || this.lazyScroll && (this.selectedIndex < this.startLazyScrollIndex || this.selectedIndex > this.stopLazyScrollIndex || prevIndex < this.startLazyScrollIndex && this.selectedIndex === this.startLazyScrollIndex || prevIndex > this.stopLazyScrollIndex && this.selectedIndex === this.stopLazyScrollIndex)) {
         return true;
       }
-      var shouldScroll = this.alwaysScroll || this._selectedPastAdded;
+      var shouldScroll = this._selectedPastAdded;
       if (!shouldScroll && !this.neverScroll) {
         var isCompletelyOnScreen = this._isOnScreenForScrolling(this.selected);
         if (this.lazyScroll) {
@@ -4411,7 +4457,7 @@ var Row = /*#__PURE__*/function (_NavigationManager) {
       } else if (prev && this.selectedIndex > this.stopLazyScrollIndex) {
         // if navigating right on items after stop lazy scroll index
         var prevX = prev.x;
-        return -prevX + this.prevSelected.w + this.style.itemSpacing + (this.selected.extraItemSpacing || 0);
+        return -prevX + this.prevSelected.w + this.style.itemSpacing + (this.selected.extraItemSpacing || 0) + this.itemPosX;
       } else if (prev) {
         // otherwise, no start/stop indexes, perform normal lazy scroll
         var itemsContainerX;
@@ -4422,7 +4468,7 @@ var Row = /*#__PURE__*/function (_NavigationManager) {
           return;
         }
         if (_prevIndex > this.selectedIndex) {
-          itemsContainerX = -selectedX;
+          itemsContainerX = -selectedX + this.itemPosX;
         } else if (_prevIndex < this.selectedIndex) {
           itemsContainerX = this.w - selectedX - this.selected.w;
         }
@@ -4444,7 +4490,7 @@ var Row = /*#__PURE__*/function (_NavigationManager) {
         itemIndex = 0;
       }
       if (this.Items.children[itemIndex]) {
-        itemsContainerX = this.Items.children[itemIndex].transition('x') ? -this.Items.children[itemIndex].transition('x').targetValue : -this.Items.children[itemIndex].x;
+        itemsContainerX = this.Items.children[itemIndex].transition('x') ? -this.Items.children[itemIndex].transition('x').targetValue + this.itemPosX : -this.Items.children[itemIndex].x + this.itemPosX;
       }
       return itemsContainerX;
     }
@@ -6650,6 +6696,11 @@ var GlobalUpdateManager = /*#__PURE__*/function () {
     value: function deleteRequestUpdate(component) {
       // See note in deleteRequestUpdate()
       this._requestUpdateSet["delete"](component);
+    }
+  }, {
+    key: "hasQueuedRequestFor",
+    value: function hasQueuedRequestFor(component) {
+      return this._requestUpdateSet.has(component);
     }
   }]);
   return GlobalUpdateManager;
@@ -9244,6 +9295,19 @@ function withUpdates(Base) {
         _get(_getPrototypeOf(_class.prototype), "_firstEnable", this) && _get(_getPrototypeOf(_class.prototype), "_firstEnable", this).call(this);
       }
     }, {
+      key: "requestEarlyUpdate",
+      value: function requestEarlyUpdate() {
+        this._readyForUpdates = true;
+        if (_globals__WEBPACK_IMPORTED_MODULE_1__/* .updateManager */ .Y.hasQueuedRequestFor(this)) {
+          _globals__WEBPACK_IMPORTED_MODULE_1__/* .updateManager */ .Y.deleteRequestUpdate(this);
+          // method also triggers ready for updates
+          this._readyForUpdates = true;
+          this.requestUpdate();
+          return true;
+        }
+        return false;
+      }
+    }, {
       key: "_detach",
       value: function _detach() {
         _get(_getPrototypeOf(_class.prototype), "_detach", this).call(this);
@@ -9710,14 +9774,13 @@ var CustomImageTexture = /*#__PURE__*/function (_lng$Texture) {
 /* harmony export */   ir: () => (/* binding */ stringifyCompare),
 /* harmony export */   nB: () => (/* binding */ getValFromObjPath),
 /* harmony export */   nZ: () => (/* binding */ getX),
-/* harmony export */   ss: () => (/* binding */ delayForAnimation),
 /* harmony export */   t_: () => (/* binding */ getDimensions),
 /* harmony export */   vm: () => (/* binding */ watchForUpdates),
 /* harmony export */   wG: () => (/* binding */ reduceFraction),
 /* harmony export */   wO: () => (/* binding */ getWidthByColumnSpan),
 /* harmony export */   xH: () => (/* binding */ flatten)
 /* harmony export */ });
-/* unused harmony exports getEuclideanDistance, getColumnX, getItemRatioDimensions, getAspectRatioW, getAspectRatioH, rgba2argb, lowercaseFirstLetter, RoundRect, getFirstNumber, getDimension, objectPropertyOf, downloadFile, isMarkupString, createConditionalZContext, convertTextAlignToFlexJustify */
+/* unused harmony exports getEuclideanDistance, getColumnX, getItemRatioDimensions, getAspectRatioW, getAspectRatioH, rgba2argb, lowercaseFirstLetter, RoundRect, getFirstNumber, getDimension, objectPropertyOf, delayForAnimation, downloadFile, isMarkupString, createConditionalZContext, convertTextAlignToFlexJustify */
 /* harmony import */ var _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
 /* harmony import */ var _globals_context_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/globals/context/logger.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -10316,15 +10379,25 @@ function getDimension(prop, component) {
   if (!component) return 0;
   var transition = component.transition(prop);
   if (transition.isRunning()) return transition.targetValue;
-  return component[prop];
+  var renderProp = prop;
+  if (prop === 'w') {
+    renderProp = 'renderWidth';
+  } else if (prop === 'h') {
+    renderProp = 'renderHeight';
+  }
+  return component[renderProp] || component[prop];
 }
-var getX = getDimension.bind(null, 'x');
-var getY = getDimension.bind(null, 'y');
+var getX = function getX(component) {
+  return getDimension('x', component);
+};
+var getY = function getY(component) {
+  return getDimension('y', component);
+};
 var getW = function getW(component) {
-  return getDimension('w', component) || component.renderWidth;
+  return getDimension('w', component);
 };
 var getH = function getH(component) {
-  return getDimension('h', component) || component.renderHeight;
+  return getDimension('h', component);
 };
 
 /**
@@ -12938,4 +13011,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.f447bd5e.iframe.bundle.js.map
+//# sourceMappingURL=main.3a75624f.iframe.bundle.js.map

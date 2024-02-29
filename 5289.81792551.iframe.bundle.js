@@ -494,16 +494,21 @@ var TitleRow = /*#__PURE__*/function (_Row) {
         }
       };
       if (!this._Title) {
-        titlePatch = TitleRow_objectSpread({
-          type: TextBox/* default */.Z,
-          signals: {
-            textBoxChanged: '_titleLoaded'
-          }
-        }, titlePatch);
+        titlePatch = TitleRow_objectSpread(TitleRow_objectSpread({}, this._titleFirstLoadProps), titlePatch);
       }
       this.patch({
         Title: titlePatch
       });
+    }
+  }, {
+    key: "_titleFirstLoadProps",
+    get: function get() {
+      return {
+        type: TextBox/* default */.Z,
+        signals: {
+          textBoxChanged: '_titleLoaded'
+        }
+      };
     }
   }, {
     key: "_updateRow",
@@ -556,4 +561,4 @@ var TitleRow = /*#__PURE__*/function (_Row) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5289.afc5f487.iframe.bundle.js.map
+//# sourceMappingURL=5289.81792551.iframe.bundle.js.map

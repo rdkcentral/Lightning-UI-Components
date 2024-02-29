@@ -143,7 +143,7 @@ var ControlRow = /*#__PURE__*/function (_TitleRow) {
           items: itemsToAppend,
           selectedIndex: this.leftControls.length,
           startLazyScrollIndex: this.leftControls.length,
-          stopLazyScrollIndex: this.leftControls.length + this.contentItems.length - 1
+          stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
         });
       }
     }
@@ -208,7 +208,7 @@ var ControlRow = /*#__PURE__*/function (_TitleRow) {
         this._contentItems = [].concat(_toConsumableArray(this.contentItems), _toConsumableArray(itemsToAdd));
       }
       this.patch({
-        stopLazyScrollIndex: this.leftControls.length + this.contentItems.length - 1
+        stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
       });
     }
   }, {
@@ -226,7 +226,7 @@ var ControlRow = /*#__PURE__*/function (_TitleRow) {
           this._lastItemIndex = this.contentItems.length - 1;
         }
         this.patch({
-          stopLazyScrollIndex: this.leftControls.length + this.contentItems.length - 1
+          stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
         });
       }
     }
@@ -241,7 +241,7 @@ var ControlRow = /*#__PURE__*/function (_TitleRow) {
       }
       this.patch({
         startLazyScrollIndex: this.leftControls.length,
-        stopLazyScrollIndex: this.leftControls.length + this.contentItems.length - 1
+        stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
       });
     }
   }, {
@@ -257,7 +257,7 @@ var ControlRow = /*#__PURE__*/function (_TitleRow) {
       }
       this.patch({
         startLazyScrollIndex: this.leftControls.length,
-        stopLazyScrollIndex: this.leftControls.length + this.contentItems.length - 1
+        stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
       });
     }
   }, {
@@ -276,7 +276,7 @@ var ControlRow = /*#__PURE__*/function (_TitleRow) {
         }
         this.patch({
           startLazyScrollIndex: this.leftControls.length,
-          stopLazyScrollIndex: this.leftControls.length + this.contentItems.length - 1
+          stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
         });
       }
     }
@@ -291,7 +291,7 @@ var ControlRow = /*#__PURE__*/function (_TitleRow) {
       }
       this.patch({
         startLazyScrollIndex: this.leftControls.length,
-        stopLazyScrollIndex: this.leftControls.length + this.contentItems.length - 1
+        stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
       });
     }
   }, {
@@ -1150,4 +1150,4 @@ var ControlSmall = /*#__PURE__*/function (_Control) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5662.8d0e2d5f.iframe.bundle.js.map
+//# sourceMappingURL=5662.c831de2c.iframe.bundle.js.map
