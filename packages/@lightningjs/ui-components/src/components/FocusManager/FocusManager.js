@@ -113,6 +113,9 @@ export default class FocusManager extends Base {
       x: this.itemPosX,
       y: this.itemPosY
     });
+
+    // This fixes an issue when trying to call set items if there are already items held in _lazyItems.
+    // Going to follow up on a review of this feature.
     if (this._lazyItems) {
       this._lazyItems = null;
     }
