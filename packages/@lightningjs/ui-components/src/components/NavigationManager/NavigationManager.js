@@ -118,6 +118,13 @@ export default class NavigationManager extends FocusManager {
 
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
+
+      if (child.requestEarlyUpdate) {
+        const updateDidRun = child.requestEarlyUpdate();
+        if (!updateDidRun && (child.w === 0 || child.h === 0)) {
+          child._updateLayout && child._updateLayout();
+        }
+      }
       const childCrossDimensionSize = this._calcCrossDimensionSize(child);
 
       if (
@@ -303,8 +310,8 @@ export default class NavigationManager extends FocusManager {
   // can be overwritten
   _performRender() {}
 
-  _appendItem(item) {
-    this.shouldSmooth = false;
+  _appendItem(item, shouldSmoothOverride) {
+    this.shouldSmooth = shouldSmoothOverride ?? false;
     item.parentFocus = this.hasFocus();
     item = this.Items.childList.a(item);
 
@@ -317,12 +324,23 @@ export default class NavigationManager extends FocusManager {
     }
 
     item = this._withAfterUpdate(item);
+    return item;
   }
 
   _appendLazyItem(item) {
-    this._appendItem(item);
-    this.queueRequestUpdate();
-    this._refocus();
+    const { lengthDimension, axis } = this._directionPropNames;
+    const lastChild = this._Items.children[this.items.length - 1];
+    const nextPosition =
+      lastChild[lengthDimension] +
+      lastChild[axis] +
+      (lastChild.extraItemSpacing || 0) +
+      this.style.itemSpacing;
+
+    const appended = this._appendItem(item, true);
+
+    // Update w/o recalculating  whole layout
+    appended[axis] = nextPosition;
+    this._Items[lengthDimension] += nextPosition + item[lengthDimension];
   }
 
   $itemChanged() {
@@ -342,7 +360,7 @@ export default class NavigationManager extends FocusManager {
     }
     items.forEach(item => this._appendItem(item));
 
-    this.queueRequestUpdate();
+    this.requestUpdate();
     this._refocus();
   }
 

@@ -26,7 +26,6 @@ import {
   getX,
   getY,
   isComponentOnScreen,
-  delayForAnimation,
   getShortestDistance
 } from '../../utils';
 
@@ -114,6 +113,12 @@ export default class FocusManager extends Base {
       x: this.itemPosX,
       y: this.itemPosY
     });
+
+    // This fixes an issue when trying to call set items if there are already items held in _lazyItems.
+    // Going to follow up on a review of this feature.
+    if (this._lazyItems) {
+      this._lazyItems = null;
+    }
   }
 
   _appendLazyItem(item) {
@@ -171,7 +176,7 @@ export default class FocusManager extends Base {
     // If the first item has skip focus when appended get the next focusable item
     const initialSelection = this.Items.children[this.selectedIndex];
     if (initialSelection && initialSelection.skipFocus) {
-      this.selectNext();
+      this.selectNext(false);
     }
   }
 
@@ -259,13 +264,12 @@ export default class FocusManager extends Base {
     return false;
   }
 
-  selectNext() {
-    this.shouldSmooth = true;
+  selectNext(shouldSmoothOverride) {
     if (this._lazyItems && this._lazyItems.length) {
-      delayForAnimation(() => {
-        this._appendLazyItem(this._lazyItems.splice(0, 1)[0]);
-      });
+      this._appendLazyItem(this._lazyItems.splice(0, 1)[0]);
     }
+    this.shouldSmooth = shouldSmoothOverride ?? true;
+
     const hasFocusable = !!(this.items || []).filter(i => !i.skipFocus).length;
     if (
       (this.selectedIndex === this.Items.children.length - 1 &&

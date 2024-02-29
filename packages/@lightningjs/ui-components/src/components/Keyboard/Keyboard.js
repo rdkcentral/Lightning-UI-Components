@@ -110,8 +110,7 @@ export default class Keyboard extends Base {
           },
           autoResizeWidth: true,
           autoResizeHeight: true,
-          neverScroll: true,
-          waitForDimensions: true
+          neverScroll: true
         }
       });
     }
@@ -123,15 +122,14 @@ export default class Keyboard extends Base {
         type: Row,
         autoResizeHeight: true,
         autoResizeWidth: true,
-        centerInParent: this.centerKeyboard,
+        centerInParent: this.centerKeys,
         neverScroll: true,
         wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true,
         style: {
           itemSpacing: this.style.keySpacing
         },
         items: this._createKeys(keys, keyboard),
-        selectedIndex: this._currentKeyboard?.selected?.selectedIndex || 0,
-        waitForDimensions: true
+        selectedIndex: this._currentKeyboard?.selected?.selectedIndex || 0
       };
     });
   }

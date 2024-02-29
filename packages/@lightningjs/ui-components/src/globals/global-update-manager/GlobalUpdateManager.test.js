@@ -161,6 +161,25 @@ describe('GlobalUpdateManager', () => {
     });
   });
 
+  describe('hasQueuedRequestFor', () => {
+    it('returns true if an update is queued for the component', () => {
+      const fakeComponent = {
+        requestUpdate: jest.fn()
+      };
+      updateManager.addRequestUpdate(fakeComponent);
+      expect(updateManager.hasQueuedRequestFor(fakeComponent)).toBe(true);
+    });
+    it('returns false if an update is not queued for the component', async () => {
+      const fakeComponent = {
+        requestUpdate: jest.fn()
+      };
+      updateManager.addRequestUpdate(fakeComponent);
+      await nextTick();
+      await nextTick();
+      expect(updateManager.hasQueuedRequestFor(fakeComponent)).toBe(false);
+    });
+  });
+
   it('always calls _updateThemeComponent before requestUpdate', async () => {
     const callLog = [];
     const fakeComponent = {
