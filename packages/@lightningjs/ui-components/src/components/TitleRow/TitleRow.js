@@ -77,14 +77,20 @@ export default class TitleRow extends Row {
     };
     if (!this._Title) {
       titlePatch = {
-        type: TextBox,
-        signals: {
-          textBoxChanged: '_titleLoaded'
-        },
+        ...this._titleFirstLoadProps,
         ...titlePatch
       };
     }
     this.patch({ Title: titlePatch });
+  }
+
+  get _titleFirstLoadProps() {
+    return {
+      type: TextBox,
+      signals: {
+        textBoxChanged: '_titleLoaded'
+      }
+    };
   }
 
   _updateRow() {
