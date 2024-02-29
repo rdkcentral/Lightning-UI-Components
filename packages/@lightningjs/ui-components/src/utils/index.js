@@ -609,17 +609,23 @@ export function getFirstNumber(...numbers) {
  */
 export function getDimension(prop, component) {
   if (!component) return 0;
+
   const transition = component.transition(prop);
   if (transition.isRunning()) return transition.targetValue;
-  return component[prop];
+
+  let renderProp = prop;
+  if (prop === 'w') {
+    renderProp = 'renderWidth';
+  } else if (prop === 'h') {
+    renderProp = 'renderHeight';
+  }
+  return component[renderProp] || component[prop];
 }
 
-export const getX = getDimension.bind(null, 'x');
-export const getY = getDimension.bind(null, 'y');
-export const getW = component =>
-  getDimension('w', component) || component.renderWidth;
-export const getH = component =>
-  getDimension('h', component) || component.renderHeight;
+export const getX = component => getDimension('x', component);
+export const getY = component => getDimension('y', component);
+export const getW = component => getDimension('w', component);
+export const getH = component => getDimension('h', component);
 
 /**
  * Array.prototype.flat() is not supported in WPE Browser
