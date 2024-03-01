@@ -18,7 +18,7 @@
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import Toggle from '.';
-import { withThemeStyles } from '../../mixins';
+import withThemeStyles from '../../mixins/withThemeStyles';
 import { jest } from '@jest/globals';
 
 const createToggle = makeCreateComponent(Toggle);
