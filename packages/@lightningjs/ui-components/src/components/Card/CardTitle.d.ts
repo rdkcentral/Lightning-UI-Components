@@ -18,7 +18,8 @@
 
 import lng from '@lightningjs/core';
 import Card, { CardStyle } from './Card';
-import TextBox, { TextBoxStyle } from '../TextBox';
+import TextBox from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 import { StylePartial } from '../../types/lui';
 
 type CardTitleStyle = CardStyle & {

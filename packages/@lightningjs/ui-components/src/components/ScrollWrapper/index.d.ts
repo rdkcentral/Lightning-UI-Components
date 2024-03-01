@@ -16,6 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import ScrollWrapper, { ScrollWrapperStyle } from './ScrollWrapper';
+import ScrollWrapper from './ScrollWrapper';
 
-export { ScrollWrapper as default, ScrollWrapperStyle };
+export { ScrollWrapper as default };

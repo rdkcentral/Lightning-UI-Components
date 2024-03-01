@@ -18,7 +18,8 @@
 
 import lng from '@lightningjs/core';
 import Button, { ButtonStyle } from '../Button';
-import TextBox, { TextBoxStyle } from '../TextBox';
+import TextBox from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 import { StylePartial } from '../../types/lui';
 
 type LogoStyleObject = {

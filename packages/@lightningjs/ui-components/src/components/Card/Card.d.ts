@@ -18,7 +18,8 @@
 
 import type lng from '@lightningjs/core';
 import Surface, { SurfaceStyle } from '../Surface';
-import TextBox, { TextBoxStyle } from '../TextBox';
+import TextBox from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 import { Color, StylePartial } from '../../types/lui';
 
 type CardStyle = SurfaceStyle & {

@@ -19,7 +19,8 @@
 import lng from '@lightningjs/core';
 import { Color, StylePartial } from '../../types/lui';
 import Card, { CardStyle } from '../Card';
-import TextBox, { TextBoxStyle } from '../TextBox';
+import TextBox from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 import MetadataBase from '../MetadataBase';
 import Tile from '../Tile';
 
