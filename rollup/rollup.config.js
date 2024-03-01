@@ -1,17 +1,10 @@
-﻿import path from 'path';
-import { fileURLToPath } from 'url';
-import { getBabelOutputPlugin } from '@rollup/plugin-babel';
+﻿import { getBabelOutputPlugin } from '@rollup/plugin-babel';
 import dts from 'rollup-plugin-dts';
 import image from '@rollup/plugin-image';
-import json from '@rollup/plugin-json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import { visualizer } from 'rollup-plugin-visualizer';
-
-// Determine current file and directory based on URL
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Common plugin configurations
 const babelPlugins = [
@@ -76,7 +69,6 @@ export default cliArgs => {
         resolve({ exportConditions: ['node'] }),
         peerDepsExternal(),
         image(),
-        json(),
         getBabelOutputPlugin(babelOptions),
         terser({
           module: true,
