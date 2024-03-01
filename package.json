@@ -12,6 +12,7 @@
   "scripts": {
     "start": "yarn workspace lightning-ui-docs start",
     "build": "yarn workspaces foreach --exclude lightning-ui-docs run build",
+    "build:analyze": "cross-env ANALYZE=true yarn build",
     "prepare": "husky install",
     "release": "git fetch origin && git checkout develop && git pull origin develop && git pull origin release && git push origin develop && git checkout release && git pull origin release && git pull origin develop && git push origin release",
     "lint": "yarn eslint . --ext .js,.ts",
@@ -38,6 +39,7 @@
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-config-standard-with-typescript": "^26.0.0",
@@ -58,6 +60,7 @@
     "rollup-plugin-dts": "5.2.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-visualizer": "^5.12.0",
     "semantic-release": "^19.0.5",
     "semantic-release-monorepo": "^7.0.5",
     "semantic-release-slack-bot": "^3.5.3",

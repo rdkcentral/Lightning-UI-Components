@@ -23,6 +23,7 @@ import json from '@rollup/plugin-json';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default cliArgs => [
   {
@@ -80,8 +81,12 @@ export default cliArgs => [
         },
         keep_classnames: true,
         keep_fnames: true
-      })
-    ]
+      }),
+      process.env.ANALYZE ? visualizer({
+      filename: './bundle-analysis.html',
+      open: true,
+    }) : null,
+    ].filter(Boolean)
   },
   {
     input: './index.js',
