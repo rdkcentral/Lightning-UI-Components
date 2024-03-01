@@ -66,17 +66,20 @@ export default cliArgs => [
       image(),
       json(),
       getBabelOutputPlugin({
-        plugins: ['@babel/plugin-transform-optional-chaining', '@babel/plugin-transform-nullish-coalescing-operator']
+        plugins: [
+          '@babel/plugin-transform-optional-chaining',
+          '@babel/plugin-transform-nullish-coalescing-operator'
+        ]
       }),
-      terser({ 
-        module: true, 
-        mangle: false, 
-        compress: false,  
+      terser({
+        module: true,
+        mangle: false,
+        compress: false,
         format: {
-          beautify: true, // Output more readable code
-        }, 
-        keep_classnames: true, 
-        keep_fnames: true 
+          beautify: true // Output more readable code
+        },
+        keep_classnames: true,
+        keep_fnames: true
       })
     ]
   },

@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import context from '../../globals/context'
+import context from '../../globals/context';
 import { updateManager } from '../../globals/global-update-manager/GlobalUpdateManager';
 import { clone } from '../../utils';
 

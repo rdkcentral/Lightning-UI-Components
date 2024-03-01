@@ -25,7 +25,12 @@ export { default as Badge } from './src/components/Badge/Badge';
 export { default as Base } from './src/components/Base/Base';
 export { default as Button } from './src/components/Button/Button';
 export { default as ButtonSmall } from './src/components/Button/ButtonSmall';
-export { default as Card, CardRadio, CardSection, CardTitle } from './src/components/Card';
+export {
+  default as Card,
+  CardRadio,
+  CardSection,
+  CardTitle
+} from './src/components/Card';
 export {
   default as CardContent,
   CardContentHorizontal,
@@ -119,5 +124,5 @@ export { default as Arrow } from './src/textures/Arrow';
 export { default as Bubble } from './src/textures/Bubble';
 export { default as Line } from './src/textures/Line';
 
-// Storybook 
+// Storybook
 export { default as SignalButton } from './src/docs/story-components/SignalButton';
