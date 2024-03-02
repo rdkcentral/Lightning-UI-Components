@@ -13,9 +13,20 @@ const babelPlugins = [
 ];
 
 const babelOptions = {
-  presets: ['@babel/preset-env'],
+  presets: [
+    ['@babel/preset-env', {
+      targets: {
+        // Assuming you want to target environments that support ES6 natively
+        esmodules: true, // This targets environments that support ES module syntax, which implies ES6 support
+      },
+      exclude: [
+        // Exclude transformation of classes to ensure they're output as ES6 classes
+        '@babel/plugin-transform-classes',
+      ],
+    }],
+  ],
   plugins: babelPlugins,
-  compact: false
+  compact: false,
 };
 
 // Rollup configuration
