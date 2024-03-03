@@ -9,24 +9,27 @@ import { visualizer } from 'rollup-plugin-visualizer';
 // Common plugin configurations
 const babelPlugins = [
   '@babel/plugin-transform-optional-chaining',
-  '@babel/plugin-transform-nullish-coalescing-operator',
+  '@babel/plugin-transform-nullish-coalescing-operator'
 ];
 
 const babelOptions = {
   presets: [
-    ['@babel/preset-env', {
-      targets: {
-        // Assuming you want to target environments that support ES6 natively
-        esmodules: true, // This targets environments that support ES module syntax, which implies ES6 support
-      },
-      exclude: [
-        // Exclude transformation of classes to ensure they're output as ES6 classes
-        '@babel/plugin-transform-classes',
-      ],
-    }],
+    [
+      '@babel/preset-env',
+      {
+        targets: {
+          // Assuming you want to target environments that support ES6 natively
+          esmodules: true // This targets environments that support ES module syntax, which implies ES6 support
+        },
+        exclude: [
+          // Exclude transformation of classes to ensure they're output as ES6 classes
+          '@babel/plugin-transform-classes'
+        ]
+      }
+    ]
   ],
   plugins: babelPlugins,
-  compact: false,
+  compact: false
 };
 
 // Rollup configuration
@@ -56,10 +59,10 @@ export default cliArgs => {
             resolveJsonModule: true,
             declaration: true,
             declarationMap: true,
-            emitDeclarationOnly: true,
-          },
-        }),
-      ],
+            emitDeclarationOnly: true
+          }
+        })
+      ]
     },
     {
       input: './index.js',
@@ -68,13 +71,13 @@ export default cliArgs => {
         {
           sourcemap: true,
           file: `${outputDir}${bundleFileName}.min.mjs`,
-          format: 'es',
+          format: 'es'
         },
         {
           sourcemap: true,
           file: `${outputDir}${bundleFileName}.min.cjs`,
-          format: 'cjs',
-        },
+          format: 'cjs'
+        }
       ],
       plugins: [
         resolve({ exportConditions: ['node'] }),
@@ -86,16 +89,17 @@ export default cliArgs => {
           mangle: false,
           compress: false,
           format: {
-            beautify: true, // Output more readable code
+            beautify: true // Output more readable code
           },
           keep_classnames: true,
-          keep_fnames: true,
+          keep_fnames: true
         }),
-        isAnalyze && visualizer({
-          filename: './bundle-analysis.html',
-          open: true,
-        }),
-      ].filter(Boolean),
-    },
+        isAnalyze &&
+          visualizer({
+            filename: './bundle-analysis.html',
+            open: true
+          })
+      ].filter(Boolean)
+    }
   ];
 };
