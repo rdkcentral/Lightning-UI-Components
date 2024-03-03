@@ -134,12 +134,15 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
      */
     _updatePropDefaults() {
       // If the current properties are the same as the previous configuration, no update is needed
+      
       if (
+        !Object.keys(this._styleManager.props).length ||
         JSON.stringify(this._styleManager.props) ===
         JSON.stringify(this._prevComponentConfigProps)
       ) {
         return;
       }
+     
       // Compare current properties with previous configuration and get the payload
       const payload = this._prevComponentConfigProps
         ? mergeObjectsWithSecondDominant(
