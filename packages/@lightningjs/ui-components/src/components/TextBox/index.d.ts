@@ -16,6 +16,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import TextBox, { TextBoxStyle, TextContent } from './TextBox';
+import TextBox from './TextBox';
 
-export { TextBox as default, TextBoxStyle, TextContent };
+export { TextBox as default };

@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import Badge from '../Badge';
 import Base from '../Base';
 import { StylePartial } from '../../types/lui';
-import TextContent from '../TextBox/TextBox';
+import TextContent from '../TextBox/TextBox.content';
 
 type JustifyContent =
   | 'flex-start'

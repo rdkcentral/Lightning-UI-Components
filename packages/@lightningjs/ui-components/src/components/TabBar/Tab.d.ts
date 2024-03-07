@@ -20,7 +20,8 @@ import lng from '@lightningjs/core';
 import { Color, StylePartial } from '../../types/lui';
 import Surface, { SurfaceStyle } from '../Surface';
 // text should be using our own version of TextBox
-import TextBox, { TextBoxStyle } from '../TextBox';
+import TextBox from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 import Icon from '../Icon';
 
 type TabStyle = SurfaceStyle & {

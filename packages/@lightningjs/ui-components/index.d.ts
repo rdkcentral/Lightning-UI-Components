@@ -19,7 +19,7 @@
 export * from './src/components';
 export * from './src/mixins';
 export * from './src/types/lui';
-export * from './src/globals';
+// export * from './src/globals';
 
 // exports without type definitions
 export { default as utils } from './src/utils';

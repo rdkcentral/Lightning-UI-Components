@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import { TextBoxStyle } from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 import { Color, StylePartial } from '../../types/lui';
 
 type ProviderStyle = {

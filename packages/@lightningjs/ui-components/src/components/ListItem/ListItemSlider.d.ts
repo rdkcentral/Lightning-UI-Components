@@ -18,7 +18,8 @@
 
 import lng from '@lightningjs/core';
 import { StylePartial } from '../../types/lui';
-import TextBox, { TextBoxStyle } from '../TextBox';
+import TextBox from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 import ListItem, { ListItemStyle } from './ListItem';
 import NestedSlider from './NestedSlider';
 

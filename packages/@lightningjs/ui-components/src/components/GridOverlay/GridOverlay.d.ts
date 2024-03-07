@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { StylePartial } from '../../types/lui';
-import { TextBoxStyle } from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 
 type GridOverlayStyle = {
   propertyTextStyle: TextBoxStyle;
