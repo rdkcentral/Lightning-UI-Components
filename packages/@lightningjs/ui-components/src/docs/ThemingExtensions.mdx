@@ -145,6 +145,11 @@ If we find through A/B testing, the results are not in favor of the vibrant colo
 
 ## Things to Keep in Mind
 
+### `_construct()` usage restriction
+
+Because extensions are applied at runtime on `_contruct` of the component instance, they cannot properly support a `_construct` method override in the extension so must be avoided.
+Other lifecycle hooks are available and supported, such as `_init` and `_attach`.
+
 ### `super._update()`
 
 If we consider extensions as the child of the existing component it builds off, the `super` keyword allows us to access the properties and methods in the existing/parent component. The `_update` method is an extremely important lifecycle event since it ensures everything is up to date. Together, `super._update()` grants us access to the entire `_update` lifecycle event of the parent component.

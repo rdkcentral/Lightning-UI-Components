@@ -35,17 +35,23 @@ describe('theme context', () => {
   describe('basic theme functionality', () => {
     it('should have default theme', () => {
       const processedBaseTheme = themeManager._processTheme();
+      processedBaseTheme.lastUpdateTimestamp = expect.any(Number);
+
       expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
     });
 
     it('should deep merge object with existing theme when theme is set', () => {
       const processedBaseTheme = themeManager._processTheme([{ foo: 'bar' }]);
+      processedBaseTheme.lastUpdateTimestamp = expect.any(Number);
+
       themeManager.setTheme({ foo: 'bar' });
       expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
     });
 
     it('should not attempt to set any value for theme that is not an object', () => {
       const processedBaseTheme = themeManager._processTheme();
+      processedBaseTheme.lastUpdateTimestamp = expect.any(Number);
+
       themeManager.setTheme('string');
       expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
       themeManager.setTheme(() => {
@@ -71,7 +77,17 @@ describe('theme context', () => {
     });
 
     it('should process the theme correctly', () => {
+      const startTime = Date.now();
       const processedBaseTheme = themeManager._processTheme();
+      const endTime = Date.now();
+      expect(processedBaseTheme.lastUpdateTimestamp).toBeGreaterThanOrEqual(
+        startTime
+      );
+      expect(processedBaseTheme.lastUpdateTimestamp).toBeLessThanOrEqual(
+        endTime
+      );
+      processedBaseTheme.lastUpdateTimestamp = expect.any(Number);
+
       expect(themeManager.getTheme()).toMatchObject(processedBaseTheme);
       themeManager.setTheme({ foo: 'bar' });
       expect(themeManager.getTheme().foo).toBe('bar');

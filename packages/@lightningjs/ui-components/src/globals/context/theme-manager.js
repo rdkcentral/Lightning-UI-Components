@@ -420,7 +420,12 @@ class ThemeManager {
       }
     });
 
-    return { ...JSON.parse(themeString), ...themeFunctions, extensions };
+    return {
+      ...JSON.parse(themeString),
+      ...themeFunctions,
+      extensions,
+      lastUpdateTimestamp: Date.now()
+    };
   }
 }
 
