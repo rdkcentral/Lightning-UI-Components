@@ -8828,9 +8828,11 @@ function withThemeStyles(Base) {
       key: "_updatePropDefaults",
       value: function _updatePropDefaults() {
         // If the current properties are the same as the previous configuration, no update is needed
-        if (JSON.stringify(this._styleManager.props) === JSON.stringify(this._prevComponentConfigProps)) {
+
+        if (!Object.keys(this._styleManager.props).length || JSON.stringify(this._styleManager.props) === JSON.stringify(this._prevComponentConfigProps)) {
           return;
         }
+
         // Compare current properties with previous configuration and get the payload
         var payload = this._prevComponentConfigProps ? mergeObjectsWithSecondDominant(this._prevComponentConfigProps || {}, this._styleManager.props || {}) : this._styleManager.props || {};
 
@@ -13011,4 +13013,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.3a75624f.iframe.bundle.js.map
+//# sourceMappingURL=main.9e81bc3c.iframe.bundle.js.map
