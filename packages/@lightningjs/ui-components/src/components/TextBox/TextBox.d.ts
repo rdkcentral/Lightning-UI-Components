@@ -24,7 +24,6 @@ import InlineContent from '../InlineContent';
 import TextContent from './TextBox.content';
 import TextBoxStyle from './TextBox.style';
 
-
 declare namespace TextBox {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**

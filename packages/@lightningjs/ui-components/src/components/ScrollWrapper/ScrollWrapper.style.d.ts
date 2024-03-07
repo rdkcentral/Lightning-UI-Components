@@ -14,4 +14,4 @@ type ScrollWrapperStyle = {
   sliderMarginLeft: number;
 };
 
-export { ScrollWrapperStyle as default }
+export { ScrollWrapperStyle as default };

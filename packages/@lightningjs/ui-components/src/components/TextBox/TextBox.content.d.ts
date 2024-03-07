@@ -10,4 +10,4 @@ type TextContent =
   | string
   | (ContentBase & ({ text: string } | { icon: string } | { badge: string }));
 
-export { TextContent as default }
+export { TextContent as default };

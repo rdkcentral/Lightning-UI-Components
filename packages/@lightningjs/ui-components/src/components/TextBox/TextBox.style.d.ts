@@ -6,4 +6,4 @@ type TextBoxStyle = {
   textStyle: lng.textures.TextTexture.Settings | string;
 };
 
-export { TextBoxStyle as default }
+export { TextBoxStyle as default };
