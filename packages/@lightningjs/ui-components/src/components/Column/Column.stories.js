@@ -20,6 +20,7 @@ import lng from '@lightningjs/core';
 import { context } from '../../globals';
 import { flatten, getWidthByUpCount } from '../../utils';
 import Row from '../Row';
+import TitleRow from '../TitleRow';
 import Tile from '../Tile';
 import Button from '../Button';
 import { default as ColumnComponent } from '.';
@@ -35,6 +36,19 @@ export default {
 const columnHeight =
   context.theme.layout.screenH -
   2 * (context.theme.layout.marginY + context.theme.layout.gutterY);
+
+const createRows = (rowType, length, style, items) => {
+  return Array.from({ length }).map((_, i) => {
+    return {
+      type: rowType,
+      title: `Row ${i}`,
+      autoResizeHeight: true,
+      w: getWidthByUpCount(context.theme, 1),
+      items,
+      style
+    };
+  });
+};
 
 // creates an array of buttons to be used in Stories
 const createItems = (buttonType, length, isVariedHeight, isDynamicWidth) => {
@@ -770,3 +784,23 @@ RemovingItems.parameters = {
   storyDetails:
     'The third button in this column is configured to invoke removeItemAt to remove that button. Focus on that button and press Enter to invoke that method and remove the button from the column.'
 };
+
+export const ShiftingItemPos = () =>
+  class ShiftingItemPos extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: ColumnComponent,
+          h:
+            context.theme.layout.screenH -
+            2 * (context.theme.layout.marginY + context.theme.layout.gutterY),
+          items: createRows(
+            TitleRow,
+            10,
+            { mode: { focused: { titleMarginBottom: 100 } } },
+            createItems(Button, 10)
+          )
+        }
+      };
+    }
+  };

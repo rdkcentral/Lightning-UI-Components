@@ -39,7 +39,7 @@ export default class FocusManager extends Base {
   }
 
   static get properties() {
-    return ['direction', 'wrapSelected'];
+    return ['direction', 'wrapSelected', 'itemPosX', 'itemPosY'];
   }
 
   _construct() {
@@ -89,21 +89,21 @@ export default class FocusManager extends Base {
     this._checkSkipFocus();
   }
 
-  set itemPosX(x) {
-    this.Items.x = this._itemPosX = x;
-  }
+  // set itemPosX(x) {
+  //   this.Items.x = this._itemPosX = x;
+  // }
 
-  get itemPosX() {
-    return this._itemPosX;
-  }
+  // get itemPosX() {
+  //   return this._itemPosX;
+  // }
 
-  set itemPosY(y) {
-    this.Items.y = this._itemPosY = y;
-  }
+  // set itemPosY(y) {
+  //   this.Items.y = this._itemPosY = y;
+  // }
 
-  get itemPosY() {
-    return this._itemPosY;
-  }
+  // get itemPosY() {
+  //   return this._itemPosY;
+  // }
 
   _resetItems() {
     this.Items.childList.clear();

@@ -52,9 +52,9 @@ export default class TitleRow extends Row {
   }
 
   _update() {
+    this._updateRow();
     super._update();
     this._updateTitle();
-    this._updateRow();
   }
 
   _autoResize() {
@@ -94,9 +94,10 @@ export default class TitleRow extends Row {
   }
 
   _updateRow() {
-    this.applySmooth(this.Items, {
-      y: this.title ? this._Title.finalH + this.style.titleMarginBottom : 0
-    });
+    this.itemPosY =
+      this.title && this._Title
+        ? this._Title.finalH + this.style.titleMarginBottom
+        : 0;
   }
 
   set announce(announce) {
