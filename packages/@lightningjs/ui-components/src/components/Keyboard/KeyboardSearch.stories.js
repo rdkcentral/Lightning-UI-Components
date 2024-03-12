@@ -31,10 +31,8 @@ export const KeyboardSearch = () =>
     static _template() {
       return {
         Keyboard: {
-          type: KeyboardSearchComponent,
-          defaultFormat: 'uppercase'
-        },
-        w: utils.getWidthByUpCount(context.theme, 3)
+          type: KeyboardSearchComponent
+        }
       };
     }
   };
