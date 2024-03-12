@@ -206,11 +206,11 @@ export default {
             style: {
               // backgroundColor: 'theme.color.fillTransparent'
               //
-              // mode: {
-              //   unfocused: {
-              //     backgroundColor: 'theme.color.fillTransparent'
-              //   }
-              // }
+              mode: {
+                unfocused: {
+                  backgroundColor: 'theme.color.fillTransparent'
+                }
+              }
               //
               // mode: {
               //   unfocused: {

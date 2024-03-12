@@ -158,10 +158,6 @@ export default class Keyboard extends Base {
           this.style.keyProps?.[keyboard]?.[keyName] ||
           this.style.keyProps?.[keyName] ||
           {};
-
-        keyName === 'number' &&
-          console.log(keyName, keyProps, keyOverrides, this.style.keyProps);
-
         const keyPatch = { ...key, ...keyProps, ...keyOverrides };
 
         if (keyOverrides?.icon) {

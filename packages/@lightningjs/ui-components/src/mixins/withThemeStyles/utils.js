@@ -556,7 +556,7 @@ export const colorParser = (targetObject, styleObj) => {
 
   // Process style object and remove unnecessary properties
   const processedStyle = JSON.stringify(styleObj, (_, value) => {
-    if (-1 < ['tone', 'mode'].indexOf(_)) return undefined; // Remove any tone/mode or mode/tone properties as they have already been processed
+    if (-1 < ['tone', 'mode'].indexOf(_)) return value; // Remove any tone/mode or mode/tone properties as they have already been processed
     if ('string' === typeof value && value.startsWith('theme.')) {
       // Support theme strings example: theme.radius.md
       return getValFromObjPath(targetObject, value); // If no theme value exists, the property will be removed from the object
