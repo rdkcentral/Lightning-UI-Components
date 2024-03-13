@@ -28,7 +28,7 @@
   },
   "peerDependencies": {
     "@lightningjs/core": ">=2.0.0 <=2.11.0"
-  },  
+  },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/plugin-transform-nullish-coalescing-operator": "^7.23.4",

@@ -3436,7 +3436,7 @@ __metadata:
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@lightningjs/core": ^2.7.0
+    "@lightningjs/core": ">=2.0.0 <=2.11.0"
   languageName: unknown
   linkType: soft
 

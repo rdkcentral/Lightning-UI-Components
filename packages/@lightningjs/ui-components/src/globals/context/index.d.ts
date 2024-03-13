@@ -1,4 +1,4 @@
-type ThemeObject = any;
+type ThemeObject = object;
 
 export class Context {
   get theme(): ThemeObject;
