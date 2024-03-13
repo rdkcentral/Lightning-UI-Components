@@ -1,5 +1,7 @@
 type ThemeObject = object;
 
+type CallbackFunction = (...args: unknown[]) => void;
+
 export class Context {
   get theme(): ThemeObject;
   set theme(value: ThemeObject);
@@ -8,25 +10,25 @@ export class Context {
   get debug(): boolean;
   set debug(value: boolean);
 
-  on(name: string, callback: Function): void;
-  off(name: string, callback?: Function): void;
+  on(name: string, callback: CallbackFunction): void;
+  off(name: string, callback?: CallbackFunction): void;
   emit(name: string, payload: string | object | number | boolean): void;
-  
-  log(...args: any[]): void;
-  info(...args: any[]): void;
-  warn(...args: any[]): void;
-  error(...args: any[]): void;
 
-  setTheme(value: object | any[]): ThemeObject;
-  updateTheme(value: object | any[]): ThemeObject;
+  log(...args: unknown[]): void;
+  info(...args: unknown[]): void;
+  warn(...args: unknown[]): void;
+  error(...args: unknown[]): void;
+
+  setTheme(value: ThemeObject | ThemeObject[]): ThemeObject;
+  updateTheme(value: ThemeObject | ThemeObject[]): ThemeObject;
   getSubTheme(subThemeName: string): ThemeObject;
-  setSubThemes(subThemesObj: Record<string, any>): void;
-  setSubTheme(subThemeName: string, value: any): ThemeObject;
-  updateSubTheme(subThemeName: string, value: any): ThemeObject;
+  setSubThemes(subThemesObj: Record<string, unknown>): void;
+  setSubTheme(subThemeName: string, value: unknown): ThemeObject;
+  updateSubTheme(subThemeName: string, value: unknown): ThemeObject;
   removeSubTheme(subThemeName: string): void;
-  setLogCallback(value: Function): void;
-  setKeyMetricsCallback(value: Function): void;
-  config(config: Record<string, any>): Context;
+  setLogCallback(value: CallbackFunction): void;
+  setKeyMetricsCallback(value: CallbackFunction): void;
+  config(config: Record<string, unknown>): Context;
 }
 
 declare const contextInstance: Context;
