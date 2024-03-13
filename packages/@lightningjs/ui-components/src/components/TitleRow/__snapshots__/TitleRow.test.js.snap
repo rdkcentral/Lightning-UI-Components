@@ -282,7 +282,7 @@ exports[`TitleRow renders 1`] = `
       "visible": true,
       "w": 2220,
       "x": 0,
-      "y": 68,
+      "y": 0,
       "zIndex": 0,
     },
     "Title": {
