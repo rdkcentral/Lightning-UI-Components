@@ -111,7 +111,7 @@ export default class CardContent extends Card {
     if (this.style.marqueeOnFocus) {
       metadataPatch.marquee = this._isFocusedMode;
     }
-    
+
     if (!this._Metadata) {
       metadataPatch.type = MetadataCardContent;
     }
