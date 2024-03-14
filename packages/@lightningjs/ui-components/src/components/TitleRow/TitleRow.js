@@ -52,14 +52,14 @@ export default class TitleRow extends Row {
   }
 
   _update() {
+    this._updateTitle();
     this._updateRow();
     super._update();
-    this._updateTitle();
   }
 
   _autoResize() {
     this.w = this.w || this.style.w;
-    this.h = this.autoResizeHeight ? this.Items.y + this.Items.h : this.h;
+    this.h = this.autoResizeHeight ? this.itemPosY + this.Items.h : this.h;
   }
 
   _updateTitle() {
