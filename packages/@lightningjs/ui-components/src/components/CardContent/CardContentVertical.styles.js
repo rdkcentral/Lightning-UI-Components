@@ -25,5 +25,6 @@ export const base = theme => ({
     theme.spacer.xxxl * 7 +
     theme.spacer.lg +
     theme.spacer.xxs,
-  metadata: { descriptionTextStyle: { maxLines: 3 } }
+  metadata: { descriptionTextStyle: { maxLines: 3 } },
+  marqueeOnFocus: true
 });

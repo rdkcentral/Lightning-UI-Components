@@ -31,7 +31,6 @@ export default class CardContentVerticalSmall extends CardContentVertical {
   _setMetadata(metadata) {
     return {
       ...metadata,
-      marquee: this._isFocusedMode,
       details: undefined,
       provider: undefined
     };
