@@ -17,8 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-import { context } from '../../globals';
-import utils from '../../utils';
 import { default as KeyboardSearchComponent } from './KeyboardSearch';
 import { Keyboard } from './Keyboard.stories';
 
