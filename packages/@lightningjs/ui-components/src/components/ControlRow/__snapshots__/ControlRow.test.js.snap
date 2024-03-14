@@ -609,7 +609,7 @@ exports[`ControlRow renders 1`] = `
       "visible": true,
       "w": 880,
       "x": -40,
-      "y": 0,
+      "y": 20,
       "zIndex": 0,
     },
     "Title": {
