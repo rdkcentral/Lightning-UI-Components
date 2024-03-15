@@ -64,7 +64,6 @@ export default class CardContent extends Card {
   _update() {
     this._updateSize();
     this._updateTile();
-    this._updateRadius();
     this._updateMetadata();
     super._update();
   }
@@ -76,6 +75,20 @@ export default class CardContent extends Card {
   _updateTile() {
     let w = this.style.imageSize.w;
     let h = this.style.expandedHeight;
+    const radius =
+      Array.isArray(this.style.radius) && this.style.radius.length === 4
+        ? this.style.radius
+        : Array(4).fill(this.style.radius);
+
+    let tileRadius = radius;
+
+    if (!this._collapse) {
+      tileRadius =
+        this._orientation === 'horizontal'
+          ? [radius[0], 0, 0, radius[3]]
+          : [radius[0], radius[1], 0, 0];
+    }
+
     if (this._orientation !== 'horizontal') {
       w = this.style.expandedWidth;
       h = this.style.imageSize.h;
@@ -93,6 +106,10 @@ export default class CardContent extends Card {
       w,
       h,
       ...tile,
+      style: {
+        ...(tile.style || {}),
+        radius: tileRadius
+      },
       persistentMetadata: true,
       alpha: this._shouldShowTile ? 1 : 0
     });
@@ -131,23 +148,6 @@ export default class CardContent extends Card {
     }
     this.w = w;
     this.h = h;
-  }
-
-  _updateRadius() {
-    const radius =
-      Array.isArray(this.style.radius) && this.style.radius.length === 4
-        ? this.style.radius
-        : Array(4).fill(this.style.radius);
-    let tileRadius = radius;
-
-    if (!this._collapse) {
-      tileRadius =
-        this._orientation === 'horizontal'
-          ? [radius[0], 0, 0, radius[3]]
-          : [radius[0], radius[1], 0, 0];
-    }
-
-    this._Tile.patch({ style: { radius: tileRadius } });
   }
 
   _getSrc() {
