@@ -354,4 +354,16 @@ describe('TabBar', () => {
       expect(tabBar._Tabs.selectedIndex).toBe(1);
     });
   });
+
+  it('should optionally allow the selected tab to remain selected when tab bar loses focus', () => {
+    expect(tabBar._Tabs.items[0].mode).toBe('focused');
+    expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
+
+    tabBar.retainSelection = true;
+    tabBar.mode = 'unfocused';
+    tabBar._updateTabs();
+
+    expect(tabBar._Tabs.items[0].mode).toBe('selected');
+    expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
+  });
 });
