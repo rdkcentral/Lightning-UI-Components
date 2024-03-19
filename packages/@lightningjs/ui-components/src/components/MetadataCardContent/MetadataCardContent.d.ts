@@ -19,7 +19,8 @@
 import lng from '@lightningjs/core';
 import MetadataBase, { MetadataBaseStyle } from '../MetadataBase';
 import Provider, { ProviderStyle } from '../Provider';
-import TextBox, { TextBoxStyle } from '../TextBox';
+import TextBox from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 import { StylePartial } from '../../types/lui';
 
 type MetadataCardContentStyle = MetadataBaseStyle & {

@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Slider, { SliderStyle } from '../Slider';
-import { ScrollWrapperStyle } from './ScrollWrapper';
+import ScrollWrapperStyle from './ScrollWrapper.style';
 import { StylePartial } from '../../types/lui';
 
 type ScrollSliderStyle = SliderStyle & {

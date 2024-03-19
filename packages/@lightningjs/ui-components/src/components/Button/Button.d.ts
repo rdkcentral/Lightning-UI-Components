@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import { Color, StylePartial } from '../../types/lui';
 import Surface, { SurfaceStyle } from '../Surface';
-import type { TextBoxStyle } from '../TextBox'; // text in Button is all using our own version of TextBox
+import type TextBoxStyle from '../TextBox/TextBox.style'; // text in Button is all using our own version of TextBox
 
 type ButtonStyle = SurfaceStyle & {
   justify: 'center' | 'left' | 'right';

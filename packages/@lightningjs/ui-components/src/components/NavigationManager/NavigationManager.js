@@ -118,6 +118,13 @@ export default class NavigationManager extends FocusManager {
 
     for (let i = 0; i < this.Items.children.length; i++) {
       const child = this.Items.children[i];
+
+      if (child.requestEarlyUpdate) {
+        const updateDidRun = child.requestEarlyUpdate();
+        if (!updateDidRun && (child.w === 0 || child.h === 0)) {
+          child._updateLayout && child._updateLayout();
+        }
+      }
       const childCrossDimensionSize = this._calcCrossDimensionSize(child);
 
       if (
@@ -228,9 +235,11 @@ export default class NavigationManager extends FocusManager {
       return;
     }
 
-    const scrollOffset = (this.Items.children[this.scrollIndex] || {
-      [axis]: 0
-    })[axis];
+    const itemPos = this._isRow ? this.itemPosX : this.itemPosY;
+    const scrollOffset =
+      (this.Items.children[this.scrollIndex] || {
+        [axis]: 0
+      })[axis] + itemPos;
     const lastChild = this.Items.childList.last;
     const endOfLastChild = lastChild
       ? this._calcAxisPosition(lastChild) + lastChild[lengthDimension]
@@ -301,8 +310,8 @@ export default class NavigationManager extends FocusManager {
   // can be overwritten
   _performRender() {}
 
-  _appendItem(item) {
-    this.shouldSmooth = false;
+  _appendItem(item, shouldSmoothOverride) {
+    this.shouldSmooth = shouldSmoothOverride ?? false;
     item.parentFocus = this.hasFocus();
     item = this.Items.childList.a(item);
 
@@ -315,12 +324,23 @@ export default class NavigationManager extends FocusManager {
     }
 
     item = this._withAfterUpdate(item);
+    return item;
   }
 
   _appendLazyItem(item) {
-    this._appendItem(item);
-    this.queueRequestUpdate();
-    this._refocus();
+    const { lengthDimension, axis } = this._directionPropNames;
+    const lastChild = this._Items.children[this.items.length - 1];
+    const nextPosition =
+      lastChild[lengthDimension] +
+      lastChild[axis] +
+      (lastChild.extraItemSpacing || 0) +
+      this.style.itemSpacing;
+
+    const appended = this._appendItem(item, true);
+
+    // Update w/o recalculating  whole layout
+    appended[axis] = nextPosition;
+    this._Items[lengthDimension] += nextPosition + item[lengthDimension];
   }
 
   $itemChanged() {
@@ -340,7 +360,7 @@ export default class NavigationManager extends FocusManager {
     }
     items.forEach(item => this._appendItem(item));
 
-    this.queueRequestUpdate();
+    this.requestUpdate();
     this._refocus();
   }
 
@@ -455,7 +475,10 @@ export default class NavigationManager extends FocusManager {
     }
 
     const itemsStartCoord = this._isRow ? this._itemsX : this._itemsY;
-    return itemsStartCoord < 0 && shouldScroll;
+    return (
+      itemsStartCoord < (this._isRow ? this.itemPosX : this.itemPosY) &&
+      shouldScroll
+    );
   }
 
   get _canScrollNext() {
@@ -467,7 +490,7 @@ export default class NavigationManager extends FocusManager {
       endOfItemsPosition = Math.abs(this._itemsX - this.w);
     }
     if (this._isColumn) {
-      endOfItemsPosition = Math.abs(this.itemPosY - this.h);
+      endOfItemsPosition = Math.abs(this._itemsY - this.h);
     }
 
     return (
@@ -487,6 +510,10 @@ export default class NavigationManager extends FocusManager {
 
   get _itemsX() {
     return getX(this.Items);
+  }
+
+  get _itemsY() {
+    return getY(this.Items);
   }
 
   _getAlwaysScroll() {

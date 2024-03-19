@@ -21,7 +21,7 @@ import type Row from '../Row';
 import FocusManager from '../FocusManager';
 import type { NavigationManagerStyle } from '../NavigationManager/NavigationManager';
 import type { StylePartial } from '../../types/lui';
-import type { TextBoxStyle } from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 
 // Why does `TitleRow` extend `Row` but use style props from `NavigationManager`?
 /**

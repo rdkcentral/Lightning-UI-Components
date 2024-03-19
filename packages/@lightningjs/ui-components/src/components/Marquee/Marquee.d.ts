@@ -19,7 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import { Color, StylePartial } from '../../types/lui';
-import { TextBoxStyle } from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 
 type MarqueeStyle = {
   /** @deprecated */

@@ -153,6 +153,18 @@ export default function withUpdates(Base) {
       super._firstEnable && super._firstEnable();
     }
 
+    requestEarlyUpdate() {
+      this._readyForUpdates = true;
+      if (updateManager.hasQueuedRequestFor(this)) {
+        updateManager.deleteRequestUpdate(this);
+        // method also triggers ready for updates
+        this._readyForUpdates = true;
+        this.requestUpdate();
+        return true;
+      }
+      return false;
+    }
+
     _detach() {
       super._detach();
       updateManager.deleteRequestUpdate(this);

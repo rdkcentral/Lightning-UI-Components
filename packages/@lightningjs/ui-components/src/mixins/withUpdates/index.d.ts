@@ -20,6 +20,7 @@ import lng from '@lightningjs/core';
 
 export interface WithUpdates {
   queueRequestUpdate();
+  requestEarlyUpdate(): boolean;
   requestUpdate(force: boolean);
   logPropTable();
 }

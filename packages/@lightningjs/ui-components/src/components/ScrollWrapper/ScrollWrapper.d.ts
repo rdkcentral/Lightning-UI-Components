@@ -19,22 +19,8 @@
 import lng from '@lightningjs/core';
 import ScrollSlider from './ScrollSlider';
 import Base from '../Base';
-import { TextBoxStyle } from '../TextBox';
 import { StylePartial } from '../../types/lui';
-
-type ScrollWrapperStyle = {
-  textStyle: TextBoxStyle;
-  scrollBarW: number;
-  scrollBarH: number;
-  fadeHeight: 100;
-  scroll: {
-    timingFunction: string;
-    duration: number;
-  };
-  contentMarginTop: number;
-  contentMarginLeft: number;
-  sliderMarginLeft: number;
-};
+import ScrollWrapperStyle from './ScrollWrapper.style';
 
 declare namespace ScrollWrapper {
   export interface TemplateSpec extends Base.TemplateSpec {
@@ -161,4 +147,4 @@ declare class ScrollWrapper<
   get _ScrollableText(): lng.Component;
 }
 
-export { ScrollWrapper as default, ScrollWrapperStyle };
+export { ScrollWrapper as default };

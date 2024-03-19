@@ -21,22 +21,8 @@ import Base from '../Base';
 import { StylePartial } from '../../types/lui';
 import Marquee from '../Marquee';
 import InlineContent from '../InlineContent';
-
-type ContentBase = {
-  title?: string;
-  announce?: string;
-  style?: lng.textures.TextTexture.Settings | string;
-};
-
-type TextContent =
-  | string
-  | (ContentBase & ({ text: string } | { icon: string } | { badge: string }));
-
-type TextBoxStyle = {
-  offsetY: number;
-  offsetX: number;
-  textStyle: lng.textures.TextTexture.Settings | string;
-};
+import TextContent from './TextBox.content';
+import TextBoxStyle from './TextBox.style';
 
 declare namespace TextBox {
   export interface TemplateSpec extends Base.TemplateSpec {
@@ -123,4 +109,4 @@ declare class TextBox<
   get _Text(): TextBox;
 }
 
-export { TextBox as default, TextBoxStyle, TextContent };
+export { TextBox as default };

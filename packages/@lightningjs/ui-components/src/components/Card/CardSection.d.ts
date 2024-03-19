@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import Card, { CardStyle } from './Card';
 import { StylePartial } from '../../types/lui';
 import Icon from '../Icon';
-import { TextBoxStyle } from '../TextBox';
+import type TextBoxStyle from '../TextBox/TextBox.style';
 
 type CardSectionStyle = CardStyle & {
   iconHeight: number;
