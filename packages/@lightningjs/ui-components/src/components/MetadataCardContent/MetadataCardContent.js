@@ -38,6 +38,9 @@ export default class MetadataCardContent extends MetadataBase {
         Title: {
           type: TextBox
         },
+        Subheading: {
+          type: TextBox
+        },
         Description: {
           type: TextBox
         },
@@ -68,6 +71,7 @@ export default class MetadataCardContent extends MetadataBase {
 
   static get properties() {
     return [
+      'subheading',
       'description',
       'descriptionDetails',
       'details',
@@ -82,6 +86,10 @@ export default class MetadataCardContent extends MetadataBase {
       {
         name: 'Title',
         path: 'Text.Title'
+      },
+      {
+        name: 'Subheading',
+        path: 'Text.Subheading'
       },
       {
         name: 'Description',
@@ -141,6 +149,7 @@ export default class MetadataCardContent extends MetadataBase {
   _updateLines() {
     this._Text.w = this.w;
     this._updateTitle();
+    this._updateSubheading();
     this._updateDescription();
     this._updateDescriptionDetails();
     this._updateDetails();
@@ -149,6 +158,19 @@ export default class MetadataCardContent extends MetadataBase {
   _updateDescription() {
     this._Description.patch({
       content: this.description,
+      style: {
+        textStyle: {
+          ...this.style.descriptionTextStyle,
+          wordWrap: true,
+          wordWrapWidth: this._Text.w
+        }
+      }
+    });
+  }
+
+  _updateSubheading() {
+    this._Subheading.patch({
+      content: this.subheading,
       style: {
         textStyle: {
           ...this.style.descriptionTextStyle,
@@ -222,6 +244,7 @@ export default class MetadataCardContent extends MetadataBase {
   }
 
   _updatePositions() {
+    const subheadingHeight = this._Subheading ? this._Subheading.h : 0;
     this._Text.h = this._textH;
     this._Text.w = this._textW;
 
@@ -229,10 +252,11 @@ export default class MetadataCardContent extends MetadataBase {
     this._DetailsWrapper.h = Math.max(this._providerH, this._Details.h);
     this._DetailsWrapper.y = this.h - this._DetailsWrapper.h;
 
-    this._Details.y = this._DetailsWrapper.h / 2;
+    this._Details.y = this._DetailsWrapper.h / 2 + subheadingHeight;
 
     this._Provider.x = this._DetailsWrapper.w - this._providerW;
-    this._Provider.y = this._DetailsWrapper.h - this._providerH;
+    this._Provider.y =
+      this._DetailsWrapper.h - this._providerH + subheadingHeight;
   }
 
   get _textW() {
