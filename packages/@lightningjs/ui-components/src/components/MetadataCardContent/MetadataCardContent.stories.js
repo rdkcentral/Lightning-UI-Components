@@ -48,6 +48,7 @@ MetadataCardContent.args = {
   w: 600,
   h: 250,
   title: 'Title',
+  subheading: 'Subtitle',
   description: descriptionSample,
   descriptionDetails: [
     '94%',
@@ -93,9 +94,17 @@ MetadataCardContent.argTypes = {
       type: { summary: 'string' }
     }
   },
+  subheading: {
+    control: 'text',
+    description: 'text directly below title',
+    table: {
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
+    }
+  },
   description: {
     control: 'text',
-    description: 'Description text directly below title',
+    description: 'Description text directly below subheading',
     table: {
       defaultValue: { summary: 'undefined' },
       type: { summary: 'string' }
