@@ -151,26 +151,24 @@ export default class Keyboard extends Base {
       };
 
       if (typeof keyProps === 'object') {
-        // keyId is used to account for localization
-        const iconName = keyProps.keyId || keyProps.title;
-        const keyIcon =
-          this.style.keyProps?.[keyboard]?.[iconName] ||
-          this.style.keyProps?.[iconName];
+        // keyId is used to account for style overrides on individual keys,
+        // icon updates, and localization
+        const keyName = keyProps.keyId || keyProps.title;
+        const keyOverrides =
+          this.style.keyProps?.[keyboard]?.[keyName] ||
+          this.style.keyProps?.[keyName] ||
+          {};
+        const keyPatch = { ...key, ...keyProps, ...keyOverrides };
 
-        if (keyIcon && keyIcon.icon) {
-          return {
-            ...key,
-            ...keyProps,
-            ...this.style.keyProps?.[iconName],
-            style: {
-              iconStyle: {
-                ...keyIcon.iconStyle
-              }
-            },
-            size: keyIcon.size || keyProps.size
+        if (keyOverrides?.icon) {
+          keyPatch.style = {
+            ...keyOverrides.style,
+            iconStyle: {
+              ...keyOverrides.iconStyle
+            }
           };
         }
-        return { ...key, ...keyProps };
+        return keyPatch;
       }
       return { ...key, title: keyProps };
     });

@@ -880,15 +880,40 @@ describe('generateComponentStyleSource', () => {
     });
 
     expect(source).toStrictEqual({
-      unfocused_neutral: { color: 'primary' },
-      unfocused_inverse: { color: 'primary' },
-      unfocused_brand: { color: 'primary' },
-      focused_neutral: { color: 'primary' },
-      focused_inverse: { color: 'primary' },
-      focused_brand: { color: 'primary' },
-      disabled_neutral: { color: 'primary' },
-      disabled_inverse: { color: 'primary' },
-      disabled_brand: { color: 'primary' }
+      unfocused_neutral: {
+        color: 'primary',
+        mode: { unfocused: { color: 'primary' } }
+      },
+      unfocused_inverse: {
+        color: 'primary',
+        mode: { unfocused: { color: 'primary' } }
+      },
+      unfocused_brand: {
+        color: 'primary',
+        mode: { unfocused: { color: 'primary' } }
+      },
+      focused_neutral: {
+        mode: { unfocused: { color: 'primary' } }
+      },
+      focused_inverse: {
+        color: 'primary',
+        mode: { unfocused: { color: 'primary' } }
+      },
+      focused_brand: {
+        color: 'primary',
+        mode: { unfocused: { color: 'primary' } }
+      },
+      disabled_neutral: {
+        mode: { unfocused: { color: 'primary' } }
+      },
+      disabled_inverse: {
+        color: 'primary',
+        mode: { unfocused: { color: 'primary' } }
+      },
+      disabled_brand: {
+        color: 'primary',
+        mode: { unfocused: { color: 'primary' } }
+      }
     });
   });
 
@@ -908,15 +933,40 @@ describe('generateComponentStyleSource', () => {
     });
 
     expect(source).toStrictEqual({
-      unfocused_neutral: { color: 'primary' },
-      unfocused_inverse: { color: 'primary' },
-      unfocused_brand: { color: 'primary' },
-      focused_neutral: { color: 'primary' },
-      focused_inverse: { color: 'primary' },
-      focused_brand: { color: 'primary' },
-      disabled_neutral: { color: 'primary' },
-      disabled_inverse: { color: 'primary' },
-      disabled_brand: { color: 'primary' }
+      unfocused_neutral: {
+        color: 'primary',
+        tone: { neutral: { color: 'primary' } }
+      },
+      unfocused_inverse: {
+        tone: { neutral: { color: 'primary' } }
+      },
+      unfocused_brand: {
+        tone: { neutral: { color: 'primary' } }
+      },
+      focused_neutral: {
+        color: 'primary',
+        tone: { neutral: { color: 'primary' } }
+      },
+      focused_inverse: {
+        color: 'primary',
+        tone: { neutral: { color: 'primary' } }
+      },
+      focused_brand: {
+        color: 'primary',
+        tone: { neutral: { color: 'primary' } }
+      },
+      disabled_neutral: {
+        color: 'primary',
+        tone: { neutral: { color: 'primary' } }
+      },
+      disabled_inverse: {
+        color: 'primary',
+        tone: { neutral: { color: 'primary' } }
+      },
+      disabled_brand: {
+        color: 'primary',
+        tone: { neutral: { color: 'primary' } }
+      }
     });
   });
 });

@@ -17,8 +17,6 @@
  */
 
 import lng from '@lightningjs/core';
-import context from '../../globals/context/index';
-import utils from '../../utils';
 import { default as KeyboardSearchComponent } from './KeyboardSearch';
 import { Keyboard } from './Keyboard.stories';
 
@@ -31,10 +29,8 @@ export const KeyboardSearch = () =>
     static _template() {
       return {
         Keyboard: {
-          type: KeyboardSearchComponent,
-          defaultFormat: 'uppercase'
-        },
-        w: utils.getWidthByUpCount(context.theme, 3)
+          type: KeyboardSearchComponent
+        }
       };
     }
   };
