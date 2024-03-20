@@ -68,11 +68,6 @@ declare namespace MetadataBase {
      */
     marquee?: boolean;
     /**
-     * @deprecated
-     * relevant content data in the middle
-     */
-    subtitle?: string;
-    /**
      * first line or headline of the content
      */
     title?: string;
@@ -125,11 +120,6 @@ declare class MetadataBase<
    * TODO: confirm type and get a description
    */
   marquee?: boolean;
-  /**
-   * @deprecated
-   * relevant content data in the middle
-   */
-  subtitle?: string;
   /**
    * first line or headline of the content
    */

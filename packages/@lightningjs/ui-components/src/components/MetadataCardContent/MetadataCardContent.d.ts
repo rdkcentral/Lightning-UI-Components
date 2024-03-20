@@ -37,9 +37,9 @@ declare namespace MetadataCardContent {
      */
     title?: string;
     /**
-     * text of subheading content
+     * text of subtitle content
      */
-    subheading?: string;
+    subtitle?: string;
     /**
      * description text below title
      */
@@ -68,9 +68,9 @@ declare class MetadataCardContent<
    */
   title?: string;
   /**
-   * text of subheading content
+   * text of subtitle content
    */
-  subheading?: string;
+  subtitle?: string;
   /**
    * description text below title
    */
@@ -95,7 +95,7 @@ declare class MetadataCardContent<
 
   get _Text(): TextBox;
   get _Title(): TextBox;
-  get _Subheading(): TextBox;
+  get _Subtitle(): TextBox;
   get _Description(): TextBox;
   get _DescriptionDetails(): TextBox;
   get _DetailsWrapper(): TextBox;
