@@ -361,7 +361,8 @@ describe('TabBar', () => {
 
     tabBar.retainSelection = true;
     tabBar.mode = 'unfocused';
-    tabBar._updateTabs();
+
+    testRenderer.forceAllUpdates();
 
     expect(tabBar._Tabs.items[0].mode).toBe('selected');
     expect(tabBar._Tabs.items[1].mode).toBe('unfocused');
