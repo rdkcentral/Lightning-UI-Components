@@ -107,7 +107,7 @@ export default class CardContent extends Card {
       h,
       ...tile,
       style: {
-        ...(tile.style || {}),
+        ...(tile?.style || {}),
         radius: tileRadius
       },
       persistentMetadata: true,
