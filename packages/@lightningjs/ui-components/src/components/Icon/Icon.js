@@ -18,8 +18,8 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import * as styles from './Icon.styles.js';
-import { context } from '../../globals';
+import * as styles from './Icon.styles';
+import context from '../../globals/context/index';
 import { getValidColor } from '../../utils';
 import CustomImageTexture from '../../textures/CustomImageTexture';
 

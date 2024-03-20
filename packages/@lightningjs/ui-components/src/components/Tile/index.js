@@ -16,4 +16,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as default } from './Tile.js';
+export { default as default } from './Tile';

@@ -21,7 +21,7 @@ import Base from '../Base';
 import Row from '../Row';
 import Icon from '../Icon';
 import TextBox from '../TextBox';
-import * as styles from './Provider.styles.js';
+import * as styles from './Provider.styles';
 
 export default class Provider extends Base {
   static get __componentName() {

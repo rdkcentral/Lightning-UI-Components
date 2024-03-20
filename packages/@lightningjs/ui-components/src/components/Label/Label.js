@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import * as styles from './Label.styles.js';
+import * as styles from './Label.styles';
 
 export default class Label extends Base {
   static _template() {

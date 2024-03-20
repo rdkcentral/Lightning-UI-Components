@@ -19,7 +19,7 @@
 import Column from '.';
 import Row from '../Row';
 import lng from '@lightningjs/core';
-import { withThemeStyles } from '../../mixins';
+import withThemeStyles from '../../mixins/withThemeStyles';
 import {
   completeAnimation,
   makeCreateComponent,

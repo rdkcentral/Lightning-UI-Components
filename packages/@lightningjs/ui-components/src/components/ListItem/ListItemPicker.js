@@ -17,7 +17,7 @@
  */
 
 import ListItem from './ListItem';
-import * as styles from './ListItemPicker.styles.js';
+import * as styles from './ListItemPicker.styles';
 import Marquee from '../Marquee';
 import Icon from '../Icon';
 import Row from '../Row';

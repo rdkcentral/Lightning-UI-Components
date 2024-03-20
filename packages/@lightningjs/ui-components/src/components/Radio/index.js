@@ -16,5 +16,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as default } from './Radio.js';
-export { default as RadioSmall } from './RadioSmall.js';
+export { default as default } from './Radio';
+export { default as RadioSmall } from './RadioSmall';

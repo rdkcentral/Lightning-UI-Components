@@ -3345,6 +3345,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@lightningjs/monorepo@workspace:."
   dependencies:
+    "@babel/plugin-transform-optional-chaining": ^7.23.4
     "@commitlint/cli": ^17.1.2
     "@commitlint/config-conventional": ^17.1.0
     "@rollup/plugin-babel": ^6.0.2
@@ -3358,6 +3359,7 @@ __metadata:
     "@semantic-release/release-notes-generator": ^10.0.3
     "@typescript-eslint/eslint-plugin": ^5.42.0
     "@typescript-eslint/parser": ^5.42.0
+    cross-env: ^7.0.3
     eslint: ^7.22.0
     eslint-config-prettier: ^7.2.0
     eslint-config-standard-with-typescript: ^26.0.0
@@ -3378,6 +3380,7 @@ __metadata:
     rollup-plugin-dts: 5.2.0
     rollup-plugin-peer-deps-external: ^2.2.4
     rollup-plugin-terser: ^7.0.2
+    rollup-plugin-visualizer: ^5.12.0
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
     semantic-release-slack-bot: ^3.5.3
@@ -3416,9 +3419,11 @@ __metadata:
   resolution: "@lightningjs/ui-components@workspace:packages/@lightningjs/ui-components"
   dependencies:
     "@babel/core": ^7.19.3
+    "@babel/plugin-transform-nullish-coalescing-operator": ^7.23.4
     "@lightningjs/ui-components-test-utils": "workspace:^"
     "@lightningjs/ui-components-theme-base": "workspace:^"
     "@mdx-js/react": ^1.6.22
+    "@rollup/plugin-babel": ^6.0.4
     babel-jest: ^29.0.3
     babel-loader: ^8.2.5
     debounce: ^1.2.1
@@ -3431,7 +3436,7 @@ __metadata:
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@lightningjs/core": 2.11.0
+    "@lightningjs/core": ">=2.0.0 <=2.11.0"
   languageName: unknown
   linkType: soft
 
@@ -4499,7 +4504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-babel@npm:^6.0.2":
+"@rollup/plugin-babel@npm:^6.0.2, @rollup/plugin-babel@npm:^6.0.4":
   version: 6.0.4
   resolution: "@rollup/plugin-babel@npm:6.0.4"
   dependencies:
@@ -8810,7 +8815,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:7.0.3, cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
+"cross-env@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "cross-env@npm:7.0.3"
+  dependencies:
+    cross-spawn: ^7.0.1
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: 26f2f3ea2ab32617f57effb70d329c2070d2f5630adc800985d8b30b56e8bf7f5f439dd3a0358b79cee6f930afc23cf8e23515f17ccfb30092c6b62c6b630a79
+  languageName: node
+  linkType: hard
+
+"cross-spawn@npm:7.0.3, cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -17790,6 +17807,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-visualizer@npm:^5.12.0":
+  version: 5.12.0
+  resolution: "rollup-plugin-visualizer@npm:5.12.0"
+  dependencies:
+    open: ^8.4.0
+    picomatch: ^2.3.1
+    source-map: ^0.7.4
+    yargs: ^17.5.1
+  peerDependencies:
+    rollup: 2.x || 3.x || 4.x
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  bin:
+    rollup-plugin-visualizer: dist/bin/cli.js
+  checksum: 17dc10a93d4bd457c8bb7796a57c284487fb00f4b9703a33a1a954f5d40c66a89b24aca98564569922456f4fa8f72281c3ef96a95502195e6930b3fac62fce8e
+  languageName: node
+  linkType: hard
+
 "rollup@npm:^3.2.5":
   version: 3.29.4
   resolution: "rollup@npm:3.29.4"
@@ -18406,6 +18442,13 @@ __metadata:
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: 59ce8640cf3f3124f64ac289012c2b8bd377c238e316fb323ea22fbfe83da07d81e000071d7242cad7a23cd91c7de98e4df8830ec3f133cb6133a5f6e9f67bc2
+  languageName: node
+  linkType: hard
+
+"source-map@npm:^0.7.4":
+  version: 0.7.4
+  resolution: "source-map@npm:0.7.4"
+  checksum: 01cc5a74b1f0e1d626a58d36ad6898ea820567e87f18dfc9d24a9843a351aaa2ec09b87422589906d6ff1deed29693e176194dc88bcae7c9a852dc74b311dbf5
   languageName: node
   linkType: hard
 
@@ -20613,7 +20656,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.0.0, yargs@npm:^17.3.1":
+"yargs@npm:^17.0.0, yargs@npm:^17.3.1, yargs@npm:^17.5.1":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:

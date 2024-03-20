@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import CheckboxSmall from './CheckboxSmall.js';
+import CheckboxSmall from './CheckboxSmall';
 
 const createCheckboxSmall = makeCreateComponent(CheckboxSmall);
 

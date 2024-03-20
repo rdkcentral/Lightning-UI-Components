@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import * as styles from './ProgressBar.styles.js';
+import * as styles from './ProgressBar.styles';
 
 export default class ProgressBar extends Base {
   static _template() {

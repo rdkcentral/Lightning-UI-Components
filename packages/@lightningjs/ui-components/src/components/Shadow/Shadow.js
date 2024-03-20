@@ -18,7 +18,7 @@
 
 import lng from '@lightningjs/core';
 import Base from '../Base';
-import * as styles from './Shadow.styles.js';
+import * as styles from './Shadow.styles';
 
 export default class Shadow extends Base {
   static get __componentName() {

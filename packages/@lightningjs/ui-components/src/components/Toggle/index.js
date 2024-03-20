@@ -16,5 +16,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as default } from './Toggle.js';
-export { default as ToggleSmall } from './ToggleSmall.js';
+export { default as default } from './Toggle';
+export { default as ToggleSmall } from './ToggleSmall';

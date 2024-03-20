@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { context } from '../../globals';
+import context from '../../globals/context/index';
 import { default as GridOverlayComponent } from '.';
 
 export default {

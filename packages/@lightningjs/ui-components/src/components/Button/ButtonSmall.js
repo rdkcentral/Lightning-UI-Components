@@ -17,7 +17,7 @@
  */
 
 import Button from './Button';
-import * as styles from './ButtonSmall.styles.js';
+import * as styles from './ButtonSmall.styles';
 
 export default class ButtonSmall extends Button {
   static get __componentName() {

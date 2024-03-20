@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { Row as RowBasic } from '../Row/Row.stories.js';
+import { Row as RowBasic } from '../Row/Row.stories';
 import Tile from '../Tile';
 import { default as TitleRowComponent } from '.';
 

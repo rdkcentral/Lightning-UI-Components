@@ -18,7 +18,8 @@
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import withEditItems from '.';
-import { Button, Row } from '../../components';
+import Button from '../../components/Button';
+import Row from '../../components/Row';
 import { jest } from '@jest/globals';
 
 const createComponent = makeCreateComponent(

@@ -20,7 +20,7 @@ import Icon from '../Icon';
 import Badge from '../Badge';
 import { parseInlineContent, flatten, measureTextWidth } from '../../utils';
 import Base from '../Base';
-import * as styles from './InlineContent.styles.js';
+import * as styles from './InlineContent.styles';
 
 const isText = item => typeof item === 'string' || !!item.text;
 const isIcon = item => !!item.icon;

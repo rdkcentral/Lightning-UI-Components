@@ -18,7 +18,9 @@
 
 import lng from '@lightningjs/core';
 import withAnnouncer, { defaultAbbrevConfig } from '.';
-import { Column, Row, Button } from '../../components';
+import Column from '../../components/Column/Column';
+import Row from '../../components/Row/Row';
+import Button from '../../components/Button/Button';
 
 export default {
   title: 'Utilities/withAnnouncer',

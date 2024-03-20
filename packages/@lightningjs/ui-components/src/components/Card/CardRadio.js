@@ -18,7 +18,7 @@
 
 import CardTitle from './CardTitle';
 import TextBox from '../TextBox';
-import * as styles from './CardRadio.styles.js';
+import * as styles from './CardRadio.styles';
 import Radio from '../Radio';
 
 export default class CardRadio extends CardTitle {

@@ -16,10 +16,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Bubble } from '../../textures';
+import Bubble from '../../textures/Bubble';
 import TextBox from '../TextBox';
 import Base from '../Base';
-import * as styles from './Tooltip.styles.js';
+import * as styles from './Tooltip.styles';
 
 export default class Tooltip extends Base {
   static get __componentName() {

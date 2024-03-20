@@ -16,4 +16,4 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as default } from './Artwork.js';
+export { default as default } from './Artwork';

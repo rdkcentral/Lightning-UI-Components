@@ -22,10 +22,10 @@ import {
   clearStyleChainCache,
   generateStyle,
   getHash
-} from './utils.js';
-import { context } from '../../globals/index.js';
-import { clone } from '../../utils/index.js';
-import cache from './cache.js';
+} from './utils';
+import context from '../../globals/context/index';
+import { clone } from '../../utils/index';
+import cache from './cache';
 import lng from '@lightningjs/core';
 
 export default class StyleManager extends lng.EventEmitter {
