@@ -91,10 +91,6 @@ class MetadataBase extends Base {
     return [{ prev: 'subtitleTextStyle', curr: 'detailsTextStyle' }];
   }
 
-  static get aliasProperties() {
-    return [{ prev: 'subtitle', curr: 'details' }];
-  }
-
   _titleLoaded() {
     this._updateLayout();
   }

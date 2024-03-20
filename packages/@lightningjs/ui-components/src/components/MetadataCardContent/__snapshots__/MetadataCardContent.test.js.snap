@@ -578,7 +578,7 @@ exports[`MetadataCardContent renders 1`] = `
           "y": 5,
           "zIndex": 0,
         },
-        "Subheading": {
+        "Subtitle": {
           "active": false,
           "alpha": 0.001,
           "attached": true,
@@ -598,7 +598,7 @@ exports[`MetadataCardContent renders 1`] = `
           "pivot": 0.5,
           "pivotX": 0.5,
           "pivotY": 0.5,
-          "ref": "Subheading",
+          "ref": "Subtitle",
           "renderOfScreen": undefined,
           "renderToTexture": false,
           "scale": 1,
@@ -607,7 +607,7 @@ exports[`MetadataCardContent renders 1`] = `
           "state": "",
           "tag": [Function],
           "tags": [
-            "Subheading",
+            "Subtitle",
           ],
           "type": "TextBox",
           "visible": true,
