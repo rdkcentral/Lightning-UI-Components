@@ -3,7 +3,7 @@
   "sideEffects": false,
   "private": true,
   "scripts": {
-    "start": "yarn run generateStorybookData && storybook dev -p 8000",
+    "start": "yarn run generateStorybookData && storybook dev -p 8002",
     "build": "yarn run generateStorybookData && storybook build",
     "storybook": "storybook dev -p 6006",
     "generateStorybookData": "node ./scripts/generate-theme-props-table.mjs",
