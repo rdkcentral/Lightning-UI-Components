@@ -27,3 +27,5 @@ CHANGELOG.md
 
 # Copied into folder from root directory during release
 /packages/@lightningjs/ui-components/README.md
+
+/packages/@lightningjs/ui-components/bundle-analysis.html

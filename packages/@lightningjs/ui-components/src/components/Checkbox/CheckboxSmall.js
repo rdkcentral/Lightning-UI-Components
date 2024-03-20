@@ -17,7 +17,7 @@
  */
 
 import Checkbox from './Checkbox';
-import * as styles from './CheckboxSmall.styles.js';
+import * as styles from './CheckboxSmall.styles';
 
 export default class CheckboxSmall extends Checkbox {
   static get __themeStyle() {

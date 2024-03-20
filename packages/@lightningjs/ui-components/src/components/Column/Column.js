@@ -18,7 +18,7 @@
 
 import NavigationManager from '../NavigationManager';
 import { getY } from '../../utils';
-import * as styles from './Column.styles.js';
+import * as styles from './Column.styles';
 
 export default class Column extends NavigationManager {
   static get __componentName() {

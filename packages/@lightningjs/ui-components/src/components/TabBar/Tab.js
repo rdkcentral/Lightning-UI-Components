@@ -19,7 +19,7 @@
 import Surface from '../Surface';
 import Icon from '../Icon';
 import TextBox from '../TextBox';
-import * as styles from './Tab.styles.js';
+import * as styles from './Tab.styles';
 
 export default class Tab extends Surface {
   static _template() {

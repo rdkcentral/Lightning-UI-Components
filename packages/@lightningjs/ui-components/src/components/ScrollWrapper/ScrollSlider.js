@@ -17,7 +17,7 @@
  */
 
 import Slider from '../Slider';
-import * as styles from './ScrollSlider.styles.js';
+import * as styles from './ScrollSlider.styles';
 
 export default class ScrollSlider extends Slider {
   static get __componentName() {

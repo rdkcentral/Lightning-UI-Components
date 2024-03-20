@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { base, tone } from './ProgressBar.styles.js';
+import { base, tone } from './ProgressBar.styles';
 import { jest } from '@jest/globals';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import baseTheme from '@lightningjs/ui-components-theme-base';

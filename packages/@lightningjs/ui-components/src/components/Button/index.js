@@ -16,5 +16,5 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export { default as default } from './Button.js';
-export { default as ButtonSmall } from './ButtonSmall.js';
+export { default as default } from './Button';
+export { default as ButtonSmall } from './ButtonSmall';

@@ -16,8 +16,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Radio from './Radio.js';
-import * as styles from './RadioSmall.styles.js';
+import Radio from './Radio';
+import * as styles from './RadioSmall.styles';
 
 export default class RadioSmall extends Radio {
   static get __componentName() {

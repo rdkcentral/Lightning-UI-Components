@@ -17,7 +17,7 @@
  */
 
 import Slider from './Slider';
-import * as styles from './SliderLarge.styles.js';
+import * as styles from './SliderLarge.styles';
 
 export default class SliderLarge extends Slider {
   static get __componentName() {

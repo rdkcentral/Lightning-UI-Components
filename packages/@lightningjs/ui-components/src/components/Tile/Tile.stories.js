@@ -19,13 +19,13 @@
 import lng from '@lightningjs/core';
 import { default as TileComponent } from '.';
 import { createModeControl, generateSubStory } from '../../docs/utils';
-import { Artwork as ArtworkStory } from '../Artwork/Artwork.stories.js';
-import { Checkbox as CheckboxStory } from '../Checkbox/Checkbox.stories.js';
+import { Artwork as ArtworkStory } from '../Artwork/Artwork.stories';
+import { Checkbox as CheckboxStory } from '../Checkbox/Checkbox.stories';
 import { MetadataTile as MetadataTileStory } from '../MetadataTile/MetadataTile.stories';
-import { withLayout as ItemLayoutStory } from '../../mixins/withLayout/withLayout.stories.js';
-import { Label as LabelStory } from '../Label/Label.stories.js';
+import { withLayout as ItemLayoutStory } from '../../mixins/withLayout/withLayout.stories';
+import { Label as LabelStory } from '../Label/Label.stories';
 import { ProgressBar as ProgressBarStory } from '../ProgressBar/ProgressBar.stories';
-import { Text as BadgeStory } from '../Badge/Badge.stories.js';
+import { Text as BadgeStory } from '../Badge/Badge.stories';
 import xfinityLogo from '../../assets/images/Xfinity-Provider-Logo-2x1.png';
 
 export default {

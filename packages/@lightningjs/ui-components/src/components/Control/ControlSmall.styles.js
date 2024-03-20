@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { base as ControlStyle } from './Control.styles.js';
+import { base as ControlStyle } from './Control.styles';
 
 export const base = theme => {
   const parentStyle = ControlStyle(theme);

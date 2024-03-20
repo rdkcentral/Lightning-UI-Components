@@ -21,7 +21,7 @@ import * as styles from './TextBox.styles';
 import Base from '../Base';
 import InlineContent from '../InlineContent';
 import Marquee from '../Marquee';
-import { context } from '../../globals';
+import context from '../../globals/context/index';
 import utils from '../../utils';
 
 /**

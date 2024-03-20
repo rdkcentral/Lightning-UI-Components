@@ -17,7 +17,7 @@
  */
 
 import Keyboard from './Keyboard';
-import * as styles from './Keyboard.styles.js';
+import * as styles from './Keyboard.styles';
 
 export default class KeyboardSearch extends Keyboard {
   static get __componentName() {
@@ -40,8 +40,22 @@ export default class KeyboardSearch extends Keyboard {
         ['G', 'H', 'I', 'J', 'K', 'L'],
         ['M', 'N', 'O', 'P', 'Q', 'R'],
         ['S', 'T', 'U', 'V', 'W', 'X'],
-        ['Y', 'Z', '1', '2', '3', '4'],
-        ['5', '6', '7', '8', '9', '0'],
+        [
+          'Y',
+          'Z',
+          { title: '1', keyId: 'number' },
+          { title: '2', keyId: 'number' },
+          { title: '3', keyId: 'number' },
+          { title: '4', keyId: 'number' }
+        ],
+        [
+          { title: '5', keyId: 'number' },
+          { title: '6', keyId: 'number' },
+          { title: '7', keyId: 'number' },
+          { title: '8', keyId: 'number' },
+          { title: '9', keyId: 'number' },
+          { title: '0', keyId: 'number' }
+        ],
         [
           {
             title: 'Space',

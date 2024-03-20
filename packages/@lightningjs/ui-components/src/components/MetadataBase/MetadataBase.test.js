@@ -17,7 +17,7 @@
  */
 
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import MetadataBase from './MetadataBase.js';
+import MetadataBase from './MetadataBase';
 import { jest } from '@jest/globals';
 
 const createComponent = makeCreateComponent(MetadataBase, {

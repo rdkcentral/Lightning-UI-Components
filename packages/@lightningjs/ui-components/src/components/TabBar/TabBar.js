@@ -18,8 +18,8 @@
 
 import Base from '../Base';
 import Row from '../Row';
-import ContentSwitcher from './ContentSwitcher.js';
-import * as styles from './TabBar.styles.js';
+import ContentSwitcher from './ContentSwitcher';
+import * as styles from './TabBar.styles';
 
 export default class TabBar extends Base {
   static _template() {

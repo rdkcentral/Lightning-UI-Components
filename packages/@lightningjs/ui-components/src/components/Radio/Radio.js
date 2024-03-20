@@ -18,7 +18,7 @@
 
 import Base from '../Base';
 import lng from '@lightningjs/core';
-import * as styles from './Radio.styles.js';
+import * as styles from './Radio.styles';
 
 export default class Radio extends Base {
   static get __componentName() {

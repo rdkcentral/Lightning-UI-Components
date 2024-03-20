@@ -21,12 +21,12 @@ import {
   getValFromObjPath,
   getHexColor,
   getValidColor
-} from '../../utils/index.js';
+} from '../../utils/index';
 import baseTheme from '@lightningjs/ui-components-theme-base';
-import logger from './logger.js';
-import events from './events.js';
-import { fontLoader, cleanupFonts } from './fonts.js';
-import { THEME_KEY_REPLACER } from './constants.js';
+import logger from './logger';
+import events from './events';
+import { fontLoader, cleanupFonts } from './fonts';
+import { THEME_KEY_REPLACER } from './constants';
 
 const merge = {
   all: objArray => {
