@@ -17,10 +17,10 @@
  */
 
 import { capitalizeFirstLetter } from '../../utils';
-import logger from './logger.js';
-import metrics from './metrics.js';
-import events from './events.js';
-import themeManager from './theme-manager.js';
+import logger from './logger';
+import metrics from './metrics';
+import events from './events';
+import themeManager from './theme-manager';
 
 /**
  * Class to create a context object. Context is a singleton that will hold settings and logic to be used across all Lightning UI components.

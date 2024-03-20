@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { Tile } from '../../components';
+import Tile from '../../components/Tile';
 
 export default {
   title: 'Utilities/withLayout'

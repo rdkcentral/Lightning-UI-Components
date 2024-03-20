@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as styles from './Button.styles.js';
+import * as styles from './Button.styles';
 import Row from '../Row';
 import Surface from '../Surface';
 import TextBox from '../TextBox'; // There seams to be some issue with the circular dependency here

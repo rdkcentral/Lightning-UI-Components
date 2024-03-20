@@ -17,8 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import { default as CardRadioComponent } from './CardRadio.js';
-import { Radio as RadioStory } from '../Radio/Radio.stories.js';
+import { default as CardRadioComponent } from './CardRadio';
+import { Radio as RadioStory } from '../Radio/Radio.stories';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 
 export default {

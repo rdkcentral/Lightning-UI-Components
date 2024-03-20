@@ -19,7 +19,7 @@
 import Base from '../Base';
 import Icon from '../Icon';
 import { getHexColor } from '../../utils';
-import * as styles from './Badge.styles.js';
+import * as styles from './Badge.styles';
 import lng from '@lightningjs/core';
 
 export default class Badge extends Base {

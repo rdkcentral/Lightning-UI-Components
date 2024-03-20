@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as styles from './CardContent.styles.js';
+import * as styles from './CardContent.styles';
 import CardContent from './CardContent';
 
 export default class CardContentHorizontal extends CardContent {

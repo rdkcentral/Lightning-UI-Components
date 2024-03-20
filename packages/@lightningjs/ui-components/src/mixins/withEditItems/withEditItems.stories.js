@@ -17,13 +17,15 @@
  */
 
 import lng from '@lightningjs/core';
-import { Button, TextBox, Row } from '../../components';
+import Button from '../../components/Button/Button';
+import TextBox from '../../components/TextBox/TextBox';
+import Row from '../../components/Row/Row';
 import { default as withEditItemsMixin } from '.';
 
 /**
  * Shared Args and Arg Types from Row
  */
-import * as RowProps from '../../components/Row/Row.stories.js';
+import * as RowProps from '../../components/Row/Row.stories';
 export default {
   title: 'Utilities/withEditItems',
   parameters: {

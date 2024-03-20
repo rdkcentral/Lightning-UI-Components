@@ -43,7 +43,7 @@ In our App.js file, we will define our single page, which will reference a new c
 
 ```js
 import Lightning from '@lightningjs/core';
-import ExamplePage from './ExamplePage.js';
+import ExamplePage from './ExamplePage';
 
 export default class App extends Lightning.Application {
   static _template() {
@@ -239,7 +239,7 @@ export const base = theme => ({
 In our ExamplePage.js, we need to import this new file:
 
 ```js
-import * as styles from './ExamplePage.styles.js';
+import * as styles from './ExamplePage.styles';
 ```
 
 Then we will add it to the static `__themeStyle` getter:

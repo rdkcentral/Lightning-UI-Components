@@ -17,7 +17,7 @@
  */
 
 import Keyboard from './Keyboard';
-import * as styles from './Keyboard.styles.js';
+import * as styles from './Keyboard.styles';
 
 export default class KeyboardFullScreen extends Keyboard {
   static get __componentName() {

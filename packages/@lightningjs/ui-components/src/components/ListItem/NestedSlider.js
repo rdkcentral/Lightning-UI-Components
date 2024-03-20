@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as styles from './NestedSlider.styles.js';
+import * as styles from './NestedSlider.styles';
 import Slider from '../Slider';
 
 export default class NestedSlider extends Slider {

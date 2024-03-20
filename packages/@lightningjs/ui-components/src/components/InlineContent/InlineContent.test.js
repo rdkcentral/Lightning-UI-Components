@@ -25,7 +25,7 @@ import InlineContent from '.';
 import { getHexColor } from '../../utils';
 import { base } from './InlineContent.styles';
 import baseTheme from '@lightningjs/ui-components-theme-base';
-import { context } from '../../globals';
+import context from '../../globals/context/index';
 import { jest } from '@jest/globals';
 const lightningIcon = pathToDataURI(
   'src/assets/images/ic_lightning_white_32.png'

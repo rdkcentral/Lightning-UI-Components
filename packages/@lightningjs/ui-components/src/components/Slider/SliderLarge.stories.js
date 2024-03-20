@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import Slider from './SliderLarge.js';
+import Slider from './SliderLarge';
 import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
 import { useArgs } from '@storybook/client-api';

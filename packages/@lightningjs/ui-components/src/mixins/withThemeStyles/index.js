@@ -17,8 +17,8 @@
  */
 
 import StyleManager from './StyleManager';
-import { updateManager } from '../../globals';
-import { context } from '../../globals';
+import { updateManager } from '../../globals/global-update-manager/GlobalUpdateManager';
+import context from '../../globals/context';
 import { getComponentConfig, getSubTheme } from './utils';
 import { capitalizeFirstLetter } from '../../utils';
 

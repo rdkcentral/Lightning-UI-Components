@@ -18,7 +18,8 @@
 
 import lng from '@lightningjs/core';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
-import { Arrow, Circle } from '.';
+import Arrow from './Arrow';
+import Circle from './Circle';
 
 const createTexture = makeCreateComponent(lng.Component);
 

@@ -20,7 +20,7 @@ import Keyboard from './Keyboard';
 import Input from '../Input';
 import Base from '../Base';
 import Column from '../Column';
-import * as styles from './Keyboard.styles.js';
+import * as styles from './Keyboard.styles';
 
 export default class KeyboardInput extends Base {
   static get __componentName() {

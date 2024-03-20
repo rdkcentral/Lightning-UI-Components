@@ -17,7 +17,7 @@
  */
 
 import Base from '../Base';
-import * as styles from './Surface.styles.js';
+import * as styles from './Surface.styles';
 import lng from '@lightningjs/core';
 
 export default class Surface extends Base {

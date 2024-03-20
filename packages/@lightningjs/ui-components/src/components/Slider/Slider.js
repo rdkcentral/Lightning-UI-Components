@@ -17,7 +17,7 @@
  */
 
 import Base from '../Base';
-import * as styles from './Slider.styles.js';
+import * as styles from './Slider.styles';
 import ProgressBar from '../ProgressBar';
 import Icon from '../Icon';
 import Knob from '../Knob';

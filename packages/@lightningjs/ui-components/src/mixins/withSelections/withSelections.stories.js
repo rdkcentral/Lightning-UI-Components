@@ -17,7 +17,8 @@
  */
 
 import lng from '@lightningjs/core';
-import { Button, Row } from '../../components';
+import Button from '../../components/Button/Button';
+import Row from '../../components/Row/Row';
 import withSelectionsMixin from '.';
 
 export default {

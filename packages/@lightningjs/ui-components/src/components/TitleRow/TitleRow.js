@@ -19,7 +19,7 @@
 import TextBox from '../TextBox';
 import Row from '../Row';
 
-import * as styles from './TitleRow.styles.js';
+import * as styles from './TitleRow.styles';
 
 export default class TitleRow extends Row {
   static get __componentName() {

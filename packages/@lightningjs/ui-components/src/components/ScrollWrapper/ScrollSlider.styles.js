@@ -16,7 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { base as scrollWrapperBase } from './ScrollWrapper.styles.js';
+import { base as scrollWrapperBase } from './ScrollWrapper.styles';
 
 export const base = theme => {
   const { scroll } = scrollWrapperBase(theme);
