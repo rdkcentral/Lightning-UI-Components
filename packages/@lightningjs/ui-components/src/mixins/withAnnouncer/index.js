@@ -40,6 +40,7 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
     _construct() {
       this._announceEndedTimeout;
       this._currentlySpeaking = '';
+      super._construct && super._construct();
     }
 
     _voiceOut(toAnnounce) {
