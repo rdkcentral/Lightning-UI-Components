@@ -1,12 +1,12 @@
-type ThemeObject = object;
+type ThemeObject = any;
 
 type CallbackFunction = (...args: unknown[]) => void;
 
 export class Context {
   get theme(): ThemeObject;
   set theme(value: ThemeObject);
-  get keyMetricsCallback(): object;
-  set keyMetricsCallback(value: object);
+  get keyMetricsCallback(): any;
+  set keyMetricsCallback(value: any);
   get debug(): boolean;
   set debug(value: boolean);
 
