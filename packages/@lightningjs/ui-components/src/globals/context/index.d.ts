@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type ThemeObject = any;
 
 type CallbackFunction = (...args: unknown[]) => void;
