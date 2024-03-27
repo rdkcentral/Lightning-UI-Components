@@ -17,6 +17,7 @@
 
 export default function (Base) {
   return class extends Base {
+    // Initialization and state management
     _init() {
       super._init();
       this.isEditing = false;
@@ -26,36 +27,43 @@ export default function (Base) {
       this.isEditing = !this.isEditing;
     }
 
-    _swapItemArrayPos(array, current, previous) {
-      [array[current], array[previous]] = [array[previous], array[current]];
-      super.selectedIndex = current;
-    }
-
     _unfocus() {
       this.isEditing = false;
       super._unfocus();
     }
 
-    _selectedChange(selected, prevSelected) {
-      if (this.isEditing) return;
-      this._render(selected, prevSelected);
-      this.signal('selectedChange', selected, prevSelected);
+    // Item manipulation and transition handling
+    _swapItemArrayPos(array, current, previous) {
+      [array[current], array[previous]] = [array[previous], array[current]];
+      super.selectedIndex = current;
     }
 
+    _getPositionValue(item, axis) {
+      return item.transition(axis)
+        ? item.transition(axis).targetValue
+        : item[axis];
+    }
+
+    _waitForTransition(item, axis) {
+      return new Promise(resolve =>
+        item._getTransition(axis).on('finish', resolve)
+      );
+    }
+
+    // Selection and focus management
     get selectedIndex() {
       return super.selectedIndex;
     }
 
     set selectedIndex(index) {
-      if (!this.isEditing) {
-        super.selectedIndex = index;
-        return;
-      }
-
       if (
-        this.selectedIndex >= this.items.length - 1 &&
-        index > this.selectedIndex
+        !this.isEditing ||
+        (this.selectedIndex >= this.items.length - 1 &&
+          index > this.selectedIndex)
       ) {
+        if (!this.isEditing) {
+          super.selectedIndex = index;
+        }
         return;
       }
 
@@ -64,16 +72,16 @@ export default function (Base) {
       const nextItem = this.items[index];
       const previousIndex = this.selectedIndex;
 
-      const getPositionValue = (item, axis) =>
-        item.transition(axis) ? item.transition(axis).targetValue : item[axis];
       const oldPos = {
-        x: getPositionValue(currentItem, 'x'),
-        y: getPositionValue(currentItem, 'y')
+        x: this._getPositionValue(currentItem, 'x'),
+        y: this._getPositionValue(currentItem, 'y')
       };
       const newPos = {
-        x: getPositionValue(nextItem, 'x'),
-        y: getPositionValue(nextItem, 'y')
+        x: this._getPositionValue(nextItem, 'x'),
+        y: this._getPositionValue(nextItem, 'y')
       };
+      const previousCurrentItemZIndex = currentItem.zIndex;
+      currentItem.zIndex = previousCurrentItemZIndex + 1; // Current item should appear to be on top of other items
 
       this._swapItemArrayPos(this.items, index, previousIndex);
       currentItem.setSmooth('x', newPos.x);
@@ -81,16 +89,15 @@ export default function (Base) {
       nextItem.setSmooth('x', oldPos.x);
       nextItem.setSmooth('y', oldPos.y);
 
-      const waitForTransition = (item, axis) =>
-        new Promise(resolve => item._getTransition(axis).on('finish', resolve));
-
       (async () => {
         await Promise.all([
-          waitForTransition(currentItem, 'x'),
-          waitForTransition(currentItem, 'y'),
-          waitForTransition(nextItem, 'x'),
-          waitForTransition(nextItem, 'y')
+          this._waitForTransition(currentItem, 'x'),
+          this._waitForTransition(currentItem, 'y'),
+          this._waitForTransition(nextItem, 'x'),
+          this._waitForTransition(nextItem, 'y')
         ]);
+
+        currentItem.zIndex = previousCurrentItemZIndex; // Reset zIndex
 
         if (
           !this.Items.children.length ||
@@ -102,6 +109,12 @@ export default function (Base) {
           this._refocus();
         }
       })();
+    }
+
+    _selectedChange(selected, prevSelected) {
+      if (this.isEditing) return;
+      this._render(selected, prevSelected);
+      this.signal('selectedChange', selected, prevSelected);
     }
   };
 }
