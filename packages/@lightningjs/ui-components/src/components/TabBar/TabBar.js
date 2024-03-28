@@ -49,7 +49,14 @@ export default class TabBar extends Base {
   }
 
   static get properties() {
-    return ['alphaSelectedTab', 'collapse', 'reset', 'tabs', ...Row.properties];
+    return [
+      'alphaSelectedTab',
+      'collapse',
+      'reset',
+      'tabs',
+      'retainSelection',
+      ...Row.properties
+    ];
   }
 
   static get tags() {
@@ -101,7 +108,8 @@ export default class TabBar extends Base {
     this._Tabs.items.forEach(tab => {
       const isSelectedTab = tab === this._Tabs.selected;
       if (this._isUnfocusedMode) {
-        tab.mode = 'unfocused';
+        tab.mode =
+          isSelectedTab && this.retainSelection ? 'selected' : 'unfocused';
       } else if (this._isFocusedMode) {
         if (this._isTabsFocused) {
           tab.mode = isSelectedTab ? 'focused' : 'unfocused';
