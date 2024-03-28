@@ -4,7 +4,6 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -18,6 +17,7 @@
 
 export default function (Base) {
   return class extends Base {
+    // Initialization and state management
     _init() {
       super._init();
       this.isEditing = false;
@@ -27,73 +27,94 @@ export default function (Base) {
       this.isEditing = !this.isEditing;
     }
 
-    _swapItemArrayPos(array, current, previous) {
-      [array[current], array[previous]] = [array[previous], array[current]];
-      super.selectedIndex = current;
-    }
-
     _unfocus() {
       this.isEditing = false;
       super._unfocus();
     }
 
-    get selectedIndex() {
-      return this._selectedIndex;
+    // Item manipulation and transition handling
+    _swapItemArrayPos(array, current, previous) {
+      [array[current], array[previous]] = [array[previous], array[current]];
+      super.selectedIndex = current;
     }
+
+    _getPositionValue(item, axis) {
+      return item.transition(axis)
+        ? item.transition(axis).targetValue
+        : item[axis];
+    }
+
+    _waitForTransition(item, axis) {
+      return new Promise(resolve =>
+        item._getTransition(axis).on('finish', resolve)
+      );
+    }
+
+    // Selection and focus management
+    get selectedIndex() {
+      return super.selectedIndex;
+    }
+
     set selectedIndex(index) {
-      if (!this.isEditing) {
-        super.selectedIndex = index;
-        return;
-      }
       if (
-        this.selectedIndex >= this.items.length - 1 &&
-        index > this.selectedIndex
+        !this.isEditing ||
+        (this.selectedIndex >= this.items.length - 1 &&
+          index > this.selectedIndex)
       ) {
+        if (!this.isEditing) {
+          super.selectedIndex = index;
+        }
         return;
       }
+
       const currentItem = this.selected;
       this.prevSelected = currentItem;
       const nextItem = this.items[index];
       const previousIndex = this.selectedIndex;
-      const oldPosX = currentItem.transition('x')
-        ? currentItem.transition('x').targetValue
-        : currentItem.x;
-      const oldPosY = currentItem.transition('y')
-        ? currentItem.transition('y').targetValue
-        : currentItem.y;
-      const newPosX = nextItem.transition('x')
-        ? nextItem.transition('x').targetValue
-        : nextItem.x;
-      const newPosY = nextItem.transition('y')
-        ? nextItem.transition('y').targetValue
-        : nextItem.y;
+
+      const oldPos = {
+        x: this._getPositionValue(currentItem, 'x'),
+        y: this._getPositionValue(currentItem, 'y')
+      };
+      const newPos = {
+        x: this._getPositionValue(nextItem, 'x'),
+        y: this._getPositionValue(nextItem, 'y')
+      };
+      const previousCurrentItemZIndex = currentItem.zIndex;
+      currentItem.zIndex = previousCurrentItemZIndex + 1; // Current item should appear to be on top of other items
 
       this._swapItemArrayPos(this.items, index, previousIndex);
+      currentItem.setSmooth('x', newPos.x);
+      currentItem.setSmooth('y', newPos.y);
+      nextItem.setSmooth('x', oldPos.x);
+      nextItem.setSmooth('y', oldPos.y);
 
-      // self invoking async function that waits for setSmooth calls to complete before triggering
-      // render and signaling selected changed event.
-      // This allows time for items to be in their final position before the row component check world context
-      // to identify items off screen to trigger scrolling
       (async () => {
-        await currentItem.setSmooth('x', newPosX);
-        await currentItem.setSmooth('y', newPosY);
-        await nextItem.setSmooth('x', oldPosX);
-        await nextItem.setSmooth('y', oldPosY);
+        await Promise.all([
+          this._waitForTransition(currentItem, 'x'),
+          this._waitForTransition(currentItem, 'y'),
+          this._waitForTransition(nextItem, 'x'),
+          this._waitForTransition(nextItem, 'y')
+        ]);
+
+        currentItem.zIndex = previousCurrentItemZIndex; // Reset zIndex
+
         if (
           !this.Items.children.length ||
-          !this.Items.children[index] ||
-          !this.Items.children[index].skipFocus
+          !this.Items.children[index]?.skipFocus
         ) {
-          if (this.selected) {
-            this._selectedIndex = index;
-            this._render(this.selected, this.prevSelected);
-            this.signal('selectedChange', this.selected, this.prevSelected);
-          }
-          // Don't call refocus until after a new render in case of a situation like Plinko nav
-          // where we don't want to focus the previously selected item and need to get the new one first
+          this._selectedIndex = index;
+          this._render(this.selected, this.prevSelected);
+          this.signal('selectedChange', this.selected, this.prevSelected);
           this._refocus();
         }
       })();
+    }
+
+    _selectedChange(selected, prevSelected) {
+      if (this.isEditing) return;
+      this._render(selected, prevSelected);
+      this.signal('selectedChange', selected, prevSelected);
     }
   };
 }
