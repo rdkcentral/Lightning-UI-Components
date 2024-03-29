@@ -247,3 +247,37 @@ AddingAndRemoving.parameters = {
   Press the Enter key while focused on any of the added controls or content items to remove that control or content item.
   `
 };
+
+export const Bug = () =>
+  class Bug extends lng.Component {
+    static _template() {
+      return {
+        ControlRow: {
+          type: ControlRowComponent,
+          leftControls: [],
+          contentItems: [],
+          rightControls: [],
+          lazyLoadBuffer: 1
+        }
+      };
+    }
+
+    _construct() {
+      setTimeout(() => {
+        this._ControlRow.addContentItems(
+          createItems(
+            3,
+            'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
+          )
+        );
+      }, 1500);
+    }
+
+    _getFocused() {
+      return this.tag('ControlRow');
+    }
+
+    get _ControlRow() {
+      return this.tag('ControlRow');
+    }
+  };

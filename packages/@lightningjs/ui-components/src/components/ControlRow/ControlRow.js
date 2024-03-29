@@ -122,12 +122,14 @@ export default class ControlRow extends TitleRow {
   _appendItemsAt(items, appendIndex, removeSpacingIndex) {
     const itemsCopy = [...items];
 
-    if (removeSpacingIndex != undefined) {
-      this.items[removeSpacingIndex].extraItemSpacing = undefined;
-      itemsCopy[itemsCopy.length - 1].extraItemSpacing =
-        this.extraItemSpacing == undefined
-          ? this.style.extraItemSpacing
-          : this.extraItemSpacing;
+    if (removeSpacingIndex != undefined && removeSpacingIndex >= 0) {
+      if (this.items[removeSpacingIndex]) {
+        this.items[removeSpacingIndex].extraItemSpacing = undefined;
+        itemsCopy[itemsCopy.length - 1].extraItemSpacing =
+          this.extraItemSpacing == undefined
+            ? this.style.extraItemSpacing
+            : this.extraItemSpacing;
+      }
     }
     this.appendItemsAt(itemsCopy, appendIndex);
   }
@@ -135,6 +137,7 @@ export default class ControlRow extends TitleRow {
   addContentItems(items) {
     const itemsToAdd = this._createContentItems(items);
     const addIndex = this._lastItemIndex + 1;
+    console.log(itemsToAdd, addIndex, this._lastItemIndex);
     this._appendItemsAt(itemsToAdd, addIndex, this._lastItemIndex);
     this._lastItemIndex += itemsToAdd.length;
 
