@@ -137,7 +137,6 @@ export default class ControlRow extends TitleRow {
   addContentItems(items) {
     const itemsToAdd = this._createContentItems(items);
     const addIndex = this._lastItemIndex + 1;
-    console.log(itemsToAdd, addIndex, this._lastItemIndex);
     this._appendItemsAt(itemsToAdd, addIndex, this._lastItemIndex);
     this._lastItemIndex += itemsToAdd.length;
 
