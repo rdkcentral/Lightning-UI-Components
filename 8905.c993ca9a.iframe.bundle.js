@@ -350,7 +350,7 @@ var TabBar = /*#__PURE__*/function (_Base) {
       this._Tabs.items.forEach(function (tab) {
         var isSelectedTab = tab === _this2._Tabs.selected;
         if (_this2._isUnfocusedMode) {
-          tab.mode = 'unfocused';
+          tab.mode = isSelectedTab && _this2.retainSelection ? 'selected' : 'unfocused';
         } else if (_this2._isFocusedMode) {
           if (_this2._isTabsFocused) {
             tab.mode = isSelectedTab ? 'focused' : 'unfocused';
@@ -531,7 +531,7 @@ var TabBar = /*#__PURE__*/function (_Base) {
   }, {
     key: "properties",
     get: function get() {
-      return ['alphaSelectedTab', 'collapse', 'reset', 'tabs'].concat(_toConsumableArray(Row/* default */.Z.properties));
+      return ['alphaSelectedTab', 'collapse', 'reset', 'tabs', 'retainSelection'].concat(_toConsumableArray(Row/* default */.Z.properties));
     }
   }, {
     key: "tags",
@@ -1397,4 +1397,4 @@ var ButtonSmall = /*#__PURE__*/function (_Button) {
 /***/ })
 
 }]);
-//# sourceMappingURL=8905.feed96e2.iframe.bundle.js.map
+//# sourceMappingURL=8905.c993ca9a.iframe.bundle.js.map

@@ -7209,6 +7209,7 @@ function withAnnouncer(Base) {
       value: function _construct() {
         this._announceEndedTimeout;
         this._currentlySpeaking = '';
+        _get(_getPrototypeOf(_class.prototype), "_construct", this) && _get(_getPrototypeOf(_class.prototype), "_construct", this).call(this);
       }
     }, {
       key: "_voiceOut",
@@ -13019,4 +13020,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.e4d3bc8d.iframe.bundle.js.map
+//# sourceMappingURL=main.b886fb3a.iframe.bundle.js.map
