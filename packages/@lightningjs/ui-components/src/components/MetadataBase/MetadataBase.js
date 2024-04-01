@@ -38,6 +38,7 @@ class MetadataBase extends Base {
       Text: {
         flex: { direction: 'column', justifyContent: 'flex-start' },
         // Title: {},
+        // Subtitle: {},
         DetailsWrapper: {
           // Details: {}
         }
@@ -59,6 +60,7 @@ class MetadataBase extends Base {
       'logoTitle',
       'logoWidth',
       'details',
+      'subtitle',
       'title',
       'marquee'
     ];
@@ -70,6 +72,10 @@ class MetadataBase extends Base {
       {
         name: 'Title',
         path: 'Text.Title'
+      },
+      {
+        name: 'Subtitle',
+        path: 'Text.Subtitle'
       },
       {
         name: 'DetailsWrapper',
@@ -87,11 +93,11 @@ class MetadataBase extends Base {
     ];
   }
 
-  static get aliasStyles() {
-    return [{ prev: 'subtitleTextStyle', curr: 'detailsTextStyle' }];
+  _titleLoaded() {
+    this._updateLayout();
   }
 
-  _titleLoaded() {
+  _subtitleLoaded() {
     this._updateLayout();
   }
 
@@ -124,6 +130,7 @@ class MetadataBase extends Base {
   _updateLines() {
     this._Text.w = this._textW();
     this._updateTitle();
+    this._updateSubtitle();
     this._updateDetails();
     this._updateDescription();
   }
@@ -174,6 +181,38 @@ class MetadataBase extends Base {
       style: {
         textStyle: {
           ...this.style.titleTextStyle,
+          maxLines: 1,
+          wordWrap: true,
+          wordWrapWidth: this._Text.w
+        }
+      }
+    });
+  }
+
+  _updateSubtitle() {
+    if (!this.subtitle && !this._Subtitle) {
+      return;
+    }
+
+    if (!this._Subtitle) {
+      this._Text.childList.addAt(
+        {
+          ref: 'Subtitle',
+          type: TextBox,
+          signals: {
+            textBoxChanged: '_subtitleLoaded'
+          }
+        },
+        1
+      );
+    }
+
+    this._Subtitle.patch({
+      content: this.subtitle,
+      marquee: this.marquee,
+      style: {
+        textStyle: {
+          ...this.style.descriptionTextStyle,
           maxLines: 1,
           wordWrap: true,
           wordWrapWidth: this._Text.w
@@ -281,6 +320,8 @@ class MetadataBase extends Base {
     }
 
     this.logoPosition = this.logoPosition || 'right';
+    const subtitleH =
+      (this.subtitle && this._Subtitle && this._Subtitle.h) || 0;
     this._Logo.patch({
       w: this.logoWidth,
       h: this.logoHeight,
@@ -289,7 +330,7 @@ class MetadataBase extends Base {
     });
 
     this._Logo.x = this.logoPosition === 'left' ? 0 : this.w - this._Logo.w;
-    this._Logo.y = (this.h - this.logoHeight) / 2;
+    this._Logo.y = (this.h - this.logoHeight + subtitleH) / 2;
   }
 
   _textW() {
@@ -298,11 +339,13 @@ class MetadataBase extends Base {
 
   _textH() {
     const titleH = (this.title && this._Title && this._Title.h) || 0;
+    const subtitleH =
+      (this.subtitle && this._Subtitle && this._Subtitle.h) || 0;
     const detailsH =
       (this.details && this._DetailsWrapper && this._DetailsWrapper.h) || 0;
     const descriptionH =
       (this.description && this._Description && this._Description.h) || 0;
-    return titleH + detailsH + descriptionH;
+    return titleH + subtitleH + detailsH + descriptionH;
   }
 
   _getLogoWidth() {
@@ -328,6 +371,7 @@ class MetadataBase extends Base {
   get syncArray() {
     return [
       ...(this._Title ? [this._Title] : []),
+      ...(this._Subtitle ? [this._Subtitle] : []),
       ...(this._Description ? [this._Description] : []),
       ...(this._Details ? [this._Details] : [])
     ];
@@ -341,6 +385,7 @@ class MetadataBase extends Base {
     return (
       this._announce || [
         this._Title && this._Title.announce,
+        this._Subtitle && this._Subtitle.announce,
         this._Details && this._Details.announce,
         this._Description && this._Description.announce,
         this.logoTitle

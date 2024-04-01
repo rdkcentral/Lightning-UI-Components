@@ -86,14 +86,6 @@ describe('MetadataCardContent', () => {
     expect(metadataCardContent._Title.content).toBe(title);
   });
 
-  it('updates the subtitle', async () => {
-    const subtitle = 'subtile text';
-    expect(metadataCardContent.subtitle).toBe(undefined);
-    metadataCardContent.subtitle = subtitle;
-    await metadataCardContent.__updateSpyPromise;
-    expect(metadataCardContent._Subtitle.content).toBe(subtitle);
-  });
-
   it('updates the description', async () => {
     const description = 'description text';
     expect(metadataCardContent.description).toBe(undefined);
