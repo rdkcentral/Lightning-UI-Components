@@ -95,7 +95,7 @@ MetadataCardContent.argTypes = {
   },
   description: {
     control: 'text',
-    description: 'Description text directly below subtitle',
+    description: 'Description text directly below title',
     table: {
       defaultValue: { summary: 'undefined' },
       type: { summary: 'string' }
