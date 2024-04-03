@@ -36,6 +36,10 @@ type MetadataBaseStyle = {
 declare namespace MetadataBase {
   export interface TemplateSpec extends Base.TemplateSpec {
     /**
+     * text of subtitle content
+     */
+    subtitle?: string;
+    /**
      * third line or description of the content
      */
     description?: string;
@@ -68,11 +72,6 @@ declare namespace MetadataBase {
      */
     marquee?: boolean;
     /**
-     * @deprecated
-     * relevant content data in the middle
-     */
-    subtitle?: string;
-    /**
      * first line or headline of the content
      */
     title?: string;
@@ -93,6 +92,10 @@ declare class MetadataBase<
   TypeConfig extends MetadataBase.TypeConfig = MetadataBase.TypeConfig
 > extends Base<TemplateSpec, TypeConfig> {
   // Properties
+  /**
+   * text of subtitle content
+   */
+  subtitle?: string;
   /**
    * third line or description of the content
    */
@@ -126,11 +129,6 @@ declare class MetadataBase<
    */
   marquee?: boolean;
   /**
-   * @deprecated
-   * relevant content data in the middle
-   */
-  subtitle?: string;
-  /**
    * first line or headline of the content
    */
   title?: string;
@@ -140,6 +138,7 @@ declare class MetadataBase<
 
   // Tags
   get _Title(): TextBox;
+  get _Subtitle(): TextBox;
   get _DetailsWrapper(): TextBox;
   get _Details(): TextBox;
   get _Description(): TextBox;

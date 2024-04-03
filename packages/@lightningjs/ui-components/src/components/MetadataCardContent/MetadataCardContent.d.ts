@@ -41,6 +41,10 @@ declare namespace MetadataCardContent {
      */
     description?: string;
     /**
+     * details text directly below description
+     */
+    descriptionDetails?: string;
+    /**
      * details text at bottom left of component
      */
     details?: string;
@@ -59,10 +63,15 @@ declare class MetadataCardContent<
    * text of title content
    */
   title?: string;
+
   /**
    * description text below title
    */
   description?: string;
+  /**
+   * details text directly below description
+   */
+  descriptionDetails?: string;
   /**
    * details text at bottom left of component
    */
@@ -80,6 +89,7 @@ declare class MetadataCardContent<
   get _Text(): TextBox;
   get _Title(): TextBox;
   get _Description(): TextBox;
+  get _DescriptionDetails(): TextBox;
   get _DetailsWrapper(): TextBox;
   get _DetailsFader(): TextBox;
   get _Details(): TextBox;

@@ -43,6 +43,7 @@ MetadataBase.storyName = 'MetadataBase';
 MetadataBase.args = {
   w: 400,
   title: 'Title',
+  subtitle: 'Subtitle',
   details: [
     '94%',
     {
@@ -77,6 +78,14 @@ MetadataBase.argTypes = {
     description: 'Title text',
     table: {
       defaultValue: { summary: 'undefined' }
+    }
+  },
+  subtitle: {
+    control: 'text',
+    description: 'text directly below title',
+    table: {
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
     }
   },
   details: {
