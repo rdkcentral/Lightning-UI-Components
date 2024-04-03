@@ -38,9 +38,6 @@ export default class MetadataCardContent extends MetadataBase {
         Title: {
           type: TextBox
         },
-        // Subtitle: {
-        //   type: TextBox
-        // },
         Description: {
           type: TextBox
         },
