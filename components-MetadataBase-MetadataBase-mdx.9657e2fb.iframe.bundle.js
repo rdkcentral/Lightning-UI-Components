@@ -201,7 +201,7 @@ function _createMdxContent(props) {
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.pre, {
       children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
         className: "language-js",
-        children: "import { MetadataBase } from '@lightningjs/ui-components';\nimport lightningbolt from '../../assets/images/ic_lightning_white_32.png';\nimport circle from '../../assets/images/circle.svg';\n\nclass Example extends lng.Component {\n  static _template() {\n    return {\n      MetadataBase: {\n        type: MetadataBase,\n        w: 400,\n        h: 300,\n        title: 'Title',\n        details: [\n          '94%',\n          {\n            icon: lightningbolt,\n            style: { color: getHexColor('00ff00') },\n            title: 'Green Lightning Bolt'\n          },\n          '86%',\n          {\n            icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',\n            title: 'Rotten Tomatoes rating'\n          }\n        ],\n        description: 'Description',\n        logo: circle,\n        logoWidth: 32,\n        logoHeight: 32\n      }\n    };\n  }\n}\n"
+        children: "import { MetadataBase } from '@lightningjs/ui-components';\nimport lightningbolt from '../../assets/images/ic_lightning_white_32.png';\nimport circle from '../../assets/images/circle.svg';\n\nclass Example extends lng.Component {\n  static _template() {\n    return {\n      MetadataBase: {\n        type: MetadataBase,\n        w: 400,\n        h: 300,\n        title: 'Title',\n        subtitle: 'Subtitle',\n        details: [\n          '94%',\n          {\n            icon: lightningbolt,\n            style: { color: getHexColor('00ff00') },\n            title: 'Green Lightning Bolt'\n          },\n          '86%',\n          {\n            icon: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Tomato-Torrent-Icon.png',\n            title: 'Rotten Tomatoes rating'\n          }\n        ],\n        description: 'Description',\n        logo: circle,\n        logoWidth: 32,\n        logoHeight: 32\n      }\n    };\n  }\n}\n"
       })
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h2, {
       id: "api",
@@ -226,6 +226,18 @@ function _createMdxContent(props) {
         })
       }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tbody, {
         children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
+          children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "subtitle"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "string"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "false"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "undefined"
+          }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
+            children: "subtitle text"
+          })]
+        }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "description"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
@@ -475,4 +487,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-MetadataBase-MetadataBase-mdx.c32fbb6c.iframe.bundle.js.map
+//# sourceMappingURL=components-MetadataBase-MetadataBase-mdx.9657e2fb.iframe.bundle.js.map

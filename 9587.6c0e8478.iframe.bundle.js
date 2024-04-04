@@ -241,6 +241,11 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
       this._updateLayout();
     }
   }, {
+    key: "_subtitleLoaded",
+    value: function _subtitleLoaded() {
+      this._updateLayout();
+    }
+  }, {
     key: "_detailsLoaded",
     value: function _detailsLoaded(_ref) {
       var w = _ref.w,
@@ -281,6 +286,7 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
     value: function _updateLines() {
       this._Text.w = this._textW();
       this._updateTitle();
+      this._updateSubtitle();
       this._updateDetails();
       this._updateDescription();
     }
@@ -327,6 +333,33 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
         marquee: this.marquee,
         style: {
           textStyle: MetadataBase_objectSpread(MetadataBase_objectSpread({}, this.style.titleTextStyle), {}, {
+            maxLines: 1,
+            wordWrap: true,
+            wordWrapWidth: this._Text.w
+          })
+        }
+      });
+    }
+  }, {
+    key: "_updateSubtitle",
+    value: function _updateSubtitle() {
+      if (!this.subtitle && !this._Subtitle) {
+        return;
+      }
+      if (!this._Subtitle) {
+        this._Text.childList.addAt({
+          ref: 'Subtitle',
+          type: TextBox/* default */.Z,
+          signals: {
+            textBoxChanged: '_subtitleLoaded'
+          }
+        }, 1);
+      }
+      this._Subtitle.patch({
+        content: this.subtitle,
+        marquee: this.marquee,
+        style: {
+          textStyle: MetadataBase_objectSpread(MetadataBase_objectSpread({}, this.style.descriptionTextStyle), {}, {
             maxLines: 1,
             wordWrap: true,
             wordWrapWidth: this._Text.w
@@ -432,6 +465,7 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
         });
       }
       this.logoPosition = this.logoPosition || 'right';
+      var subtitleH = this.subtitle && this._Subtitle && this._Subtitle.h || 0;
       this._Logo.patch({
         w: this.logoWidth,
         h: this.logoHeight,
@@ -439,7 +473,7 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
         alpha: this.style.alpha
       });
       this._Logo.x = this.logoPosition === 'left' ? 0 : this.w - this._Logo.w;
-      this._Logo.y = (this.h - this.logoHeight) / 2;
+      this._Logo.y = (this.h - this.logoHeight + subtitleH) / 2;
     }
   }, {
     key: "_textW",
@@ -450,9 +484,10 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
     key: "_textH",
     value: function _textH() {
       var titleH = this.title && this._Title && this._Title.h || 0;
+      var subtitleH = this.subtitle && this._Subtitle && this._Subtitle.h || 0;
       var detailsH = this.details && this._DetailsWrapper && this._DetailsWrapper.h || 0;
       var descriptionH = this.description && this._Description && this._Description.h || 0;
-      return titleH + detailsH + descriptionH;
+      return titleH + subtitleH + detailsH + descriptionH;
     }
   }, {
     key: "_getLogoWidth",
@@ -477,12 +512,12 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "syncArray",
     get: function get() {
-      return [].concat(_toConsumableArray(this._Title ? [this._Title] : []), _toConsumableArray(this._Description ? [this._Description] : []), _toConsumableArray(this._Details ? [this._Details] : []));
+      return [].concat(_toConsumableArray(this._Title ? [this._Title] : []), _toConsumableArray(this._Subtitle ? [this._Subtitle] : []), _toConsumableArray(this._Description ? [this._Description] : []), _toConsumableArray(this._Details ? [this._Details] : []));
     }
   }, {
     key: "announce",
     get: function get() {
-      return this._announce || [this._Title && this._Title.announce, this._Details && this._Details.announce, this._Description && this._Description.announce, this.logoTitle];
+      return this._announce || [this._Title && this._Title.announce, this._Subtitle && this._Subtitle.announce, this._Details && this._Details.announce, this._Description && this._Description.announce, this.logoTitle];
     },
     set: function set(announce) {
       _set(_getPrototypeOf(MetadataBase.prototype), "announce", announce, this, true);
@@ -508,6 +543,7 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
             justifyContent: 'flex-start'
           },
           // Title: {},
+          // Subtitle: {},
           DetailsWrapper: {
             // Details: {}
           }
@@ -522,7 +558,7 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
   }, {
     key: "properties",
     get: function get() {
-      return ['description', 'logo', 'logoHeight', 'logoPosition', 'logoTitle', 'logoWidth', 'details', 'title', 'marquee'];
+      return ['description', 'logo', 'logoHeight', 'logoPosition', 'logoTitle', 'logoWidth', 'details', 'subtitle', 'title', 'marquee'];
     }
   }, {
     key: "tags",
@@ -530,6 +566,9 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
       return ['Text', {
         name: 'Title',
         path: 'Text.Title'
+      }, {
+        name: 'Subtitle',
+        path: 'Text.Subtitle'
       }, {
         name: 'DetailsWrapper',
         path: 'Text.DetailsWrapper'
@@ -540,22 +579,6 @@ var MetadataBase = /*#__PURE__*/function (_Base) {
         name: 'Description',
         path: 'Text.Description'
       }, 'Logo'];
-    }
-  }, {
-    key: "aliasStyles",
-    get: function get() {
-      return [{
-        prev: 'subtitleTextStyle',
-        curr: 'detailsTextStyle'
-      }];
-    }
-  }, {
-    key: "aliasProperties",
-    get: function get() {
-      return [{
-        prev: 'subtitle',
-        curr: 'details'
-      }];
     }
   }]);
   return MetadataBase;
@@ -708,4 +731,4 @@ function withMarqueeSync(Base) {
 /***/ })
 
 }]);
-//# sourceMappingURL=9587.2de1cb6f.iframe.bundle.js.map
+//# sourceMappingURL=9587.6c0e8478.iframe.bundle.js.map
