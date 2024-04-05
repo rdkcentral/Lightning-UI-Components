@@ -562,7 +562,7 @@ export const colorParser = (targetObject, styleObj) => {
       return getValFromObjPath(targetObject, value); // If no theme value exists, the property will be removed from the object
     } else if (Array.isArray(value) && value.length === 2) {
       // Process value as a color ['#663399', 1]
-      return getHexColor(value[0], value[1]);
+      return getHexColor(value[0], value[1]) || value;
     }
     return value;
   });
