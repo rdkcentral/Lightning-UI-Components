@@ -8141,7 +8141,7 @@ var colorParser = function colorParser(targetObject, styleObj) {
       return (0,utils/* getValFromObjPath */.nB)(targetObject, value); // If no theme value exists, the property will be removed from the object
     } else if (Array.isArray(value) && value.length === 2) {
       // Process value as a color ['#663399', 1]
-      return (0,utils/* getHexColor */.Xv)(value[0], value[1]);
+      return (0,utils/* getHexColor */.Xv)(value[0], value[1]) || value;
     }
     return value;
   });
@@ -13020,4 +13020,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.b886fb3a.iframe.bundle.js.map
+//# sourceMappingURL=main.886a42da.iframe.bundle.js.map
