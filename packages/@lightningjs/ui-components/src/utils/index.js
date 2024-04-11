@@ -211,9 +211,9 @@ export function getWidthByUpCount(theme, upCount = 1) {
 
   if (upCount < 1 || upCount > columnCount) {
     console.error(
-      `Column expects a number between 1 & ${columnCount}. Received ${upCount}`
+      `Column expects a number between 1 & ${columnCount}, received ${upCount}. Defaulting to upCount 1.`
     );
-    return;
+    upCount = 1;
   }
 
   // the screen width, minus the margin x on each side
