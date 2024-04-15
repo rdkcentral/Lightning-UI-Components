@@ -386,24 +386,26 @@ export function getHexColor(hex, alpha = 1) {
  * @param {boolean} fill
  */
 export function getValidColor(color) {
-  if (/^0x[0-9a-fA-F]{8}/g.test(color)) {
-    // User enters a valid 0x00000000 hex code
-    return Number(color);
-  } else if (/^#[0-9a-fA-F]{6}/g.test(color)) {
-    // User enters valid #000000 hex code
-    return getHexColor(color.substr(1, 6));
-  } else if (typeof color === 'string' && /^[0-9]{8,10}/g.test(color)) {
-    return parseInt(color);
-  } else if (
-    typeof color === 'number' &&
-    /^[0-9]{8,10}/g.test(color.toString())
-  ) {
-    return color;
-  } else if (typeof color === 'string' && color.indexOf('rgba') > -1) {
-    return rgba2argb(color);
-  } else if (typeof color === 'string' && color.indexOf('rgb') > -1) {
-    const rgba = [...color.replace(/rgb\(|\)/g, '').split(','), '255'];
-    return lng.StageUtils.getArgbNumber(rgba);
+  if (typeof color === 'string' || typeof color === 'number') {
+    if (/^0x[0-9a-fA-F]{8}/g.test(color)) {
+      // User enters a valid 0x00000000 hex code
+      return Number(color);
+    } else if (/^#[0-9a-fA-F]{6}/g.test(color)) {
+      // User enters valid #000000 hex code
+      return getHexColor(color.substr(1, 6));
+    } else if (typeof color === 'string' && /^[0-9]{8,10}/g.test(color)) {
+      return parseInt(color);
+    } else if (
+      typeof color === 'number' &&
+      /^[0-9]{8,10}/g.test(color.toString())
+    ) {
+      return color;
+    } else if (typeof color === 'string' && color.indexOf('rgba') > -1) {
+      return rgba2argb(color);
+    } else if (typeof color === 'string' && color.indexOf('rgb') > -1) {
+      const rgba = [...color.replace(/rgb\(|\)/g, '').split(','), '255'];
+      return lng.StageUtils.getArgbNumber(rgba);
+    }
   }
   return null;
 }
