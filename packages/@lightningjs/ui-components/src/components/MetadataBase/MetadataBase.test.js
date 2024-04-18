@@ -67,13 +67,15 @@ describe('MetadataBase', () => {
 
   it('sets the announce string to the appropriate text content status', () => {
     const title = 'Title';
+    const subtitle = 'Subtitle';
     const details = 'Details';
     const description = 'Description';
     const logoTitle = 'Logo Title';
-    metadataBase.patch({ title, details, description, logoTitle });
+    metadataBase.patch({ title, subtitle, details, description, logoTitle });
     testRenderer.forceAllUpdates();
     expect(metadataBase.announce).toEqual([
       title,
+      subtitle,
       details,
       description,
       logoTitle
@@ -110,6 +112,14 @@ describe('MetadataBase', () => {
       h: metadataBase._Details.h,
       alpha: 1
     });
+  });
+
+  it('updates the subtitle', async () => {
+    const subtitle = 'subtitle text';
+    expect(metadataBase.subtitle).toBe(undefined);
+    metadataBase.subtitle = subtitle;
+    await metadataBase.__updateSpyPromise;
+    expect(metadataBase._Subtitle.content).toBe(subtitle);
   });
 
   it('updates the description', async () => {
