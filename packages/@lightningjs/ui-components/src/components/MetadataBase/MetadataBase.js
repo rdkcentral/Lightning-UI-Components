@@ -183,7 +183,9 @@ class MetadataBase extends Base {
           ...this.style.titleTextStyle,
           maxLines: 1,
           wordWrap: true,
-          wordWrapWidth: this._Text.w
+          wordWrapWidth: this._Text.w,
+          advancedRenderer: true,
+          wordBreak: true
         }
       }
     });
@@ -299,7 +301,9 @@ class MetadataBase extends Base {
           ...this.style.descriptionTextStyle,
           maxLines: 1,
           wordWrap: true,
-          wordWrapWidth: this._Text.w
+          wordWrapWidth: this._Text.w,
+          advancedRenderer: true,
+          wordBreak: true
         }
       }
     });
