@@ -560,7 +560,13 @@ export const colorParser = (targetObject, styleObj) => {
     if ('string' === typeof value && value.startsWith('theme.')) {
       // Support theme strings example: theme.radius.md
       return getValFromObjPath(targetObject, value); // If no theme value exists, the property will be removed from the object
-    } else if (Array.isArray(value) && value.length === 2) {
+    } else if (
+      Array.isArray(value) &&
+      value.length === 2 &&
+      typeof value[0] === 'string' &&
+      value[0].substr(0, 1) === '#' &&
+      typeof value[1] === 'number'
+    ) {
       // Process value as a color ['#663399', 1]
       return getHexColor(value[0], value[1]) || value;
     }

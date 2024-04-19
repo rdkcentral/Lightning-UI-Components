@@ -389,7 +389,9 @@ class ThemeManager {
         2 === value.length &&
         !value[0].targetComponent &&
         value[0].length &&
-        value[0].substr(0, 1) === '#'
+        typeof value[0] === 'string' &&
+        value[0].substr(0, 1) === '#' &&
+        typeof value[1] === 'number'
       ) {
         // Better check to filter out extensions?
         return getHexColor(value[0], value[1]);
