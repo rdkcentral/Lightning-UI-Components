@@ -6166,7 +6166,7 @@ var ThemeManager = /*#__PURE__*/function () {
             return value;
           }
         }
-        if (Array.isArray(value) && 2 === value.length && !value[0].targetComponent && value[0].length && value[0].substr(0, 1) === '#') {
+        if (Array.isArray(value) && 2 === value.length && !value[0].targetComponent && value[0].length && typeof value[0] === 'string' && value[0].substr(0, 1) === '#' && typeof value[1] === 'number') {
           // Better check to filter out extensions?
           return (0,utils/* getHexColor */.Xv)(value[0], value[1]);
         } else if ('extensions' === key || 'function' === typeof value || 'object' === theme_manager_typeof(value) && value !== null && 'Object' !== value.constructor.name && !Array.isArray(value)) {
@@ -8139,7 +8139,7 @@ var colorParser = function colorParser(targetObject, styleObj) {
     if ('string' === typeof value && value.startsWith('theme.')) {
       // Support theme strings example: theme.radius.md
       return (0,utils/* getValFromObjPath */.nB)(targetObject, value); // If no theme value exists, the property will be removed from the object
-    } else if (Array.isArray(value) && value.length === 2) {
+    } else if (Array.isArray(value) && value.length === 2 && typeof value[0] === 'string' && value[0].substr(0, 1) === '#' && typeof value[1] === 'number') {
       // Process value as a color ['#663399', 1]
       return (0,utils/* getHexColor */.Xv)(value[0], value[1]) || value;
     }
@@ -10176,21 +10176,23 @@ function getHexColor(hex) {
  * @param {boolean} fill
  */
 function getValidColor(color) {
-  if (/^0x[0-9a-fA-F]{8}/g.test(color)) {
-    // User enters a valid 0x00000000 hex code
-    return Number(color);
-  } else if (/^#[0-9a-fA-F]{6}/g.test(color)) {
-    // User enters valid #000000 hex code
-    return getHexColor(color.substr(1, 6));
-  } else if (typeof color === 'string' && /^[0-9]{8,10}/g.test(color)) {
-    return parseInt(color);
-  } else if (typeof color === 'number' && /^[0-9]{8,10}/g.test(color.toString())) {
-    return color;
-  } else if (typeof color === 'string' && color.indexOf('rgba') > -1) {
-    return rgba2argb(color);
-  } else if (typeof color === 'string' && color.indexOf('rgb') > -1) {
-    var rgba = [].concat(_toConsumableArray(color.replace(/rgb\(|\)/g, '').split(',')), ['255']);
-    return _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z.StageUtils.getArgbNumber(rgba);
+  if (typeof color === 'string' || typeof color === 'number') {
+    if (/^0x[0-9a-fA-F]{8}/g.test(color)) {
+      // User enters a valid 0x00000000 hex code
+      return Number(color);
+    } else if (/^#[0-9a-fA-F]{6}/g.test(color)) {
+      // User enters valid #000000 hex code
+      return getHexColor(color.substr(1, 6));
+    } else if (typeof color === 'string' && /^[0-9]{8,10}/g.test(color)) {
+      return parseInt(color);
+    } else if (typeof color === 'number' && /^[0-9]{8,10}/g.test(color.toString())) {
+      return color;
+    } else if (typeof color === 'string' && color.indexOf('rgba') > -1) {
+      return rgba2argb(color);
+    } else if (typeof color === 'string' && color.indexOf('rgb') > -1) {
+      var rgba = [].concat(_toConsumableArray(color.replace(/rgb\(|\)/g, '').split(',')), ['255']);
+      return _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z.StageUtils.getArgbNumber(rgba);
+    }
   }
   return null;
 }
@@ -13020,4 +13022,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.886a42da.iframe.bundle.js.map
+//# sourceMappingURL=main.37093a9e.iframe.bundle.js.map
