@@ -304,6 +304,8 @@ export default class TextBox extends Base {
       }
     });
 
+    fontStyle.advancedRenderer = true;
+
     if (
       this.w &&
       !this._isInlineContent &&
