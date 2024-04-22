@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import * as styles from './Gradient.styles';
+import { getMaxRoundRadius } from '../../utils';
 
 export default class Gradient extends Base {
   static get __componentName() {
@@ -35,7 +36,7 @@ export default class Gradient extends Base {
       rtt: true,
       colorTop: this.style.gradientTop,
       colorBottom: this.style.gradientColor,
-      texture: lng.Tools.getRoundRect(this.w, this.h, this.style.radius)
+      texture: lng.Tools.getRoundRect(this.w, this.h, getMaxRoundRadius(this.style.radius, this.w, this.h, 0))
     });
   }
 }

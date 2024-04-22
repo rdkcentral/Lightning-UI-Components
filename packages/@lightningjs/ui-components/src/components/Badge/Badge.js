@@ -18,7 +18,7 @@
 
 import Base from '../Base';
 import Icon from '../Icon';
-import { getHexColor } from '../../utils';
+import { getHexColor, getMaxRoundRadius } from '../../utils';
 import * as styles from './Badge.styles';
 import lng from '@lightningjs/core';
 
@@ -86,7 +86,7 @@ export default class Badge extends Base {
       texture: lng.Tools.getRoundRect(
         this.w,
         height,
-        this.style.radius,
+        getMaxRoundRadius(this.style.radius, this.w, height, 0),
         this.style.strokeWidth,
         this.style.strokeColor,
         true,

@@ -22,6 +22,7 @@ import Row from '../Row';
 import Icon from '../Icon';
 import TextBox from '../TextBox';
 import * as styles from './Provider.styles';
+import { getMaxRoundRadius } from '../../utils';
 
 export default class Provider extends Base {
   static get __componentName() {
@@ -70,7 +71,7 @@ export default class Provider extends Base {
 
       let patch = {
         centerInParent: true,
-        radius: this.disableRadius ? 0 : this.style.radius,
+        radius: this.disableRadius ? 0 : getMaxRoundRadius(this.style.radius, this.style.itemSize, this.style.itemSize, 0),
         alpha: this.style.alpha,
         style: provider.style || {}
       };
@@ -132,7 +133,7 @@ export default class Provider extends Base {
           texture: lng.Tools.getRoundRect(
             this.style.itemSize,
             this.style.itemSize,
-            this.style.radius,
+            getMaxRoundRadius(this.style.radius, this.style.itemSize, this.style.itemSize, 0),
             0,
             null,
             true,

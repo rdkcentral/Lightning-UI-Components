@@ -20,6 +20,7 @@ import Bubble from '../../textures/Bubble';
 import TextBox from '../TextBox';
 import Base from '../Base';
 import * as styles from './Tooltip.styles';
+import { getMaxRoundRadius } from '../../utils';
 
 export default class Tooltip extends Base {
   static get __componentName() {
@@ -93,7 +94,7 @@ export default class Tooltip extends Base {
           type: Bubble,
           w: this._Background.w,
           h: this._Background.h,
-          radius: this.style.radius,
+          radius: getMaxRoundRadius(this.style.radius, this._Background.w, this._Background.h, 0), //not really working here
           pointerWidth: this.style.pointerWidth,
           pointerHeight: this.style.pointerHeight,
           color: this.style.backgroundColor

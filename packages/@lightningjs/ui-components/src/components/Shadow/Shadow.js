@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import * as styles from './Shadow.styles';
+import { getMaxRoundRadius } from '../../utils';
 
 export default class Shadow extends Base {
   static get __componentName() {
@@ -57,6 +58,7 @@ export default class Shadow extends Base {
     // TODO: Need to know which mode style has the largest offset values, could refactor
     const extraBoundsY = this.style.maxOffsetY;
     const extraBoundsX = this.style.maxOffsetX;
+    const radius = getMaxRoundRadius(this.style.radius, this.w, this.h, 0);
 
     this.patch({
       Frame: {
@@ -75,7 +77,7 @@ export default class Shadow extends Base {
               h: this.h - holepunchError,
               x: shadowSize + holepunchError / 2,
               y: shadowSize + holepunchError / 2,
-              radius: this.style.radius
+              radius: radius
             }
           : undefined,
         Shadow: {
@@ -84,7 +86,7 @@ export default class Shadow extends Base {
             // Underlying getShadowRect function adds blur to the canvas size, so we don't need to add it like above
             this.w + this.style.spread * 2,
             this.h + this.style.spread * 2,
-            this.style.radius,
+            radius,
             this.style.blur
           )
         }

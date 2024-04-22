@@ -20,6 +20,7 @@ import lng from '@lightningjs/core';
 import Icon from '../Icon';
 import Base from '../Base';
 import * as styles from './Checkbox.styles';
+import { getMaxRoundRadius } from '../../utils';
 
 export default class Checkbox extends Base {
   static get __componentName() {
@@ -106,7 +107,7 @@ export default class Checkbox extends Base {
         // Compensating for the extra 2 pixels getRoundRect adds
         this.w - this.style.strokeWidth * 2 - 2,
         this.h - this.style.strokeWidth * 2 - 2,
-        radius,
+        getMaxRoundRadius(this.style.radius, this.w, this.h, this.style.strokeWidth - 2),
         0,
         null,
         true,
@@ -121,7 +122,7 @@ export default class Checkbox extends Base {
         // Compensating for the extra 2 pixels getRoundRect adds
         this.w - 2,
         this.h - 2,
-        this.style.radius,
+        getMaxRoundRadius(this.style.radius, this.w, this.h, 0),
         this.style.strokeWidth,
         this.style.strokeColor,
         false

@@ -16,6 +16,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { getMaxRoundRadius } from '../../utils';
 import Base from '../Base';
 import * as styles from './Knob.styles';
 import lng from '@lightningjs/core';
@@ -44,7 +45,7 @@ export default class Knob extends Base {
       texture: lng.Tools.getRoundRect(
         this.w,
         this.h,
-        this.style.radius,
+        getMaxRoundRadius(this.style.radius, this.w, this.h, 0),
         null,
         null,
         true,

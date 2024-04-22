@@ -17,7 +17,7 @@
  */
 
 import lng from '@lightningjs/core';
-import { getValidColor, reduceFraction } from '../../utils';
+import { getMaxRoundRadius, getValidColor, reduceFraction } from '../../utils';
 import Base from '../Base';
 import Gradient from '../Gradient';
 import * as styles from './Artwork.styles';
@@ -629,10 +629,13 @@ export default class Artwork extends Base {
         ? {
             shader: {
               type: lng.shaders.RoundedRectangle,
-              radius: this.style.radius
+              radius: getMaxRoundRadius(this.style.radius, this.w, this.h, 0)
             }
           }
         : { shader: undefined }
     );
   }
+
+  
+  
 }

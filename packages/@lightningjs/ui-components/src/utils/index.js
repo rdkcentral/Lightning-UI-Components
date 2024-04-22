@@ -856,6 +856,16 @@ export function convertTextAlignToFlexJustify(align) {
   }
 }
 
+/**
+ * Write params in here soon
+ * function is checking for single num or array
+ */
+export function getMaxRoundRadius(radius, width, height, offset){
+  const maxRadius = r => Math.min(radius, (Math.min(width, height) / 2)) + offset;
+  return Array.isArray(radius) ? radius.map(r => maxRadius(r)) : maxRadius(radius);
+}
+
+
 const utils = {
   isMarkupString,
   capitalizeFirstLetter,
@@ -883,7 +893,8 @@ const utils = {
   getWidthByColumnSpan,
   createConditionalZContext,
   watchForUpdates,
-  convertTextAlignToFlexJustify
+  convertTextAlignToFlexJustify,
+  getMaxRoundRadius
 };
 
 export default utils;
