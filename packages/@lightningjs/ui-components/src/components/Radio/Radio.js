@@ -68,18 +68,12 @@ export default class Radio extends Base {
       ? this.style.backgroundColorChecked
       : this.style.backgroundColor;
 
-    // if the inner body should be square, a rounded corner radius can still be applied to the stroke
-    const radius =
-      this.style.radius >= this.w / 2
-        ? (this.w - this.style.strokeWidth - 2) / 2
-        : 0;
-
     this._Body.patch({
       texture: lng.Tools.getRoundRect(
         // Compensating for the extra 2 pixels getRoundRect adds
         this.w - this.style.strokeWidth * 2 - 2,
         this.h - this.style.strokeWidth * 2 - 2,
-        getMaxRoundRadius(radius, this.w, this.h, 0), //Do I need to add an offset here?
+        getMaxRoundRadius(this.style.radius, this.w, this.h, 0),
         null,
         null,
         true,
@@ -94,7 +88,7 @@ export default class Radio extends Base {
       texture: lng.Tools.getRoundRect(
         this.w - 2,
         this.h - 2,
-        getMaxRoundRadius(this.style.radius, this.w, this.h, 0), //Some weird snapping nonsense is happening here and with checkbox
+        getMaxRoundRadius(this.style.radius, this.w, this.h, 0),
         this.style.strokeWidth,
         this.style.strokeColor,
         false

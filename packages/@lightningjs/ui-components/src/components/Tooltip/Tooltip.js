@@ -94,7 +94,12 @@ export default class Tooltip extends Base {
           type: Bubble,
           w: this._Background.w,
           h: this._Background.h,
-          radius: getMaxRoundRadius(this.style.radius, this._Background.w, this._Background.h, 0), //not really working here
+          radius: getMaxRoundRadius(
+            this.style.radius,
+            this._Background.w / 2,
+            this._Background.h / 2,
+            0
+          ),
           pointerWidth: this.style.pointerWidth,
           pointerHeight: this.style.pointerHeight,
           color: this.style.backgroundColor

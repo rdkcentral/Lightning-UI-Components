@@ -62,7 +62,7 @@ export default class ProgressBar extends Base {
   _updateTextures() {
     const w = this._getProgressWidth();
 
-    const radius = getMaxRoundRadius(this.style.radius, this.w, this.h, 0)
+    const radius = getMaxRoundRadius(this.style.radius, this.w, this.h, 0);
 
     this._Bar.texture = lng.Tools.getRoundRect(
       // getRoundRect adds 2 to the width

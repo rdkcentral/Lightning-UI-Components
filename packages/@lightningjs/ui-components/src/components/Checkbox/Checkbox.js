@@ -96,18 +96,17 @@ export default class Checkbox extends Base {
       ? this.style.backgroundColorChecked
       : this.style.backgroundColor;
 
-    // if the inner checkbox should be square, a rounded corner radius can still be applied to the stroke
-    const radius =
-      this.style.radius >= this.w / 2
-        ? (this.w - this.style.strokeWidth - 2) / 2
-        : 0;
-
     this._Body.patch({
       texture: lng.Tools.getRoundRect(
         // Compensating for the extra 2 pixels getRoundRect adds
         this.w - this.style.strokeWidth * 2 - 2,
         this.h - this.style.strokeWidth * 2 - 2,
-        getMaxRoundRadius(this.style.radius, this.w, this.h, this.style.strokeWidth - 2),
+        getMaxRoundRadius(
+          this.style.radius,
+          this.w,
+          this.h,
+          this.style.strokeWidth - 2
+        ),
         0,
         null,
         true,

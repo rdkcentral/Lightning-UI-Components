@@ -36,7 +36,11 @@ export default class Gradient extends Base {
       rtt: true,
       colorTop: this.style.gradientTop,
       colorBottom: this.style.gradientColor,
-      texture: lng.Tools.getRoundRect(this.w, this.h, getMaxRoundRadius(this.style.radius, this.w, this.h, 0))
+      texture: lng.Tools.getRoundRect(
+        this.w,
+        this.h,
+        getMaxRoundRadius(this.style.radius, this.w, this.h, 0)
+      )
     });
   }
 }

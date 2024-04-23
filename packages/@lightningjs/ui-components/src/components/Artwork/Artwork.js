@@ -635,7 +635,4 @@ export default class Artwork extends Base {
         : { shader: undefined }
     );
   }
-
-  
-  
 }

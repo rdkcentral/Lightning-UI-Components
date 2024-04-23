@@ -71,7 +71,14 @@ export default class Provider extends Base {
 
       let patch = {
         centerInParent: true,
-        radius: this.disableRadius ? 0 : getMaxRoundRadius(this.style.radius, this.style.itemSize, this.style.itemSize, 0),
+        radius: this.disableRadius
+          ? 0
+          : getMaxRoundRadius(
+              this.style.radius,
+              this.style.itemSize,
+              this.style.itemSize,
+              0
+            ),
         alpha: this.style.alpha,
         style: provider.style || {}
       };
@@ -133,7 +140,12 @@ export default class Provider extends Base {
           texture: lng.Tools.getRoundRect(
             this.style.itemSize,
             this.style.itemSize,
-            getMaxRoundRadius(this.style.radius, this.style.itemSize, this.style.itemSize, 0),
+            getMaxRoundRadius(
+              this.style.radius,
+              this.style.itemSize,
+              this.style.itemSize,
+              0
+            ),
             0,
             null,
             true,
