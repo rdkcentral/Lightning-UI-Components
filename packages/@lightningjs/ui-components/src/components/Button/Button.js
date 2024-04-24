@@ -93,13 +93,13 @@ export default class Button extends Surface {
   }
 
   _updatePositions() {
-    if (this._hasPrefix) {
+    if (this._hasPrefix && this._Prefix !== undefined) {
       this._Prefix.x = this._prefixX;
     }
     if (this._hasTitle) {
       this._TextWrapper.x = this._titleX;
     }
-    if (this._hasSuffix) {
+    if (this._hasSuffix && this._Suffix !== undefined) {
       this._Suffix.x = this._suffixX;
     }
   }
@@ -340,7 +340,7 @@ export default class Button extends Surface {
   }
 
   get _prefixW() {
-    return this._hasPrefix ? this._Prefix.w : 0;
+    return this._hasPrefix && this._Prefix !== undefined ? this._Prefix.w : 0;
   }
 
   get _prefixX() {
@@ -373,7 +373,7 @@ export default class Button extends Surface {
   }
 
   get _suffixW() {
-    return this._hasSuffix ? this._Suffix.w : 0;
+    return this._hasSuffix && this._Suffix !== undefined ? this._Suffix.w : 0;
   }
 
   get _suffixX() {

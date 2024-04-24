@@ -159,11 +159,11 @@ export default class Tab extends Surface {
   }
 
   get _iconW() {
-    return this.icon ? this._Icon.w : 0;
+    return this.icon && this._Icon !== undefined ? this._Icon.w : 0;
   }
 
   get _iconH() {
-    return this.icon ? this._Icon.h : 0;
+    return this.icon && this._Icon !== undefined ? this._Icon.h : 0;
   }
 
   get _paddingX() {
