@@ -113,7 +113,7 @@ export default class Control extends ButtonSmall {
                 2;
               this._patchTitle(middle, 0.5);
             }
-          } else {
+          } else if (this._Prefix !== undefined) {
             const middle =
               (this.w -
                 (this._paddingLeft +
