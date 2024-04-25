@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import * as styles from './ProgressBar.styles';
+import { getMaxRoundRadius } from '../../utils';
 
 export default class ProgressBar extends Base {
   static _template() {
@@ -61,11 +62,13 @@ export default class ProgressBar extends Base {
   _updateTextures() {
     const w = this._getProgressWidth();
 
+    const radius = getMaxRoundRadius(this.style.radius, this.w - 2, this.h);
+
     this._Bar.texture = lng.Tools.getRoundRect(
       // getRoundRect adds 2 to the width
       this.w - 2,
       this.h,
-      this.style.radius,
+      radius,
       0,
       0,
       true,
@@ -75,7 +78,7 @@ export default class ProgressBar extends Base {
     this._Progress.texture = lng.Tools.getRoundRect(
       w + 1,
       this.h,
-      this.style.radius,
+      radius,
       0,
       0,
       true,

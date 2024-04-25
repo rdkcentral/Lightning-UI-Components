@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import Base from '../Base';
 import * as styles from './Toggle.styles';
+import { getMaxRoundRadius } from '../../utils';
 
 export default class Toggle extends Base {
   static get __componentName() {
@@ -121,7 +122,7 @@ export default class Toggle extends Base {
         // Compensating for the extra 2 pixels getRoundRect adds
         this.w - strokeWidth * 2 - 2,
         this.h - strokeWidth * 2 - 2,
-        radius,
+        getMaxRoundRadius(radius, this.w, this.h),
         strokeWidth,
         0,
         true,
@@ -142,8 +143,14 @@ export default class Toggle extends Base {
         this.w - 2,
         this.h - 2,
         strokeRadius !== undefined
-          ? strokeRadius
-          : knobRadius + knobPadding + strokeWidth,
+          ? getMaxRoundRadius(strokeRadius, this.w, this.h)
+          : getMaxRoundRadius(
+              knobRadius,
+              this.w - knobPadding * 2 - 2,
+              this.h - knobPadding * 2 - 2
+            ) +
+              knobPadding +
+              strokeWidth,
         strokeWidth,
         strokeColor,
         false,
@@ -162,7 +169,7 @@ export default class Toggle extends Base {
         // Compensating for the extra 2 pixels getRoundRect adds
         knobWidth - 2,
         knobHeight - 2,
-        knobRadius,
+        getMaxRoundRadius(knobRadius, knobWidth - 2, knobHeight - 2),
         0,
         0,
         true,

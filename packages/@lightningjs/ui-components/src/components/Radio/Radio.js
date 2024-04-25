@@ -19,6 +19,7 @@
 import Base from '../Base';
 import lng from '@lightningjs/core';
 import * as styles from './Radio.styles';
+import { getMaxRoundRadius } from '../../utils';
 
 export default class Radio extends Base {
   static get __componentName() {
@@ -67,18 +68,20 @@ export default class Radio extends Base {
       ? this.style.backgroundColorChecked
       : this.style.backgroundColor;
 
-    // if the inner body should be square, a rounded corner radius can still be applied to the stroke
-    const radius =
-      this.style.radius >= this.w / 2
-        ? (this.w - this.style.strokeWidth - 2) / 2
-        : 0;
+    const width = this.w - this.style.strokeWidth * 2 - 2;
+    const height = this.h - this.style.strokeWidth * 2 - 2;
 
     this._Body.patch({
       texture: lng.Tools.getRoundRect(
         // Compensating for the extra 2 pixels getRoundRect adds
-        this.w - this.style.strokeWidth * 2 - 2,
-        this.h - this.style.strokeWidth * 2 - 2,
-        radius,
+        width,
+        height,
+        getMaxRoundRadius(
+          this.style.radius,
+          width,
+          height,
+          this.style.strokeWidth * 2 - 2
+        ),
         null,
         null,
         true,
@@ -93,7 +96,7 @@ export default class Radio extends Base {
       texture: lng.Tools.getRoundRect(
         this.w - 2,
         this.h - 2,
-        this.style.radius,
+        getMaxRoundRadius(this.style.radius, this.w, this.h),
         this.style.strokeWidth,
         this.style.strokeColor,
         false

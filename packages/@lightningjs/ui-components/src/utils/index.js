@@ -856,6 +856,23 @@ export function convertTextAlignToFlexJustify(align) {
   }
 }
 
+/**
+ * Prevents user input radius from inverting.
+ *
+ * @param {number} user input radius
+ * @param {number} width
+ * @param {number} height
+ * @param {number} offset
+ * @return {number} max radius for object before border begins to invert
+ */
+export function getMaxRoundRadius(radius, width, height, offset = 0) {
+  const maxRadius = r =>
+    Math.max(0, Math.min(r, Math.min(width, height) / 2) + offset);
+  return Array.isArray(radius)
+    ? radius.map(r => Number(maxRadius(r)) || 0)
+    : Number(maxRadius(radius)) || 0;
+}
+
 const utils = {
   isMarkupString,
   capitalizeFirstLetter,
@@ -883,7 +900,8 @@ const utils = {
   getWidthByColumnSpan,
   createConditionalZContext,
   watchForUpdates,
-  convertTextAlignToFlexJustify
+  convertTextAlignToFlexJustify,
+  getMaxRoundRadius
 };
 
 export default utils;
