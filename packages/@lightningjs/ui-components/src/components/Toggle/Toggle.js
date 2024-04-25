@@ -122,7 +122,7 @@ export default class Toggle extends Base {
         // Compensating for the extra 2 pixels getRoundRect adds
         this.w - strokeWidth * 2 - 2,
         this.h - strokeWidth * 2 - 2,
-        getMaxRoundRadius(radius, this.w, this.h, 0),
+        getMaxRoundRadius(radius, this.w, this.h),
         strokeWidth,
         0,
         true,

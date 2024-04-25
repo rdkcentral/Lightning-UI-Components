@@ -124,7 +124,7 @@ export default class Checkbox extends Base {
         // Compensating for the extra 2 pixels getRoundRect adds
         this.w - 2,
         this.h - 2,
-        getMaxRoundRadius(this.style.radius, this.w, this.h, 0),
+        getMaxRoundRadius(this.style.radius, this.w - 2, this.h - 2),
         this.style.strokeWidth,
         this.style.strokeColor,
         false
