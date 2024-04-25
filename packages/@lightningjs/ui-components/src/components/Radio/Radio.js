@@ -77,9 +77,9 @@ export default class Radio extends Base {
         width,
         height,
         getMaxRoundRadius(
-          this.style.radius, 
-          width, 
-          height, 
+          this.style.radius,
+          width,
+          height,
           this.style.strokeWidth * 2 - 2
         ),
         null,

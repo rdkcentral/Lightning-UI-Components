@@ -98,7 +98,7 @@ export default class Checkbox extends Base {
 
     const width = this.w - this.style.strokeWidth * 2 - 2;
     const height = this.h - this.style.strokeWidth * 2 - 2;
-  
+
     this._Body.patch({
       texture: lng.Tools.getRoundRect(
         // Compensating for the extra 2 pixels getRoundRect adds
