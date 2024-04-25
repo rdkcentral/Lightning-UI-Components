@@ -58,7 +58,7 @@ export default class Shadow extends Base {
     // TODO: Need to know which mode style has the largest offset values, could refactor
     const extraBoundsY = this.style.maxOffsetY;
     const extraBoundsX = this.style.maxOffsetX;
-    const radius = getMaxRoundRadius(this.style.radius, this.w, this.h, 0);
+    const radius = getMaxRoundRadius(this.style.radius, this.w, this.h);
 
     this.patch({
       Frame: {
@@ -77,7 +77,7 @@ export default class Shadow extends Base {
               h: this.h - holepunchError,
               x: shadowSize + holepunchError / 2,
               y: shadowSize + holepunchError / 2,
-              radius: radius
+              radius
             }
           : undefined,
         Shadow: {

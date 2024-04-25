@@ -76,8 +76,7 @@ export default class Provider extends Base {
           : getMaxRoundRadius(
               this.style.radius,
               this.style.itemSize,
-              this.style.itemSize,
-              0
+              this.style.itemSize
             ),
         alpha: this.style.alpha,
         style: provider.style || {}
@@ -143,8 +142,7 @@ export default class Provider extends Base {
             getMaxRoundRadius(
               this.style.radius,
               this.style.itemSize,
-              this.style.itemSize,
-              0
+              this.style.itemSize
             ),
             0,
             null,

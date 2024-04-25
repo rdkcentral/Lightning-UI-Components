@@ -86,7 +86,7 @@ export default class Badge extends Base {
       texture: lng.Tools.getRoundRect(
         this.w,
         height,
-        getMaxRoundRadius(this.style.radius, this.w, height, 0),
+        getMaxRoundRadius(this.style.radius, this.w, height),
         this.style.strokeWidth,
         this.style.strokeColor,
         true,

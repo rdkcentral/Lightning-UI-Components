@@ -45,7 +45,7 @@ export default class Knob extends Base {
       texture: lng.Tools.getRoundRect(
         this.w,
         this.h,
-        getMaxRoundRadius(this.style.radius, this.w, this.h, 0),
+        getMaxRoundRadius(this.style.radius, this.w, this.h),
         null,
         null,
         true,

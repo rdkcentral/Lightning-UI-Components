@@ -865,8 +865,7 @@ export function convertTextAlignToFlexJustify(align) {
  * @param {number} offset
  * @return {number} max radius for object before border begins to invert
  */
-export function getMaxRoundRadius(radius, width, height, offset) {
-  //const maxRadius = r => Math.min(r, (Math.min(width, height) / 2) + offset);
+export function getMaxRoundRadius(radius, width, height, offset = 0) {
   const maxRadius = r =>
     Math.max(0, Math.min(r, Math.min(width, height) / 2) + offset);
   return Array.isArray(radius)

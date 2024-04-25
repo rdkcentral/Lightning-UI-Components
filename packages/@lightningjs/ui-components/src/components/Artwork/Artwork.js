@@ -629,7 +629,7 @@ export default class Artwork extends Base {
         ? {
             shader: {
               type: lng.shaders.RoundedRectangle,
-              radius: getMaxRoundRadius(this.style.radius, this.w, this.h, 0)
+              radius: getMaxRoundRadius(this.style.radius, this.w, this.h)
             }
           }
         : { shader: undefined }

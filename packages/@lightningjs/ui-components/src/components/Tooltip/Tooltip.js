@@ -88,17 +88,14 @@ export default class Tooltip extends Base {
   _updateBackground() {
     this.patch({
       Background: {
-        w: this._Background.w,
-        h: this._Background.h,
         texture: {
           type: Bubble,
           w: this._Background.w,
           h: this._Background.h,
           radius: getMaxRoundRadius(
             this.style.radius,
-            this._Background.w / 2,
-            this._Background.h / 2,
-            0
+            this._Background.w - this.style.pointerHeight,
+            this._Background.h - this.style.pointerHeight
           ),
           pointerWidth: this.style.pointerWidth,
           pointerHeight: this.style.pointerHeight,

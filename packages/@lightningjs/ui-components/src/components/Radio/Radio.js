@@ -68,12 +68,20 @@ export default class Radio extends Base {
       ? this.style.backgroundColorChecked
       : this.style.backgroundColor;
 
+    const width = this.w - this.style.strokeWidth * 2 - 2;
+    const height = this.h - this.style.strokeWidth * 2 - 2;
+
     this._Body.patch({
       texture: lng.Tools.getRoundRect(
         // Compensating for the extra 2 pixels getRoundRect adds
-        this.w - this.style.strokeWidth * 2 - 2,
-        this.h - this.style.strokeWidth * 2 - 2,
-        getMaxRoundRadius(this.style.radius, this.w, this.h, 0),
+        width,
+        height,
+        getMaxRoundRadius(
+          this.style.radius, 
+          width, 
+          height, 
+          this.style.strokeWidth * 2 - 2
+        ),
         null,
         null,
         true,

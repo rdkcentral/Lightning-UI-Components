@@ -143,12 +143,11 @@ export default class Toggle extends Base {
         this.w - 2,
         this.h - 2,
         strokeRadius !== undefined
-          ? getMaxRoundRadius(strokeRadius, this.w, this.h, 0)
+          ? getMaxRoundRadius(strokeRadius, this.w, this.h)
           : getMaxRoundRadius(
               knobRadius,
               this.w - knobPadding * 2 - 2,
-              this.h - knobPadding * 2 - 2,
-              0
+              this.h - knobPadding * 2 - 2
             ) +
               knobPadding +
               strokeWidth,
@@ -170,7 +169,7 @@ export default class Toggle extends Base {
         // Compensating for the extra 2 pixels getRoundRect adds
         knobWidth - 2,
         knobHeight - 2,
-        getMaxRoundRadius(knobRadius, knobWidth, knobHeight, 0),
+        getMaxRoundRadius(knobRadius, knobWidth - 2, knobHeight - 2),
         0,
         0,
         true,
