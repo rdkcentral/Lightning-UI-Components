@@ -67,6 +67,10 @@ export default class Tab extends Surface {
     ];
   }
 
+  static get aliasStyles() {
+    return [{ prev: 'noTitlePaddingX', curr: 'paddingXNoTitle' }];
+  }
+
   _onTextBoxChanged() {
     this._updateContent();
     this._updateTabSize();
@@ -167,7 +171,7 @@ export default class Tab extends Surface {
   }
 
   get _paddingX() {
-    return this.title ? this.style.paddingX : this.style.noTitlePaddingX;
+    return this.title ? this.style.paddingX : this.style.paddingXNoTitle;
   }
 
   set announce(announce) {
