@@ -20,7 +20,8 @@ export const base = theme => ({
   radius: theme.radius.xl,
   paddingX: theme.spacer.xxxl + theme.spacer.xxs,
   paddingY: theme.spacer.md + theme.spacer.xs,
-  paddingXNoTitle: theme.spacer.xl,
+  /** @deprecated */
+  noTitlePaddingX: theme.spacer.xl,
   iconSize: theme.spacer.xxxl,
   iconMarginRight: theme.spacer.md,
   textStyle: {
