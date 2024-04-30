@@ -31,6 +31,7 @@ type TabStyle = SurfaceStyle & {
   iconSize: number;
   /** @deprecated */
   noTitlePaddingX: number;
+  paddingXNoTitle: number;
   paddingX: number;
   paddingY: number;
   radius: number;
