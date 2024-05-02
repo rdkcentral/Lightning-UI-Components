@@ -55,7 +55,7 @@ var base = function base(theme) {
     radius: theme.radius.xl,
     paddingX: theme.spacer.xxxl + theme.spacer.xxs,
     paddingY: theme.spacer.md + theme.spacer.xs,
-    noTitlePaddingX: theme.spacer.xl,
+    paddingXNoTitle: theme.spacer.xl,
     iconSize: theme.spacer.xxxl,
     iconMarginRight: theme.spacer.md,
     textStyle: _objectSpread(_objectSpread({}, theme.typography.headline3), {}, {
@@ -282,7 +282,7 @@ var Tab = /*#__PURE__*/function (_Surface) {
   }, {
     key: "_paddingX",
     get: function get() {
-      return this.title ? this.style.paddingX : this.style.noTitlePaddingX;
+      return this.title ? this.style.paddingX : this.style.paddingXNoTitle;
     }
   }, {
     key: "announce",
@@ -339,6 +339,14 @@ var Tab = /*#__PURE__*/function (_Surface) {
         name: 'Text',
         path: 'Content.Text'
       }]);
+    }
+  }, {
+    key: "aliasStyles",
+    get: function get() {
+      return [{
+        prev: 'noTitlePaddingX',
+        curr: 'paddingXNoTitle'
+      }];
     }
   }]);
   return Tab;
@@ -580,4 +588,4 @@ module.exports = __webpack_require__.p + "static/media/ic_lightning_white_32.06a
 /***/ })
 
 }]);
-//# sourceMappingURL=2707.7209b655.iframe.bundle.js.map
+//# sourceMappingURL=2707.ab1b2b2d.iframe.bundle.js.map

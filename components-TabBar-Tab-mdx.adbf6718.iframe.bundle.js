@@ -816,7 +816,7 @@ function _createMdxContent(props) {
           })]
         }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.tr, {
           children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
-            children: "noTitlePaddingX"
+            children: "paddingXNoTitle"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
             children: "number"
           }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.td, {
@@ -925,4 +925,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-TabBar-Tab-mdx.386aad30.iframe.bundle.js.map
+//# sourceMappingURL=components-TabBar-Tab-mdx.adbf6718.iframe.bundle.js.map

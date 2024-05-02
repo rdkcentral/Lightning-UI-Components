@@ -11321,7 +11321,7 @@ var preview = {
       */
       storySort: {
         method: 'alphabetical',
-        order: ['Docs', ['Introduction', 'Read Me', 'Base', 'Contributing', 'Lightning Resources', 'Theming', ['Overview', 'Component Config', 'Tones', 'Modes', 'Extensions', 'Subtheming', 'Use in Storybook', 'Theme Properties', '*'], 'Unit Testing', ['Overview', 'Test Renderer', 'Test Utils', ['makeCreateComponent', '*']]], 'Collections', 'Utilities', 'Components', 'Patterns', 'Templates']
+        order: ['Docs', ['Introduction', 'Read Me', 'Base', 'Contributing', 'Lightning Resources', 'Lightning Community Guide', 'Theming', ['Overview', 'Component Config', 'Tones', 'Modes', 'Extensions', 'Subtheming', 'Use in Storybook', 'Theme Properties', '*'], 'Unit Testing', ['Overview', 'Test Renderer', 'Test Utils', ['makeCreateComponent', '*']]], 'Collections', 'Utilities', 'Components', 'Patterns', 'Templates']
       }
     }
   },
@@ -11801,6 +11801,11 @@ var map = {
 		"../../@lightningjs/ui-components/src/docs/Introduction.mdx",
 		5126,
 		1715
+	],
+	"./docs/LightningCommunityGuide.mdx": [
+		"../../@lightningjs/ui-components/src/docs/LightningCommunityGuide.mdx",
+		5126,
+		9781
 	],
 	"./docs/LightningResources.mdx": [
 		"../../@lightningjs/ui-components/src/docs/LightningResources.mdx",
@@ -13043,4 +13048,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.ed3fd960.iframe.bundle.js.map
+//# sourceMappingURL=main.f9ffea2b.iframe.bundle.js.map
