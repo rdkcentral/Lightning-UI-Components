@@ -35,6 +35,7 @@ export const storySortOrder = [
     'Base',
     'Contributing',
     'Lightning Resources',
+    'Lightning Community Guide',
     'Theming',
     [
       'Overview',
