@@ -1,0 +1,294 @@
+{/* prettier-ignore */}
+{/*
+Copyright 2024 Comcast Cable Communications Management, LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+SPDX-License-Identifier: Apache-2.0
+\*/}
+
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Docs/Lightning Community Guide" />
+
+# Lightning Community Guide
+
+A guide to better Lightning development for the community, by the community
+
+## Table of Contents
+
+[**Guide**](#guide)
+
+- [**Setup**](#setup)
+  - [How to Serve a Sample Lightning App](#how-to-serve-a-sample-lightning-app)
+- [**Textures**](#textures)
+  - [How to calculate texture render dimensions](#how-to-calculate-texture-render-dimensions)
+  - [How to get the width and height you want for getRoundRect](#how-to-get-the-width-and-height-you-want-for-getroundrect)
+  - [How to get the height you want for Text textures](#how-to-get-the-height-you-want-for-text-textures)
+  - [How to handle smoothing texture colors](#how-to-handle-smoothing-texture-colors)
+- [**Key Handling**](#key-handling)
+  - [How to apply handler methods as properties](#how-to-apply-handler-methods-as-properties)
+
+
+[**Troubleshooting**](#troubleshooting)
+
+- [Setting a ref is breaking things](#setting-a-ref-is-breaking-things)
+- [Patching an image src breaks or does not work](#patching-an-image-src-breaks-or-does-not-work)
+- [Something suddenly popped off screen](#something-suddenly-popped-off-screen)
+
+[**Glossary**](#glossary)
+  - [rtt](#rtt)
+  - [boundsMargin](#boundsmargin)
+
+## Guide
+
+### Setup
+
+#### How to Serve a Sample Lightning App
+
+If you created a new Lightnging App via the [RDK setup guide][rdk-setup-lightning], you can quickly serve up the application with [http-server](https://www.npmjs.com/package/http-server)
+
+```sh
+npx http-server -c-1
+```
+
+The `-c-1` flag disables caching.
+
+### Textures
+
+#### How to calculate texture render dimensions
+
+Let's say we have a component like so:
+
+```js
+class Example extends lng.Component {
+  static _template() {
+    return {
+      texture: lng.Tools.getRoundRect(100,100)
+    }
+  }
+
+  _init() {
+    // we want to access render dimensions here
+    console.log(this.renderWidth, this.renderHeight);
+  }
+}
+```
+
+If we render this component, our `console.log` will display `0 0`. That is because we are trying to access the render dimensions before the texture has loaded.
+
+To guarantee the render dimensions are accessible, there are two options: `this.on('txLoaded', () => {/* */}` and `this.loadTexture()`.
+
+With that in mind, we can re-write the `_init()` method like so:
+
+```js
+_init() {
+  this.on('txLoaded', () => {
+    console.log(this.renderWidth, this.renderHeight)
+  });
+}
+```
+
+or like this:
+
+```js
+_init() {
+  this.loadTexture();
+  console.log(this.renderWidth, this.renderHeight);
+}
+```
+
+To that end, we can calculate absolute x/y coordinates for our texture by using either of the above patterns and calling `this.core.getAbsoluteCoords(relX,relY)` where `relX` and `relY` are the relative x & y coordinates to start the calculation from.
+
+#### How to get the width and height you want for getRoundRect
+
+If you are using `lng.Tools.getRoundRect` from the [RDK Toolbox][rdk-toolbox], you may notice that the rendered width and height do not match the numbers you entered.
+
+To verify the calculated width/height of your texture:
+
+1. add the Lightning inspector to the top of your project.
+    ```sh
+    import 'wpe-lightning/devtools/lightning-inspect';
+    ```
+1. Serve your app locally, and inspect the browser
+1. Find the element representing your component, and look for the `style` attribute. The `width` and `height` there should match the `finalW` and `finalH` on the texture object
+
+What is happening?
+
+The calculation for the texture canvas width and height adds the provided `strokeWidth` + 2.
+
+If you do `lng.Tools.getRoundRect(10, 10)`, you should expect a texture with a `finalH` and `finalW` of 12.
+If you do `lng.Tools.getRoundRect(10, 10, 0, 2)`, you should expect a texture with a `finalH` and `finalW` of 14.
+
+Also, if your texture is inside a `flex` component with padding, the padding is added to the calculation (think CSS content-box [box-sizing][mdn-box-sizing].
+
+To get the width and height you want:
+
+For simple use cases, you can just do `lng.Tools.getRoundRect(10-2, 10-2)` to get rendered dimensions of 10. For rects with more complexity (i.e. padding), we recommend using the [@lightning/lightning-ui][ghe-lightning-ui] `RoundRect.getWidth` and `RoundRect.getHeight` methods.
+
+```js
+import lng from 'wpe-lightning'
+import { RoundRect } from '@lightning/lightning-ui/utils';
+
+export default class Component extends lng.Component {
+  static _template() {
+    return {
+      flex: {
+        padding: 10
+      },
+      texture: lng.Tools.getRoundRect(
+        RoundRect.getWidth(50, { padding: 10 }),
+        RoundRect.getHeight(50, { padding: 10 })
+      )
+    }
+  }
+}
+```
+
+In the above example, the `Component` template should render a rect with a `finalW` and `finalH` of 50.
+
+#### How to get the height you want for Text textures
+
+If you want the rendered height of a [Text][rdk-text] texture, you might want to try using `h`.
+
+This renders a 60px height:
+
+```js
+{ text: { lineHeight: 40 }}
+```
+
+This renders a 40px height:
+
+```js
+{ text: { h: 40 }}
+```
+
+The important distinction between `h` and `lineHeight` is _positioning_. A `lineHeight` smaller than the font size will start to push the text up on the Y-axis, and vice-versa. An `h` value smaller than the font size will clip the text in place and _won't affect positioning_.
+
+#### How to handle smoothing texture colors
+
+As a rule, initialize textures with a pure white color. Smoothing transitions hues off of the initialized color, so you may see unexpected results with anything other than `0xFFFFFFFF`
+
+### Key Handling
+
+#### How to apply handler methods as properties
+
+If you want to set key handlers like this:
+
+```js
+class Example extends lng.Component {
+  static _template() {
+    return {
+      type: MyComponent,
+      _handleEnter: function() {/* do stuff */}
+    }
+  }
+}
+```
+
+An easy way to allow for that is to set a no-op or default method on the prototype.
+
+```js
+class MyComponent extends lng.Component {
+  _handleEnter() {}
+}
+```
+
+**IMPORTANT** You may notice in the example above, `_handleEnter: function() {}` is using an anonymous function instead of an [arrow function][mdn-arrow-functions]. Arrow functions do not bind `this` and have no access to `super`. To avoid confusion, **always use a function instead of an arrow function when overriding prototype methods**.
+
+These first two examples are using arrow function expressions, and `this` is always the parent.
+
+```js
+// Ex. 1
+this.tag('Button')._handleEnter = () => {
+  console.log(this === this.tag('Button')) //=> false
+}
+
+// Ex. 2
+const handleEnter = () => {
+  console.log(this === this.tag('Button')) //=> false
+}
+this.tag('Button')._handleEnter = handleEnter.bind(this.tag('Button'))
+```
+
+Even for `Ex. 2`, binding `this.tag('Button')` doesn't work.
+
+In the next two examples, anonymous function expressions are used, and we can control the context of `this`
+
+
+```js
+// Ex. 3
+this.tag('Button')._handleEnter = function() {
+  console.log(this === this.tag('Button')) //=> true
+}
+
+// Ex. 4
+const handleEnter = function() {
+  console.log(this === this.tag('Button')) //=> false
+}
+this.tag('Button')._handleEnter = handleEnter.bind(this)
+```
+
+`Ex. 3` defaults `this` to be `this.tag('Button')`, which makes sense because it is the caller of `_handleEnter`.
+In `Ex. 4`, the context for `this` is the parent, which makes sense because the parent is bound to `handleEnter`.
+
+## Troubleshooting
+
+#### Setting a ref is breaking things
+
+If setting a ref is breaking things, double check that the ref starts with a capital letter
+
+#### Patching an image src breaks or does not work
+
+If a color is set on a component, trying to patch in an image source later on won't work
+
+> **TODO** is there a way to CLEAR the color? Setting it to undefined and null don't work
+
+#### Something suddenly popped off screen
+
+If something suddenly "pops" offscreen (as if it was suddenly alpha-ed off), check if it has any `boundsMargin` set. These are inherited from above, so doing `boundsMargin: []` will clear that out and prevent the element from de-rendering when moving out of the viewport
+
+## Glossary
+
+#### rtt
+
+RTT stands for "Render to Texture". In Lightning, `Element.prototype.renderToTexture` is an alias for `Element.prototype.rtt`. Check out the [source code](https://github.com/rdkcentral/Lightning/blob/2761558c65dee2870bacdb9821c845fc405ccd84/src/tree/Element.mjs#L1797-L1818).
+
+If you set `rtt: true` on an element, you are asking Lightning to create a texture for the element so it can be reused later.
+
+A great in-depth explanation (with examples!) is in the Lightning issues archive [here](https://github.com/rdkcentral/Lightning/issues/74#issuecomment-562264399).
+
+#### boundsMargin
+
+The `boundsMargin` property can be set on any Lightning element to extend the threshold used to determine when the element will enter the viewport of the screen. Here is the [source code](https://github.com/rdkcentral/Lightning/blob/5300882c294cad68a1692fd1b84b2156a5c75253/src/tree/Element.d.mts#L528).
+
+```js
+  static _template() {
+      return {
+          boundsMargin: [500, 500, 500, 500], // left, top, right, bottom
+      }
+  }
+```
+
+For example, if you are have a page containing tiles in a grid formation and are scrolling down the page or to the right, the top and left edges of the item that is offscreen are what will come into view first. By default, if an image is off screen, it is not rendered. Then, when it comes into the viewport, it will be rendered. This can create a "popping" effect where you see the image suddenly appear as you scroll. If you increase the boundsMargin of the element, it will increase the threshold at which the image will start rendering. In a typical search and discovery application where users scroll down and to the right to load more content, the first two values of the `boundsMargin` (left and top) should be extended.
+
+This [Lightning Playground](https://playground.lightningjs.io/#e5FTReUtNMLN) example illustrates this effect. Play with changing the first value in the boundsMargin array (left) from 1000 to 0 and observe that when you try scrolling to the right, the images will start "popping" into view. When set to 1000, however, the images should be fully rendered before sliding into the screen view. Additionally, according to the code comments, a value of 100 is automatically applied in each direction if no boundsMargin is explicitly defined.
+
+{/* Links (should stay at the bottom of the page) */}
+[ghe-lightning-ui]: https://github.comcast.com/Lightning/lightning-ui
+[mdn-arrow-functions]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions "MDN: arrow functions"
+[mdn-box-sizing]: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing "MDN: box-sizing"
+[rdk-flexbox]: https://rdkcentral.github.io/Lightning/docs/renderEngine/flexbox "RDK: Flexbox"
+[rdk-setup-lightning]: https://rdkcentral.github.io/Lightning/docs/gettingStarted/setup-lightning "RDK: Setup Lightning"
+[rdk-text]: https://rdkcentral.github.io/Lightning/docs/textures/text "RDK: Text"
+[rdk-toolbox]: https://rdkcentral.github.io/Lightning/docs/textures/toolbox "RDK: Toolbox"

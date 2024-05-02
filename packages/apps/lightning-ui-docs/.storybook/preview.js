@@ -61,6 +61,7 @@ const preview = {
             'Base',
             'Contributing',
             'Lightning Resources',
+            'Lightning Community Guide',
             'Theming',
             [
               'Overview',
