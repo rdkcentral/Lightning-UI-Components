@@ -121,7 +121,9 @@ export default class ListItemSlider extends ListItem {
       visible: !this._collapse,
       alpha: this.style.alpha,
       ...this.slider,
-      value: this.value
+      value: this.value,
+      max: this.max,
+      min: this.min
     };
 
     this._Slider.patch(sliderProps);
