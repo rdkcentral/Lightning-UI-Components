@@ -47,8 +47,8 @@ ListItemSlider.args = {
   value: 50,
   shouldCollapse: false,
   mode: 'focused',
-  min: 0,
-  max: 100
+  max: 100,
+  min: 0
 };
 ListItemSlider.argTypes = {
   ...createModeControl({ summaryValue: 'focused' }),
