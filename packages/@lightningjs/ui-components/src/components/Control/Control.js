@@ -40,8 +40,8 @@ export default class Control extends ButtonSmall {
   _update() {
     // ordering this way to make sure that this._Title is defined so the title visibility can be set properly when _updateCollapseStatus is called
     this._updatePrefixStyle();
-    super._update();
     this._updateCollapseStatus();
+    super._update();
   }
 
   _updateCollapseStatus() {
