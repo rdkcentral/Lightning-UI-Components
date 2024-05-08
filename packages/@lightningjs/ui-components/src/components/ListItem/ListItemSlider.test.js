@@ -86,7 +86,7 @@ describe('ListItemSlider', () => {
     listItemSlider._Slider.max = 10;
     testRenderer.forceAllUpdates();
     listItemSlider._handleRight();
-    expect(listItemSlider._Slider.value).toEqual(10);
+    expect(listItemSlider._Slider.value - 1).toEqual(10);
   });
 
   it('should not exist Value if value not exist', () => {

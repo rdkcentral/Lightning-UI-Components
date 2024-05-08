@@ -54,7 +54,7 @@ export default class ListItemSlider extends ListItem {
   }
 
   static get properties() {
-    return [...super.properties, 'slider', 'value'];
+    return [...super.properties, 'slider', 'value', 'max', 'min'];
   }
 
   static get aliasStyles() {
@@ -72,6 +72,8 @@ export default class ListItemSlider extends ListItem {
   _construct() {
     super._construct();
     this.value = 50;
+    this.max = 100;
+    this.min = 0;
   }
 
   _update() {

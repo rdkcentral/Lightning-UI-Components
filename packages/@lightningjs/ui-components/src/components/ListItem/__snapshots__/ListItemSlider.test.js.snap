@@ -99,7 +99,7 @@ exports[`ListItemSlider renders 1`] = `
                       "type": "Knob",
                       "visible": true,
                       "w": 20,
-                      "x": NaN,
+                      "x": 206,
                       "y": 13,
                       "zIndex": 5,
                     },
