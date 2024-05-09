@@ -541,6 +541,16 @@ export default class NavigationManager extends FocusManager {
       : this.style.scrollIndex;
   }
 
+  _setLazyUpCountBuffer(buffer) {
+    if (buffer < 0) {
+      console.warn(
+        'lazyUpCountBuffer must be greater than or equal to 0. Setting to 0.'
+      );
+      buffer = 0;
+    }
+    return buffer;
+  }
+
   isFullyOnScreen({ offsetX = 0, offsetY = 0 } = {}) {
     // if the NavigationManager is nested in another Focus Manager
     // (like a Row inside of a Column),
