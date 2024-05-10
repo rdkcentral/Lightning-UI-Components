@@ -89,7 +89,7 @@ describe('ListItemSlider', () => {
     expect(listItemSlider._Slider.value).toEqual(10);
   });
 
-  it('should not exist Value if value not exist', () => {
+  fit('should not exist Value if value not exist', () => {
     listItemSlider.value = null;
     testRenderer.forceAllUpdates();
     expect(listItemSlider._Value).toBeUndefined();

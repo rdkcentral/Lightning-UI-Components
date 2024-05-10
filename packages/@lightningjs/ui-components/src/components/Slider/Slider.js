@@ -109,10 +109,15 @@ export default class Slider extends Base {
     this._updatePositions();
     this._updateArrowAlpha();
     this._updateArrows();
-    if (this._valueChanged) {
-      this.signal('onChange', this.value, this);
+    if (this._valueChanged || this._minChanged || this._maxChanged) {
+      console.log(this._valueChanged, this._minChanged, this._maxChanged);
+      this.signal(
+        'onChange',
+        { value: this.value, min: this.min, max: this.max },
+        this
+      );
       this.fireAncestors('$announce', this.announce);
-      this._valueChanged = false;
+      this._valueChanged = this._minChanged = this._maxChanged = false;
     }
     this._checkAndSignalSizeChange();
   }
@@ -186,6 +191,7 @@ export default class Slider extends Base {
   }
 
   _updateSliderProgress() {
+    console.trace(this.min, this.max, this.step);
     let progress =
       this.value < this.min ? this.min / this.max : this.value / this.max;
 
@@ -333,6 +339,17 @@ export default class Slider extends Base {
   _setValue(value) {
     this._valueChanged = value !== this._value;
     return value;
+  }
+
+  _setMin(min) {
+    this._minChanged = min !== this._min;
+    return min;
+  }
+
+  _setMax(max) {
+    console.trace('max changed', max);
+    this._maxChanged = max !== this._max;
+    return max;
   }
 
   set announce(announce) {
