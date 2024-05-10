@@ -426,4 +426,12 @@ describe('NavigationManager', () => {
     expect(navigationManager.alwaysScroll).toBe(true);
     expect(navigationManager.neverScroll).toBe(false);
   });
+
+  it('should set lazyUpCountBuffer to zero if set below', () => {
+    navigationManager.lazyUpCountBuffer = 3;
+    expect(navigationManager.lazyUpCountBuffer).toBe(3);
+
+    navigationManager.lazyUpCountBuffer = -2;
+    expect(navigationManager.lazyUpCountBuffer).toBe(0);
+  });
 });
