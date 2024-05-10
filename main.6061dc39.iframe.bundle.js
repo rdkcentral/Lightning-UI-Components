@@ -4238,6 +4238,15 @@ var NavigationManager = /*#__PURE__*/function (_FocusManager) {
       return this._scrollIndex !== undefined ? this._scrollIndex : this.style.scrollIndex;
     }
   }, {
+    key: "_setLazyUpCountBuffer",
+    value: function _setLazyUpCountBuffer(buffer) {
+      if (buffer < 0) {
+        console.warn('lazyUpCountBuffer must be greater than or equal to 0. Setting to 0.');
+        buffer = 0;
+      }
+      return buffer;
+    }
+  }, {
     key: "isFullyOnScreen",
     value: function isFullyOnScreen() {
       var _this$parent;
@@ -13048,4 +13057,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.f9ffea2b.iframe.bundle.js.map
+//# sourceMappingURL=main.6061dc39.iframe.bundle.js.map

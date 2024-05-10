@@ -174,8 +174,9 @@ var Control = /*#__PURE__*/function (_ButtonSmall) {
     value: function _update() {
       // ordering this way to make sure that this._Title is defined so the title visibility can be set properly when _updateCollapseStatus is called
       this._updatePrefixStyle();
-      _get(_getPrototypeOf(Control.prototype), "_update", this).call(this);
+      _get(_getPrototypeOf(Control.prototype), "_updateTitle", this).call(this);
       this._updateCollapseStatus();
+      _get(_getPrototypeOf(Control.prototype), "_update", this).call(this);
     }
   }, {
     key: "_updateCollapseStatus",
@@ -428,4 +429,4 @@ module.exports = __webpack_require__.p + "static/media/ic_lightning_white_32.06a
 /***/ })
 
 }]);
-//# sourceMappingURL=6476.7f857c0b.iframe.bundle.js.map
+//# sourceMappingURL=6476.d25136c1.iframe.bundle.js.map

@@ -285,6 +285,7 @@ var Artwork = /*#__PURE__*/function (_Base) {
     key: "_rejectLoading",
     value: function _rejectLoading(error) {
       this._componentSrc.reject && this._componentSrc.reject(error);
+      this.signal('imageLoadFailed');
     }
   }, {
     key: "_update",
@@ -945,4 +946,4 @@ var Gradient = /*#__PURE__*/function (_Base) {
 /***/ })
 
 }]);
-//# sourceMappingURL=3544.f6e9ec2b.iframe.bundle.js.map
+//# sourceMappingURL=3544.507a2069.iframe.bundle.js.map
