@@ -215,6 +215,7 @@ export default class Artwork extends Base {
 
   _rejectLoading(error) {
     this._componentSrc.reject && this._componentSrc.reject(error);
+    this.signal('imageLoadFailed');
   }
 
   async _update() {
