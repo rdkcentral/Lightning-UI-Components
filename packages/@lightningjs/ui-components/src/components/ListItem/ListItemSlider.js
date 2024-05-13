@@ -54,7 +54,7 @@ export default class ListItemSlider extends ListItem {
   }
 
   static get properties() {
-    return [...super.properties, 'slider', 'value', 'max', 'min'];
+    return [...super.properties, 'slider', 'value'];
   }
 
   static get aliasStyles() {
@@ -72,8 +72,6 @@ export default class ListItemSlider extends ListItem {
   _construct() {
     super._construct();
     this.value = 50;
-    this.max = 100;
-    this.min = 0;
   }
 
   _update() {
@@ -123,12 +121,11 @@ export default class ListItemSlider extends ListItem {
       visible: !this._collapse,
       alpha: this.style.alpha,
       ...this.slider,
-      value: this.value,
-      max: this.max,
-      min: this.min
+      value: this.value
     };
 
     this._Slider.patch(sliderProps);
+    this._Slider._update();
   }
 
   get _hasValue() {

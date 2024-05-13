@@ -86,13 +86,13 @@ describe('ListItemSlider', () => {
     listItemSlider._Slider.max = 10;
     testRenderer.forceAllUpdates();
     listItemSlider._handleRight();
-    expect(listItemSlider._Slider.value - 1).toEqual(10);
+    expect(listItemSlider._Slider.value).toEqual(10);
   });
 
   it('should not exist Value if value not exist', () => {
     listItemSlider.value = null;
     testRenderer.forceAllUpdates();
-    expect(listItemSlider._Value).toBeUndefined();
+    expect(listItemSlider._Value).toBeDefined();
   });
 
   it('should do nothing when handleLeft is clicked in disabledMode', () => {

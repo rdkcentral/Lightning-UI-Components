@@ -46,9 +46,7 @@ ListItemSlider.args = {
   title: 'List Item',
   value: 50,
   shouldCollapse: false,
-  mode: 'focused',
-  max: 100,
-  min: 0
+  mode: 'focused'
 };
 ListItemSlider.argTypes = {
   ...createModeControl({ summaryValue: 'focused' }),
@@ -76,22 +74,6 @@ ListItemSlider.argTypes = {
       defaultValue: { summary: false },
       type: { summary: 'boolean' }
     }
-  },
-  max: {
-    control: 'number',
-    description: 'Upper bound of value',
-    table: {
-      defaultValue: { summary: 100 },
-      type: { summary: 'number' }
-    }
-  },
-  min: {
-    control: 'number',
-    description: 'Lower bound of value',
-    table: {
-      defaultValue: { summary: 0 },
-      type: { summary: 'number' }
-    }
   }
 };
 
@@ -106,5 +88,5 @@ generateSubStory({
   baseStory: ListItemSlider,
   subStory: SliderStory,
   targetProperty: 'slider',
-  include: ['step']
+  include: ['min', 'max', 'step']
 });
