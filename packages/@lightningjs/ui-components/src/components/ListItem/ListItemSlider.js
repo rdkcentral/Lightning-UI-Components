@@ -77,7 +77,10 @@ export default class ListItemSlider extends ListItem {
   _update() {
     super._update();
     this._updateSliderPosition();
-    this._updateValue();
+    // Delay allows values to sync and value to be defined
+    setTimeout(() => {
+      this._updateValue();
+    }, 0);
   }
 
   _onTextBoxChanged() {
