@@ -92,7 +92,7 @@ describe('ListItemSlider', () => {
   it('should not exist Value if value not exist', () => {
     listItemSlider.value = null;
     testRenderer.forceAllUpdates();
-    expect(listItemSlider._Value).toBeDefined();
+    expect(listItemSlider._Value).toBeUndefined();
   });
 
   it('should do nothing when handleLeft is clicked in disabledMode', () => {
