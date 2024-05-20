@@ -54,7 +54,7 @@ export default class ListItemSlider extends ListItem {
   }
 
   static get properties() {
-    return [...super.properties, 'slider', 'value'];
+    return [...super.properties, 'slider', 'value', 'max', 'min'];
   }
 
   static get aliasStyles() {
@@ -72,15 +72,14 @@ export default class ListItemSlider extends ListItem {
   _construct() {
     super._construct();
     this.value = 50;
+    this.max = 100;
+    this.min = 0;
   }
 
   _update() {
     super._update();
     this._updateSliderPosition();
-    // Delay allows values to sync and value to be defined
-    setTimeout(() => {
-      this._updateValue();
-    }, 0);
+    this._updateValue();
   }
 
   _onTextBoxChanged() {
@@ -124,11 +123,12 @@ export default class ListItemSlider extends ListItem {
       visible: !this._collapse,
       alpha: this.style.alpha,
       ...this.slider,
-      value: this.value
+      value: this.value,
+      max: this.max,
+      min: this.min
     };
 
     this._Slider.patch(sliderProps);
-    this._Slider._update();
   }
 
   get _hasValue() {
