@@ -304,6 +304,8 @@ var ListItemSlider_ListItemSlider = /*#__PURE__*/function (_ListItem) {
     value: function _construct() {
       _get(ListItemSlider_getPrototypeOf(ListItemSlider.prototype), "_construct", this).call(this);
       this.value = 50;
+      this.max = 100;
+      this.min = 0;
     }
   }, {
     key: "_update",
@@ -359,7 +361,9 @@ var ListItemSlider_ListItemSlider = /*#__PURE__*/function (_ListItem) {
         visible: !this._collapse,
         alpha: this.style.alpha
       }, this.slider), {}, {
-        value: this.value
+        value: this.value,
+        max: this.max,
+        min: this.min
       });
       this._Slider.patch(sliderProps);
     }
@@ -452,7 +456,7 @@ var ListItemSlider_ListItemSlider = /*#__PURE__*/function (_ListItem) {
   }, {
     key: "properties",
     get: function get() {
-      return [].concat(_toConsumableArray(_get(ListItemSlider_getPrototypeOf(ListItemSlider), "properties", this)), ['slider', 'value']);
+      return [].concat(_toConsumableArray(_get(ListItemSlider_getPrototypeOf(ListItemSlider), "properties", this)), ['slider', 'value', 'max', 'min']);
     }
   }, {
     key: "aliasStyles",
@@ -633,7 +637,7 @@ function ListItemSlider_stories_getPrototypeOf(o) {
 /* eslint-disable */
 // @ts-nocheck
 // @ts-expect-error (Converted from ts-ignore)
-var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as ListItemSliderComponent } from './ListItemSlider';\nimport { createModeControl, generateSubStory } from '../../docs/utils';\nimport { Basic as SliderStory } from '../Slider/Slider.stories';\n\n/**\n * A ListItem component with slider functionality\n */\n\nexport default {\n  title: 'Components/ListItem/ListItemSlider'\n};\n\nexport const ListItemSlider = () =>\n  class ListItemSlider extends lng.Component {\n    static _template() {\n      return {\n        ListItemSlider: {\n          type: ListItemSliderComponent\n        }\n      };\n    }\n  };\n\nListItemSlider.storyName = 'ListItemSlider';\n\nListItemSlider.args = {\n  title: 'List Item',\n  value: 50,\n  shouldCollapse: false,\n  mode: 'focused'\n};\nListItemSlider.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  title: {\n    control: 'text',\n    description: 'Title text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  value: {\n    control: 'number',\n    description: 'Current slider value',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'number' }\n    }\n  },\n  shouldCollapse: {\n    control: 'boolean',\n    description:\n      'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',\n    table: {\n      defaultValue: { summary: false },\n      type: { summary: 'boolean' }\n    }\n  }\n};\n\nListItemSlider.argActions = {\n  shouldCollapse: (shouldCollapse, component) => {\n    component.tag('ListItemSlider').shouldCollapse = shouldCollapse;\n  }\n};\n\ngenerateSubStory({\n  componentName: 'ListItemSlider',\n  baseStory: ListItemSlider,\n  subStory: SliderStory,\n  targetProperty: 'slider',\n  include: ['min', 'max', 'step']\n});\n";
+var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as ListItemSliderComponent } from './ListItemSlider';\nimport { createModeControl, generateSubStory } from '../../docs/utils';\nimport { Basic as SliderStory } from '../Slider/Slider.stories';\n\n/**\n * A ListItem component with slider functionality\n */\n\nexport default {\n  title: 'Components/ListItem/ListItemSlider'\n};\n\nexport const ListItemSlider = () =>\n  class ListItemSlider extends lng.Component {\n    static _template() {\n      return {\n        ListItemSlider: {\n          type: ListItemSliderComponent\n        }\n      };\n    }\n  };\n\nListItemSlider.storyName = 'ListItemSlider';\n\nListItemSlider.args = {\n  title: 'List Item',\n  value: 50,\n  shouldCollapse: false,\n  mode: 'focused',\n  max: 100,\n  min: 0\n};\nListItemSlider.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  title: {\n    control: 'text',\n    description: 'Title text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  value: {\n    control: 'number',\n    description: 'Current slider value',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'number' }\n    }\n  },\n  shouldCollapse: {\n    control: 'boolean',\n    description:\n      'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',\n    table: {\n      defaultValue: { summary: false },\n      type: { summary: 'boolean' }\n    }\n  },\n  max: {\n    control: 'number',\n    description: 'Upper bound of value',\n    table: {\n      defaultValue: { summary: 100 },\n      type: { summary: 'number' }\n    }\n  },\n  min: {\n    control: 'number',\n    description: 'Lower bound of value',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  }\n};\n\nListItemSlider.argActions = {\n  shouldCollapse: (shouldCollapse, component) => {\n    component.tag('ListItemSlider').shouldCollapse = shouldCollapse;\n  }\n};\n\ngenerateSubStory({\n  componentName: 'ListItemSlider',\n  baseStory: ListItemSlider,\n  subStory: SliderStory,\n  targetProperty: 'slider',\n  include: ['step']\n});\n";
 // @ts-expect-error (Converted from ts-ignore)
 var __LOCATIONS_MAP__ = {
   "ListItemSlider": {
@@ -686,7 +690,7 @@ var __LOCATIONS_MAP__ = {
 /* harmony default export */ const ListItemSlider_stories = ({
   parameters: {
     "storySource": {
-      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as ListItemSliderComponent } from './ListItemSlider';\nimport { createModeControl, generateSubStory } from '../../docs/utils';\nimport { Basic as SliderStory } from '../Slider/Slider.stories';\n\n/**\n * A ListItem component with slider functionality\n */\n\nexport default {\n  title: 'Components/ListItem/ListItemSlider'\n};\n\nexport const ListItemSlider = () =>\n  class ListItemSlider extends lng.Component {\n    static _template() {\n      return {\n        ListItemSlider: {\n          type: ListItemSliderComponent\n        }\n      };\n    }\n  };\n\nListItemSlider.storyName = 'ListItemSlider';\n\nListItemSlider.args = {\n  title: 'List Item',\n  value: 50,\n  shouldCollapse: false,\n  mode: 'focused'\n};\nListItemSlider.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  title: {\n    control: 'text',\n    description: 'Title text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  value: {\n    control: 'number',\n    description: 'Current slider value',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'number' }\n    }\n  },\n  shouldCollapse: {\n    control: 'boolean',\n    description:\n      'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',\n    table: {\n      defaultValue: { summary: false },\n      type: { summary: 'boolean' }\n    }\n  }\n};\n\nListItemSlider.argActions = {\n  shouldCollapse: (shouldCollapse, component) => {\n    component.tag('ListItemSlider').shouldCollapse = shouldCollapse;\n  }\n};\n\ngenerateSubStory({\n  componentName: 'ListItemSlider',\n  baseStory: ListItemSlider,\n  subStory: SliderStory,\n  targetProperty: 'slider',\n  include: ['min', 'max', 'step']\n});\n",
+      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport { default as ListItemSliderComponent } from './ListItemSlider';\nimport { createModeControl, generateSubStory } from '../../docs/utils';\nimport { Basic as SliderStory } from '../Slider/Slider.stories';\n\n/**\n * A ListItem component with slider functionality\n */\n\nexport default {\n  title: 'Components/ListItem/ListItemSlider'\n};\n\nexport const ListItemSlider = () =>\n  class ListItemSlider extends lng.Component {\n    static _template() {\n      return {\n        ListItemSlider: {\n          type: ListItemSliderComponent\n        }\n      };\n    }\n  };\n\nListItemSlider.storyName = 'ListItemSlider';\n\nListItemSlider.args = {\n  title: 'List Item',\n  value: 50,\n  shouldCollapse: false,\n  mode: 'focused',\n  max: 100,\n  min: 0\n};\nListItemSlider.argTypes = {\n  ...createModeControl({ summaryValue: 'focused' }),\n  title: {\n    control: 'text',\n    description: 'Title text',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'string' }\n    }\n  },\n  value: {\n    control: 'number',\n    description: 'Current slider value',\n    table: {\n      defaultValue: { summary: 'undefined' },\n      type: { summary: 'number' }\n    }\n  },\n  shouldCollapse: {\n    control: 'boolean',\n    description:\n      'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',\n    table: {\n      defaultValue: { summary: false },\n      type: { summary: 'boolean' }\n    }\n  },\n  max: {\n    control: 'number',\n    description: 'Upper bound of value',\n    table: {\n      defaultValue: { summary: 100 },\n      type: { summary: 'number' }\n    }\n  },\n  min: {\n    control: 'number',\n    description: 'Lower bound of value',\n    table: {\n      defaultValue: { summary: 0 },\n      type: { summary: 'number' }\n    }\n  }\n};\n\nListItemSlider.argActions = {\n  shouldCollapse: (shouldCollapse, component) => {\n    component.tag('ListItemSlider').shouldCollapse = shouldCollapse;\n  }\n};\n\ngenerateSubStory({\n  componentName: 'ListItemSlider',\n  baseStory: ListItemSlider,\n  subStory: SliderStory,\n  targetProperty: 'slider',\n  include: ['step']\n});\n",
       "locationsMap": {
         "list-item-slider": {
           "startLoc": {
@@ -742,7 +746,9 @@ ListItemSlider.args = {
   title: 'List Item',
   value: 50,
   shouldCollapse: false,
-  mode: 'focused'
+  mode: 'focused',
+  max: 100,
+  min: 0
 };
 ListItemSlider.argTypes = ListItemSlider_stories_objectSpread(ListItemSlider_stories_objectSpread({}, (0,utils/* createModeControl */.Ys)({
   summaryValue: 'focused'
@@ -782,6 +788,30 @@ ListItemSlider.argTypes = ListItemSlider_stories_objectSpread(ListItemSlider_sto
         summary: 'boolean'
       }
     }
+  },
+  max: {
+    control: 'number',
+    description: 'Upper bound of value',
+    table: {
+      defaultValue: {
+        summary: 100
+      },
+      type: {
+        summary: 'number'
+      }
+    }
+  },
+  min: {
+    control: 'number',
+    description: 'Lower bound of value',
+    table: {
+      defaultValue: {
+        summary: 0
+      },
+      type: {
+        summary: 'number'
+      }
+    }
   }
 });
 ListItemSlider.argActions = {
@@ -794,7 +824,7 @@ ListItemSlider.argActions = {
   baseStory: ListItemSlider,
   subStory: Slider_stories.Basic,
   targetProperty: 'slider',
-  include: ['min', 'max', 'step']
+  include: ['step']
 });
 ListItemSlider.parameters = {
   ...ListItemSlider.parameters,
@@ -810,4 +840,4 @@ ListItemSlider.parameters = {
 /***/ })
 
 }]);
-//# sourceMappingURL=2194.ae971e1c.iframe.bundle.js.map
+//# sourceMappingURL=2194.b7cd1343.iframe.bundle.js.map
