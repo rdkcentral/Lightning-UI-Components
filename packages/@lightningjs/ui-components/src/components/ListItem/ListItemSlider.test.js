@@ -83,7 +83,7 @@ describe('ListItemSlider', () => {
 
   it('should not exceed slider max value when handleRight is clicked', () => {
     listItemSlider.value = 10;
-    listItemSlider._Slider.max = 10;
+    listItemSlider.max = 10;
     testRenderer.forceAllUpdates();
     listItemSlider._handleRight();
     expect(listItemSlider._Slider.value).toEqual(10);
