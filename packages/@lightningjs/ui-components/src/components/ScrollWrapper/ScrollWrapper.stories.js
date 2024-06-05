@@ -121,7 +121,7 @@ export const Basic = args =>
     }
 
     $scrollChanged(type) {
-      args.scrollChanged(type);
+      args.scrollChanged && args.scrollChanged(type);
     }
   };
 

@@ -334,25 +334,36 @@ export default class ScrollWrapper extends Base {
   }
 
   _updateSlider() {
-    // height of off screen items that can be scrolled to
-    const scrollHeight = this._ScrollContainer.finalH - this.renderHeight;
-    // number of steps to scroll to bottom of ScrollContainer
-    const contentScrollSteps = Math.ceil(scrollHeight / this.scrollStep);
+    // height of off-screen items that can be scrolled to
+    const scrollHeight = Math.max(
+      this._ScrollContainer.finalH - this.renderHeight,
+      0
+    );
+
+    // number of steps to scroll to the bottom of ScrollContainer
+    const contentScrollSteps =
+      scrollHeight > 0 ? Math.ceil(scrollHeight / this.scrollStep) : 1;
+
     // max value of slider
     const sliderMax = this.renderHeight;
-    // distance slider should move on each key press
-    const sliderStep = sliderMax / contentScrollSteps;
 
-    // This is a vertical slider, so w is actually controlling the height
-    this._Slider.patch({
-      x: this.w - this._sliderWidth,
-      w: sliderMax,
-      min: 0,
-      max: sliderMax,
-      step: sliderStep,
-      onUp: this._scrollUp.bind(this),
-      onDown: this._scrollDown.bind(this)
-    });
+    // distance slider should move on each key press
+    const sliderStep =
+      contentScrollSteps > 0 ? sliderMax / contentScrollSteps : sliderMax;
+
+    // Ensure _Slider and required properties exist
+    if (this._Slider) {
+      // This is a vertical slider, so w is actually controlling the height
+      this._Slider.patch({
+        x: this.w - this._sliderWidth,
+        w: sliderMax,
+        min: 0,
+        max: sliderMax,
+        step: sliderStep,
+        onUp: this._scrollUp.bind(this),
+        onDown: this._scrollDown.bind(this)
+      });
+    }
   }
 
   get _contentWidth() {
