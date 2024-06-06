@@ -92,6 +92,8 @@ export default class ListItemSlider extends ListItem {
 
   _updateValue() {
     if (this._hasValue) {
+      this._Slider.value = this.value =
+        this.value > this.max ? this.max : Math.max(this.min, this.value);
       let valuePatch = {
         content: this.value.toString(),
         style: { textStyle: { ...this.style.valueTextStyle } },
