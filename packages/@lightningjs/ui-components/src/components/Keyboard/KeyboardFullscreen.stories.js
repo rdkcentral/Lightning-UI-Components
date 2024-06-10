@@ -49,19 +49,11 @@ export const KeyboardFullscreen = () =>
   };
 
 KeyboardFullscreen.storyName = 'KeyboardFullscreen';
+
 KeyboardFullscreen.args = {
   centerKeyboard: false,
-  centerKeys: false,
   mode: 'focused'
 };
+
+KeyboardFullscreen.argTypes = Keyboard.sharedArgTypes;
 KeyboardFullscreen.parameters = {};
-KeyboardFullscreen.argTypes = {
-  ...Keyboard.sharedArgTypes,
-  centerKeys: {
-    description: "Center the keys within it's set width of keyboard",
-    control: 'boolean',
-    table: {
-      defaultValue: { summary: false }
-    }
-  }
-};
