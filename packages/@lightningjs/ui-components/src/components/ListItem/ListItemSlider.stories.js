@@ -18,8 +18,10 @@
 
 import lng from '@lightningjs/core';
 import { default as ListItemSliderComponent } from './ListItemSlider';
-import { createModeControl, generateSubStory } from '../../docs/utils';
-import { Basic as SliderStory } from '../Slider/Slider.stories';
+// import { createModeControl } from '../../docs/utils';
+// import { Basic as SliderStory } from '../Slider/Slider.stories';
+//Added this import below
+import { useArgs } from '@storybook/client-api';
 
 /**
  * A ListItem component with slider functionality
@@ -29,37 +31,50 @@ export default {
   title: 'Components/ListItem/ListItemSlider'
 };
 
-export const ListItemSlider = () =>
-  class ListItemSlider extends lng.Component {
+//Added a bunch of stuff in this block below to match
+// the slider.stories
+export const ListItemSlider = () => {
+  const [{ value }, updateArgs] = useArgs();
+  return class ListItemSlider extends lng.Component {
     static _template() {
       return {
         ListItemSlider: {
-          type: ListItemSliderComponent
+          type: ListItemSliderComponent,
+          value: value,
+          signals: {
+            onChange: true
+          }
         }
       };
     }
+    // update arg control when value changes
+    onChange(value) {
+      updateArgs({ value });
+    }
   };
+};
 
-ListItemSlider.storyName = 'ListItemSlider';
-
+//Commented out args below that get don't need testing
+// but feel free to add them back in.
 ListItemSlider.args = {
-  title: 'List Item',
+  // title: 'List Item',
   value: 50,
-  shouldCollapse: false,
-  mode: 'focused',
+  // shouldCollapse: false,
+  // mode: 'focused',
   max: 100,
   min: 0
 };
+
 ListItemSlider.argTypes = {
-  ...createModeControl({ summaryValue: 'focused' }),
-  title: {
-    control: 'text',
-    description: 'Title text',
-    table: {
-      defaultValue: { summary: 'undefined' },
-      type: { summary: 'string' }
-    }
-  },
+  // ...createModeControl({ summaryValue: 'focused' }),
+  // title: {
+  //   control: 'text',
+  //   description: 'Title text',
+  //   table: {
+  //     defaultValue: { summary: 'undefined' },
+  //     type: { summary: 'string' }
+  //   }
+  // },
   value: {
     control: 'number',
     description: 'Current slider value',
@@ -68,15 +83,15 @@ ListItemSlider.argTypes = {
       type: { summary: 'number' }
     }
   },
-  shouldCollapse: {
-    control: 'boolean',
-    description:
-      'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',
-    table: {
-      defaultValue: { summary: false },
-      type: { summary: 'boolean' }
-    }
-  },
+  // shouldCollapse: {
+  //   control: 'boolean',
+  //   description:
+  //     'When in unfocused or disabled mode, if shouldCollapse property is true it will collapse the slider (when focused, it will always be expanded)',
+  //   table: {
+  //     defaultValue: { summary: false },
+  //     type: { summary: 'boolean' }
+  //   }
+  // },
   max: {
     control: 'number',
     description: 'Upper bound of value',
@@ -95,16 +110,48 @@ ListItemSlider.argTypes = {
   }
 };
 
-ListItemSlider.argActions = {
-  shouldCollapse: (shouldCollapse, component) => {
-    component.tag('ListItemSlider').shouldCollapse = shouldCollapse;
-  }
-};
+//Added this block below because slider.stories has it as well
 
-generateSubStory({
-  componentName: 'ListItemSlider',
-  baseStory: ListItemSlider,
-  subStory: SliderStory,
-  targetProperty: 'slider',
-  include: ['step']
-});
+// ListItemSlider.argActions = {
+//   shouldCollapse: (shouldCollapse, component) => {
+//     component.tag('ListItemSlider').shouldCollapse = shouldCollapse;
+//   }
+// };
+
+// export const ListItemSliderSignal = () =>
+//   class SignalHandling extends lng.Component {
+//     static _template() {
+//       return {
+//         flex: { direction: 'column' },
+//         ListItemSlider: {
+//           type: ListItemSlider,
+//           y: 20,
+//           step: 1,
+//           value: 30,
+//           w: 328,
+//           signals: {
+//             onChange: true
+//           }
+//         },
+//         Text: {
+//           y: 60,
+//           type: TextBox
+//         }
+//       };
+//     }
+
+//     onChange(value) {
+//       this.tag('Text').content = `Value: ${value}`;
+//     }
+//   };
+
+// ListItemSliderSignal.args = {
+//   mode: 'focused'
+// };
+
+// ListItemSliderSignal.argTypes = createModeControl({ summaryValue: 'focused' });
+
+// ListItemSliderSignal.parameters = {
+//   storyDetails:
+//     'When the onChange signal is emitted from the Slider the number in the TextBox is updated with the Slider value.'
+// };
