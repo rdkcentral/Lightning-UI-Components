@@ -42,13 +42,13 @@ export const ListItemSlider = () => {
           type: ListItemSliderComponent,
           value: value,
           signals: {
-            onChange: true
+            onSliderChange: true
           }
         }
       };
     }
     // update arg control when value changes
-    onChange(value) {
+    onSliderChange(value) {
       updateArgs({ value });
     }
   };
