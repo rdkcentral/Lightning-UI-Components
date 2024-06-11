@@ -51,6 +51,8 @@ export const ListItemSlider = () => {
   };
 };
 
+ListItemSlider.storyName = 'ListItemSlider';
+
 ListItemSlider.args = {
   title: 'List Item',
   value: 50,
@@ -102,6 +104,12 @@ ListItemSlider.argTypes = {
       defaultValue: { summary: 0 },
       type: { summary: 'number' }
     }
+  }
+};
+
+ListItemSlider.argActions = {
+  shouldCollapse: (shouldCollapse, component) => {
+    component.tag('ListItemSlider').shouldCollapse = shouldCollapse;
   }
 };
 
