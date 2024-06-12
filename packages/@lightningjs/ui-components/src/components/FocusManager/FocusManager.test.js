@@ -22,7 +22,8 @@ import lng from '@lightningjs/core';
 import Base from '../Base/Base';
 import { jest } from '@jest/globals';
 
-const baseItem = { type: Base };
+const baseItem = { type: lng.Component };
+const newItem = { type: Base };
 const createFocusManager = makeCreateComponent(FocusManager, {
   items: [{ ...baseItem }, { ...baseItem }, { ...baseItem }]
 });
@@ -45,10 +46,10 @@ describe('FocusManager', () => {
     expect(focusManager.selectedIndex).toBe(0);
   });
 
-  fit('should set the zIndex of the selectedIndex to selectedZIndex', () => {
+  it('should set the zIndex of the selectedIndex to selectedZIndex', () => {
     [focusManager, testRenderer] = createFocusManager({
       direction: 'column',
-      items: [{ ...baseItem }, { ...baseItem }]
+      items: [{ ...newItem }, { ...newItem }]
     });
     expect(focusManager.selectedIndex).toBe(0);
     testRenderer.keyPress('Down');
