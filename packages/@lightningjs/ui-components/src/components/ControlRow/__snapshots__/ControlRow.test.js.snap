@@ -293,7 +293,7 @@ exports[`ControlRow renders 1`] = `
           "w": 390,
           "x": 40,
           "y": 0,
-          "zIndex": 0,
+          "zIndex": 1,
         },
         "Element-43": {
           "active": true,

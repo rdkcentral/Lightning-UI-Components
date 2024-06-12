@@ -88,7 +88,9 @@ export default class FocusManager extends Base {
     this._resetItems();
     this._selectedIndex = 0;
     this.appendItems(items);
-    this.items[this._selectedIndex].zIndex = this.defaultZIndex;
+    if (this.items && this.items[this._selectedIndex]) {
+      this.items[this._selectedIndex].zIndex = this.defaultZIndex;
+    }
     this._checkSkipFocus();
   }
 
