@@ -60,6 +60,16 @@ declare namespace FocusManager {
      * y (vertical) position value of the Row/Column (items array)
      */
     itemPosY?: number;
+
+    /**
+     * The zIndex used for the selected item.
+     */
+    selectedZIndex?: number;
+
+    /**
+     * The zIndex used for non-selected items.
+     */
+    defaultZIndex?: number;
   }
   export interface TypeConfig extends lng.Component.TypeConfig {
     SignalMapType: SignalMap;
@@ -111,6 +121,16 @@ declare class FocusManager<
    * y (vertical) position value of the Row/Column (items array)
    */
   itemPosY?: number;
+
+  /**
+   * The zIndex used for the selected item.
+   */
+  selectedZIndex?: number;
+
+  /**
+   * The zIndex used for non-selected items.
+   */
+  defaultZIndex?: number;
 
   // Accessors
 
