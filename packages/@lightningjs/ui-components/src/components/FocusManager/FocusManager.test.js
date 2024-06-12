@@ -19,9 +19,10 @@
 import FocusManager from '.';
 import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
 import lng from '@lightningjs/core';
+import Base from '../Base/Base';
 import { jest } from '@jest/globals';
 
-const baseItem = { type: lng.Component };
+const baseItem = { type: Base };
 const createFocusManager = makeCreateComponent(FocusManager, {
   items: [{ ...baseItem }, { ...baseItem }, { ...baseItem }]
 });
@@ -42,6 +43,25 @@ describe('FocusManager', () => {
 
   it('should set focus on first item', () => {
     expect(focusManager.selectedIndex).toBe(0);
+  });
+
+  fit('should set the zIndex of the selectedIndex to selectedZIndex', () => {
+    [focusManager, testRenderer] = createFocusManager({
+      direction: 'column',
+      items: [{ ...baseItem }, { ...baseItem }]
+    });
+    expect(focusManager.selectedIndex).toBe(0);
+    testRenderer.keyPress('Down');
+    expect(focusManager.selectedIndex).toBe(1);
+
+    expect(focusManager.items[0].zIndex).toBe(focusManager.defaultZIndex);
+    expect(focusManager.items[1].zIndex).toBe(focusManager.selectedZIndex);
+
+    testRenderer.keyPress('Up');
+    expect(focusManager.selectedIndex).toBe(0);
+
+    expect(focusManager.items[0].zIndex).toBe(focusManager.selectedZIndex);
+    expect(focusManager.items[1].zIndex).toBe(focusManager.defaultZIndex);
   });
 
   describe('adding items to the template', () => {
