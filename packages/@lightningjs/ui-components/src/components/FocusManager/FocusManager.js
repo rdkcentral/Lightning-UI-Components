@@ -39,7 +39,7 @@ export default class FocusManager extends Base {
   }
 
   static get properties() {
-    return ['direction', 'wrapSelected'];
+    return ['direction', 'wrapSelected', 'selectedZIndex', 'defaultZIndex'];
   }
 
   _construct() {
@@ -47,6 +47,8 @@ export default class FocusManager extends Base {
     this._selectedIndex = 0;
     this._itemPosX = 0;
     this._itemPosY = 0;
+    this._selectedZIndex = 1;
+    this._defaultZIndex = 0;
     this.direction = this.direction || 'row';
   }
 
@@ -86,6 +88,7 @@ export default class FocusManager extends Base {
     this._resetItems();
     this._selectedIndex = 0;
     this.appendItems(items);
+    this.items[this._selectedIndex].zIndex = this.defaultZIndex;
     this._checkSkipFocus();
   }
 
@@ -209,11 +212,17 @@ export default class FocusManager extends Base {
 
   _selectedChange(selected, prevSelected) {
     this._render(selected, prevSelected);
+    this._setZIndexes(selected, prevSelected);
     this.signal('selectedChange', selected, prevSelected);
   }
 
   // Override
   _render() {}
+
+  _setZIndexes(selected, prevSelected) {
+    selected.zIndex = this.selectedZIndex;
+    prevSelected.zIndex = this.defaultZIndex;
+  }
 
   _firstFocusableIndex() {
     if (!this.items.length) return 0;
