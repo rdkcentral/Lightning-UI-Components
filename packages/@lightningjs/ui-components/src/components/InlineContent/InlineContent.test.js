@@ -113,8 +113,7 @@ describe('InlineContent', () => {
     await inlineContent.__updateSpyPromise;
     expect(context.theme.name).toBe('Test');
     expect(inlineContent.style.textStyle).toEqual({
-      ...context.theme.typography.body1,
-      verticalAlign: 'bottom'
+      ...context.theme.typography.body1
     });
   });
 

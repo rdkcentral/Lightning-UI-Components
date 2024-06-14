@@ -21,10 +21,9 @@ export const base = theme => ({
   iconWidth: theme.spacer.xxl + theme.spacer.xs,
   iconHeight: theme.spacer.xxl + theme.spacer.xs,
   contentSpacing: theme.spacer.md,
-  marginBottom: theme.typography.body1.lineHeight / -10,
+  marginBottom: 0,
   textStyle: {
-    ...theme.typography.body1,
-    verticalAlign: 'bottom'
+    ...theme.typography.body1
   },
   maxLines: 1,
   justify: 'flex-start'

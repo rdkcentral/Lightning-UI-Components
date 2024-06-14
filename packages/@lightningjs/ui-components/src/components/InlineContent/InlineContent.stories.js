@@ -20,13 +20,18 @@ import lng from '@lightningjs/core';
 import { default as InlineContentComponent } from '.';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import { getHexColor } from '../../utils';
+import TextBox from '../TextBox';
+
+const lorum =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sodales est eu eleifend interdum. Vivamus egestas maximus elementum. Sed condimentum ligula justo, non sollicitudin lectus rutrum vel. Integer iaculis vitae nisl quis tincidunt. Sed quis dui vehicula, vehicula felis a, tempor leo. Fusce tincidunt, ante eget pretium efficitur, libero elit volutpat quam, sit amet porta tortor odio non ligula. Ut sed dolor eleifend massa auctor porttitor eget ut lectus. Vivamus elementum lorem mauris, eu luctus tortor posuere sit amet. Nunc a interdum metus.';
 
 export default {
   title: 'Components/InlineContent',
   args: {
     contentWrap: false,
     justify: 'center',
-    contentProperties: { marginBottom: -4 },
+    // Commented out for testing purposes. READD BEFORE MERGE
+    // contentProperties: { marginBottom: -4 } Commented out for testing purposes. READD BEFORE MERGE
     maxLines: 0,
     maxLinesSuffix: '..'
   },
@@ -230,4 +235,37 @@ WithTruncation.args = {
   contentWrap: true,
   maxLines: 2,
   maxLinesSuffix: '...'
+};
+
+// ADDED FOR TESTING PURPOSES, REMOVE BEFORE MERGE
+export const TextBoxVSInlineContent = args =>
+  class TextBoxVSInlineContent extends lng.Component {
+    static _template() {
+      return {
+        InlineContent: {
+          type: InlineContentComponent,
+          ...args,
+          w: 600,
+          content: lorum,
+          marquee: false,
+          hideOnLoad: false,
+          fixed: true
+        },
+        Textbox: {
+          type: TextBox,
+          fixed: true,
+          x: 601,
+          w: 600,
+          style: { textStyle: { maxLines: 3 }, offsetY: 0 },
+          marquee: false,
+          content: lorum,
+          hideOnLoad: false,
+          contentWrap: true
+        }
+      };
+    }
+  };
+TextBoxVSInlineContent.args = {
+  contentWrap: true,
+  maxLines: 3
 };
