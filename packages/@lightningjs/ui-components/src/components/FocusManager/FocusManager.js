@@ -91,8 +91,8 @@ export default class FocusManager extends Base {
     this._checkSkipFocus();
     // TODO: Find another way of waiting for appendItems to finish
     setTimeout(() => {
-      this.selected.zIndex = this.selectedZIndex;
-    }, 10);
+      this.selected && (this.selected.zIndex = this.selectedZIndex);
+    }, 0);
   }
 
   set itemPosX(x) {
