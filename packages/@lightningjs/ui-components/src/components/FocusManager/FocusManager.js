@@ -88,10 +88,11 @@ export default class FocusManager extends Base {
     this._resetItems();
     this._selectedIndex = 0;
     this.appendItems(items);
-    if (this.items && this.items[this._selectedIndex]) {
-      this.items[this._selectedIndex].zIndex = this.defaultZIndex;
-    }
     this._checkSkipFocus();
+    // TODO: Find another way of waiting for appendItems to finish
+    setTimeout(() => {
+      this.selected.zIndex = this.selectedZIndex;
+    }, 10);
   }
 
   set itemPosX(x) {
