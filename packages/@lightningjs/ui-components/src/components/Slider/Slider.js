@@ -335,6 +335,20 @@ export default class Slider extends Base {
     return value;
   }
 
+  _setMin(min) {
+    const value = this.value;
+    this.value = min > value ? min : value;
+    this._valueChanged = value !== this.value;
+    return min;
+  }
+
+  _setMax(max) {
+    const value = this.value;
+    this.value = max < value ? max : value;
+    this._valueChanged = value !== this.value;
+    return max;
+  }
+
   set announce(announce) {
     super.announce = announce;
   }

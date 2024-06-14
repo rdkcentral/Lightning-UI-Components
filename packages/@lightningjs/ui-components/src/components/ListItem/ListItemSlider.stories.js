@@ -20,6 +20,7 @@ import lng from '@lightningjs/core';
 import { default as ListItemSliderComponent } from './ListItemSlider';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import { Basic as SliderStory } from '../Slider/Slider.stories';
+import { useArgs } from '@storybook/client-api';
 
 /**
  * A ListItem component with slider functionality
@@ -29,16 +30,26 @@ export default {
   title: 'Components/ListItem/ListItemSlider'
 };
 
-export const ListItemSlider = () =>
-  class ListItemSlider extends lng.Component {
+export const ListItemSlider = () => {
+  const [{ value }, updateArgs] = useArgs();
+  return class ListItemSlider extends lng.Component {
     static _template() {
       return {
         ListItemSlider: {
-          type: ListItemSliderComponent
+          type: ListItemSliderComponent,
+          value: value,
+          signals: {
+            onSliderChange: true
+          }
         }
       };
     }
+    // update arg control when value changes
+    onSliderChange(value) {
+      updateArgs({ value });
+    }
   };
+};
 
 ListItemSlider.storyName = 'ListItemSlider';
 
@@ -50,6 +61,7 @@ ListItemSlider.args = {
   max: 100,
   min: 0
 };
+
 ListItemSlider.argTypes = {
   ...createModeControl({ summaryValue: 'focused' }),
   title: {

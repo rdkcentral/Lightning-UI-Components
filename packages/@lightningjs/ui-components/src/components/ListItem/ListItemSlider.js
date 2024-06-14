@@ -141,14 +141,10 @@ export default class ListItemSlider extends ListItem {
     return titleWrapWidth;
   }
 
-  _onSliderChanged(value, Slider) {
-    if (value >= Slider.max) {
-      this.value = Slider.max;
-    } else if (value <= Slider.min) {
-      this.value = Slider.min;
-    } else {
-      this.value = Slider.value;
-    }
+  _onSliderChanged(value) {
+    this.value = value;
+    this._updateValue();
+    this.signal('onSliderChange', value, this);
   }
 
   _handleLeft() {
