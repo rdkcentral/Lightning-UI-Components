@@ -20,7 +20,6 @@ import lng from '@lightningjs/core';
 import { default as InlineContentComponent } from '.';
 import lightningbolt from '../../assets/images/ic_lightning_white_32.png';
 import { getHexColor } from '../../utils';
-import TextBox from '../TextBox';
 
 export default {
   title: 'Components/InlineContent',
