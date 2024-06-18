@@ -1304,6 +1304,8 @@ var FocusManager = /*#__PURE__*/function (_Base) {
       this._selectedIndex = 0;
       this._itemPosX = 0;
       this._itemPosY = 0;
+      this._selectedZIndex = 1;
+      this._defaultZIndex = 0;
       this.direction = this.direction || 'row';
     }
   }, {
@@ -1345,10 +1347,15 @@ var FocusManager = /*#__PURE__*/function (_Base) {
       return this.Items.children;
     },
     set: function set(items) {
+      var _this = this;
       this._resetItems();
       this._selectedIndex = 0;
       this.appendItems(items);
       this._checkSkipFocus();
+      // TODO: Find another way of waiting for appendItems to finish
+      setTimeout(function () {
+        _this.selected && (_this.selected.zIndex = _this.selectedZIndex);
+      }, 0);
     }
   }, {
     key: "itemPosX",
@@ -1398,15 +1405,15 @@ var FocusManager = /*#__PURE__*/function (_Base) {
   }, {
     key: "appendItemsAt",
     value: function appendItemsAt() {
-      var _this = this;
+      var _this2 = this;
       var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var idx = arguments.length > 1 ? arguments[1] : undefined;
       var addIndex = Number.isInteger(idx) ? idx : this.Items.children.length;
       this.shouldSmooth = false;
       this._lastAppendedIdx = addIndex;
       items.forEach(function (item, itemIdx) {
-        _this.Items.childList.addAt(_objectSpread(_objectSpread({}, item), {}, {
-          parentFocus: _this.hasFocus()
+        _this2.Items.childList.addAt(_objectSpread(_objectSpread({}, item), {}, {
+          parentFocus: _this2.hasFocus()
         }), addIndex + itemIdx);
       });
       if (this.selectedIndex >= this._lastAppendedIdx) {
@@ -1468,6 +1475,7 @@ var FocusManager = /*#__PURE__*/function (_Base) {
     key: "_selectedChange",
     value: function _selectedChange(selected, prevSelected) {
       this._render(selected, prevSelected);
+      this._setZIndexes(selected, prevSelected);
       this.signal('selectedChange', selected, prevSelected);
     }
 
@@ -1475,6 +1483,12 @@ var FocusManager = /*#__PURE__*/function (_Base) {
   }, {
     key: "_render",
     value: function _render() {}
+  }, {
+    key: "_setZIndexes",
+    value: function _setZIndexes(selected, prevSelected) {
+      selected.zIndex = this.selectedZIndex;
+      prevSelected.zIndex = this.defaultZIndex;
+    }
   }, {
     key: "_firstFocusableIndex",
     value: function _firstFocusableIndex() {
@@ -1528,7 +1542,7 @@ var FocusManager = /*#__PURE__*/function (_Base) {
   }, {
     key: "selectNext",
     value: function selectNext(shouldSmoothOverride) {
-      var _this2 = this;
+      var _this3 = this;
       if (this._lazyItems && this._lazyItems.length) {
         this._appendLazyItem(this._lazyItems.splice(0, 1)[0]);
       }
@@ -1540,7 +1554,7 @@ var FocusManager = /*#__PURE__*/function (_Base) {
         return false;
       }
       var nextIndex = this.items.findIndex(function (item, idx) {
-        return !item.skipFocus && idx > _this2._selectedIndex;
+        return !item.skipFocus && idx > _this3._selectedIndex;
       });
       if (nextIndex > -1) {
         this.selectedIndex = nextIndex;
@@ -1634,9 +1648,9 @@ var FocusManager = /*#__PURE__*/function (_Base) {
   }, {
     key: "onScreenItems",
     get: function get() {
-      var _this3 = this;
+      var _this4 = this;
       return this.Items.children.filter(function (child) {
-        return _this3._isOnScreen(child);
+        return _this4._isOnScreen(child);
       });
     }
   }, {
@@ -1651,11 +1665,11 @@ var FocusManager = /*#__PURE__*/function (_Base) {
   }, {
     key: "fullyOnScreenItems",
     get: function get() {
-      var _this4 = this;
+      var _this5 = this;
       return this.Items.children.reduce(function (rv, item) {
         if (item instanceof FocusManager) {
-          return [].concat(_toConsumableArray(rv), _toConsumableArray(item.Items.children.filter(_this4._isOnScreenCompletely)));
-        } else if (_this4._isOnScreenCompletely(item)) {
+          return [].concat(_toConsumableArray(rv), _toConsumableArray(item.Items.children.filter(_this5._isOnScreenCompletely)));
+        } else if (_this5._isOnScreenCompletely(item)) {
           return [].concat(_toConsumableArray(rv), [item]);
         } else {
           return rv;
@@ -1768,21 +1782,21 @@ var FocusManager = /*#__PURE__*/function (_Base) {
   }, {
     key: "properties",
     get: function get() {
-      return ['direction', 'wrapSelected'];
+      return ['direction', 'wrapSelected', 'selectedZIndex', 'defaultZIndex'];
     }
   }, {
     key: "_states",
     value: function _states() {
-      return [/*#__PURE__*/function (_this5) {
-        _inherits(None, _this5);
+      return [/*#__PURE__*/function (_this6) {
+        _inherits(None, _this6);
         var _super2 = _createSuper(None);
         function None() {
           _classCallCheck(this, None);
           return _super2.apply(this, arguments);
         }
         return _createClass(None);
-      }(this), /*#__PURE__*/function (_this6) {
-        _inherits(Row, _this6);
+      }(this), /*#__PURE__*/function (_this7) {
+        _inherits(Row, _this7);
         var _super3 = _createSuper(Row);
         function Row() {
           _classCallCheck(this, Row);
@@ -1800,8 +1814,8 @@ var FocusManager = /*#__PURE__*/function (_Base) {
           }
         }]);
         return Row;
-      }(this), /*#__PURE__*/function (_this7) {
-        _inherits(Column, _this7);
+      }(this), /*#__PURE__*/function (_this8) {
+        _inherits(Column, _this8);
         var _super4 = _createSuper(Column);
         function Column() {
           _classCallCheck(this, Column);
@@ -2750,10 +2764,8 @@ var base = function base(theme) {
     iconWidth: theme.spacer.xxl + theme.spacer.xs,
     iconHeight: theme.spacer.xxl + theme.spacer.xs,
     contentSpacing: theme.spacer.md,
-    marginBottom: theme.typography.body1.lineHeight / -10,
-    textStyle: _objectSpread(_objectSpread({}, theme.typography.body1), {}, {
-      verticalAlign: 'bottom'
-    }),
+    marginBottom: 0,
+    textStyle: _objectSpread({}, theme.typography.body1),
     maxLines: 1,
     justify: 'flex-start'
   };
@@ -13057,4 +13069,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.6061dc39.iframe.bundle.js.map
+//# sourceMappingURL=main.78e70ef8.iframe.bundle.js.map

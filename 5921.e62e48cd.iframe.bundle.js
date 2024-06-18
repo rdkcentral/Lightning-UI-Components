@@ -543,6 +543,22 @@ var Slider = /*#__PURE__*/function (_Base) {
       return value;
     }
   }, {
+    key: "_setMin",
+    value: function _setMin(min) {
+      var value = this.value;
+      this.value = min > value ? min : value;
+      this._valueChanged = value !== this.value;
+      return min;
+    }
+  }, {
+    key: "_setMax",
+    value: function _setMax(max) {
+      var value = this.value;
+      this.value = max < value ? max : value;
+      this._valueChanged = value !== this.value;
+      return max;
+    }
+  }, {
     key: "announce",
     get: function get() {
       if (this._announce !== undefined && this._announce !== null) {
@@ -908,4 +924,4 @@ var GenericType = function GenericType(_ref7) {
 /***/ })
 
 }]);
-//# sourceMappingURL=5921.f496a033.iframe.bundle.js.map
+//# sourceMappingURL=5921.e62e48cd.iframe.bundle.js.map

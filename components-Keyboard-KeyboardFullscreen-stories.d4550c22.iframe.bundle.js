@@ -153,41 +153,6 @@ function KeyboardFullscreen_stories_typeof(o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, KeyboardFullscreen_stories_typeof(o);
 }
-function ownKeys(e, r) {
-  var t = Object.keys(e);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e);
-    r && (o = o.filter(function (r) {
-      return Object.getOwnPropertyDescriptor(e, r).enumerable;
-    })), t.push.apply(t, o);
-  }
-  return t;
-}
-function _objectSpread(e) {
-  for (var r = 1; r < arguments.length; r++) {
-    var t = null != arguments[r] ? arguments[r] : {};
-    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
-      _defineProperty(e, r, t[r]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
-      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
-    });
-  }
-  return e;
-}
-function _defineProperty(obj, key, value) {
-  key = KeyboardFullscreen_stories_toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
 function KeyboardFullscreen_stories_classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -295,7 +260,7 @@ function KeyboardFullscreen_stories_getPrototypeOf(o) {
 /* eslint-disable */
 // @ts-nocheck
 // @ts-expect-error (Converted from ts-ignore)
-var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport context from '../../globals/context/index';\nimport utils from '../../utils';\nimport { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';\nimport { Keyboard } from './Keyboard.stories';\n\nexport default {\n  title: 'Components/Keyboard/KeyboardFullscreen'\n};\n\nexport const KeyboardFullscreen = () =>\n  class KeyboardFullscreen extends lng.Component {\n    static _template() {\n      return {\n        Keyboard: {\n          type: KeyboardFullscreenComponent,\n          defaultFormat: 'letters'\n        },\n        w: utils.getWidthByUpCount(context.theme, 1)\n      };\n    }\n\n    _init() {\n      this.tag('Keyboard')._whenEnabled.then(() => {\n        this.tag('Keyboard').selectKeyOn(this.tag('Keyboard').tag('Letters'), {\n          row: 1,\n          column: 0\n        });\n      });\n    }\n  };\n\nKeyboardFullscreen.storyName = 'KeyboardFullscreen';\nKeyboardFullscreen.args = {\n  centerKeyboard: false,\n  centerKeys: false,\n  mode: 'focused'\n};\nKeyboardFullscreen.parameters = {};\nKeyboardFullscreen.argTypes = {\n  ...Keyboard.sharedArgTypes,\n  centerKeys: {\n    description: \"Center the keys within it's set width of keyboard\",\n    control: 'boolean',\n    table: {\n      defaultValue: { summary: false }\n    }\n  }\n};\n";
+var __STORY__ = "﻿/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport context from '../../globals/context/index';\nimport utils from '../../utils';\nimport { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';\nimport { Keyboard } from './Keyboard.stories';\n\nexport default {\n  title: 'Components/Keyboard/KeyboardFullscreen'\n};\n\nexport const KeyboardFullscreen = () =>\n  class KeyboardFullscreen extends lng.Component {\n    static _template() {\n      return {\n        Keyboard: {\n          type: KeyboardFullscreenComponent,\n          defaultFormat: 'letters'\n        },\n        w: utils.getWidthByUpCount(context.theme, 1)\n      };\n    }\n\n    _init() {\n      this.tag('Keyboard')._whenEnabled.then(() => {\n        this.tag('Keyboard').selectKeyOn(this.tag('Keyboard').tag('Letters'), {\n          row: 1,\n          column: 0\n        });\n      });\n    }\n  };\n\nKeyboardFullscreen.storyName = 'KeyboardFullscreen';\n\nKeyboardFullscreen.args = {\n  centerKeyboard: false,\n  mode: 'focused'\n};\n\nKeyboardFullscreen.argTypes = Keyboard.sharedArgTypes;\nKeyboardFullscreen.parameters = {};\n";
 // @ts-expect-error (Converted from ts-ignore)
 var __LOCATIONS_MAP__ = {
   "KeyboardFullscreen": {
@@ -344,7 +309,7 @@ var __LOCATIONS_MAP__ = {
 /* harmony default export */ const KeyboardFullscreen_stories = ({
   parameters: {
     "storySource": {
-      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport context from '../../globals/context/index';\nimport utils from '../../utils';\nimport { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';\nimport { Keyboard } from './Keyboard.stories';\n\nexport default {\n  title: 'Components/Keyboard/KeyboardFullscreen'\n};\n\nexport const KeyboardFullscreen = () =>\n  class KeyboardFullscreen extends lng.Component {\n    static _template() {\n      return {\n        Keyboard: {\n          type: KeyboardFullscreenComponent,\n          defaultFormat: 'letters'\n        },\n        w: utils.getWidthByUpCount(context.theme, 1)\n      };\n    }\n\n    _init() {\n      this.tag('Keyboard')._whenEnabled.then(() => {\n        this.tag('Keyboard').selectKeyOn(this.tag('Keyboard').tag('Letters'), {\n          row: 1,\n          column: 0\n        });\n      });\n    }\n  };\n\nKeyboardFullscreen.storyName = 'KeyboardFullscreen';\nKeyboardFullscreen.args = {\n  centerKeyboard: false,\n  centerKeys: false,\n  mode: 'focused'\n};\nKeyboardFullscreen.parameters = {};\nKeyboardFullscreen.argTypes = {\n  ...Keyboard.sharedArgTypes,\n  centerKeys: {\n    description: \"Center the keys within it's set width of keyboard\",\n    control: 'boolean',\n    table: {\n      defaultValue: { summary: false }\n    }\n  }\n};\n",
+      "source": "/**\n * Copyright 2023 Comcast Cable Communications Management, LLC\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n * http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n *\n * SPDX-License-Identifier: Apache-2.0\n */\n\nimport lng from '@lightningjs/core';\nimport context from '../../globals/context/index';\nimport utils from '../../utils';\nimport { default as KeyboardFullscreenComponent } from './KeyboardFullscreen';\nimport { Keyboard } from './Keyboard.stories';\n\nexport default {\n  title: 'Components/Keyboard/KeyboardFullscreen'\n};\n\nexport const KeyboardFullscreen = () =>\n  class KeyboardFullscreen extends lng.Component {\n    static _template() {\n      return {\n        Keyboard: {\n          type: KeyboardFullscreenComponent,\n          defaultFormat: 'letters'\n        },\n        w: utils.getWidthByUpCount(context.theme, 1)\n      };\n    }\n\n    _init() {\n      this.tag('Keyboard')._whenEnabled.then(() => {\n        this.tag('Keyboard').selectKeyOn(this.tag('Keyboard').tag('Letters'), {\n          row: 1,\n          column: 0\n        });\n      });\n    }\n  };\n\nKeyboardFullscreen.storyName = 'KeyboardFullscreen';\n\nKeyboardFullscreen.args = {\n  centerKeyboard: false,\n  mode: 'focused'\n};\n\nKeyboardFullscreen.argTypes = Keyboard.sharedArgTypes;\nKeyboardFullscreen.parameters = {};\n",
       "locationsMap": {
         "keyboard-fullscreen": {
           "startLoc": {
@@ -406,21 +371,10 @@ var KeyboardFullscreen = function KeyboardFullscreen() {
 KeyboardFullscreen.storyName = 'KeyboardFullscreen';
 KeyboardFullscreen.args = {
   centerKeyboard: false,
-  centerKeys: false,
   mode: 'focused'
 };
+KeyboardFullscreen.argTypes = Keyboard_stories.Keyboard.sharedArgTypes;
 KeyboardFullscreen.parameters = {};
-KeyboardFullscreen.argTypes = _objectSpread(_objectSpread({}, Keyboard_stories.Keyboard.sharedArgTypes), {}, {
-  centerKeys: {
-    description: "Center the keys within it's set width of keyboard",
-    control: 'boolean',
-    table: {
-      defaultValue: {
-        summary: false
-      }
-    }
-  }
-});
 KeyboardFullscreen.parameters = {
   ...KeyboardFullscreen.parameters,
   docs: {
@@ -435,4 +389,4 @@ KeyboardFullscreen.parameters = {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-Keyboard-KeyboardFullscreen-stories.5f206f29.iframe.bundle.js.map
+//# sourceMappingURL=components-Keyboard-KeyboardFullscreen-stories.d4550c22.iframe.bundle.js.map
