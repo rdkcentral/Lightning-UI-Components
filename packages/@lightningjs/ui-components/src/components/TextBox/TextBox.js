@@ -41,10 +41,10 @@ const lightningTextDefaults = Object.entries(
   };
 }, {});
 
-export default class TextBox extends Base {
+export default class TextBox extends InlineContent {
   static _template() {
     return {
-      alpha: 0.001
+      alpha: 0.001,
     };
   }
 
@@ -72,6 +72,7 @@ export default class TextBox extends Base {
   }
 
   _setDimensions(w, h) {
+    debugger
     let width = w;
     let height = h;
     if (!this._isInlineContent) {
@@ -144,7 +145,9 @@ export default class TextBox extends Base {
   }
 
   _updateInlineContent() {
-    this.patch({ Text: undefined });
+    this.patch({ Text: undefined});
+
+    const contentStyle = this._textStyleSet;
 
     const inlineContentPatch = InlineContent.properties.reduce(
       (acc, prop) => {
@@ -157,27 +160,28 @@ export default class TextBox extends Base {
       {
         style: {
           ...this.style,
-          textStyle: this._textStyleSet
+          textStyle: contentStyle
         }
       }
     );
 
-    if (this._textStyleSet.wordWrapWidth) {
-      inlineContentPatch.w = this._textStyleSet.wordWrapWidth;
+    inlineContentPatch.w = this.w;
+
+    if (contentStyle.wordWrapWidth) {
+      inlineContentPatch.w = contentStyle.wordWrapWidth;
       inlineContentPatch.rtt = true;
     }
-    if (this._textStyleSet.maxLines) {
-      inlineContentPatch.maxLines = this._textStyleSet.maxLines;
+    if (contentStyle.maxLines) {
+      inlineContentPatch.maxLines = contentStyle.maxLines;
     }
-    if (this._textStyleSet.maxLinesSuffix) {
-      inlineContentPatch.maxLinesSuffix = this._textStyleSet.maxLinesSuffix;
+    if (contentStyle.maxLinesSuffix) {
+      inlineContentPatch.maxLinesSuffix = contentStyle.maxLinesSuffix;
     }
 
     this.patch({
       alpha: 1,
       InlineContent: {
         type: InlineContent,
-        w: this.w,
         ...inlineContentPatch,
         signals: {
           loadedInlineContent: '_setDimensions'

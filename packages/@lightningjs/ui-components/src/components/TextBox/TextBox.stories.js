@@ -32,7 +32,7 @@ const { args: inlineContentArgs, argTypes: inlineContentArgTypes } =
 const lorum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sodales est eu eleifend interdum. Vivamus egestas maximus elementum. Sed condimentum ligula justo, non sollicitudin lectus rutrum vel. Integer iaculis vitae nisl quis tincidunt. Sed quis dui vehicula, vehicula felis a, tempor leo. Fusce tincidunt, ante eget pretium efficitur, libero elit volutpat quam, sit amet porta tortor odio non ligula. Ut sed dolor eleifend massa auctor porttitor eget ut lectus. Vivamus elementum lorem mauris, eu luctus tortor posuere sit amet. Nunc a interdum metus.';
 
-export const Basic = () =>
+export const Basic = (args ) =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -40,7 +40,7 @@ export const Basic = () =>
           type: TextBox,
           fixed: true,
           w: 600,
-          style: { textStyle: { maxLines: 3 } }
+          style: { textStyle: { maxLines: args.maxLines, contentWrap: args.contentWrap} }
         }
       };
     }
@@ -51,7 +51,9 @@ Basic.args = {
   marquee: false,
   fixed: true,
   hideOnLoad: false,
-  w: 600
+  w: 600,
+  maxLines: 3,
+  contentWrap: false 
 };
 
 Basic.argTypes = {
@@ -94,10 +96,27 @@ Basic.argTypes = {
     table: {
       defaultValue: { summary: 0 }
     }
-  }
+  },
+  maxLines: {
+    control: 'number',
+    description: 'maximum number of lines to render before truncation',
+    type: 'number',
+    table: {
+      defaultValue: { summary: 'undefined' }
+    }
+  },
+  contentWrap: {
+    control: 'boolean',
+    description:
+      'Determines whether the containing flexbox should wrap the content onto the next line',
+    type: 'boolean',
+    table: {
+      defaultValue: { summary: false }
+    }
+  },
 };
 
-export const WithInlineContentArray = () =>
+export const WithInlineContentArray = (args) =>
   class WithInlineContentArray extends lng.Component {
     static _template() {
       return {
@@ -125,7 +144,14 @@ export const WithInlineContentArray = () =>
             'for fun',
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' }
-          ]
+          ],
+          style: {
+            textStyle: {
+              maxLines: args.maxLines,
+              maxLinesSuffix: args.maxLinesSuffix,
+              contentWrap: args.contentWrap,
+            }
+          },
         }
       };
     }
@@ -134,7 +160,7 @@ export const WithInlineContentArray = () =>
 WithInlineContentArray.args = inlineContentArgs;
 WithInlineContentArray.argTypes = inlineContentArgTypes;
 
-export const WithInlineContentString = () =>
+export const WithInlineContentString = (args) =>
   class WithInlineContentArray extends lng.Component {
     static _template() {
       return {
@@ -149,7 +175,14 @@ export const WithInlineContentString = () =>
               fontStyle: 'italic',
               textColor: getHexColor('FF6194')
             }
-          }
+          },
+          style: {
+            textStyle: {
+              maxLines: args.maxLines,
+              maxLinesSuffix: args.maxLinesSuffix,
+              contentWrap: args.contentWrap,
+            }
+          },
         }
       };
     }
@@ -158,7 +191,7 @@ export const WithInlineContentString = () =>
 WithInlineContentString.args = inlineContentArgs;
 WithInlineContentString.argTypes = inlineContentArgTypes;
 
-export const WithInlineContentTruncation = () =>
+export const WithInlineContentTruncation = (args) =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -167,8 +200,9 @@ export const WithInlineContentTruncation = () =>
           w: 500,
           style: {
             textStyle: {
-              maxLines: 2,
-              maxLinesSuffix: '...'
+              maxLines: args.maxLines,
+              maxLinesSuffix: args.maxLinesSuffix,
+              contentWrap: args.contentWrap
             }
           },
           content: [
@@ -193,8 +227,10 @@ export const WithInlineContentTruncation = () =>
             { badge: 'SD', title: 'SD' },
             ', and this should truncate before going on to a third line.'
           ],
-          contentWrap: true
         }
       };
     }
   };
+
+  WithInlineContentTruncation.args = inlineContentArgs;
+  WithInlineContentTruncation.argTypes = inlineContentArgTypes;
