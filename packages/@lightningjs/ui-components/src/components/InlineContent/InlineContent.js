@@ -147,8 +147,6 @@ export default class InlineContent extends Base {
     // perhaps have to wait until Lightning Flexboxes can emit a signal (like textures) when they've finished loading
     if (this.children.length) {
       setTimeout(() => {
-        debugger
-        this.stage.update()
         this.multiLineHeight = this.finalH;
 
         if (
@@ -168,13 +166,15 @@ export default class InlineContent extends Base {
           if (this._shouldTruncate) {
             this._renderMaxLines();
           }
+          this._notifyAncestors();
 
         } else {
           this._contentLoaded();
         }
-      }, 10);
+      }, 10); 
+    } else {
+        this._notifyAncestors();
     } 
-    this._notifyAncestors();
   }
 
   _renderMaxLines() {

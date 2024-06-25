@@ -41,7 +41,7 @@ const lightningTextDefaults = Object.entries(
   };
 }, {});
 
-export default class TextBox extends InlineContent {
+export default class TextBox extends Base {
   static _template() {
     return {
       alpha: 0.001,
@@ -72,7 +72,6 @@ export default class TextBox extends InlineContent {
   }
 
   _setDimensions(w, h) {
-    debugger
     let width = w;
     let height = h;
     if (!this._isInlineContent) {
@@ -145,7 +144,7 @@ export default class TextBox extends InlineContent {
   }
 
   _updateInlineContent() {
-    this.patch({ Text: undefined});
+    this.patch({ Text: undefined });
 
     const contentStyle = this._textStyleSet;
 
@@ -165,8 +164,6 @@ export default class TextBox extends InlineContent {
       }
     );
 
-    inlineContentPatch.w = this.w;
-
     if (contentStyle.wordWrapWidth) {
       inlineContentPatch.w = contentStyle.wordWrapWidth;
       inlineContentPatch.rtt = true;
@@ -182,6 +179,7 @@ export default class TextBox extends InlineContent {
       alpha: 1,
       InlineContent: {
         type: InlineContent,
+        w: this.w,
         ...inlineContentPatch,
         signals: {
           loadedInlineContent: '_setDimensions'
