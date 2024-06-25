@@ -44,7 +44,7 @@ const lightningTextDefaults = Object.entries(
 export default class TextBox extends Base {
   static _template() {
     return {
-      alpha: 0.001,
+      alpha: 0.001
     };
   }
 
