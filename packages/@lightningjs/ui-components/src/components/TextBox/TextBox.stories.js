@@ -32,7 +32,7 @@ const { args: inlineContentArgs, argTypes: inlineContentArgTypes } =
 const lorum =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sodales est eu eleifend interdum. Vivamus egestas maximus elementum. Sed condimentum ligula justo, non sollicitudin lectus rutrum vel. Integer iaculis vitae nisl quis tincidunt. Sed quis dui vehicula, vehicula felis a, tempor leo. Fusce tincidunt, ante eget pretium efficitur, libero elit volutpat quam, sit amet porta tortor odio non ligula. Ut sed dolor eleifend massa auctor porttitor eget ut lectus. Vivamus elementum lorem mauris, eu luctus tortor posuere sit amet. Nunc a interdum metus.';
 
-export const Basic = (args ) =>
+export const Basic = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -40,7 +40,12 @@ export const Basic = (args ) =>
           type: TextBox,
           fixed: true,
           w: 600,
-          style: { textStyle: { maxLines: args.maxLines, contentWrap: args.contentWrap} }
+          style: {
+            textStyle: {
+              maxLines: args.maxLines,
+              contentWrap: args.contentWrap
+            }
+          }
         }
       };
     }
@@ -53,7 +58,7 @@ Basic.args = {
   hideOnLoad: false,
   w: 600,
   maxLines: 3,
-  contentWrap: false 
+  contentWrap: false
 };
 
 Basic.argTypes = {
@@ -113,10 +118,10 @@ Basic.argTypes = {
     table: {
       defaultValue: { summary: false }
     }
-  },
+  }
 };
 
-export const WithInlineContentArray = (args) =>
+export const WithInlineContentArray = args =>
   class WithInlineContentArray extends lng.Component {
     static _template() {
       return {
@@ -149,9 +154,9 @@ export const WithInlineContentArray = (args) =>
             textStyle: {
               maxLines: args.maxLines,
               maxLinesSuffix: args.maxLinesSuffix,
-              contentWrap: args.contentWrap,
+              contentWrap: args.contentWrap
             }
-          },
+          }
         }
       };
     }
@@ -160,7 +165,7 @@ export const WithInlineContentArray = (args) =>
 WithInlineContentArray.args = inlineContentArgs;
 WithInlineContentArray.argTypes = inlineContentArgTypes;
 
-export const WithInlineContentString = (args) =>
+export const WithInlineContentString = args =>
   class WithInlineContentArray extends lng.Component {
     static _template() {
       return {
@@ -180,9 +185,9 @@ export const WithInlineContentString = (args) =>
             textStyle: {
               maxLines: args.maxLines,
               maxLinesSuffix: args.maxLinesSuffix,
-              contentWrap: args.contentWrap,
+              contentWrap: args.contentWrap
             }
-          },
+          }
         }
       };
     }
@@ -191,7 +196,7 @@ export const WithInlineContentString = (args) =>
 WithInlineContentString.args = inlineContentArgs;
 WithInlineContentString.argTypes = inlineContentArgTypes;
 
-export const WithInlineContentTruncation = (args) =>
+export const WithInlineContentTruncation = args =>
   class Basic extends lng.Component {
     static _template() {
       return {
@@ -226,11 +231,11 @@ export const WithInlineContentTruncation = (args) =>
             { badge: 'HD', title: 'HD' },
             { badge: 'SD', title: 'SD' },
             ', and this should truncate before going on to a third line.'
-          ],
+          ]
         }
       };
     }
   };
 
-  WithInlineContentTruncation.args = inlineContentArgs;
-  WithInlineContentTruncation.argTypes = inlineContentArgTypes;
+WithInlineContentTruncation.args = inlineContentArgs;
+WithInlineContentTruncation.argTypes = inlineContentArgTypes;
