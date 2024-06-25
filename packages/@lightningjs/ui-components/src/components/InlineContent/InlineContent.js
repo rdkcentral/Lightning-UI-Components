@@ -157,7 +157,8 @@ export default class InlineContent extends Base {
         ) {
           // only using this.flex._layout._lineLayouter._lines.length if maxLines is larger than the number of lines so we don't have a height too large
           const multiplierLines =
-            this.maxLines === undefined || this.maxLines > this.flex._layout._lineLayouter._lines.length
+            this.maxLines === undefined ||
+            this.maxLines > this.flex._layout._lineLayouter._lines.length
               ? this.flex._layout._lineLayouter._lines.length
               : this.maxLines;
 
