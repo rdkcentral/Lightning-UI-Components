@@ -155,10 +155,11 @@ export default class InlineContent extends Base {
           this.flex._layout._lineLayouter &&
           this.flex._layout._lineLayouter._lines
         ) {
-
-
           // only using this.flex._layout._lineLayouter._lines.length if maxLines is larger than the number of lines so we don't have a height too large
-          let multiplierLines = this.maxLines > this.flex._layout._lineLayouter._lines.length ? this.flex._layout._lineLayouter._lines.length : this.maxLines;
+          let multiplierLines =
+            this.maxLines > this.flex._layout._lineLayouter._lines.length
+              ? this.flex._layout._lineLayouter._lines.length
+              : this.maxLines;
 
           this.multiLineHeight =
             this.style.textStyle.lineHeight * multiplierLines;
@@ -167,14 +168,13 @@ export default class InlineContent extends Base {
             this._renderMaxLines();
           }
           this._notifyAncestors();
-
         } else {
           this._contentLoaded();
         }
-      }, 10); 
+      }, 10);
     } else {
-        this._notifyAncestors();
-    } 
+      this._notifyAncestors();
+    }
   }
 
   _renderMaxLines() {
