@@ -334,7 +334,10 @@ export default class InlineContent extends Base {
     return {
       ...base,
       y: this.textY !== undefined ? this.textY : this.style.textY,
-      h: this.textHeight,
+      h:
+        textOverrideStyles?.lineHeight ||
+        textOverrideStyles?.fontSize ||
+        this.textHeight,
       text: {
         ...this.style.textStyle,
         ...textOverrideStyles,
