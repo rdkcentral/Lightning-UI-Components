@@ -154,10 +154,13 @@ export default class InlineContent extends Base {
           this.flex._layout._lineLayouter &&
           this.flex._layout._lineLayouter._lines
         ) {
-          this.multiLineHeight =
-            this.style.textStyle.lineHeight *
-            this.flex._layout._lineLayouter._lines.length;
-          this.h = this.multiLineHeight;
+          let totalHeight = 0;
+          this.flex._layout._lineLayouter._lines.forEach(line => {
+            totalHeight += Object.entries(line.items).sort((a, b) => {
+              return b[1].h - a[1].h;
+            })[0][1].h;
+          });
+          this.multiLineHeight = totalHeight;
 
           if (this._shouldTruncate) {
             this._renderMaxLines();
@@ -288,9 +291,22 @@ export default class InlineContent extends Base {
     const negatedRightMargin = component.flexItem.marginRight * -1;
     let suffix;
     if (type === 'text') {
+      // We need to grab the current styling of the text to ensure that any
+      // custom styling is applied to the suffix
+      const { fontFace, fontSize, fontStyle, lineHeight, verticalAlign } =
+        component.text;
       suffix = this._createText(
         { flexItem: this.contentProperties },
-        `${content.trim()}${this.maxLinesSuffix}`
+        {
+          text: `${content.trim()}${this.maxLinesSuffix}`,
+          style: {
+            fontFace,
+            fontSize,
+            fontStyle,
+            lineHeight,
+            verticalAlign
+          }
+        }
       );
     } else {
       this.childList.add(component);
