@@ -22,7 +22,8 @@
     "clean:dist": "yarn workspaces foreach exec rm -rf ./dist ./storybook-static ./tmp",
     "clean": "yarn clean:dist && yarn exec rm -rf node_modules && find ./packages -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "postinstall": "node ./scripts/post-install.js",
-    "createComponent": "node bin/create.js"
+    "createComponent": "node bin/create.js",
+    "typedoc": "yarn workspace @lightningjs/ui-components typedoc"
   },
   "devDependencies": {
     "@babel/plugin-transform-optional-chaining": "^7.23.4",

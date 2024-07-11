@@ -12,6 +12,7 @@ tmp/
 original/
 .DS_Store
 .vscode
+typedocs
 
 # publish
 *.tgz
