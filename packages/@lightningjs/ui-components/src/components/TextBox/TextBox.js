@@ -146,6 +146,8 @@ export default class TextBox extends Base {
   _updateInlineContent() {
     this.patch({ Text: undefined });
 
+    const contentStyle = this._textStyleSet;
+
     const inlineContentPatch = InlineContent.properties.reduce(
       (acc, prop) => {
         if (this[prop] != undefined) {
@@ -157,20 +159,20 @@ export default class TextBox extends Base {
       {
         style: {
           ...this.style,
-          textStyle: this._textStyleSet
+          textStyle: contentStyle
         }
       }
     );
 
-    if (this._textStyleSet.wordWrapWidth) {
-      inlineContentPatch.w = this._textStyleSet.wordWrapWidth;
+    if (contentStyle.wordWrapWidth) {
+      inlineContentPatch.w = contentStyle.wordWrapWidth;
       inlineContentPatch.rtt = true;
     }
-    if (this._textStyleSet.maxLines) {
-      inlineContentPatch.maxLines = this._textStyleSet.maxLines;
+    if (contentStyle.maxLines) {
+      inlineContentPatch.maxLines = contentStyle.maxLines;
     }
-    if (this._textStyleSet.maxLinesSuffix) {
-      inlineContentPatch.maxLinesSuffix = this._textStyleSet.maxLinesSuffix;
+    if (contentStyle.maxLinesSuffix) {
+      inlineContentPatch.maxLinesSuffix = contentStyle.maxLinesSuffix;
     }
 
     this.patch({

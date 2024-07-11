@@ -148,21 +148,26 @@ export default class InlineContent extends Base {
     if (this.children.length) {
       setTimeout(() => {
         this.multiLineHeight = this.finalH;
+
         if (
           this.flex &&
           this.flex._layout &&
           this.flex._layout._lineLayouter &&
           this.flex._layout._lineLayouter._lines
         ) {
+          // only using this.flex._layout._lineLayouter._lines.length if maxLines is larger than the number of lines so we don't have a height too large
+          const multiplierLines =
+            this.maxLines === undefined ||
+            this.maxLines > this.flex._layout._lineLayouter._lines.length
+              ? this.flex._layout._lineLayouter._lines.length
+              : this.maxLines;
+
           this.multiLineHeight =
-            this.style.textStyle.lineHeight *
-            this.flex._layout._lineLayouter._lines.length;
-          this.h = this.multiLineHeight;
+            this.style.textStyle.lineHeight * multiplierLines;
 
           if (this._shouldTruncate) {
             this._renderMaxLines();
           }
-
           this._notifyAncestors();
         } else {
           this._contentLoaded();
