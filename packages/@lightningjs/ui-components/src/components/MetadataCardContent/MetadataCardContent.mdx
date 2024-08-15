@@ -24,7 +24,7 @@ import * as MetadataCardContentStories from './MetadataCardContent.stories';
 
 <Title />
 
-A component to format metadata on CardContent. Contains a [Provider](?path=/docs/components-provider--basic) to format [Icon(s)](?path=/docs/components-icon--png).
+A component to format metadata on CardContent. Contains a [Provider](?path=/docs/components-provider--docs) to format [Icon(s)](?path=/docs/components-icon--docs).
 
 ## Source
 
@@ -59,20 +59,20 @@ class Basic extends lng.Component {
 
 ### Properties
 
-| name               | type                                                  | required | default   | description                                                                               |
-| ------------------ | ----------------------------------------------------- | -------- | --------- | ----------------------------------------------------------------------------------------- |
-| title              | string                                                | false    | undefined | title text                                                                                |
-| description        | string                                                | false    | undefined | description text directly below title                                                     |
-| descriptionDetails | string                                                | false    | undefined | details text directly below description                                                   |
-| details            | string                                                | false    | undefined | details text at bottom left of component                                                  |
-| provider           | [Provider](?path=/docs/components-provider--provider) | false    | undefined | an object of [Provider](?path=/docs/components-provider--provider) properties to patch in |
+| name               | type                                              | required | default   | description                                                                           |
+| ------------------ | ------------------------------------------------- | -------- | --------- | ------------------------------------------------------------------------------------- |
+| title              | string                                            | false    | undefined | title text                                                                            |
+| description        | string                                            | false    | undefined | description text directly below title                                                 |
+| descriptionDetails | string                                            | false    | undefined | details text directly below description                                               |
+| details            | string                                            | false    | undefined | details text at bottom left of component                                              |
+| provider           | [Provider](?path=/docs/components-provider--docs) | false    | undefined | an object of [Provider](?path=/docs/components-provider--docs) properties to patch in |
 
 ### Style Properties
 
-| name                    | type             | description                                                                              |
-| ----------------------- | ---------------- | ---------------------------------------------------------------------------------------- |
-| detailsTextStyle        | string \| object | text style for details                                                                   |
-| descriptionDetailsStyle | object           | style for description details                                                            |
-| providerStyle           | object           | style properties to pass along to the [Provider](?path=/docs/components-provider--basic) |
+| name                    | type             | description                                                                             |
+| ----------------------- | ---------------- | --------------------------------------------------------------------------------------- |
+| detailsTextStyle        | string \| object | text style for details                                                                  |
+| descriptionDetailsStyle | object           | style for description details                                                           |
+| providerStyle           | object           | style properties to pass along to the [Provider](?path=/docs/components-provider--docs) |
 
 ### Methods
