@@ -1,3 +1,4 @@
+import { dirname, join } from "path";
 /**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
@@ -19,29 +20,24 @@ import remarkGfm from 'remark-gfm'; // needed for Tables, Links, etc in MDX
 const path = require('path');
 
 const config = {
-  addons: [
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false,
-        outline: false, // disable outline addon
-        measure: false, // disable measure addon
-        viewport: false // disable viewport addon
-      }
-    },
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        mdxPluginOptions: {
-          mdxCompileOptions: {
-            remarkPlugins: [remarkGfm] //  needed for MDX to use Github Flavored Markdown
-          }
+  addons: [{
+    name: '@storybook/addon-essentials',
+    options: {
+      backgrounds: false,
+      outline: false, // disable outline addon
+      measure: false, // disable measure addon
+      viewport: false // disable viewport addon
+    }
+  }, {
+    name: '@storybook/addon-docs',
+    options: {
+      mdxPluginOptions: {
+        mdxCompileOptions: {
+          remarkPlugins: [remarkGfm] //  needed for MDX to use Github Flavored Markdown
         }
       }
-    },
-    '@storybook/addon-designs',
-    '@storybook/addon-storysource'
-  ],
+    }
+  }, getAbsolutePath("@storybook/addon-designs"), getAbsolutePath("@storybook/addon-storysource"), '@storybook/addon-webpack5-compiler-babel'],
   stories: [
     '../src/*.mdx',
     '../../../@lightningjs/ui-components/src/**/*.mdx',
@@ -56,12 +52,10 @@ const config = {
     disableTelemetry: true
   },
   framework: {
-    name: '@storybook/html-webpack5',
+    name: getAbsolutePath("@storybook/html-webpack5"),
     options: {}
   },
-  docs: {
-    autodocs: false
-  },
+  docs: {},
   async webpackFinal(config) {
     config.optimization.minimize = false; // Minification seams to to break FocusManager navigation
     // Shorter alias for inspector
@@ -75,3 +69,7 @@ const config = {
 };
 
 export default config;
+
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, "package.json")));
+}

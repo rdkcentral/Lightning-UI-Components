@@ -31,7 +31,7 @@ registerEventListeners();
  */
 const preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    actions: { argTypesRegex: '^on.*' },
     backgrounds: {
       disable: true
     },

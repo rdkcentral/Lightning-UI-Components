@@ -20,7 +20,7 @@ import lng from '@lightningjs/core';
 import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
 import Slider from '.';
-import { useArgs } from '@storybook/client-api';
+import { useArgs } from '@storybook/manager-api';
 
 export default {
   title: 'Components/Slider/Slider'
