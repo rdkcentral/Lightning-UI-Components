@@ -114,7 +114,7 @@ For example:
 componentConfig: {
   ProgressBar: {
     style: {
-      radius: 20;
+      radius: 20
     }
   }
 }
