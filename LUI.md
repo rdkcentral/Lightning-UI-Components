@@ -27,6 +27,7 @@ The team presented LUI 2.0 during an RDK Webinar. Please view the videos below f
 ## Structure
 
 LUI is a monorepo containing the following packages:
+
 - @lightningjs/ui-components
 - @lightningjs/ui-components-test-utils
 - @lightningjs/ui-components-theme-base
@@ -63,7 +64,7 @@ Theming is a way to easily reskin or style components via a set of style propert
 
 Each of the components references specific style properties that map back to a global style sheet, which we call a "theme." This is a similar concept as CSS for web components.
 
-You can find our complete documentation on theming in our [Storybook here](https://rdkcentral.github.io/Lightning-UI-Components/?path=/story/docs-theming-overview--page).
+You can find our complete documentation on theming in our [Storybook here](https://rdkcentral.github.io/Lightning-UI-Components/?path=/docs/docs-theming-overview--docs).
 
 ### Capabilities of Theming
 
@@ -84,6 +85,7 @@ You can find our complete documentation on theming in our [Storybook here](https
 ### Theming Schema
 
 Theme files consist of the following overarching properties:
+
 - alpha (opacity)
 - animation (curves)
 - color
@@ -96,7 +98,7 @@ Theme files consist of the following overarching properties:
 - componentConfig
 - extensions
 
-For more information on the properties that make up a **theme** file, check out our [Storybook here](https://rdkcentral.github.io/Lightning-UI-Components/?path=/story/docs-theming-theme-properties--page).
+For more information on the properties that make up a **theme** file, check out our [Storybook here](https://rdkcentral.github.io/Lightning-UI-Components/?path=/docs/docs-theming-theme-properties--docs).
 
 #### Component Config
 
@@ -107,10 +109,13 @@ The `componentConfig` object can take in key value pairs of component names to n
 The `style` object can be used to override the predetermined style properties of the given component type.
 
 For example:
+
 ```js
 componentConfig: {
   ProgressBar: {
-    style: { radius: 20 }
+    style: {
+      radius: 20
+    }
   }
 }
 ```
@@ -118,6 +123,7 @@ componentConfig: {
 ##### Tones
 
 The `tone` property expects a string which will determine the default color palette to apply to a component. It should match one of the following:
+
 - neutral (meant for use on dark backgrounds)
 - inverse (meant for use on light backgrounds)
 - brand (meant to call branded focus to an element)
@@ -125,10 +131,11 @@ The `tone` property expects a string which will determine the default color pale
 When specified, these strings will override the default tone used by the component in our library to quickly change the appearance of the component.
 
 For example:
+
 ```js
 componentConfig: {
   ProgressBar: {
-    tone: 'brand'
+    tone: 'brand';
   }
 }
 ```
@@ -136,6 +143,7 @@ componentConfig: {
 ##### Modes
 
 The `mode` property expects a string which will determine the default interaction state to apply to a component. By default, components are in the unfocused mode, but depending on the platform, can be switched into modes like:
+
 - unfocused (default)
 - focused (the active component being interacted with)
 - disabled (when a user should not be able to interact with a component)
@@ -144,10 +152,11 @@ The `mode` property expects a string which will determine the default interactio
 - pressed (can change the style when a Button is clicked down versus hovered on)
 
 For example:
+
 ```js
 componentConfig: {
   ProgressBar: {
-    mode: 'disabled'
+    mode: 'disabled';
   }
 }
 ```
@@ -157,6 +166,7 @@ componentConfig: {
 The `styleConfig` object contains overrides for a component's `tone` and `mode` styles that will be applied when a component is switched into those tone or mode states.
 
 For example:
+
 ```js
 componentConfig: {
   ProgressBar: {
@@ -174,4 +184,4 @@ componentConfig: {
 
 #### Extensions
 
-The `extensions` array supplies custom behavior to a component library. This is a way for developers to dynamically adjust component code without having to extend and create their own custom component. For more information on Extensions, check out our [documentation here](https://rdkcentral.github.io/Lightning-UI-Components/?path=/story/docs-theming-extensions--page).
+The `extensions` array supplies custom behavior to a component library. This is a way for developers to dynamically adjust component code without having to extend and create their own custom component. For more information on Extensions, check out our [documentation here](https://rdkcentral.github.io/Lightning-UI-Components/?path=/docs/docs-theming-theme-properties--docs).

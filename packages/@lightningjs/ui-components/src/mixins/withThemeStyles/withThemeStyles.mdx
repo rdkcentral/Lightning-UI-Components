@@ -59,7 +59,7 @@ class BlueBox extends Box {
 }
 ```
 
-This is fine if you want a box that is always blue, but what if you want to change the color of your component without having to extend it and override that single value? Or if you want a box that changes based on certain factors, such as its [mode](?path=/docs/docs-theming-mode--page)? Or what if you want to have multiple color palettes (in LUI, these are called [tones](?path=/docs/docs-theming-tone--page)) that you can switch between depending on if your application is in light or dark mode?
+This is fine if you want a box that is always blue, but what if you want to change the color of your component without having to extend it and override that single value? Or if you want a box that changes based on certain factors, such as its [mode](?path=/docs/docs-theming-modes--docs)? Or what if you want to have multiple color palettes (in LUI, these are called [tones](?path=/docs/docs-theming-tones--docs)) that you can switch between depending on if your application is in light or dark mode?
 
 By utilizing `withThemeStyles`, you can tie the color of your box to the tokens used in your theme or a single style object. The preferred way of accomplishing this is by extending the `Base` component, which utilizes `withThemeStyles` and saves you from additional setup.
 
@@ -143,7 +143,7 @@ In both cases, you'll notice that there is a `__componentName` getter in our `Bo
 
 ### Mode Changes
 
-Instead of extending a component to access the focus or unfocus methods of a component, or to add any custom functionality for a specific mode, you can tap into "on" methods for mode changes. Similarly to the `on[KeyName]` methods exposed via the [withHandleKey](?path=/docs/utilities-withhandlekey--with-handle-key) mixin, all mode changes are linked to `on[ModeName]` methods, which are triggered when the `mode` of the component is set to a new value.
+Instead of extending a component to access the focus or unfocus methods of a component, or to add any custom functionality for a specific mode, you can tap into "on" methods for mode changes. Similarly to the `on[KeyName]` methods exposed via the [withHandleKey](?path=/docs/utilities-withhandlekey--docs) mixin, all mode changes are linked to `on[ModeName]` methods, which are triggered when the `mode` of the component is set to a new value.
 
 For example, if a component has an `unfocused`, `focused`, and `disabled` mode, the `onUnfocused`, `onFocused`, and `onDisabled` methods will be called on change to the associated mode. Any custom modes beyond these three will also be added to the method list. When using a component, all of those methods can be accessed and set like other component properties, like this:
 
@@ -158,4 +158,4 @@ class NewComponent extends lng.Component {
 }
 ```
 
-For more information on all of the ways you can set up your styles to fully utilize this mixin, read through the [Theming Documentation](?path=/docs/docs-theming-overview--page).
+For more information on all of the ways you can set up your styles to fully utilize this mixin, read through the [Theming Documentation](?path=/docs/docs-theming-overview--docs).
