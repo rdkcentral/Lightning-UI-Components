@@ -20,7 +20,8 @@ import lng from '@lightningjs/core';
 import { default as ListItemSliderComponent } from './ListItemSlider';
 import { createModeControl, generateSubStory } from '../../docs/utils';
 import { Basic as SliderStory } from '../Slider/Slider.stories';
-import { useArgs } from '@storybook/manager-api';
+// TODO: Re-implement after figuring out how to in Storybook 8; worked in 7.
+// import { useArgs } from '@storybook/manager-api';
 
 /**
  * A ListItem component with slider functionality
@@ -31,23 +32,23 @@ export default {
 };
 
 export const ListItemSlider = () => {
-  const [{ value }, updateArgs] = useArgs();
+  // const [{ value }, updateArgs] = useArgs();
   return class ListItemSlider extends lng.Component {
     static _template() {
       return {
         ListItemSlider: {
-          type: ListItemSliderComponent,
-          value: value,
-          signals: {
-            onSliderChange: true
-          }
+          type: ListItemSliderComponent
+          // value: value,
+          // signals: {
+          //   onSliderChange: true
+          // }
         }
       };
     }
     // update arg control when value changes
-    onSliderChange(value) {
-      updateArgs({ value });
-    }
+    // onSliderChange(value) {
+    //   updateArgs({ value });
+    // }
   };
 };
 
