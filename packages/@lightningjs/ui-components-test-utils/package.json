@@ -23,7 +23,7 @@
     "src/**"
   ],
   "peerDependencies": {
-    "@lightningjs/core": "2.11.0"
+    "@lightningjs/core": "^2.14.0"
   },
   "devDependencies": {
     "@lightningjs/ui-components-theme-base": "workspace:^",

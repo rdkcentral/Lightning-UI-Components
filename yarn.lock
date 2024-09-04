@@ -3334,10 +3334,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lightningjs/core@npm:2.11.0":
-  version: 2.11.0
-  resolution: "@lightningjs/core@npm:2.11.0"
-  checksum: c9776c3a2ff7b3c1e994fece38337d190efc11922906297803d2abae0d29f1bf0b4fe6f38ab6639fbc9147c78e31901ac3630978fb1b540be6c91e19885ddeb0
+"@lightningjs/core@npm:^2.14.0":
+  version: 2.14.0
+  resolution: "@lightningjs/core@npm:2.14.0"
+  checksum: 880b15c2755e5390db3f81fb12ecbb717cb63c441f7b1433afed0a1f80a875bf6761dc506482249e3b6ef7e81d390d857845e1b114dbc11eb9e0556de5edc1e1
   languageName: node
   linkType: hard
 
@@ -3401,7 +3401,7 @@ __metadata:
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@lightningjs/core": 2.11.0
+    "@lightningjs/core": ^2.14.0
   languageName: unknown
   linkType: soft
 
@@ -3436,7 +3436,7 @@ __metadata:
     semantic-release: ^19.0.5
     semantic-release-monorepo: ^7.0.5
   peerDependencies:
-    "@lightningjs/core": ">=2.0.0 <=2.11.0"
+    "@lightningjs/core": ^2.14.0
   languageName: unknown
   linkType: soft
 
@@ -13614,7 +13614,7 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.19.1
     "@babel/preset-env": ^7.19.3
     "@babel/preset-react": ^7.18.6
-    "@lightningjs/core": 2.11.0
+    "@lightningjs/core": ^2.14.0
     "@lightningjs/ui-components": "workspace:^"
     "@lightningjs/ui-components-theme-base": "workspace:^"
     "@mdx-js/react": ^1.6.22
