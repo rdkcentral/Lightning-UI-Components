@@ -84,41 +84,6 @@ export const Basic = () =>
     }
   };
 
-// export const Bug = () =>
-//   class Bug extends lng.Component {
-//     static _template() {
-//       return {
-//         ControlRow: {
-//           type: ControlRowComponent,
-//           leftControls: [],
-//           contentItems: [],
-//           rightControls: [],
-//           lazyLoadBuffer: 1
-//         }
-//       };
-//     }
-
-//     _construct() {
-//       setTimeout(() => {
-//         if (this._ControlRow) {
-//           this._ControlRow.addContentItems(
-//             createItems(
-//               3,
-//               'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
-//             )
-//           );
-//         }
-//       }, 1500);
-//     }
-//     _getFocused() {
-//       return this.tag('ControlRow');
-//     }
-
-//     get _ControlRow() {
-//       return this.tag('ControlRow');
-//     }
-//   };
-
 export const Bug = () =>
   class Bug extends lng.Component {
     static _template() {
@@ -127,22 +92,24 @@ export const Bug = () =>
           type: ControlRowComponent,
           leftControls: [],
           contentItems: [],
-          rightControls: []
+          rightControls: [],
+          lazyLoadBuffer: 1
         }
       };
     }
 
-    async _construct() {
-      // Ensure the component is fully initialized before adding items
-      await new Promise(resolve => setTimeout(resolve, 100));
-      this._ControlRow.addContentItems(
-        await createItems(
-          3,
-          'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
-        )
-      );
+    _construct() {
+      setTimeout(() => {
+        if (this._ControlRow) {
+          this._ControlRow.addContentItems(
+            createItems(
+              3,
+              'https://image.tmdb.org/t/p/w500/frwl2zBNAl5ZbFDJGoJv0mYo0rF.jpg'
+            )
+          );
+        }
+      }, 1500);
     }
-
     _getFocused() {
       return this.tag('ControlRow');
     }
@@ -151,7 +118,6 @@ export const Bug = () =>
       return this.tag('ControlRow');
     }
   };
-
 
 export const LazyLoading = () =>
   class LazyLoading extends lng.Component {

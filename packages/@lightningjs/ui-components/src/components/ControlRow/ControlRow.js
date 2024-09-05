@@ -122,7 +122,7 @@ export default class ControlRow extends TitleRow {
   _appendItemsAt(items, appendIndex, removeSpacingIndex) {
     const itemsCopy = [...items];
 
-    if (removeSpacingIndex != undefined && removeSpacingIndex > 0) {
+    if (removeSpacingIndex != undefined && removeSpacingIndex >= 0) {
       this.items[removeSpacingIndex].extraItemSpacing = undefined;
       itemsCopy[itemsCopy.length - 1].extraItemSpacing =
         this.extraItemSpacing == undefined
