@@ -119,24 +119,22 @@ export default class ControlRow extends TitleRow {
     this._getMoreItems();
   }
 
-  _appendItemsAt(items, appendIndex) {
+  _appendItemsAt(items, appendIndex, removeSpacingIndex) {
     const itemsCopy = [...items];
 
-    console.log(itemsCopy)
-
-
-
-    // if (removeSpacingIndex != undefined || removeSpacingIndex >= 0) {
-    //   this.items[removeSpacingIndex].extraItemSpacing = undefined;
-    //   itemsCopy[itemsCopy.length - 1].extraItemSpacing =
-    //     this.extraItemSpacing == undefined
-    //       ? this.style.extraItemSpacing
-    //       : this.extraItemSpacing;
-    // }
+    if (removeSpacingIndex != undefined && removeSpacingIndex > 0) {
+      this.items[removeSpacingIndex].extraItemSpacing = undefined;
+      itemsCopy[itemsCopy.length - 1].extraItemSpacing =
+        this.extraItemSpacing == undefined
+          ? this.style.extraItemSpacing
+          : this.extraItemSpacing;
+    }
     this.appendItemsAt(itemsCopy, appendIndex);
   }
 
   addContentItems(items) {
+    const lastSelected = this.selectedIndex;
+
     const itemsToAdd = this._createContentItems(items);
     const addIndex = this._lastItemIndex + 1;
     this._appendItemsAt(itemsToAdd, addIndex, this._lastItemIndex);
@@ -145,6 +143,8 @@ export default class ControlRow extends TitleRow {
     if (this._contentItems) {
       this._contentItems = [...this.contentItems, ...itemsToAdd];
     }
+    this._updateContent();
+    this.selectedIndex = lastSelected;
 
     this.patch({
       stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
