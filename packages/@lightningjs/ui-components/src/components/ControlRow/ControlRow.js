@@ -119,16 +119,20 @@ export default class ControlRow extends TitleRow {
     this._getMoreItems();
   }
 
-  _appendItemsAt(items, appendIndex, removeSpacingIndex) {
+  _appendItemsAt(items, appendIndex) {
     const itemsCopy = [...items];
 
-    if (removeSpacingIndex != undefined) {
-      this.items[removeSpacingIndex].extraItemSpacing = undefined;
-      itemsCopy[itemsCopy.length - 1].extraItemSpacing =
-        this.extraItemSpacing == undefined
-          ? this.style.extraItemSpacing
-          : this.extraItemSpacing;
-    }
+    console.log(itemsCopy)
+
+
+
+    // if (removeSpacingIndex != undefined || removeSpacingIndex >= 0) {
+    //   this.items[removeSpacingIndex].extraItemSpacing = undefined;
+    //   itemsCopy[itemsCopy.length - 1].extraItemSpacing =
+    //     this.extraItemSpacing == undefined
+    //       ? this.style.extraItemSpacing
+    //       : this.extraItemSpacing;
+    // }
     this.appendItemsAt(itemsCopy, appendIndex);
   }
 
