@@ -39,7 +39,6 @@ export default {
 };
 
 const createItems = (length, src, props = {}) => {
-  console.log(length, src, props = {})
   return Array.from({ length }).map((_, index) => ({
     type: Tile,
     artwork: {
