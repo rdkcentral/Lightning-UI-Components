@@ -122,7 +122,7 @@ export default class ControlRow extends TitleRow {
   _appendItemsAt(items, appendIndex, removeSpacingIndex) {
     const itemsCopy = [...items];
 
-    if (removeSpacingIndex != undefined) {
+    if (removeSpacingIndex != undefined && removeSpacingIndex >= 0) {
       this.items[removeSpacingIndex].extraItemSpacing = undefined;
       itemsCopy[itemsCopy.length - 1].extraItemSpacing =
         this.extraItemSpacing == undefined
@@ -133,6 +133,7 @@ export default class ControlRow extends TitleRow {
   }
 
   addContentItems(items) {
+    const lastSelected = this.selectedIndex;
     const itemsToAdd = this._createContentItems(items);
     const addIndex = this._lastItemIndex + 1;
     this._appendItemsAt(itemsToAdd, addIndex, this._lastItemIndex);
@@ -141,6 +142,8 @@ export default class ControlRow extends TitleRow {
     if (this._contentItems) {
       this._contentItems = [...this.contentItems, ...itemsToAdd];
     }
+    this._updateContent();
+    this.selectedIndex = lastSelected;
 
     this.patch({
       stopLazyScrollIndex: this.leftControls.length + this.items.length - 1
