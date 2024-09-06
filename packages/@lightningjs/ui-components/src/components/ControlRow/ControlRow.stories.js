@@ -118,7 +118,6 @@ export const Bug = () =>
     }
   };
 
-
 export const LazyLoading = () =>
   class LazyLoading extends lng.Component {
     static _template() {
