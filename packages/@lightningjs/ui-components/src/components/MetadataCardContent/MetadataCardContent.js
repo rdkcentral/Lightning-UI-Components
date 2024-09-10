@@ -21,7 +21,7 @@ import TextBox from '../TextBox';
 import Provider from '../Provider';
 import FadeShader from '../../shaders/FadeShader';
 import * as styles from './MetadataCardContent.styles';
-import { debounce } from 'lodash';
+import debounce from 'debounce';
 
 export default class MetadataCardContent extends MetadataBase {
   static get __componentName() {
@@ -149,6 +149,7 @@ export default class MetadataCardContent extends MetadataBase {
     this._updateTitle();
     this._updateDescription();
     this._updateDescriptionDetails();
+    this._updateDetails();
   }
 
   _updateDescription() {
