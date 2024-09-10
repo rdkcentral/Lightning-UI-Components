@@ -108,11 +108,6 @@ export default class MetadataCardContent extends MetadataBase {
     ];
   }
 
-  _init() {
-    this._debouncedUpdateDetails = debounce(() => this._updateDetails(), 100);
-    super._init();
-  }
-
   _setDetails(details) {
     if (details) {
       this._detailsPromise = new Promise(resolve => {
@@ -239,7 +234,7 @@ export default class MetadataCardContent extends MetadataBase {
 
     this._Provider.x = this._DetailsWrapper.w - this._providerW;
     this._Provider.y = this._DetailsWrapper.h - this._providerH;
-    this._debouncedUpdateDetails();
+    this._updateDetails();
   }
 
   get _textW() {
