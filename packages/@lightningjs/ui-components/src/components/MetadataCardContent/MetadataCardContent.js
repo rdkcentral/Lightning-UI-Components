@@ -21,7 +21,6 @@ import TextBox from '../TextBox';
 import Provider from '../Provider';
 import FadeShader from '../../shaders/FadeShader';
 import * as styles from './MetadataCardContent.styles';
-import debounce from 'debounce';
 
 export default class MetadataCardContent extends MetadataBase {
   static get __componentName() {
