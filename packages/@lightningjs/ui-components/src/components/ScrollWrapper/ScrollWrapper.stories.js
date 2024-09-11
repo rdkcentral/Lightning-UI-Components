@@ -114,9 +114,7 @@ export const Basic = args =>
           w: 796,
           content: terms,
           signals: {
-            scrollChanged: true,
-            onUpAtTop: '_handleUpAtTop',
-            onDownAtBottom: '_handleDownAtBottom'
+            scrollChanged: true
           }
         }
       };
@@ -124,14 +122,6 @@ export const Basic = args =>
 
     $scrollChanged(type) {
       args.scrollChanged && args.scrollChanged(type);
-    }
-
-    _handleUpAtTop() {
-      console.log('TOP');
-    }
-
-    _handleDownAtBottom() {
-      console.log('BOTTOM');
     }
   };
 
