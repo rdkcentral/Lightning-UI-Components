@@ -219,6 +219,7 @@ export default class MetadataCardContent extends MetadataBase {
   _resolveProvider() {
     this._providerPromiseResolver && this._providerPromiseResolver();
     this._updatePositions();
+    this._updateDetails();
   }
 
   _updatePositions() {
@@ -233,7 +234,6 @@ export default class MetadataCardContent extends MetadataBase {
 
     this._Provider.x = this._DetailsWrapper.w - this._providerW;
     this._Provider.y = this._DetailsWrapper.h - this._providerH;
-    this._updateDetails();
   }
 
   get _textW() {
