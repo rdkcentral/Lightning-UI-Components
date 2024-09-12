@@ -207,7 +207,11 @@ class ThemeManager {
       return;
     }
     const globalTheme = this.getTheme();
-    const subTheme = this._processTheme.call(this, [globalTheme, value]);
+    const subTheme = this._processTheme.call(
+      this,
+      [globalTheme, value],
+      value.extensions // Need a force option?
+    );
     if (subTheme.font && subTheme.font.length) {
       await this._loadFonts(subTheme.font);
     }

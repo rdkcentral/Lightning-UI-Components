@@ -127,6 +127,7 @@ export default class StyleManager extends lng.EventEmitter {
   _generateCacheKey(name) {
     const cacheKey = [
       name,
+      this.component._targetSubTheme,
       this.component.constructor.__componentName,
       this._customStyleHash
     ]
