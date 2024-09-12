@@ -243,12 +243,6 @@ export const WithStrikeThrough = args =>
           contentWrap: args.contentWrap,
           contentProperties: args.contentProperties,
           justify: args.justify,
-          customStyleMappings: {
-            italic: {
-              fontStyle: 'italic',
-              textColor: getHexColor('FF6194')
-            }
-          },
           content: [
             'Rent',
             { newline: true },
