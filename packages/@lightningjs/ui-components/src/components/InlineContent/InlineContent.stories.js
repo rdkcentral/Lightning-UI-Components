@@ -231,3 +231,37 @@ WithTruncation.args = {
   maxLines: 2,
   maxLinesSuffix: '...'
 };
+
+export const WithStrikeThrough = args =>
+  class WithParsing extends lng.Component {
+    static _template() {
+      return {
+        InlineContent: {
+          type: InlineContentComponent,
+          x: 550,
+          w: 400,
+          contentWrap: args.contentWrap,
+          contentProperties: args.contentProperties,
+          justify: args.justify,
+          customStyleMappings: {
+            italic: {
+              fontStyle: 'italic',
+              textColor: getHexColor('FF6194')
+            }
+          },
+          content: [
+            'Rent',
+            { newline: true },
+            {
+              text: '$19.99 ',
+              style: { textDecoration: 'line-through' }
+            },
+            { newline: true },
+            {
+              text: '$12.99'
+            }
+          ]
+        }
+      };
+    }
+  };

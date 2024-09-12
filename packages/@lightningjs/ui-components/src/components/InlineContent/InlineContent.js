@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
+import lng from '@lightningjs/core';
 import Icon from '../Icon';
 import Badge from '../Badge';
 import { parseInlineContent, flatten, measureTextWidth } from '../../utils';
@@ -346,8 +346,7 @@ export default class InlineContent extends Base {
       typeof text.style === 'string'
         ? this.customStyleMappings[text.style]
         : text.style;
-
-    return {
+    const textComponent = {
       ...base,
       y: this.textY !== undefined ? this.textY : this.style.textY,
       h:
@@ -360,6 +359,26 @@ export default class InlineContent extends Base {
         text: text.text || text
       }
     };
+    if (textOverrideStyles?.textDecoration === 'line-through') {
+      const textWidth = measureTextWidth({
+        ...this.style.textStyle,
+        ...textOverrideStyles,
+        text: text.text || text
+      });
+      const strikethroughLine = {
+        rect: true,
+        w: textWidth - 2,
+        h: 2,
+        color: textOverrideStyles?.textColor || 0xffffffff,
+        y: textComponent.h / 2
+      };
+      return {
+        type: lng.Component,
+        w: textWidth + 5,
+        children: [{ ...textComponent }, { ...strikethroughLine }]
+      };
+    }
+    return textComponent;
   }
 
   _createBadge(base, badge) {
