@@ -375,7 +375,7 @@ export default class InlineContent extends Base {
       };
       return {
         type: lng.Component,
-        w: textWidth,
+        w: textWidth + textComponent.flexItem.marginRight,
         h: textComponent.h,
         children: [{ ...textComponent }, { ...strikethroughLine }]
       };
