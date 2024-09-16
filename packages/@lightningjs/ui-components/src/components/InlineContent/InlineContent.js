@@ -368,13 +368,15 @@ export default class InlineContent extends Base {
       const strikethroughLine = {
         rect: true,
         w: textWidth - 2,
-        h: 2,
         color: textOverrideStyles?.textColor || 0xffffffff,
-        y: textComponent.h / 2
+        h: textComponent.h * 0.08,
+        y: textComponent.h / 2,
+        mountY: 1
       };
       return {
         type: lng.Component,
-        w: textWidth + 5,
+        w: textWidth,
+        h: textComponent.h,
         children: [{ ...textComponent }, { ...strikethroughLine }]
       };
     }
@@ -527,6 +529,9 @@ export default class InlineContent extends Base {
           announce += item.announce;
         } else if (item.text) {
           announce += item.text;
+          if (item.style?.textDecoration === 'line-through') {
+            announce += 'strikethrough';
+          }
         } else if (item.title) {
           announce += item.title;
         } else if (item.badge) {
