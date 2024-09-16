@@ -219,6 +219,7 @@ export default class MetadataCardContent extends MetadataBase {
   _resolveProvider() {
     this._providerPromiseResolver && this._providerPromiseResolver();
     this._updatePositions();
+    this._updateDetails();
   }
 
   _updatePositions() {
