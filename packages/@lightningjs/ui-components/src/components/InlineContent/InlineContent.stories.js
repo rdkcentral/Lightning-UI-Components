@@ -251,9 +251,7 @@ export const WithStrikeThrough = args =>
               style: { textDecoration: 'line-through' }
             },
             { newline: true },
-            {
-              text: '$12.99'
-            }
+            '$12.99'
           ]
         }
       };

@@ -367,7 +367,7 @@ export default class InlineContent extends Base {
       });
       const strikethroughLine = {
         rect: true,
-        w: textWidth - 2,
+        w: textWidth,
         color: textOverrideStyles?.textColor || 0xffffffff,
         h: textComponent.h * 0.08,
         y: textComponent.h / 2,
