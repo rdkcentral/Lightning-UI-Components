@@ -675,9 +675,6 @@ export const getStyleChain = componentObj => {
       typeof proto === 'object' &&
       proto.hasOwnProperty('constructor')
     ) {
-      if (proto.constructor.name === 'Tab') {
-        console.log(proto.title);
-      }
       // ComponentConfig Level
       const { style: componentConfigStyle } = getComponentConfig(proto);
       if (Object.keys(componentConfigStyle || {}).length) {

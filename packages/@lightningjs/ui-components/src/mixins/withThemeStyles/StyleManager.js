@@ -100,6 +100,9 @@ export default class StyleManager extends lng.EventEmitter {
     this.update();
   }
 
+  /**
+   * Clears the style chain cache.
+   */
   clearStyleChainCache() {
     clearStyleChainCache();
   }
