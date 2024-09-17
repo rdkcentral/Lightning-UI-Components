@@ -22,6 +22,8 @@ export const base = theme => ({
   iconHeight: theme.spacer.xxl + theme.spacer.xs,
   contentSpacing: theme.spacer.md,
   marginBottom: 0,
+  strikethroughRatio: 0.08,
+  textDefaultColor: theme.color.textNeutral,
   textStyle: {
     ...theme.typography.body1
   },

@@ -89,8 +89,6 @@ export default class InlineContent extends Base {
         const base = {
           flexItem: {
             ...this.contentProperties,
-            // apply contentProperties object props first if those are defined
-            // otherwise will use the style props
             marginBottom: isLast ? 0 : this._marginBottom,
             marginRight: isLast
               ? 0
@@ -101,7 +99,14 @@ export default class InlineContent extends Base {
         // text not separated by icons/badges are grouped together
         if (isText(item)) {
           const nextItem = this._parsedContent[index + 1];
-          if (nextItem && isText(nextItem)) {
+          if (
+            (nextItem && isText(nextItem)) ||
+            (this.contentWrap &&
+              nextItem &&
+              nextItem.newline &&
+              this._parsedContent[index + 2] &&
+              isText(this._parsedContent[index + 2]))
+          ) {
             base.flexItem.marginRight = 0;
           }
           this.childList.a(this._createText(base, item));
@@ -368,8 +373,8 @@ export default class InlineContent extends Base {
       const strikethroughLine = {
         rect: true,
         w: textWidth,
-        color: textOverrideStyles?.textColor || 0xffffffff,
-        h: textComponent.h * 0.08,
+        color: textOverrideStyles?.textColor || this.style.textDefaultColor,
+        h: textComponent.h * this.style.strikethroughRatio,
         y: textComponent.h / 2,
         mountY: 1
       };
