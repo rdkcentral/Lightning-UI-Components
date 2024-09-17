@@ -641,9 +641,9 @@ export const getStyleChainMemoized = componentObj => {
   const cacheKey = generateNameFromPrototypeChain(componentObj);
 
   // Check if the result is already in the cache
-  // if (styleChainCache[cacheKey]) {
-  //   return styleChainCache[cacheKey];
-  // }
+  if (styleChainCache[cacheKey]) {
+    return styleChainCache[cacheKey];
+  }
 
   /**
    * Compute the style chain using the getStyleChain function.
