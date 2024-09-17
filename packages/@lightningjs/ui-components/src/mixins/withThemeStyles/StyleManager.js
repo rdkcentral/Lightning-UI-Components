@@ -100,6 +100,10 @@ export default class StyleManager extends lng.EventEmitter {
     this.update();
   }
 
+  clearStyleChainCache() {
+    clearStyleChainCache();
+  }
+
   /**
    * Clears the source cache.
    */
@@ -205,7 +209,7 @@ export default class StyleManager extends lng.EventEmitter {
         // Style source does not exist so it will need to be generated. We attempt to run this function only when necessary for optimal performance
         styleSource = generateComponentStyleSource({
           alias: this.component.constructor.aliasStyles,
-          componentConfig: this.component._componentConfig,
+          // componentConfig: this.component._componentConfig,
           inlineStyle: this.component._componentLevelStyle,
           styleChain: getStyleChainMemoized(this.component),
           theme: this.component.theme

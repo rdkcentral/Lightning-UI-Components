@@ -641,9 +641,9 @@ export const getStyleChainMemoized = componentObj => {
   const cacheKey = generateNameFromPrototypeChain(componentObj);
 
   // Check if the result is already in the cache
-  if (styleChainCache[cacheKey]) {
-    return styleChainCache[cacheKey];
-  }
+  // if (styleChainCache[cacheKey]) {
+  //   return styleChainCache[cacheKey];
+  // }
 
   /**
    * Compute the style chain using the getStyleChain function.
@@ -675,6 +675,9 @@ export const getStyleChain = componentObj => {
       typeof proto === 'object' &&
       proto.hasOwnProperty('constructor')
     ) {
+      if (proto.constructor.name === 'Tab') {
+        console.log(proto.title);
+      }
       // ComponentConfig Level
       const { style: componentConfigStyle } = getComponentConfig(proto);
       if (Object.keys(componentConfigStyle || {}).length) {
