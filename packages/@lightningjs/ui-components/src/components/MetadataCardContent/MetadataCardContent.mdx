@@ -43,6 +43,7 @@ class Basic extends lng.Component {
         w: 600,
         h: 250,
         title: 'Title',
+        subtitle: 'Subtitle',
         description: 'Description',
         details: 'Details',
         provider: {
@@ -66,6 +67,7 @@ class Basic extends lng.Component {
 | descriptionDetails | string                                            | false    | undefined | details text directly below description                                               |
 | details            | string                                            | false    | undefined | details text at bottom left of component                                              |
 | provider           | [Provider](?path=/docs/components-provider--docs) | false    | undefined | an object of [Provider](?path=/docs/components-provider--docs) properties to patch in |
+| subtitle           | string                                            | false    | undefined | subtitle text                                                                         |
 
 ### Style Properties
 
@@ -74,5 +76,6 @@ class Basic extends lng.Component {
 | detailsTextStyle        | string \| object | text style for details                                                                  |
 | descriptionDetailsStyle | object           | style for description details                                                           |
 | providerStyle           | object           | style properties to pass along to the [Provider](?path=/docs/components-provider--docs) |
+| subtitleTextStyle       | string \| object | text style for subtitle                                                                 |
 
 ### Methods

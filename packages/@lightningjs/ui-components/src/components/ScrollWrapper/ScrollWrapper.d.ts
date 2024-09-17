@@ -75,6 +75,22 @@ declare namespace ScrollWrapper {
      */
     showScrollBar?: boolean;
   }
+
+  export interface TypeConfig extends lng.Component.TypeConfig {
+    SignalMapType: SignalMap;
+  }
+
+  export type SignalMap = {
+    /**
+     * emitted when user is at the top of the content and presses up again
+     */
+    onUpAtTop(): void;
+
+    /**
+     * emitted when user is at the bottom of the content and presses bottom again
+     */
+    onDownAtBottom(): void;
+  };
 }
 
 declare class ScrollWrapper<
