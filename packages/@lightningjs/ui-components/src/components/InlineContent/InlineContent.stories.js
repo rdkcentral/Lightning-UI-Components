@@ -247,7 +247,7 @@ export const WithStrikeThrough = args =>
             'Rent',
             { newline: true },
             {
-              text: '$19.99 ',
+              text: '$19.99',
               style: { textDecoration: 'line-through' }
             },
             { newline: true },
