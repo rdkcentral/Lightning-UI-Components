@@ -23,6 +23,7 @@ import Checkbox from '../Checkbox';
 import lightning from '../../assets/images/ic_lightning_white_32.png';
 import { createModeControl } from '../../docs/utils';
 import { controlDescriptions } from '../../docs/constants';
+import dropShadowExtensionGenerator from './DropShadow';
 
 export default {
   title: 'Components/Button/Button',
@@ -143,3 +144,19 @@ const sharedArgActions = {
 Button.parameters = {
   argActions: sharedArgActions
 };
+
+export const ButtonShadow = () =>
+  class ButtonShadow extends lng.Component {
+    static _template() {
+      return {
+        Button: {
+          type: dropShadowExtensionGenerator(ButtonComponent)
+        }
+      };
+    }
+
+    _handleEnter() {
+      this.tag('Button').mode =
+        this.tag('Button').mode === 'unfocused' ? 'focused' : 'unfocused';
+    }
+  };
