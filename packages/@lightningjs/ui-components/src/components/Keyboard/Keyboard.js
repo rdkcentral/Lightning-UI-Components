@@ -77,22 +77,18 @@ export default class Keyboard extends Base {
     } else {
       this.x = 0;
     }
-    if (this._formatsChanged || this.shouldUpdateTheme) {
-      this._createFormat(this._currentFormat);
-      this._refocus();
-      this._formatsChanged = false;
-      this.shouldUpdateTheme = false;
-    } else {
-      this._formatKeys();
-    }
+    this._createKeyboardsFromFormats();
   }
 
-  _createFormat(keyboard) {
-    const format = this.formats[keyboard];
-    if (format) {
-      const keyboardData = this._formatKeyboardData(format);
-      this._createKeyboard(keyboard, this._createRows(keyboardData, keyboard));
-    }
+  _createKeyboardsFromFormats() {
+    Object.keys(this.formats).forEach(key => {
+      const format = this.formats[key];
+      if (format) {
+        const keyboardData = this._formatKeyboardData(format);
+        this._createKeyboard(key, this._createRows(keyboardData, key));
+        this._formatKeys(key);
+      }
+    });
   }
 
   _createKeyboard(key, rows = []) {
@@ -110,7 +106,8 @@ export default class Keyboard extends Base {
           },
           autoResizeWidth: true,
           autoResizeHeight: true,
-          neverScroll: true
+          neverScroll: true,
+          alpha: key === capitalize(this._currentFormat) ? 1 : 0.001
         }
       });
     }
@@ -194,39 +191,36 @@ export default class Keyboard extends Base {
     }
   }
 
-  _formatKeys() {
-    Object.keys(this.formats).forEach(format => {
-      const element = this.tag(capitalize(format));
-      if (element) {
-        element.patch({
+  _formatKeys(key) {
+    const element = this.tag(capitalize(key));
+    if (element) {
+      element.patch({
+        style: {
+          itemSpacing: this.style.keySpacing
+        }
+      });
+      element.items.forEach(row => {
+        row.patch({
           style: {
             itemSpacing: this.style.keySpacing
-          }
+          },
+          centerInParent: this.centerKeys,
+          wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true
         });
-        element.items.forEach(row => {
-          row.patch({
-            style: {
-              itemSpacing: this.style.keySpacing
-            },
-            centerInParent: this.centerKeys,
-            wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true
-          });
-        });
-        // force Column to recalculate rows from the centerKeyboard toggle
-        element.queueRequestUpdate();
-      }
-    });
+      });
+      // force Column to recalculate rows from the centerKeyboard toggle
+      element.queueRequestUpdate();
+    }
   }
 
   $toggleKeyboard(next) {
     const nextKeyboard = capitalize(next);
     if (next !== this._currentFormat) {
-      this._createFormat(next);
       const nextKeyboardTag = this.tag(nextKeyboard);
 
       this.selectKeyOn(nextKeyboardTag);
-      this._currentKeyboard.alpha = 0;
-      nextKeyboardTag.alpha = 1;
+      this._currentKeyboard.setSmooth('alpha', 0.001, { duration: 0.25 });
+      nextKeyboardTag.setSmooth('alpha', 1, { duration: 0.25 });
       this._currentFormat = next;
     }
   }
