@@ -23,7 +23,7 @@ export const base = theme => ({
   contentSpacing: theme.spacer.md,
   marginBottom: 0,
   strikethroughRatio: 0.08,
-  textDefaultColor: theme.color.textNeutral,
+  strikethroughColor: theme.color.textNeutral,
   textStyle: {
     ...theme.typography.body1
   },
