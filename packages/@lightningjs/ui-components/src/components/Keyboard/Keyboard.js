@@ -77,7 +77,7 @@ export default class Keyboard extends Base {
     } else {
       this.x = 0;
     }
-    this._createKeyboardsFromFormats();
+    !this._keyboardsCreated && this._createKeyboardsFromFormats();
   }
 
   _createKeyboardsFromFormats() {
@@ -86,9 +86,9 @@ export default class Keyboard extends Base {
       if (format) {
         const keyboardData = this._formatKeyboardData(format);
         this._createKeyboard(key, this._createRows(keyboardData, key));
-        this._formatKeys(key);
       }
     });
+    this._keyboardsCreated = true;
   }
 
   _createKeyboard(key, rows = []) {
@@ -188,28 +188,6 @@ export default class Keyboard extends Base {
         return [data];
       }
       return data;
-    }
-  }
-
-  _formatKeys(key) {
-    const element = this.tag(capitalize(key));
-    if (element) {
-      element.patch({
-        style: {
-          itemSpacing: this.style.keySpacing
-        }
-      });
-      element.items.forEach(row => {
-        row.patch({
-          style: {
-            itemSpacing: this.style.keySpacing
-          },
-          centerInParent: this.centerKeys,
-          wrapSelected: this.rowWrap !== undefined ? this.rowWrap : true
-        });
-      });
-      // force Column to recalculate rows from the centerKeyboard toggle
-      element.queueRequestUpdate();
     }
   }
 
