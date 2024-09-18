@@ -75,7 +75,7 @@ export default class Keyboard extends Base {
     if (this.centerKeyboard) {
       this.x = (this.style.screenW - this.w) / 2 - this.style.marginX;
     } else {
-      this.x = 0;
+      this.x == null && (this.x = 0); // if x is undefined or null set to 0, otherwise do not overwrite x pos
     }
     !this._keyboardsCreated && this._createKeyboardsFromFormats();
   }
