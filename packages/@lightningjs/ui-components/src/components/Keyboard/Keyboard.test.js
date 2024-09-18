@@ -173,7 +173,7 @@ describe('Keyboard', () => {
 
   it('should toggle to a different format', () => {
     keyboard.$toggleKeyboard('symbols');
-    expect(keyboard.tag('Lowercase').alpha).toEqual(0);
+    expect(keyboard.tag('Lowercase').alpha).toEqual(0.001);
     expect(keyboard.tag('Symbols').alpha).toEqual(1);
   });
 
@@ -187,7 +187,7 @@ describe('Keyboard', () => {
     });
     return keyboard._whenEnabled.then(() => {
       keyboard.$toggleKeyboard('num');
-      expect(keyboard.tag('Abc').alpha).toEqual(0);
+      expect(keyboard.tag('Abc').alpha).toEqual(0.001);
       expect(keyboard.tag('Num').alpha).toEqual(1);
     });
   });
