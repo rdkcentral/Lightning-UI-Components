@@ -219,8 +219,8 @@ export default class Keyboard extends Base {
       const nextKeyboardTag = this.tag(nextKeyboard);
 
       this.selectKeyOn(nextKeyboardTag);
-      this._currentKeyboard.setSmooth('alpha', 0.001, { duration: 0.25 });
-      nextKeyboardTag.setSmooth('alpha', 1, { duration: 0.25 });
+      this._currentKeyboard.alpha = 0.001;
+      nextKeyboardTag.alpha = 1;
       this._currentFormat = next;
     }
   }
