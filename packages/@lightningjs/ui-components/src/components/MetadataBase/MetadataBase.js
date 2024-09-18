@@ -212,7 +212,7 @@ class MetadataBase extends Base {
       marquee: this.marquee,
       style: {
         textStyle: {
-          ...this.style.descriptionTextStyle,
+          ...this.style.subtitleTextStyle,
           maxLines: 1,
           wordWrap: true,
           wordWrapWidth: this._Text.w

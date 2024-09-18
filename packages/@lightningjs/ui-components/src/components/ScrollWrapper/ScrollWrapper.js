@@ -247,6 +247,8 @@ export default class ScrollWrapper extends Base {
         this.fireAncestors('$scrollChanged', 'endDown', this);
         this._updateFadeContainer();
       }
+    } else {
+      this.signal('onDownAtBottom');
     }
   }
 
@@ -278,6 +280,8 @@ export default class ScrollWrapper extends Base {
         this._isEndContentVisible = false;
         this._updateFadeContainer();
       }
+    } else {
+      this.signal('onUpAtTop');
     }
   }
 

@@ -23,6 +23,7 @@ export const base = theme => ({
   logoHeight: theme.typography.body3.lineHeight,
   logoPadding: theme.spacer.lg,
   detailsTextStyle: theme.typography.body3,
+  subtitleTextStyle: theme.typography.body3,
   titleTextStyle: { ...theme.typography.headline1, maxLines: 1 },
   marqueeSync: true,
   alpha: theme.alpha.primary
@@ -38,6 +39,7 @@ export const mode = theme => ({
 export const tone = theme => ({
   neutral: {
     titleTextStyle: { textColor: theme.color.textNeutral },
+    subtitleTextStyle: { textColor: theme.color.textNeutralSecondary },
     detailsTextStyle: { textColor: theme.color.textNeutral },
     descriptionTextStyle: { textColor: theme.color.textNeutralSecondary },
     mode: {
@@ -52,11 +54,13 @@ export const tone = theme => ({
   },
   inverse: {
     titleTextStyle: { textColor: theme.color.textInverse },
+    subtitleTextStyle: { textColor: theme.color.textInverseSecondary },
     detailsTextStyle: { textColor: theme.color.textInverse },
     descriptionTextStyle: { textColor: theme.color.textInverseSecondary },
     mode: {
       disabled: {
         titleTextStyle: { textColor: theme.color.textNeutralDisabled },
+        subtitleTextStyle: { textColor: theme.color.textNeutralDisabled },
         detailsTextStyle: { textColor: theme.color.textNeutralDisabled },
         descriptionTextStyle: {
           textColor: theme.color.textNeutralDisabled
@@ -66,6 +70,7 @@ export const tone = theme => ({
   },
   brand: {
     titleTextStyle: { textColor: theme.color.textNeutral },
+    subtitleTextStyle: { textColor: theme.color.textNeutralSecondary },
     detailsTextStyle: { textColor: theme.color.textNeutral },
     descriptionTextStyle: { textColor: theme.color.textNeutralSecondary },
     mode: {

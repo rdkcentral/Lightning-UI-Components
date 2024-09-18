@@ -46,6 +46,7 @@ describe('CardContent', () => {
 
   it('sets the announce string to the metadata text from both the metadata component on the right and the tile on the left', () => {
     const title = 'Title';
+    const subtitle = 'Subtitle';
     const description = 'Description';
     const descriptionDetails = 'Description Details';
     const details = 'Details';
@@ -60,6 +61,7 @@ describe('CardContent', () => {
     cardContent.patch({
       metadata: {
         title,
+        subtitle,
         description,
         descriptionDetails,
         details,
@@ -75,6 +77,7 @@ describe('CardContent', () => {
     expect(cardContent.announce).toEqual([
       [
         title,
+        subtitle,
         description,
         descriptionDetails,
         details,
