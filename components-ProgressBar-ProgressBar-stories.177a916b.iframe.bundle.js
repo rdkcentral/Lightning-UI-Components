@@ -1,0 +1,322 @@
+"use strict";
+(self["webpackChunklightning_ui_docs"] = self["webpackChunklightning_ui_docs"] || []).push([[5427],{
+
+/***/ "../../@lightningjs/ui-components/src/components/ProgressBar/ProgressBar.js":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  A: () => (/* binding */ ProgressBar)
+});
+
+// NAMESPACE OBJECT: ../../@lightningjs/ui-components/src/components/ProgressBar/ProgressBar.styles.js
+var ProgressBar_styles_namespaceObject = {};
+__webpack_require__.r(ProgressBar_styles_namespaceObject);
+__webpack_require__.d(ProgressBar_styles_namespaceObject, {
+  base: () => (base),
+  tone: () => (tone)
+});
+
+// EXTERNAL MODULE: ../../../node_modules/@lightningjs/core/dist/lightning.esm.js
+var lightning_esm = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
+// EXTERNAL MODULE: ../../@lightningjs/ui-components/src/components/Base/Base.js + 2 modules
+var Base = __webpack_require__("../../@lightningjs/ui-components/src/components/Base/Base.js");
+;// CONCATENATED MODULE: ../../@lightningjs/ui-components/src/components/ProgressBar/ProgressBar.styles.js
+/**
+ * Copyright 2023 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+var base = function base(theme) {
+  return {
+    height: theme.spacer.md,
+    animation: theme.animation.utility,
+    radius: theme.radius.xs
+  };
+};
+var tone = function tone(theme) {
+  return {
+    neutral: {
+      barColor: theme.color.fillNeutralTertiary,
+      progressColor: theme.color.fillNeutral
+    },
+    inverse: {
+      barColor: theme.color.fillInverseTertiary,
+      progressColor: theme.color.fillInverse
+    },
+    brand: {
+      barColor: theme.color.fillNeutralTertiary,
+      progressColor: theme.color.fillBrand
+    }
+  };
+};
+// EXTERNAL MODULE: ../../@lightningjs/ui-components/src/utils/index.js
+var utils = __webpack_require__("../../@lightningjs/ui-components/src/utils/index.js");
+;// CONCATENATED MODULE: ../../@lightningjs/ui-components/src/components/ProgressBar/ProgressBar.js
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _superPropSet(t, e, o, r, p, f) { return _set(_getPrototypeOf(f ? t.prototype : t), e, o, r, p); }
+function set(e, r, t, o) { return set = "undefined" != typeof Reflect && Reflect.set ? Reflect.set : function (e, r, t, o) { var f, i = _superPropBase(e, r); if (i) { if ((f = Object.getOwnPropertyDescriptor(i, r)).set) return f.set.call(o, t), !0; if (!f.writable) return !1; } if (f = Object.getOwnPropertyDescriptor(o, r)) { if (!f.writable) return !1; f.value = t, Object.defineProperty(o, r, f); } else _defineProperty(o, r, t); return !0; }, set(e, r, t, o); }
+function _set(e, r, t, o, f) { if (!set(e, r, t, o || e) && f) throw new TypeError("failed to set property"); return t; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _superPropGet(t, e, o, r) { var p = _get(_getPrototypeOf(1 & r ? t.prototype : t), e, o); return 2 & r && "function" == typeof p ? function (t) { return p.apply(o, t); } : p; }
+function _get() { return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) { var p = _superPropBase(e, t); if (p) { var n = Object.getOwnPropertyDescriptor(p, t); return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value; } }, _get.apply(null, arguments); }
+function _superPropBase(t, o) { for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t));); return t; }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+/**
+ * Copyright 2023 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+
+
+
+
+var ProgressBar = /*#__PURE__*/function (_Base) {
+  function ProgressBar() {
+    _classCallCheck(this, ProgressBar);
+    return _callSuper(this, ProgressBar, arguments);
+  }
+  _inherits(ProgressBar, _Base);
+  return _createClass(ProgressBar, [{
+    key: "_construct",
+    value: function _construct() {
+      _superPropGet(ProgressBar, "_construct", this, 1) && _superPropGet(ProgressBar, "_construct", this, 3)([]);
+      this._progress = 0;
+    }
+  }, {
+    key: "_update",
+    value: function _update() {
+      this._updateTextures();
+      this._updateProgress();
+      if (this._progressChanged) {
+        this.fireAncestors('$announce', this.announce);
+        this._progressChanged = false;
+      }
+    }
+  }, {
+    key: "_updateTextures",
+    value: function _updateTextures() {
+      var w = this._getProgressWidth();
+      var radius = (0,utils/* getMaxRoundRadius */.XG)(this.style.radius, this.w - 2, this.h);
+      this._Bar.texture = lightning_esm/* default */.A.Tools.getRoundRect(
+      // getRoundRect adds 2 to the width
+      this.w - 2, this.h, radius, 0, 0, true, this.style.barColor);
+      this._Progress.texture = lightning_esm/* default */.A.Tools.getRoundRect(w + 1, this.h, radius, 0, 0, true, this.style.progressColor);
+    }
+  }, {
+    key: "_updateProgress",
+    value: function _updateProgress() {
+      var w = this._getProgressWidth();
+      this._Progress.smooth = {
+        w: [w, this.style.animation],
+        alpha: Number(w > 0)
+      };
+    }
+  }, {
+    key: "_setProgress",
+    value: function _setProgress(progress) {
+      this._progressChanged = progress !== this._progress;
+      return progress;
+    }
+  }, {
+    key: "announce",
+    get: function get() {
+      if (this._announce !== undefined && this._announce !== null) {
+        return this._announce;
+      }
+      var progress = this.progress;
+      if (progress > 1) {
+        progress = 1;
+      } else if (progress < 0) {
+        progress = 0;
+      }
+      return "".concat(Math.round(progress * 100), "%");
+    },
+    set: function set(announce) {
+      _superPropSet(ProgressBar, "announce", announce, this, 1, 1);
+    }
+  }, {
+    key: "_getProgressWidth",
+    value: function _getProgressWidth() {
+      var p = this.w * this._progress;
+      var w = p <= 0 ? 0 : Math.min(p, this.w);
+      return w;
+    }
+  }], [{
+    key: "_template",
+    value: function _template() {
+      return {
+        Bar: {
+          zIndex: 1
+        },
+        Progress: {
+          alpha: 0,
+          zIndex: 2
+        }
+      };
+    }
+  }, {
+    key: "__themeStyle",
+    get: function get() {
+      return ProgressBar_styles_namespaceObject;
+    }
+  }, {
+    key: "__componentName",
+    get: function get() {
+      return 'ProgressBar';
+    }
+  }, {
+    key: "properties",
+    get: function get() {
+      return ['progress'];
+    }
+  }, {
+    key: "tags",
+    get: function get() {
+      return ['Bar', 'Progress'];
+    }
+  }]);
+}(Base/* default */.A);
+
+
+/***/ }),
+
+/***/ "../../@lightningjs/ui-components/src/components/ProgressBar/ProgressBar.stories.js":
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ProgressBar: () => (/* binding */ ProgressBar),
+/* harmony export */   __namedExportsOrder: () => (/* binding */ __namedExportsOrder),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("../../../node_modules/@lightningjs/core/dist/lightning.esm.js");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("../../@lightningjs/ui-components/src/components/ProgressBar/ProgressBar.js");
+/**
+ * Copyright 2023 Comcast Cable Communications Management, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  title: 'Components/ProgressBar',
+  parameters: {
+    tag: 'ProgressBar',
+    actions: {
+      handles: ['mouseover', 'click .btn']
+    }
+  }
+});
+const ProgressBar = () => class ProgressBar extends _lightningjs_core__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A.Component {
+  static _template() {
+    return {
+      ProgressBar: {
+        type: ___WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .A
+      }
+    };
+  }
+};
+ProgressBar.storyName = 'ProgressBar';
+ProgressBar.args = {
+  progress: 0.5,
+  w: 410
+};
+ProgressBar.argTypes = {
+  progress: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 1,
+      step: 0.01
+    },
+    description: 'Percentage of the current progress from 0 to 1',
+    table: {
+      defaultValue: {
+        summary: 0
+      }
+    }
+  },
+  w: {
+    control: {
+      type: 'range',
+      min: 0,
+      max: 600,
+      step: 0.01
+    },
+    description: 'width of the entire bar',
+    table: {
+      defaultValue: {
+        summary: 0
+      }
+    }
+  }
+};
+;
+const __namedExportsOrder = ["ProgressBar"];
+ProgressBar.parameters = {
+  ...ProgressBar.parameters,
+  docs: {
+    ...ProgressBar.parameters?.docs,
+    source: {
+      originalSource: "() => class ProgressBar extends lng.Component {\n  static _template() {\n    return {\n      ProgressBar: {\n        type: ProgressBarComponent\n      }\n    };\n  }\n}",
+      ...ProgressBar.parameters?.docs?.source
+    }
+  }
+};
+
+/***/ })
+
+}]);
+//# sourceMappingURL=components-ProgressBar-ProgressBar-stories.177a916b.iframe.bundle.js.map
