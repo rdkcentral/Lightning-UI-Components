@@ -20,30 +20,31 @@ import lng from '@lightningjs/core';
 import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox';
 import Slider from '.';
-import { useArgs } from '@storybook/client-api';
+// TODO: Re-implement after figuring out how to in Storybook 8; worked in 7.
+// import { useArgs } from '@storybook/manager-api';
 
 export default {
   title: 'Components/Slider/Slider'
 };
 
 export const Basic = () => {
-  const [{ value }, updateArgs] = useArgs();
+  // const [{ value }, updateArgs] = useArgs();
   return class Basic extends lng.Component {
     static _template() {
       return {
         Slider: {
-          type: Slider,
-          value: value,
-          signals: {
-            onChange: true
-          }
+          type: Slider
+          // value: value,
+          // signals: {
+          //   onChange: true
+          // }
         }
       };
     }
     // update arg control when value changes
-    onChange(value) {
-      updateArgs({ value });
-    }
+    // onChange(value) {
+    //   updateArgs({ value });
+    // }
   };
 };
 
