@@ -60,7 +60,7 @@ KeyboardNumbers.argTypes = {
   defaultFormat: {
     description: 'Select the format of dialpad',
     control: 'radio',
-    options: ['dialpad', 'dialpadExtended'],
+    options: ['dialpad', 'dialpadExtended', 'numbers'],
     table: {
       defaultValue: { summary: 'undefined' }
     }

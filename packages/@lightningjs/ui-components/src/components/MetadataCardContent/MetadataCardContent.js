@@ -38,6 +38,9 @@ export default class MetadataCardContent extends MetadataBase {
         Title: {
           type: TextBox
         },
+        Subtitle: {
+          type: TextBox
+        },
         Description: {
           type: TextBox
         },
@@ -72,6 +75,7 @@ export default class MetadataCardContent extends MetadataBase {
       'descriptionDetails',
       'details',
       'provider',
+      'subtitle',
       'title'
     ];
   }
@@ -82,6 +86,10 @@ export default class MetadataCardContent extends MetadataBase {
       {
         name: 'Title',
         path: 'Text.Title'
+      },
+      {
+        name: 'Subtitle',
+        path: 'Text.Subtitle'
       },
       {
         name: 'Description',
@@ -141,9 +149,35 @@ export default class MetadataCardContent extends MetadataBase {
   _updateLines() {
     this._Text.w = this.w;
     this._updateTitle();
+    this._updateSubtitle();
     this._updateDescription();
     this._updateDescriptionDetails();
     this._updateDetails();
+  }
+
+  _updateSubtitle() {
+    if (!this.subtitle && !this._Subtitle) {
+      return;
+    }
+
+    if (!this._Subtitle) {
+      this._Text.childList.addAt({
+        ref: 'Subtitle',
+        type: TextBox
+      });
+    }
+
+    this._Subtitle.patch({
+      content: this.subtitle,
+      style: {
+        textStyle: {
+          ...this.style.subtitleTextStyle,
+          maxLines: 1,
+          wordWrap: true,
+          wordWrapWidth: this._Text.w
+        }
+      }
+    });
   }
 
   _updateDescription() {
@@ -264,6 +298,7 @@ export default class MetadataCardContent extends MetadataBase {
     return (
       this._announce || [
         this._Title && this._Title.announce,
+        this._Subtitle && this._Subtitle.announce,
         this._Description && this._Description.announce,
         this._DescriptionDetails && this._DescriptionDetails.announce,
         this._Details && this._Details.announce,

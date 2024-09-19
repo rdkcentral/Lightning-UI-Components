@@ -15,7 +15,7 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-
+import lng from '@lightningjs/core';
 import Icon from '../Icon';
 import Badge from '../Badge';
 import { parseInlineContent, flatten, measureTextWidth } from '../../utils';
@@ -89,8 +89,6 @@ export default class InlineContent extends Base {
         const base = {
           flexItem: {
             ...this.contentProperties,
-            // apply contentProperties object props first if those are defined
-            // otherwise will use the style props
             marginBottom: isLast ? 0 : this._marginBottom,
             marginRight: isLast
               ? 0
@@ -101,7 +99,14 @@ export default class InlineContent extends Base {
         // text not separated by icons/badges are grouped together
         if (isText(item)) {
           const nextItem = this._parsedContent[index + 1];
-          if (nextItem && isText(nextItem)) {
+          if (
+            (nextItem && isText(nextItem)) ||
+            (this.contentWrap &&
+              nextItem &&
+              nextItem.newline &&
+              this._parsedContent[index + 2] &&
+              isText(this._parsedContent[index + 2]))
+          ) {
             base.flexItem.marginRight = 0;
           }
           this.childList.a(this._createText(base, item));
@@ -346,8 +351,7 @@ export default class InlineContent extends Base {
       typeof text.style === 'string'
         ? this.customStyleMappings[text.style]
         : text.style;
-
-    return {
+    const textComponent = {
       ...base,
       y: this.textY !== undefined ? this.textY : this.style.textY,
       h:
@@ -360,6 +364,31 @@ export default class InlineContent extends Base {
         text: text.text || text
       }
     };
+    if (textOverrideStyles?.textDecoration === 'line-through') {
+      const textWidth = measureTextWidth({
+        ...this.style.textStyle,
+        ...textOverrideStyles,
+        text: text.text || text
+      });
+      const strikethroughLine = {
+        rect: true,
+        w: textWidth,
+        color:
+          this.style.strikethroughColor ||
+          textOverrideStyles?.textColor ||
+          this.style.textStyle.textColor,
+        h: textComponent.h * this.style.strikethroughRatio,
+        y: textComponent.h / 2,
+        mountY: 1
+      };
+      return {
+        type: lng.Component,
+        w: textWidth + textComponent.flexItem.marginRight,
+        h: textComponent.h,
+        children: [{ ...textComponent }, { ...strikethroughLine }]
+      };
+    }
+    return textComponent;
   }
 
   _createBadge(base, badge) {
@@ -508,6 +537,9 @@ export default class InlineContent extends Base {
           announce += item.announce;
         } else if (item.text) {
           announce += item.text;
+          if (item.style?.textDecoration === 'line-through') {
+            announce += 'strikethrough';
+          }
         } else if (item.title) {
           announce += item.title;
         } else if (item.badge) {

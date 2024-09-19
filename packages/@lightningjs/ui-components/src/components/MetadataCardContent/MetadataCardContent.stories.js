@@ -46,8 +46,9 @@ const descriptionSample =
 
 MetadataCardContent.args = {
   w: 600,
-  h: 250,
+  h: 300,
   title: 'Title',
+  subtitle: 'Subtitle',
   description: descriptionSample,
   descriptionDetails: [
     '94%',
@@ -93,9 +94,17 @@ MetadataCardContent.argTypes = {
       type: { summary: 'string' }
     }
   },
+  subtitle: {
+    control: 'text',
+    description: 'Subtitle text below title',
+    table: {
+      defaultValue: { summary: 'undefined' },
+      type: { summary: 'string' }
+    }
+  },
   description: {
     control: 'text',
-    description: 'Description text directly below title',
+    description: 'Description text below subtitle',
     table: {
       defaultValue: { summary: 'undefined' },
       type: { summary: 'string' }
