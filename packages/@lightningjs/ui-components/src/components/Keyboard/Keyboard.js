@@ -69,30 +69,31 @@ export default class Keyboard extends Base {
   }
 
   _update() {
-    if (!this._currentFormat) {
+    if (!this._currentFormat || this._shouldUpdateKeyboards) {
       this._currentFormat = this.defaultFormat;
     }
     if (this.centerKeyboard) {
-      this.x = (this.style.screenW - this.w) / 2 - this.style.marginX;
-    } else {
+      this.x = this.centeredXPos;
+    } else if (this.x === this.centeredXPos && !this.centerKeyboard) {
+      // if the keyboard was centered before but now should not be
       this.x = 0;
-    }
-    if (this._formatsChanged || this.shouldUpdateTheme) {
-      this._createFormat(this._currentFormat);
-      this._refocus();
-      this._formatsChanged = false;
-      this.shouldUpdateTheme = false;
     } else {
-      this._formatKeys();
+      this.x == null && (this.x = 0); // if x is undefined or null set it to 0, otherwise do not overwrite x pos
     }
+    this._shouldUpdateKeyboards && this._createKeyboardsFromFormats();
+    this._formatKeys();
   }
 
-  _createFormat(keyboard) {
-    const format = this.formats[keyboard];
-    if (format) {
-      const keyboardData = this._formatKeyboardData(format);
-      this._createKeyboard(keyboard, this._createRows(keyboardData, keyboard));
-    }
+  _createKeyboardsFromFormats() {
+    this.childList.clear(); // if new formats patched in, remove keyboards created from the previous formats
+    Object.keys(this.formats).forEach(key => {
+      const format = this.formats[key];
+      if (format) {
+        const keyboardData = this._formatKeyboardData(format);
+        this._createKeyboard(key, this._createRows(keyboardData, key));
+      }
+    });
+    this._formatsChanged = false;
   }
 
   _createKeyboard(key, rows = []) {
@@ -110,7 +111,8 @@ export default class Keyboard extends Base {
           },
           autoResizeWidth: true,
           autoResizeHeight: true,
-          neverScroll: true
+          neverScroll: true,
+          alpha: key === capitalize(this._currentFormat) ? 1 : 0.001
         }
       });
     }
@@ -199,6 +201,7 @@ export default class Keyboard extends Base {
       const element = this.tag(capitalize(format));
       if (element) {
         element.patch({
+          alpha: format === this._currentFormat ? 1 : 0.001,
           style: {
             itemSpacing: this.style.keySpacing
           }
@@ -221,11 +224,10 @@ export default class Keyboard extends Base {
   $toggleKeyboard(next) {
     const nextKeyboard = capitalize(next);
     if (next !== this._currentFormat) {
-      this._createFormat(next);
       const nextKeyboardTag = this.tag(nextKeyboard);
 
       this.selectKeyOn(nextKeyboardTag);
-      this._currentKeyboard.alpha = 0;
+      this._currentKeyboard.alpha = 0.001;
       nextKeyboardTag.alpha = 1;
       this._currentFormat = next;
     }
@@ -266,6 +268,14 @@ export default class Keyboard extends Base {
   _setFormats(formats = {}) {
     this._formatsChanged = true;
     return formats;
+  }
+
+  get centeredXPos() {
+    return (this.style.screenW - this.w) / 2 - this.style.marginX;
+  }
+
+  get _shouldUpdateKeyboards() {
+    return this.shouldUpdateTheme || this._formatsChanged;
   }
 
   set defaultFormat(format) {
