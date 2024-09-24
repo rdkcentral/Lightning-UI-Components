@@ -37,10 +37,10 @@ export default class Knob extends Base {
   }
 
   _update() {
-    this._updateCircleLayout();
+    this._updateLayout();
   }
 
-  _updateCircleLayout() {
+  _updateLayout() {
     this.patch({
       texture: lng.Tools.getRoundRect(
         this.w,
