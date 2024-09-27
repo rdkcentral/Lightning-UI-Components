@@ -8217,7 +8217,7 @@ var styleChainCache = {};
  * Flush the memoization cache for styleChain
  *
  */
-var clearStyleChainCache = function clearStyleChainCache() {
+var utils_clearStyleChainCache = function clearStyleChainCache() {
   for (var key in styleChainCache) {
     if (styleChainCache.hasOwnProperty(key)) {
       delete styleChainCache[key];
@@ -8511,10 +8511,19 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
   }, {
     key: "_onThemeUpdate",
     value: function _onThemeUpdate() {
-      clearStyleChainCache();
+      utils_clearStyleChainCache();
       this.clearSourceCache();
       this.clearStyleCache();
       this.update();
+    }
+
+    /**
+     * Clears the style chain cache.
+     */
+  }, {
+    key: "clearStyleChainCache",
+    value: function clearStyleChainCache() {
+      utils_clearStyleChainCache();
     }
 
     /**
@@ -8550,7 +8559,7 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
   }, {
     key: "_generateCacheKey",
     value: function _generateCacheKey(name) {
-      var cacheKey = [name, this.component.constructor.__componentName, this._customStyleHash].filter(Boolean).join('_');
+      var cacheKey = [name, this.component._targetSubTheme, this.component.constructor.__componentName, this._customStyleHash].filter(Boolean).join('_');
       return cacheKey;
     }
 
@@ -8637,7 +8646,6 @@ var StyleManager = /*#__PURE__*/function (_lng$EventEmitter) {
           // Style source does not exist so it will need to be generated. We attempt to run this function only when necessary for optimal performance
           styleSource = generateComponentStyleSource({
             alias: this.component.constructor.aliasStyles,
-            componentConfig: this.component._componentConfig,
             inlineStyle: this.component._componentLevelStyle,
             styleChain: getStyleChainMemoized(this.component),
             theme: this.component.theme
@@ -8845,6 +8853,7 @@ function withThemeStyles(Base) {
         if (this._targetSubTheme) {
           this._styleManager.clearListeners();
           this._styleManager.setupListeners();
+          this._styleManager.clearStyleChainCache();
           this._styleManager.clearStyleCache();
           this._styleManager.clearSourceCache();
           this._styleManager.update();
@@ -12993,4 +13002,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.664235a5.iframe.bundle.js.map
+//# sourceMappingURL=main.69f05d34.iframe.bundle.js.map

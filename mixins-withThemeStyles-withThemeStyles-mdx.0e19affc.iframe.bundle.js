@@ -68,6 +68,15 @@ function _createMdxContent(props) {
         children: "composability"
       }), ": the concept of combining the properties of multiple components to create a new component. This is not intended to be a replacement for building a component API, but rather a tool for augmentation."]
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h2, {
+      id: "source",
+      children: "Source"
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.p, {
+      children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.a, {
+        href: "https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lightningjs/ui-components/src/mixins/withThemeStyles/index.js",
+        rel: "nofollow",
+        children: "https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lightningjs/ui-components/src/mixins/withThemeStyles/index.js"
+      })
+    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h2, {
       id: "usage",
       children: "Usage"
     }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_components.p, {
@@ -453,4 +462,4 @@ module.exports = webpackEmptyContext;
 /***/ })
 
 }]);
-//# sourceMappingURL=mixins-withThemeStyles-withThemeStyles-mdx.18dea2c7.iframe.bundle.js.map
+//# sourceMappingURL=mixins-withThemeStyles-withThemeStyles-mdx.0e19affc.iframe.bundle.js.map

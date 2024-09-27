@@ -124,11 +124,11 @@ var Knob = /*#__PURE__*/function (_Base) {
   return _createClass(Knob, [{
     key: "_update",
     value: function _update() {
-      this._updateCircleLayout();
+      this._updateLayout();
     }
   }, {
-    key: "_updateCircleLayout",
-    value: function _updateCircleLayout() {
+    key: "_updateLayout",
+    value: function _updateLayout() {
       this.patch({
         texture: lightning_esm/* default */.A.Tools.getRoundRect(this.w, this.h, (0,utils/* getMaxRoundRadius */.XG)(this.style.radius, this.w, this.h), null, null, true, this.style.circleColor)
       });
@@ -920,4 +920,4 @@ var GenericType = function GenericType(_ref7) {
 /***/ })
 
 }]);
-//# sourceMappingURL=4042.a5126342.iframe.bundle.js.map
+//# sourceMappingURL=4042.d02cd3a4.iframe.bundle.js.map
