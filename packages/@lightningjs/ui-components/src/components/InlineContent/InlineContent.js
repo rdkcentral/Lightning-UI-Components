@@ -63,6 +63,7 @@ export default class InlineContent extends Base {
   }
 
   _update() {
+    this._newLineLocations = [];
     this._updateContent();
     this._waitForComponentLoad();
   }
@@ -116,6 +117,8 @@ export default class InlineContent extends Base {
           this.childList.a(this._createBadge(base, item.badge));
         } else if (item.newline && this.contentWrap) {
           this.childList.a({ h: 0, w: this.w });
+          // We need to keep track of when we are adding new lines so that the total height is calculated correctly.
+          this._newLineLocations.push(this.childList.length - 1);
         }
       });
     }
@@ -161,9 +164,14 @@ export default class InlineContent extends Base {
         ) {
           let totalHeight = 0;
           this.flex._layout._lineLayouter._lines.forEach(line => {
-            totalHeight += Object.entries(line.items).sort((a, b) => {
+            // If the line we are on has a newLine element, we skip it so that we do not add any extra height.
+            if (this._newLineLocations.indexOf(line.startIndex) > -1) {
+              return;
+            }
+            const lineHeight = Object.entries(line.items).sort((a, b) => {
               return b[1].h - a[1].h;
             })[0][1].h;
+            totalHeight += lineHeight;
           });
           this.multiLineHeight = totalHeight;
 
