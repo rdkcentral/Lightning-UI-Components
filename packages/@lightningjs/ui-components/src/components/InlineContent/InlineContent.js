@@ -161,9 +161,11 @@ export default class InlineContent extends Base {
         ) {
           let totalHeight = 0;
           this.flex._layout._lineLayouter._lines.forEach(line => {
-            totalHeight += Object.entries(line.items).sort((a, b) => {
-              return b[1].h - a[1].h;
-            })[0][1].h;
+            totalHeight += Object.entries(line.items)
+              .slice(line.startIndex, line.endIndex + 1)
+              .sort((a, b) => {
+                return b[1].h - a[1].h;
+              })[0][1].h;
           });
           this.multiLineHeight = totalHeight;
 
