@@ -2911,7 +2911,7 @@ var InlineContent = /*#__PURE__*/function (_Base) {
           if (_this3.flex && _this3.flex._layout && _this3.flex._layout._lineLayouter && _this3.flex._layout._lineLayouter._lines) {
             var totalHeight = 0;
             _this3.flex._layout._lineLayouter._lines.forEach(function (line) {
-              totalHeight += Object.entries(line.items).sort(function (a, b) {
+              totalHeight += Object.entries(line.items).slice(line.startIndex, line.endIndex + 1).sort(function (a, b) {
                 return b[1].h - a[1].h;
               })[0][1].h;
             });
@@ -13002,4 +13002,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.69f05d34.iframe.bundle.js.map
+//# sourceMappingURL=main.a841ee1b.iframe.bundle.js.map
