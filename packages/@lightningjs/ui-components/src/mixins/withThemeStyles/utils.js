@@ -557,19 +557,30 @@ export const colorParser = (targetObject, styleObj) => {
   // Process style object and remove unnecessary properties
   const processedStyle = JSON.stringify(styleObj, (_, value) => {
     if (-1 < ['tone', 'mode'].indexOf(_)) return value; // Remove any tone/mode or mode/tone properties as they have already been processed
-    if ('string' === typeof value && value.startsWith('theme.')) {
-      // Support theme strings example: theme.radius.md
-      return getValFromObjPath(targetObject, value); // If no theme value exists, the property will be removed from the object
-    } else if (
+
+    // Handle theme strings, e.g., 'theme.radius.md'
+    if (typeof value === 'string' && value.startsWith('theme.')) {
+      // Retrieve the value from the target object using the theme path
+      return getValFromObjPath(targetObject, value); // If no theme value exists, the property will be removed
+    }
+
+    function isValidColor(num) {
+      return num >= 0 && num <= 0xffffffff;
+    }
+
+    // Handle color arrays, e.g., ['#663399', 1] or [255, 0.5]
+    if (
       Array.isArray(value) &&
       value.length === 2 &&
-      typeof value[0] === 'string' &&
-      value[0].substr(0, 1) === '#' &&
+      ((typeof value[0] === 'string' && value[0].startsWith('#')) ||
+        (typeof value[0] === 'number' && isValidColor(value[0]))) &&
       typeof value[1] === 'number'
     ) {
-      // Process value as a color ['#663399', 1]
+      // Return processed hex color or the original value if processing fails
       return getHexColor(value[0], value[1]) || value;
     }
+
+    // Return all other values as-is
     return value;
   });
 
