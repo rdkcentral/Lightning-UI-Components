@@ -8164,13 +8164,23 @@ var colorParser = function colorParser(targetObject, styleObj) {
   // Process style object and remove unnecessary properties
   var processedStyle = JSON.stringify(styleObj, function (_, value) {
     if (-1 < ['tone', 'mode'].indexOf(_)) return value; // Remove any tone/mode or mode/tone properties as they have already been processed
-    if ('string' === typeof value && value.startsWith('theme.')) {
-      // Support theme strings example: theme.radius.md
-      return (0,utils/* getValFromObjPath */.ot)(targetObject, value); // If no theme value exists, the property will be removed from the object
-    } else if (Array.isArray(value) && value.length === 2 && typeof value[0] === 'string' && value[0].substr(0, 1) === '#' && typeof value[1] === 'number') {
-      // Process value as a color ['#663399', 1]
+
+    // Handle theme strings, e.g., 'theme.radius.md'
+    if (typeof value === 'string' && value.startsWith('theme.')) {
+      // Retrieve the value from the target object using the theme path
+      return (0,utils/* getValFromObjPath */.ot)(targetObject, value); // If no theme value exists, the property will be removed
+    }
+    function isValidColor(num) {
+      return num >= 0 && num <= 0xffffffff;
+    }
+
+    // Handle color arrays, e.g., ['#663399', 1] or [255, 0.5]
+    if (Array.isArray(value) && value.length === 2 && (typeof value[0] === 'string' && value[0].startsWith('#') || typeof value[0] === 'number' && isValidColor(value[0])) && typeof value[1] === 'number') {
+      // Return processed hex color or the original value if processing fails
       return (0,utils/* getHexColor */.H2)(value[0], value[1]) || value;
     }
+
+    // Return all other values as-is
     return value;
   });
   return JSON.parse(processedStyle || {});
@@ -13002,4 +13012,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.a841ee1b.iframe.bundle.js.map
+//# sourceMappingURL=main.f80f06c1.iframe.bundle.js.map
