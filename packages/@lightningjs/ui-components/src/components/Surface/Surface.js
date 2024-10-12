@@ -53,6 +53,11 @@ export default class Surface extends Base {
   }
 
   _update() {
+    this.patch({
+      x: this.style.x,
+      w: this.w,
+      mountX: 0.5
+    });
     this._updateLayout();
     this._updateScale();
   }

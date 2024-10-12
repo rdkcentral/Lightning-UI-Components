@@ -90,6 +90,7 @@ export { default as TitleRow } from './src/components/TitleRow/TitleRow';
 export { default as Toggle } from './src/components/Toggle/Toggle';
 export { default as ToggleSmall } from './src/components/Toggle/ToggleSmall';
 export { default as Tooltip } from './src/components/Tooltip/Tooltip';
+export { default as TextMagnifier } from './src/components/TextMagnifier/TextMagnifier';
 
 // Globals
 export { default as context } from './src/globals/context';
