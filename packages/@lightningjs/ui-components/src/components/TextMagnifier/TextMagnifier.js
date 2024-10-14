@@ -74,6 +74,7 @@ export default class TextMagnifier extends Surface {
         mountY: 1
       });
     }
+    //this.application.focusPath[this.application.focusPath.length - 1].core.renderContext
 
     this._createScrollWrapper();
     super._update();
