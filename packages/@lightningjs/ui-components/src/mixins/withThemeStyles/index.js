@@ -139,7 +139,7 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       if (
         !Object.keys(this._styleManager.props).length ||
         JSON.stringify(this._styleManager.props) ===
-        JSON.stringify(this._prevComponentConfigProps)
+          JSON.stringify(this._prevComponentConfigProps)
       ) {
         return;
       }
@@ -147,9 +147,9 @@ export default function withThemeStyles(Base, mixinStyle = {}) {
       // Compare current properties with previous configuration and get the payload
       const payload = this._prevComponentConfigProps
         ? mergeObjectsWithSecondDominant(
-          this._prevComponentConfigProps || {},
-          this._styleManager.props || {}
-        )
+            this._prevComponentConfigProps || {},
+            this._styleManager.props || {}
+          )
         : this._styleManager.props || {};
 
       // Store a deep copy of the current properties for future comparison

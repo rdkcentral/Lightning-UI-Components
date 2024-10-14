@@ -21,8 +21,25 @@ export const base = theme => {
     radius: theme.radius.lg,
     textStyle: theme.typography.display1,
     color: theme.color.fillNeutral,
+    gutterX: theme.layout.gutterX,
+    gutterY: theme.layout.safe,
     w: theme.layout.screenW - theme.layout.safe,
     x: (theme.layout.screenW - theme.layout.safe) / 2 + theme.layout.safe / 2,
     h: theme.typography.headline1.lineHeight + theme.layout.marginY * 2
   };
 };
+
+export const tone = theme => ({
+  neutral: {
+    backgroundColor: theme.color.fillNeutral,
+    textStyle: { textColor: theme.color.textInverse }
+  },
+  inverse: {
+    backgroundColor: theme.color.fillInverse,
+    textStyle: { textColor: theme.color.textNeutral }
+  },
+  brand: {
+    backgroundColor: theme.color.fillBrand,
+    textStyle: { textColor: theme.color.textNeutral }
+  }
+});

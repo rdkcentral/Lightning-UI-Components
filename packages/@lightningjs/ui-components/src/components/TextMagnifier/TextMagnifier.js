@@ -17,7 +17,7 @@
  */
 
 import Surface from '../Surface/Surface';
-// import ScrollWrapper from '../ScrollWrapper/ScrollWrapper.js';
+import ScrollWrapper from '../ScrollWrapper/ScrollWrapper.js';
 import * as styles from './TextMagnifier.styles.js';
 
 export default class TextMagnifier extends Surface {
@@ -29,31 +29,63 @@ export default class TextMagnifier extends Surface {
     return styles;
   }
 
+  static _template() {
+    return {
+      ...super._template(),
+      ScrollWrapper: {
+        type: ScrollWrapper
+      }
+    };
+  }
+
   _construct() {
-    this._tone = 'inverse';
+    this._location = 'top';
     super._construct();
   }
 
-  set mode(v) { }
+  set mode(value) {
+    // Mode is always unfocused
+  }
 
   get mode() {
     return 'unfocused';
   }
 
-  _update() {
-    this.patch({
-      y: this.stage.h / this.stage.getRenderPrecision() + this.style.radius,
-      mountY: 1
-    });
+  static get properties() {
+    return ['location'];
+  }
 
+  get content() {
+    return this._content;
+  }
+
+  set content(value) {
+    this._createScrollWrapper();
+    this.tag('ScrollWrapper').content = value;
+    this._content = value;
+  }
+
+  _update() {
+    if (this.location === 'top') {
+      this.y = -this.style.radius;
+    } else {
+      this.patch({
+        y: this.stage.h / this.stage.getRenderPrecision() + this.style.radius,
+        mountY: 1
+      });
+    }
+
+    this._createScrollWrapper();
     super._update();
   }
 
-  // set content(text) {
-  //   let trimmedText = text.trim();
-  //   if (trimmedText.charAt(trimmedText.length - 1) === '0') {
-  //     trimmedText = trimmedText.slice(0, -1);
-  //   }
-  //   this.tag('Text').content = trimmedText.split(',').filter(Boolean).join(',');
-  // }
+  _createScrollWrapper() {
+    this.tag('ScrollWrapper').patch({
+      type: ScrollWrapper,
+      w: this.style.w - this.style.gutterX * 2,
+      h: this.style.h - this.style.gutterY * 2,
+      y: this.style.gutterY,
+      style: { textStyle: this.style.textStyle }
+    });
+  }
 }
