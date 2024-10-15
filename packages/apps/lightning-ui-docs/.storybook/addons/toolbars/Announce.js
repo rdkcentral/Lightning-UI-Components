@@ -52,31 +52,32 @@ export const Announce = memo(function MyAddonSelector() {
 });
 
 export const Magnifier = memo(function MyAddonSelector() {
-  const [{ announce }, updateGlobals] = useGlobals();
+  const [{ magnifier }, updateGlobals] = useGlobals();
   const api = useStorybookApi();
-  const isActive = [true, 'true'].includes(announce);
-  const toggleAnnounce = useCallback(() => {
+  const isActive = [true, 'true'].includes(magnifier);
+  const toggleMagnifier = useCallback(() => {
+    console.log('here')
     updateGlobals({
-      announce: !isActive
+      magnifier: !isActive
     });
   }, [isActive]);
 
   useEffect(() => {
     api.setAddonShortcut(ADDON_ID, {
-      label: 'Announce Toggle [0]',
-      actionName: 'Announce',
-      action: toggleAnnounce
+      label: 'Magnifier Toggle [0]',
+      actionName: 'Magnifier',
+      action: toggleMagnifier
     });
-  }, [toggleAnnounce, api]);
+  }, [toggleMagnifier, api]);
 
   return (
     <IconButton
       key={MAGNIFIER_ID}
       active={isActive}
       title="Toggle a11y announcing (voice guidance) of components"
-      onClick={toggleAnnounce}
+      onClick={toggleMagnifier}
     >
-      <Icons icon="speaker" />
+      <Icons icon="accessibility" />
     </IconButton>
   );
 });

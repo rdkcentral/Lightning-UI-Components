@@ -124,11 +124,10 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
 
     set textMagnifierEnabled(val) {
       this._textMagnifierEnabled = val;
-      this._focusChange();
+      this._updateTextMagnifier(true);
     }
 
     get textMagnifierEnabled() {
-      return true;
       return this._textMagnifierEnabled;
     }
 
@@ -136,18 +135,24 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       if (!this._resetFocusTimer) {
         return;
       }
-
       this._resetFocusTimer();
       this.$announcerCancel();
       this._debounceAnnounceFocusChanges();
       this._updateTextMagnifier();
     }
 
-    _updateTextMagnifier() {
-      if (!this.textMagnifierEnabled) return;
+    _updateTextMagnifier(force = false) {
+      if (!this.textMagnifierEnabled) {
+        if (this.tag('TextMagnifier')) {
+          this.patch({
+            TextMagnifier: undefined
+          });
+        }
+        return;
+      }
 
       const focusPath = this.application.focusPath || [];
-      const lastFocusPath = this._lastFocusPath || [];
+      const lastFocusPath = force ? [] : this._lastFocusPath || [];
       const focusDiff = focusPath.filter(elm => !lastFocusPath.includes(elm));
 
       this._lastFocusPath = [...focusPath]; // Shallow copy of focusPath
@@ -169,7 +174,7 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
 
       this.patch({
         TextMagnifier: {
-          type: textMagnifier ? undefined : TextMagnifier, // Set type only if not already tagged
+          type: textMagnifier ? undefined : TextMagnifier,
           location: stickToTop ? 'top' : 'bottom',
           content,
           zIndex: 9999

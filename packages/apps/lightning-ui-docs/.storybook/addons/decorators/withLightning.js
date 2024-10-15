@@ -83,6 +83,7 @@ export const withLightning = (
   const app = createApp({ theme: globals.LUITheme });
   clearInspector();
   app.announcerEnabled = globals.announce;
+  app.textMagnifierEnabled = globals.magnifier;
   app.debug = globals.announce;
   // toggle stage color
   !globals.stageColor
@@ -176,12 +177,12 @@ export const withLightning = (
       app.tag('StoryComponent').patch(
         parameters.storyDetails
           ? {
-              x: context.theme.layout.marginX
-            }
+            x: context.theme.layout.marginX
+          }
           : {
-              x: context.theme.layout.marginX,
-              y: context.theme.layout.marginY
-            }
+            x: context.theme.layout.marginX,
+            y: context.theme.layout.marginY
+          }
       );
   });
   if (!app.tag('GridOverlay')) {
