@@ -52,8 +52,8 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       if (announcerOptions.abbreviationsConfig.abbreviationsPattern) {
         toSpeak = Array.isArray(toAnnounce)
           ? toAnnounce.map(phrase =>
-            translateAbbrev(phrase, announcerOptions.abbreviationsConfig)
-          )
+              translateAbbrev(phrase, announcerOptions.abbreviationsConfig)
+            )
           : translateAbbrev(toAnnounce, announcerOptions.abbreviationsConfig);
       }
       const speech = speak(toSpeak, options.language);
@@ -140,6 +140,41 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       this._resetFocusTimer();
       this.$announcerCancel();
       this._debounceAnnounceFocusChanges();
+      this._updateTextMagnifier();
+    }
+
+    _updateTextMagnifier() {
+      if (!this.textMagnifierEnabled) return;
+
+      const focusPath = this.application.focusPath || [];
+      const lastFocusPath = this._lastFocusPath || [];
+      const focusDiff = focusPath.filter(elm => !lastFocusPath.includes(elm));
+
+      this._lastFocusPath = [...focusPath]; // Shallow copy of focusPath
+      this.focusDiffHook = focusDiff;
+
+      const focusedElement = focusDiff[focusDiff.length - 1];
+      if (!focusedElement) return;
+
+      const { title, description, announce, core } = focusedElement;
+      const focusText = title || description || announce || '';
+
+      const { py: focusedY } = core.renderContext;
+      const stickToTop = focusedY > this.stage.h / 2;
+
+      const textMagnifier = this.tag('TextMagnifier');
+      const content = Array.isArray(focusText)
+        ? focusText.filter(Boolean).join('. ').replace(/\.$/, '')
+        : focusText.replace(/\.$/, '');
+
+      this.patch({
+        TextMagnifier: {
+          type: textMagnifier ? undefined : TextMagnifier, // Set type only if not already tagged
+          location: stickToTop ? 'top' : 'bottom',
+          content,
+          zIndex: 9999
+        }
+      });
     }
 
     _announceFocusChanges() {
@@ -151,39 +186,6 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       if (!loaded) {
         this._debounceAnnounceFocusChanges();
         return;
-      }
-
-      this._lastFocusPath = focusPath.slice(0);
-      // Provide hook for focus diff for things like TextBanner
-      this.focusDiffHook = focusDiff;
-      if (this.textMagnifierEnabled) {
-        const focusedElement =
-          this.focusDiffHook[this.focusDiffHook.length - 1];
-
-        // Check if focusedElement exists and has the properties you need.
-        if (!focusedElement) return;
-
-        const { title, description, announce, core } = focusedElement;
-        const focusText = title || description || announce || ''; // Simplified focusText selection
-
-        const { py: focusedY } = core.renderContext;
-        const { h: screenHeight } = this.stage;
-
-        const stickToTop = focusedY > screenHeight / 2;
-
-        // Initialize patch only once to avoid re-creating it in conditionals.
-        const patch = {
-          TextMagnifier: {
-            type: this.tag('TextMagnifier') ? undefined : TextMagnifier, // Add type if TextMagnifier is not already tagged
-            location: stickToTop ? 'top' : 'bottom',
-            content: Array.isArray(focusText)
-              ? focusText.filter(Boolean).join('. ').replace(/\.$/, '')
-              : focusText.replace(/\.$/, ''),
-            zIndex: 9999
-          }
-        };
-
-        this.patch(patch);
       }
 
       if (!this.announcerEnabled) {
