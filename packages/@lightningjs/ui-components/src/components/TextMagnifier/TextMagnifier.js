@@ -67,13 +67,14 @@ export default class TextMagnifier extends Surface {
 
   _update() {
     if (this.location === 'top') {
-      this.y = -this.style.radius;
+      this.y = -(this.style.radius + 8);
     } else {
       this.patch({
-        y: this.stage.h / this.stage.getRenderPrecision() + this.style.radius,
+        y: this.stage.h + this.style.radius + 8,
         mountY: 1
       });
     }
+
     //this.application.focusPath[this.application.focusPath.length - 1].core.renderContext
 
     this._createScrollWrapper();

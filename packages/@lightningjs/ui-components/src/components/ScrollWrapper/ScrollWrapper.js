@@ -150,9 +150,9 @@ export default class ScrollWrapper extends Base {
       rtt: true,
       shader: shouldFade
         ? {
-          type: lng.shaders.FadeOut,
-          bottom: this.style.fadeHeight
-        }
+            type: lng.shaders.FadeOut,
+            bottom: this.style.fadeHeight
+          }
         : undefined
     });
   }

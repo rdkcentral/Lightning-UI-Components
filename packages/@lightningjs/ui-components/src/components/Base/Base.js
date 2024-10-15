@@ -49,7 +49,7 @@ class Base extends lng.Component {
     });
   }
 
-  _update() { }
+  _update() {}
 
   _focus() {
     this._updateShouldSmooth();

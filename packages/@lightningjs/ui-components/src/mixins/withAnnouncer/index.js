@@ -19,6 +19,7 @@
 import Speech from './Speech';
 import { translateAbbrev } from './abbreviations';
 import { debounce } from '../../utils';
+import TextMagnifier from '../../components/TextMagnifier/TextMagnifier';
 
 export { generateAbbrevConfig, defaultAbbrevConfig } from './abbreviations';
 
@@ -51,8 +52,8 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       if (announcerOptions.abbreviationsConfig.abbreviationsPattern) {
         toSpeak = Array.isArray(toAnnounce)
           ? toAnnounce.map(phrase =>
-              translateAbbrev(phrase, announcerOptions.abbreviationsConfig)
-            )
+            translateAbbrev(phrase, announcerOptions.abbreviationsConfig)
+          )
           : translateAbbrev(toAnnounce, announcerOptions.abbreviationsConfig);
       }
       const speech = speak(toSpeak, options.language);
@@ -121,6 +122,16 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       return this._announcerEnabled;
     }
 
+    set textMagnifierEnabled(val) {
+      this._textMagnifierEnabled = val;
+      this._focusChange();
+    }
+
+    get textMagnifierEnabled() {
+      return true
+      return this._textMagnifierEnabled;
+    }
+
     _focusChange() {
       if (!this._resetFocusTimer) {
         return;
@@ -145,6 +156,34 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       this._lastFocusPath = focusPath.slice(0);
       // Provide hook for focus diff for things like TextBanner
       this.focusDiffHook = focusDiff;
+      if (this.textMagnifierEnabled) {
+        const focusedElement = this.focusDiffHook[this.focusDiffHook.length - 1];
+
+        // Check if focusedElement exists and has the properties you need.
+        if (!focusedElement) return;
+
+        const { title, description, announce, core } = focusedElement;
+        const focusText = title || description || announce || '';  // Simplified focusText selection
+
+        const { py: focusedY } = core.renderContext;
+        const { h: screenHeight } = this.stage;
+
+        const stickToTop = focusedY > screenHeight / 2;
+
+        // Initialize patch only once to avoid re-creating it in conditionals.
+        const patch = {
+          TextMagnifier: {
+            type: this.tag('TextMagnifier') ? undefined : TextMagnifier,  // Add type if TextMagnifier is not already tagged
+            location: stickToTop ? 'top' : 'bottom',
+            content: Array.isArray(focusText)
+              ? focusText.filter(Boolean).join('. ').replace(/\.$/, "")
+              : focusText.replace(/\.$/, "")
+          }
+        };
+
+        this.patch(patch);
+      }
+
 
       if (!this.announcerEnabled) {
         return;
@@ -180,9 +219,11 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
 
       if (toAnnounce.length) {
         this.$announcerCancel();
-        this._currentlySpeaking = this._voiceOut(
-          toAnnounce.reduce((acc, val) => acc.concat(val), [])
-        );
+        if (this.announcerEnabled) {
+          this._currentlySpeaking = this._voiceOut(
+            toAnnounce.reduce((acc, val) => acc.concat(val), [])
+          );
+        }
       }
     }
 

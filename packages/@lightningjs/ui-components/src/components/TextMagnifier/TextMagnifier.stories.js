@@ -30,7 +30,8 @@ export const TextMagnifier = () =>
       return {
         TextMagnifier: {
           type: TextMagnifierComponent,
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet fermentum massa, nec scelerisque magna sodales viverra. Fusce mauris neque, aliquam vitae hendrerit vitae, tempor eu nunc. Vestibulum ligula tellus, feugiat facilisis diam non, scelerisque eleifend justo. Sed fermentum dui velit, eu imperdiet enim pretium vitae. Sed molestie, ex nec lacinia ornare, turpis urna egestas justo, sit amet blandit sapien turpis egestas dui. Sed vel pharetra elit. Quisque auctor risus a elit posuere fermentum. Integer interdum enim vitae arcu faucibus vulputate. Pellentesque sed dolor quis erat venenatis scelerisque in faucibus lectus. Mauris ac semper ante, at lobortis nunc.'
+          content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet fermentum massa, nec scelerisque magna sodales viverra. Fusce mauris neque, aliquam vitae hendrerit vitae, tempor eu nunc. Vestibulum ligula tellus, feugiat facilisis diam non, scelerisque eleifend justo. Sed fermentum dui velit, eu imperdiet enim pretium vitae. Sed molestie, ex nec lacinia ornare, turpis urna egestas justo, sit amet blandit sapien turpis egestas dui. Sed vel pharetra elit. Quisque auctor risus a elit posuere fermentum. Integer interdum enim vitae arcu faucibus vulputate. Pellentesque sed dolor quis erat venenatis scelerisque in faucibus lectus. Mauris ac semper ante, at lobortis nunc.'
         }
       };
     }
