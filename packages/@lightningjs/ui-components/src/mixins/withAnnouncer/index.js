@@ -128,7 +128,7 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
     }
 
     get textMagnifierEnabled() {
-      return true
+      return true;
       return this._textMagnifierEnabled;
     }
 
@@ -157,13 +157,14 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       // Provide hook for focus diff for things like TextBanner
       this.focusDiffHook = focusDiff;
       if (this.textMagnifierEnabled) {
-        const focusedElement = this.focusDiffHook[this.focusDiffHook.length - 1];
+        const focusedElement =
+          this.focusDiffHook[this.focusDiffHook.length - 1];
 
         // Check if focusedElement exists and has the properties you need.
         if (!focusedElement) return;
 
         const { title, description, announce, core } = focusedElement;
-        const focusText = title || description || announce || '';  // Simplified focusText selection
+        const focusText = title || description || announce || ''; // Simplified focusText selection
 
         const { py: focusedY } = core.renderContext;
         const { h: screenHeight } = this.stage;
@@ -173,17 +174,17 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
         // Initialize patch only once to avoid re-creating it in conditionals.
         const patch = {
           TextMagnifier: {
-            type: this.tag('TextMagnifier') ? undefined : TextMagnifier,  // Add type if TextMagnifier is not already tagged
+            type: this.tag('TextMagnifier') ? undefined : TextMagnifier, // Add type if TextMagnifier is not already tagged
             location: stickToTop ? 'top' : 'bottom',
             content: Array.isArray(focusText)
-              ? focusText.filter(Boolean).join('. ').replace(/\.$/, "")
-              : focusText.replace(/\.$/, "")
+              ? focusText.filter(Boolean).join('. ').replace(/\.$/, '')
+              : focusText.replace(/\.$/, ''),
+            zIndex: 9999
           }
         };
 
         this.patch(patch);
       }
-
 
       if (!this.announcerEnabled) {
         return;

@@ -19,7 +19,7 @@
 import React, { memo, useCallback, useEffect } from 'react';
 import { useGlobals, useStorybookApi } from '@storybook/manager-api';
 import { Icons, IconButton } from '@storybook/components';
-import { ADDON_ID, ANNOUNCE_ID } from '../constants';
+import { ADDON_ID, ANNOUNCE_ID, MAGNIFIER_ID } from '../constants';
 
 export const Announce = memo(function MyAddonSelector() {
   const [{ announce }, updateGlobals] = useGlobals();
@@ -42,6 +42,36 @@ export const Announce = memo(function MyAddonSelector() {
   return (
     <IconButton
       key={ANNOUNCE_ID}
+      active={isActive}
+      title="Toggle a11y announcing (voice guidance) of components"
+      onClick={toggleAnnounce}
+    >
+      <Icons icon="speaker" />
+    </IconButton>
+  );
+});
+
+export const Magnifier = memo(function MyAddonSelector() {
+  const [{ announce }, updateGlobals] = useGlobals();
+  const api = useStorybookApi();
+  const isActive = [true, 'true'].includes(announce);
+  const toggleAnnounce = useCallback(() => {
+    updateGlobals({
+      announce: !isActive
+    });
+  }, [isActive]);
+
+  useEffect(() => {
+    api.setAddonShortcut(ADDON_ID, {
+      label: 'Announce Toggle [0]',
+      actionName: 'Announce',
+      action: toggleAnnounce
+    });
+  }, [toggleAnnounce, api]);
+
+  return (
+    <IconButton
+      key={MAGNIFIER_ID}
       active={isActive}
       title="Toggle a11y announcing (voice guidance) of components"
       onClick={toggleAnnounce}

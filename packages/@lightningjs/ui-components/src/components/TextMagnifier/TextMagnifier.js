@@ -29,6 +29,35 @@ export default class TextMagnifier extends Surface {
     return styles;
   }
 
+  static get properties() {
+    return ['location'];
+  }
+
+  get mode() {
+    return 'unfocused';
+  }
+
+  set mode(value) {
+    // Disable Mode
+  }
+
+  get content() {
+    return this._content;
+  }
+
+  set content(value) {
+    if (this._content !== value) {
+      this._content = value;
+      this._updateScrollWrapper();
+    }
+  }
+
+  _construct() {
+    super._construct();
+    this._location = 'top';
+    this._content = null;
+  }
+
   static _template() {
     return {
       ...super._template(),
@@ -38,56 +67,31 @@ export default class TextMagnifier extends Surface {
     };
   }
 
-  _construct() {
-    this._location = 'top';
-    super._construct();
-  }
-
-  set mode(value) {
-    // Mode is always unfocused
-  }
-
-  get mode() {
-    return 'unfocused';
-  }
-
-  static get properties() {
-    return ['location'];
-  }
-
-  get content() {
-    return this._content;
-  }
-
-  set content(value) {
-    this._createScrollWrapper();
-    this.tag('ScrollWrapper').content = value;
-    this._content = value;
-  }
-
   _update() {
-    if (this.location === 'top') {
-      this.y = -(this.style.radius + 8);
-    } else {
-      this.patch({
-        y: this.stage.h + this.style.radius + 8,
-        mountY: 1
-      });
-    }
+    const stageWidth = this.stage.w / this.stage.getRenderPrecision();
+    this.patch({
+      w: stageWidth - this.style.marginX * 2,
+      h: this.style.h,
+      x: this.style.marginX,
+      mountY: this.location === 'top' ? 0 : 1,
+      y:
+        this.location === 'top'
+          ? -this.style.radius
+          : this.stage.h / this.stage.getRenderPrecision() + this.style.radius
+    });
 
-    //this.application.focusPath[this.application.focusPath.length - 1].core.renderContext
-
-    this._createScrollWrapper();
+    this._updateScrollWrapper();
     super._update();
   }
 
-  _createScrollWrapper() {
+  _updateScrollWrapper() {
     this.tag('ScrollWrapper').patch({
-      type: ScrollWrapper,
-      w: this.style.w - this.style.gutterX * 2,
+      w: this.w - this.style.gutterX * 2,
       h: this.style.h - this.style.gutterY * 2,
       y: this.style.gutterY,
-      style: { textStyle: this.style.textStyle }
+      style: { textStyle: this.style.textStyle },
+      content: this._content,
+      alpha: this.content && this.content.length ? 1 : 0
     });
   }
 }

@@ -18,14 +18,13 @@
 
 export const base = theme => {
   return {
-    radius: theme.radius.lg,
-    textStyle: theme.typography.display1,
     color: theme.color.fillNeutral,
     gutterX: theme.layout.gutterX,
     gutterY: theme.layout.safe,
-    w: theme.layout.screenW - theme.layout.safe,
-    x: (theme.layout.screenW - theme.layout.safe) / 2 + theme.layout.safe / 2,
-    h: theme.typography.headline1.lineHeight + theme.layout.marginY * 2
+    h: theme.typography.headline1.lineHeight + theme.layout.marginY * 2,
+    marginX: theme.layout.safe,
+    radius: theme.radius.lg,
+    textStyle: theme.typography.display1
   };
 };
 
