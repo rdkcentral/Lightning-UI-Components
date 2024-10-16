@@ -52,8 +52,8 @@ export default function withAnnouncer(Base, speak = Speech, options = {}) {
       if (announcerOptions.abbreviationsConfig.abbreviationsPattern) {
         toSpeak = Array.isArray(toAnnounce)
           ? toAnnounce.map(phrase =>
-              translateAbbrev(phrase, announcerOptions.abbreviationsConfig)
-            )
+            translateAbbrev(phrase, announcerOptions.abbreviationsConfig)
+          )
           : translateAbbrev(toAnnounce, announcerOptions.abbreviationsConfig);
       }
       const speech = speak(toSpeak, options.language);
