@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import 'lightningInspect';
 import {
+  withTextMagnifier,
   withAnnouncer,
   Speech,
   pool,
@@ -62,10 +63,8 @@ export const createApp = parameters => {
 
   window.CONTEXT = context; // Used by addons
 
-  window.APP = new (class LightningUIApp extends withAnnouncer(
-    lng.Application,
-    Speech,
-    announcerOptions
+  window.APP = new (class LightningUIApp extends withTextMagnifier(
+    lng.Application
   ) {
     _construct() {
       this.announcerTimeout = 15 * 1000;

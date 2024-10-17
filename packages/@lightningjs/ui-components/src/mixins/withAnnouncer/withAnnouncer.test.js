@@ -83,7 +83,7 @@ class Row extends lng.Component {
   }
 }
 
-class Item extends lng.Component { }
+class Item extends lng.Component {}
 
 const Items = {
   Items: {
@@ -503,75 +503,4 @@ describe('AppAnnouncer', () => {
       expect(speak).toHaveBeenCalledWith('CT', language);
     });
   });
-
-  describe('TextMagnifier', () => {
-    let announcer, testRenderer;
-
-    beforeEach(() => {
-      jest.clearAllMocks();
-      testRenderer = TestRenderer.create(Component);
-      announcer = testRenderer.getInstance();
-    });
-
-    it('should enable TextMagnifier when textMagnifierEnabled is true', () => {
-      announcer.textMagnifierEnabled = true;
-      announcer._updateTextMagnifier(true);
-
-      const textMagnifier = announcer.tag('TextMagnifier');
-      expect(textMagnifier).toBeDefined();
-    });
-
-    // it('should disable TextMagnifier when textMagnifierEnabled is false', () => {
-    //   announcer.textMagnifierEnabled = false;
-    //   announcer._updateTextMagnifier(true);
-
-    //   const textMagnifier = announcer.tag('TextMagnifier');
-    //   expect(textMagnifier).toBeUndefined();
-    // });
-
-    // it('should update the content of the TextMagnifier with the focused component title or announce', () => {
-    //   announcer.textMagnifierEnabled = true;
-    //   testRenderer.keyPress('Right');
-    //   announcer._updateTextMagnifier(true);
-
-    //   const textMagnifier = announcer.tag('TextMagnifier');
-    //   const expectedContent = 'Transformers';
-    //   expect(textMagnifier.content).toEqual(expectedContent);
-    // });
-
-    // it.skip('should stick the TextMagnifier to the top when focusedY is greater than half the stage height', () => {
-    //   announcer.textMagnifierEnabled = true;
-
-    //   const focusedElement = announcer.application.focusPath[0];
-    //   focusedElement.core.renderContext = { py: announcer.stage.h / 2 + 1 }; // Bottom half of the screen
-    //   announcer._updateTextMagnifier(true);
-
-    //   const textMagnifier = announcer.tag('TextMagnifier');
-    //   expect(textMagnifier.location).toEqual('top');
-    // });
-
-    // it.skip('should stick the TextMagnifier to the bottom when focusedY is less than or equal to half the stage height', () => {
-    //   announcer.textMagnifierEnabled = true;
-
-    //   const focusedElement = announcer.application.focusPath[0];
-    //   focusedElement.core.renderContext = { py: announcer.stage.h / 2 - 1 }; // Top half of the screen
-    //   announcer._updateTextMagnifier(true);
-
-    //   const textMagnifier = announcer.tag('TextMagnifier');
-    //   expect(textMagnifier.location).toEqual('bottom');
-    // });
-
-    // it.skip('should update TextMagnifier content with concatenated announce values when an array is passed', () => {
-    //   announcer.textMagnifierEnabled = true;
-    //   const toAnnounce = ['Item 1', 'Context 1'];
-
-    //   announcer._voiceOut(toAnnounce);
-    //   announcer._updateTextMagnifier(true);
-
-    //   const textMagnifier = announcer.tag('TextMagnifier');
-    //   const expectedContent = 'Item 1. Context 1';
-    //   expect(textMagnifier.content).toEqual(expectedContent);
-    // });
-  });
-
 });

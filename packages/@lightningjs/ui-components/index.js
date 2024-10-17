@@ -103,6 +103,7 @@ export {
   generateAbbrevConfig,
   defaultAbbrevConfig
 } from './src/mixins/withAnnouncer';
+export { default as withTextMagnifier } from './src/mixins/withTextMagnifier';
 export { default as Speech } from './src/mixins/withAnnouncer/Speech';
 export { default as withClassCache } from './src/mixins/withClassCache';
 export { default as withHandleKey } from './src/mixins/withHandleKey';

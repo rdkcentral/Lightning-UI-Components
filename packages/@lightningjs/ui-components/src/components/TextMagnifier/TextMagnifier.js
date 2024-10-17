@@ -67,6 +67,10 @@ export default class TextMagnifier extends Surface {
     };
   }
 
+  _focusChange() {
+    debugger;
+  }
+
   _update() {
     const stageWidth = this.stage.w / this.stage.getRenderPrecision();
     this.patch({
