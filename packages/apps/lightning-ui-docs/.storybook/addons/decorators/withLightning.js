@@ -83,6 +83,7 @@ export const withLightning = (
   const app = createApp({ theme: globals.LUITheme });
   clearInspector();
   app.announcerEnabled = globals.announce;
+  app.textMagnifierEnabled = globals.magnifier;
   app.debug = globals.announce;
   // toggle stage color
   !globals.stageColor
@@ -92,8 +93,10 @@ export const withLightning = (
   // // If an update is required patch in the new child element
   if (shouldTriggerUpdate({ id, args, argTypes, parameters })) {
     app.childList.clear();
+    app.childList.remove()
     app.childList.a({
       StoryComponent: {
+        ref: 'StoryComponent',
         type: class extends StoryComponent() {
           static _states() {
             return [
@@ -112,6 +115,7 @@ export const withLightning = (
           // FIXME: Assess what config.optimization.minimize is doing different in production vs develop - this was prior to v7 upgrade
           get componentTarget() {
             // using this check on type Element because production vs develop build issue
+            console.log(this.childList._items)
             return this.childList.first instanceof lng.Component
               ? this.childList.first
               : this;
@@ -176,12 +180,12 @@ export const withLightning = (
       app.tag('StoryComponent').patch(
         parameters.storyDetails
           ? {
-              x: context.theme.layout.marginX
-            }
+            x: context.theme.layout.marginX
+          }
           : {
-              x: context.theme.layout.marginX,
-              y: context.theme.layout.marginY
-            }
+            x: context.theme.layout.marginX,
+            y: context.theme.layout.marginY
+          }
       );
   });
   if (!app.tag('GridOverlay')) {

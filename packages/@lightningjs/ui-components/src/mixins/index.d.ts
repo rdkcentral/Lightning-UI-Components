@@ -35,3 +35,4 @@ export { default as withSelections } from './withSelections';
 export { default as withTags } from './withTags';
 export { default as withThemeStyles } from './withThemeStyles';
 export { default as withUpdates } from './withUpdates';
+export { default as withTextMagnifier } from './withTextMagnifier';
