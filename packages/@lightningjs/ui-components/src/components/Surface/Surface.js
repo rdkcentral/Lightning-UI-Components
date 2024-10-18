@@ -52,6 +52,10 @@ export default class Surface extends Base {
     return this.w;
   }
 
+  get _radius() {
+    return getMaxRoundRadius(this.style.radius, this.w, this.h);
+  }
+
   _update() {
     this._updateLayout();
     this._updateScale();
@@ -62,7 +66,7 @@ export default class Surface extends Base {
       texture: lng.Tools.getRoundRect(
         this.innerW - 2, // Reference the underscored values here in cause the h or w getters need to be overwritten for alignment - see Tile
         this.innerH - 2,
-        getMaxRoundRadius(this.style.radius, this.w, this.h),
+        this._radius,
         0,
         null,
         true,
