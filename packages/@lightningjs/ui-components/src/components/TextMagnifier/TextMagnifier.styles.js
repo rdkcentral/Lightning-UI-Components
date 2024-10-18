@@ -19,12 +19,11 @@
 export const base = theme => {
   return {
     color: theme.color.fillNeutral,
-    gutterX: theme.layout.gutterX,
+    gutterX: theme.layout.gutterX * 2,
     gutterY: theme.layout.safe,
-    h: theme.typography.headline1.lineHeight + theme.layout.marginY * 2,
-    marginX: theme.layout.safe,
     radius: theme.radius.lg,
-    textStyle: theme.typography.display1
+    textStyle: theme.typography.display1,
+    zIndex: 9999
   };
 };
 

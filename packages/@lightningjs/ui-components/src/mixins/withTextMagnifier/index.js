@@ -70,8 +70,7 @@ export default function (Base) {
         TextMagnifier: {
           type: TextMagnifier,
           location: this._location,
-          content: this._focusText,
-          zIndex: 9999
+          content: this._focusText
         }
       });
     }

@@ -37,8 +37,8 @@ export default class TextMagnifier extends Surface {
     return 'unfocused';
   }
 
-  set mode(value) {
-    // Disable Mode
+  set mode(_) {
+    // Mode is disabled, no action needed
   }
 
   get content() {
@@ -52,6 +52,18 @@ export default class TextMagnifier extends Surface {
     }
   }
 
+  get _totalHeight() {
+    const baseHeight =
+      this.style.textStyle.lineHeight + Math.max(...this._radius) * 2; // Accommodate for all configurations of radii
+    return Math.max(baseHeight, this.style.textStyle.lineHeight * 2); // Ensure the fade clears
+  }
+
+  get _radius() {
+    return this.location === 'top'
+      ? [0, 0, this.style.radius, this.style.radius]
+      : [this.style.radius, this.style.radius, 0, 0];
+  }
+
   _construct() {
     super._construct();
     this._location = 'top';
@@ -62,22 +74,23 @@ export default class TextMagnifier extends Surface {
     return {
       ...super._template(),
       ScrollWrapper: {
-        type: ScrollWrapper
+        type: ScrollWrapper,
+        autoScroll: true
       }
     };
   }
 
   _update() {
-    const stageWidth = this.stage.w / this.stage.getRenderPrecision();
+    const renderPrecision = this.stage.getRenderPrecision();
+    const stageWidth = this.stage.w / renderPrecision;
+
     this.patch({
-      w: stageWidth - this.style.marginX * 2,
-      h: this.style.h,
-      x: this.style.marginX,
+      w: stageWidth - this.style.gutterX * 2,
+      h: this._totalHeight,
+      x: this.style.gutterX,
       mountY: this.location === 'top' ? 0 : 1,
-      y:
-        this.location === 'top'
-          ? -this.style.radius
-          : this.stage.h / this.stage.getRenderPrecision() + this.style.radius
+      y: this.location === 'top' ? 0 : this.stage.h / renderPrecision,
+      zIndex: this.style.zIndex
     });
 
     this._updateScrollWrapper();
@@ -85,13 +98,27 @@ export default class TextMagnifier extends Surface {
   }
 
   _updateScrollWrapper() {
+    const yCenter = this._totalHeight / 2;
+    const yOffset = yCenter - this.style.textStyle.fontSize / 2;
+    const adjustedHeight = this._totalHeight - yOffset;
+    const radius = Math.max(...this._radius);
+    const gutterX = this.style.gutterX;
+    const patchWidth = this.w - Math.max(radius, gutterX) * 2;
+    const patchX = Math.max(radius, gutterX);
+
     this.tag('ScrollWrapper').patch({
-      w: this.w - this.style.gutterX * 2,
-      h: this.style.h - this.style.gutterY * 2,
-      y: this.style.gutterY,
-      style: { textStyle: this.style.textStyle },
+      alpha: this._content && this._content.length ? 1 : 0,
       content: this._content,
-      alpha: this.content && this.content.length ? 1 : 0
+      h: adjustedHeight,
+      w: patchWidth,
+      x: patchX,
+      y: yOffset,
+      style: {
+        textStyle: this.style.textStyle,
+        fadeHeight: this.style.textStyle.lineHeight,
+        contentMarginTop: 0,
+        contentMarginLeft: 0
+      }
     });
   }
 }
