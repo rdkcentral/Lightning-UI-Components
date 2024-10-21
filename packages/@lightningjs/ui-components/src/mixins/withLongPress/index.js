@@ -28,9 +28,6 @@ export default function withLongPress(Base) {
     set targetKey(val) {
       this._targetKey = val;
     }
-    set executeOnce(val) {
-      this._executeOnce = val;
-    }
 
     /**s
      * this will handle only key down events
@@ -41,28 +38,17 @@ export default function withLongPress(Base) {
       // capture the key event time stamp thr first time through to use as a reference.
       if (!this.pressedTimeStart) {
         this.pressedTimeStart = keyEvent.timeStamp;
-        console.log(keyEvent);
-        this.hasExecuted = false;
         super._handleKey(keyEvent);
       }
       // check latest keyEvent time stamp against the start time stamp and see if the difference
       // is greater than the threshold
-      const x = this._executeOnce && !this.hasExecuted;
       if (
         // eslint-disable-next-line no-constant-condition
-        x &&
         this.pressedTimeStart &&
         keyEvent.timeStamp - this.pressedTimeStart > (this._threshold || 2000)
       ) {
         this.signal('longPressHit', keyEvent.key);
-        if (this._executeOnce) {
-          this.hasExecuted = true;
-        }
-        if (!this._executeOnce) {
-          this.pressedTimeStart = keyEvent.timeStamp;
-        } else {
-          this.pressedTimeStart = null;
-        }
+        this.pressedTimeStart = null;
       }
     }
     /**
@@ -70,8 +56,6 @@ export default function withLongPress(Base) {
      * */
     _handleKeyRelease(keyEvent) {
       this.pressedTimeStart = null;
-      this.hasExecuted = false;
-
       super._handleKeyRelease(keyEvent);
     }
   };
