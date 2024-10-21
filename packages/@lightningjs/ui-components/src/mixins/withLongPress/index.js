@@ -28,8 +28,15 @@ export default function withLongPress(Base) {
     set targetKey(val) {
       this._targetKey = val;
     }
-
-    /**s
+    set executeOnce(val) {
+      this._executeOnce = val;
+    }
+    _init() {
+      this.pressedTimeStart = null;
+      this.hasExecuted = false;
+      super._init();
+    }
+    /**
      * this will handle only key down events
      * it will grab a reference start time stamp and compare it to any subsuquent key down events' timestamp values
      * when we meet the set threshold time in seconds, we will execute a supplied callback method
@@ -47,8 +54,17 @@ export default function withLongPress(Base) {
         this.pressedTimeStart &&
         keyEvent.timeStamp - this.pressedTimeStart > (this._threshold || 2000)
       ) {
+        // shortcircuit here if we only want to execute once before a key up event
+        if (this._executeOnce && this.hasExecuted) {
+          return;
+        }
         this.signal('longPressHit', keyEvent.key);
-        this.pressedTimeStart = null;
+        if (!this._executeOnce) {
+          this.pressedTimeStart = keyEvent.timeStamp;
+        } else {
+          this.hasExecuted = true;
+          this.pressedTimeStart = null;
+        }
       }
     }
     /**
@@ -56,6 +72,7 @@ export default function withLongPress(Base) {
      * */
     _handleKeyRelease(keyEvent) {
       this.pressedTimeStart = null;
+      this.hasExecuted = false;
       super._handleKeyRelease(keyEvent);
     }
   };
