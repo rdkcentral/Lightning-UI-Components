@@ -11,9 +11,9 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./dist/lightning-ui-components.d.ts",
       "import": "./dist/lightning-ui-components.min.mjs",
-      "require": "./dist/lightning-ui-components.min.cjs",
-      "types": "./dist/lightning-ui-components.d.ts"
+      "require": "./dist/lightning-ui-components.min.cjs"
     },
     "./src": "./index.js"
   },
