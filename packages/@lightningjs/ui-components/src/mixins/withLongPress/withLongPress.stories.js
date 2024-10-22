@@ -18,17 +18,8 @@
 
 import lng from '@lightningjs/core';
 import Tile from '../../components/Tile/Tile';
-import context from '../../globals/context/index';
 import withLongPressMixin from '.';
 import TextBox from '../../components/TextBox';
-
-context.config({
-  // Inspect console to see - should only be called when pressing enter on first tile.
-  keyMetricsCallback: (key, p) => {
-    // eslint-disable-next-line
-    console.log('Metrics payload received', key, p);
-  }
-});
 
 export default {
   title: 'Utilities/withLongPress'
@@ -58,8 +49,8 @@ export const withLongPress = args => {
     _init() {
       super._init();
     }
-    _handleLongPress(data) {
-      console.log('Long Press detected', data);
+
+    $longPressHit(data) {
       this.tag('Notification').patch({
         content: `Long Press detected on ${data}`
       });

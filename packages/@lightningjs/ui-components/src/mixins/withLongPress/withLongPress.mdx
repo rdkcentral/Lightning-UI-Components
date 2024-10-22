@@ -24,8 +24,7 @@ import * as withLongPressStories from './withLongPress.stories';
 
 # withLongPress
 
-The `withLongPress` mixin can be wrapped around a parent component to handle key events and also to take advantage of the
-global `keyMetricsCallbackHandler` in the lightning UI Context.
+The `withLongPress` mixin can be wrapped around a parent component to handle key events with a long press to trigger additional behaviors as desired.
 
 ## Source
 
@@ -33,40 +32,39 @@ https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lig
 
 ## Usage
 
-Out of the box, `withLongPress` adds a generic \_handleKey & \_handleKeyRelease function and calls the corresponding `on{Key}` handler. If no key handler is found, it fires an `$on{Key}` & `$on${Key}Release` event.
+A consumer of this mixin must also supply a threshold property value in milliseconds to the element being wrapped to overwrite the default time of 2000ms.
 
-Additionally, if a `metricsPayload` is defined, the global `keyMetricsCallbackHandler` in Context will be invoked with
-the given `metricsPayload`.
+The threshold property dictates how much time will pass in milliseconds before a secondary behavior gets triggered.
 
 ```js
 class Example extends lng.Component {
   static _template() {
     return {
       MyTile: {
-        type: Tile,
-        onArrowUp: (targetElm, keyEvent) => {
-          console.log('Up');
-        },
-        onArrowDown: (targetElm, keyEvent) => {
-          console.log('Down');
-        },
-        metricsPayload: {
-          buttonName: 'arrowUp',
-          uniqueId: 'unique-123'
-        }
+        type: withLongPress(Tile),
+        threshold: 4000
       }
     };
   }
 
-  $onEnter(item, keyEvent) {
-    console.log('Child component entered: ', item);
+  $longPressHit(keyValue) {
+    console.log(`long press detected on key ${keyValue}`);
   }
 }
 ```
 
 Take a look at the preview above. Tile component is using the withLongPress mixin.
-If you press enter on the first tile, you should see it print a metrics payload in the console (inspector view)
-In this example, Tile extends `withLongPress` and allows dynamically adding `on${Key}` functions or event listener for `$on{key}`.
+If you press any key and hold for the threshold time (2 seconds) on the tile, you should see a text notification that longpress was detected on the given key
 
-Example below - an metricPayload is provided, which will be invoked when any key is handled, with the payload
-`metricsPayload: { buttonName: 'arrowUp', uniqueId: 'unique-123' }`
+### Properties
+
+| name        | type    | required | default | description                                                                                                 |
+| ----------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| executeOnce | boolean | true     | false   | Will ensure that the long press dignal fires once per Keydown without interrupting key up                   |
+| threslhold  | number  | false    | 2000    | Number in milliseconds to indicate how much time should pass during key down to trigger a long press signal |
+
+### FireAncestors
+
+#### $longPressHit
+
+Fired when a keydown event lasts longer than the threshold value provided (default 2000ms), it supplies the key value of the peypress event as an argument.

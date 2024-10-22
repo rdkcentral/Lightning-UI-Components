@@ -16,91 +16,98 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import lng from '@lightningjs/core';
 import { jest } from '@jest/globals';
-import {
-  makeCreateComponent,
-  mockContext,
-  resetContext
-} from '@lightningjs/ui-components-test-utils';
-import context from '../../globals/context/index';
-import withHandleKey from '.';
+import { makeCreateComponent } from '@lightningjs/ui-components-test-utils';
+import Tile from '../../components/Tile';
+import withLongPress from '.';
+import { nextTick } from '@lightningjs/ui-components-test-utils';
+
+const createComponent = makeCreateComponent(
+  withLongPress(Tile),
+  {
+    src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg',
+    w: 320,
+    h: 180,
+    threshold: 1000,
+    mode: 'focused'
+  },
+  { focused: true },
+  { spyOnMethods: ['_handleKey'] }
+);
 
 describe('withLongPress', () => {
-  let handleLongPress, testRenderer, mockedContext;
-  class Example extends lng.Component {}
-
-  beforeAll(() => {
-    mockedContext = mockContext(context);
-  });
+  let withLongPressTile, testRenderer;
 
   beforeEach(() => {
-    [handleLongPress, testRenderer] = makeCreateComponent(
-      withHandleKey(Example),
-      {},
-      {
-        keys: {
-          777: 'Sideways'
-        }
-      }
-    )();
+    [withLongPressTile, testRenderer] = createComponent({
+      spyOnMethods: ['fireAncestors']
+    });
   });
 
   afterEach(() => {
-    handleLongPress = null;
+    withLongPressTile = null;
+    testRenderer = null;
   });
 
-  afterAll(() => {
-    resetContext();
+  it('renders', () => {
+    const tree = testRenderer.toJSON(2);
+    expect(tree).toMatchSnapshot();
   });
 
-  it('extends the base class', () => {
-    expect(handleLongPress.constructor.name).toBe('Example');
-  });
-
-  it('calls onEnter on key press down', () => {
-    handleLongPress.onDown = jest.fn();
-    testRenderer.keyPress('Down');
-    expect(handleLongPress.onDown).toHaveBeenCalled();
-  });
-
-  it('calls keyMeyricsCallback with metricsPayload on key press down', () => {
-    handleLongPress.onDown = jest.fn();
-    handleLongPress.metricsPayload = { id: 123, saved: true };
-    testRenderer.keyPress('Down');
-    expect(handleLongPress.onDown).toHaveBeenCalled();
-    expect(mockedContext.keyMetricsCallback).toHaveBeenCalledTimes(1);
-    expect(mockedContext.keyMetricsCallback).toHaveBeenNthCalledWith(
-      1,
-      'Down',
-      {
-        id: 123,
-        saved: true
-      }
+  test('should fireAncestors $longPressHit after threshold', async () => {
+    jest.spyOn(withLongPressTile, 'fireAncestors');
+    // adding in two keypresses to simulate a long press
+    testRenderer.keyPress('Enter');
+    await nextTick(1500);
+    testRenderer.keyPress('Enter');
+    expect(withLongPressTile.fireAncestors).toHaveBeenCalledWith(
+      '$longPressHit',
+      'Enter'
     );
   });
 
-  it('does not call onEnter on key down up', () => {
-    handleLongPress.onDown = jest.fn();
-    testRenderer.keyRelease('Down');
-    expect(handleLongPress.onDown).not.toHaveBeenCalled();
-  });
-
-  it('call onEnterRelease on key enter up', () => {
-    handleLongPress.onEnterRelease = jest.fn();
-    testRenderer.keyRelease('Enter');
-    expect(handleLongPress.onEnterRelease).toHaveBeenCalled();
-  });
-
-  it('does not call onEnterRelease on key enter down', () => {
-    handleLongPress.onEnterRelease = jest.fn();
+  test('should not fireAncestors $longPressHit before threshold', async () => {
+    jest.spyOn(withLongPressTile, 'fireAncestors');
+    withLongPressTile.threshold = 2000; // 2 seconds
     testRenderer.keyPress('Enter');
-    expect(handleLongPress.onEnterRelease).not.toHaveBeenCalled();
+    await nextTick(1000);
+    testRenderer.keyPress('Enter');
+
+    expect(withLongPressTile.fireAncestors).not.toHaveBeenCalled();
   });
 
-  it('fallback to keymap key resolution', () => {
-    handleLongPress.onSideways = jest.fn();
-    testRenderer.keyPress({ key: '', keyCode: 777 });
-    expect(handleLongPress.onSideways).toHaveBeenCalled();
+  test('should only fireAncestors $longPressHit once if executeOnce is true', async () => {
+    jest.spyOn(withLongPressTile, 'fireAncestors');
+    withLongPressTile.threshold = 1000; // 1 second
+    withLongPressTile.executeOnce = true;
+    testRenderer.keyPress('Enter');
+    await nextTick(1500);
+    testRenderer.keyPress('Enter');
+    await nextTick(2500);
+    testRenderer.keyPress('Enter');
+    expect(withLongPressTile.fireAncestors).toHaveBeenCalledTimes(1);
+    expect(withLongPressTile.fireAncestors).toHaveBeenCalledWith(
+      '$longPressHit',
+      'Enter'
+    );
+  });
+
+  test('should reset hasExecuted on key release', async () => {
+    withLongPressTile.threshold = 1000; // 1 second
+    withLongPressTile.executeOnce = true;
+    jest.spyOn(withLongPressTile, 'fireAncestors');
+    testRenderer.keyPress('Enter');
+    await nextTick(1500);
+    testRenderer.keyPress('Enter');
+    expect(withLongPressTile.fireAncestors).toHaveBeenCalledTimes(1);
+
+    testRenderer.keyRelease('Enter');
+    await nextTick(2500); // 2.5 seconds later
+    testRenderer.keyPress('Enter');
+    expect(withLongPressTile.fireAncestors).toHaveBeenCalledTimes(1);
+    expect(withLongPressTile.fireAncestors).toHaveBeenCalledWith(
+      '$longPressHit',
+      'Enter'
+    );
   });
 });

@@ -25,15 +25,12 @@ export default function withLongPress(Base) {
       this._threshold = value;
     }
 
-    set targetKey(val) {
-      this._targetKey = val;
-    }
     set executeOnce(val) {
       this._executeOnce = val;
     }
     _init() {
-      this.pressedTimeStart = null;
-      this.hasExecuted = false;
+      this._pressedTimeStart = null;
+      this._hasExecuted = false;
       super._init();
     }
     /**
@@ -43,27 +40,28 @@ export default function withLongPress(Base) {
      * */
     _handleKey(keyEvent) {
       // capture the key event time stamp thr first time through to use as a reference.
-      if (!this.pressedTimeStart) {
-        this.pressedTimeStart = keyEvent.timeStamp;
+      if (!this._pressedTimeStart) {
+        this._pressedTimeStart = keyEvent.timeStamp;
         super._handleKey(keyEvent);
       }
       // check latest keyEvent time stamp against the start time stamp and see if the difference
       // is greater than the threshold
+
       if (
         // eslint-disable-next-line no-constant-condition
-        this.pressedTimeStart &&
-        keyEvent.timeStamp - this.pressedTimeStart > (this._threshold || 2000)
+        this._pressedTimeStart &&
+        keyEvent.timeStamp - this._pressedTimeStart >= (this._threshold || 2000)
       ) {
         // shortcircuit here if we only want to execute once before a key up event
-        if (this._executeOnce && this.hasExecuted) {
+        if (this._executeOnce && this._hasExecuted) {
           return;
         }
-        this.signal('longPressHit', keyEvent.key);
+        this.fireAncestors('$longPressHit', keyEvent.key);
         if (!this._executeOnce) {
-          this.pressedTimeStart = keyEvent.timeStamp;
+          this._pressedTimeStart = keyEvent.timeStamp;
         } else {
-          this.hasExecuted = true;
-          this.pressedTimeStart = null;
+          this._hasExecuted = true;
+          this._pressedTimeStart = null;
         }
       }
     }
@@ -71,8 +69,8 @@ export default function withLongPress(Base) {
      * this will handle only key up events
      * */
     _handleKeyRelease(keyEvent) {
-      this.pressedTimeStart = null;
-      this.hasExecuted = false;
+      this._pressedTimeStart = null;
+      this._hasExecuted = false;
       super._handleKeyRelease(keyEvent);
     }
   };

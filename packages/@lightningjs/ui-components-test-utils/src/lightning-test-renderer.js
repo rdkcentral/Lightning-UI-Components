@@ -53,6 +53,7 @@ function keyPress(elm, key) {
       [`_handle${keyEvt.key}`, '_handleKey'],
       {
         ...pressEvent,
+        timeStamp: Date.now(),
         type: 'keydown',
         ...keyEvt
       }
