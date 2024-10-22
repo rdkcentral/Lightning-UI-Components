@@ -21,6 +21,9 @@ import { default as ScrollWrapperComponent } from '.';
 import Tile from '../Tile';
 import { createModeControl } from '../../docs/utils';
 import TextBox from '../TextBox/TextBox';
+import Column from '../Column';
+import Row from '../Row';
+import Button from '../Button';
 
 const terms = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id aliquet risus feugiat in ante metus dictum. Pretium fusce id velit ut tortor pretium viverra suspendisse. Pharetra convallis posuere morbi leo urna. Nunc sed velit dignissim sodales. Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit. Facilisis gravida neque convallis a cras semper auctor. Pellentesque pulvinar pellentesque habitant morbi tristique. Non tellus orci ac auctor augue mauris. Semper feugiat nibh sed pulvinar proin gravida hendrerit lectus. Amet risus nullam eget felis eget nunc. Auctor urna nunc id cursus metus aliquam eleifend mi in. Integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Ac felis donec et odio pellentesque. Semper auctor neque vitae tempus quam pellentesque nec nam aliquam. Sit amet risus nullam eget felis eget.
 
@@ -238,3 +241,44 @@ ObjectArray.parameters = {
   storyDetails:
     'The ScrollWrapper content property is set as an array of Lightning elements.'
 };
+
+export const Focus = () =>
+  class Focus extends lng.Component {
+    static _template() {
+      return {
+        Column: {
+          type: Column,
+          x: 100,
+          y: 100,
+          h: 100,
+          w: 100,
+          neverScroll: true,
+          items: [
+            {
+              type: Row,
+              h: 100,
+              neverScroll: true,
+              items: [
+                {
+                  type: Button,
+                  title: 'Button 1'
+                },
+                {
+                  type: Button,
+                  title: 'Button 2'
+                }
+              ]
+            },
+            {
+              type: ScrollWrapperComponent,
+              h: 200,
+              w: 200,
+              showScrollBar: true,
+              content:
+                'this is a test of the scrollwrapper and focus states, swapping focuse between the Buttons in the Row and this text'
+            }
+          ]
+        }
+      };
+    }
+  };
