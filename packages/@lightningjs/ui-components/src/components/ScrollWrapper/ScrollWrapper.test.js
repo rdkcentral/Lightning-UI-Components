@@ -22,7 +22,6 @@ import {
   completeAnimation
 } from '@lightningjs/ui-components-test-utils';
 import ScrollWrapper from '.';
-import { jest } from '@jest/globals';
 
 const createScrollWrapper = makeCreateComponent(ScrollWrapper, {
   h: 100,
