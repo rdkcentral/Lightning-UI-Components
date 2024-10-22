@@ -248,7 +248,7 @@ export default class ScrollWrapper extends Base {
         this._updateFadeContainer();
       }
     } else {
-      this.signal('onDownAtBottom');
+      return false;
     }
   }
 
@@ -281,7 +281,7 @@ export default class ScrollWrapper extends Base {
         this._updateFadeContainer();
       }
     } else {
-      this.signal('onUpAtTop');
+      return false;
     }
   }
 

@@ -22,7 +22,6 @@ import {
   completeAnimation
 } from '@lightningjs/ui-components-test-utils';
 import ScrollWrapper from '.';
-import { jest } from '@jest/globals';
 
 const createScrollWrapper = makeCreateComponent(ScrollWrapper, {
   h: 100,
@@ -235,42 +234,6 @@ describe('ScrollWrapper', () => {
       scrollWrapper._ScrollContainer.finalH -
       scrollWrapper.style.contentMarginTop;
     expect(scrollWrapper._ScrollContainer.y).toBe(scrollEndY);
-  });
-
-  it('should fire a signal when scrolling has reached the end of the scroll container', () => {
-    scrollWrapper.h = scrollWrapper._ScrollContainer.finalH - 1;
-    jest.spyOn(scrollWrapper, 'fireAncestors');
-    expect(scrollWrapper.fireAncestors).not.toHaveBeenCalled();
-
-    testRenderer.keyPress('Down');
-    testRenderer.update();
-
-    expect(scrollWrapper.fireAncestors).toHaveBeenCalledWith(
-      '$scrollChanged',
-      'endDown',
-      scrollWrapper
-    );
-  });
-
-  it('should fire a signal when pressing Up when already at the top of the scroll container', () => {
-    jest.spyOn(scrollWrapper, 'signal');
-    expect(scrollWrapper.signal).not.toHaveBeenCalled();
-
-    testRenderer.keyPress('Up');
-    testRenderer.update();
-    expect(scrollWrapper.signal).toHaveBeenCalledWith('onUpAtTop');
-  });
-
-  it('should fire a signal when pressing Down when already at the bottom of the scroll container', () => {
-    jest.spyOn(scrollWrapper, 'signal');
-    expect(scrollWrapper.signal).not.toHaveBeenCalled();
-
-    // Simulate scrolling to the bottom and then some
-    for (let i = 0; i < 50; i++) {
-      testRenderer.keyPress('Down');
-      testRenderer.update();
-    }
-    expect(scrollWrapper.signal).toHaveBeenCalledWith('onDownAtBottom');
   });
 
   it('should scroll up by the scroll step', () => {
