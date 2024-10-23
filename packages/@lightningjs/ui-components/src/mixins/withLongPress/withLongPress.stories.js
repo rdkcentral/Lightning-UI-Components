@@ -71,13 +71,13 @@ withLongPress.storyName = 'withLongPress';
 
 withLongPress.args = {
   threshold: 2000,
-  executeOnce: true
+  continuousExecution: false
 };
 
 withLongPress.argTypes = {
   threshold: {
     control: { type: 'number', min: 1000 },
-    description: 'Time in MS to trigger long press',
+    description: 'Time in ms to trigger long press',
     table: { defaultValue: { summary: 2000 } }
   },
   continuousExecution: {
