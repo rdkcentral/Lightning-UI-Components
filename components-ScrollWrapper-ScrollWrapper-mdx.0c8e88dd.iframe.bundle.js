@@ -368,19 +368,6 @@ function _createMdxContent(props) {
       children: ["Event fired via ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.code, {
         children: "fireAncestors"
       }), ", is triggered when scroll reaches the top or bottom of the scroll boundaries."]
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h3, {
-      id: "signals",
-      children: "Signals"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h4, {
-      id: "onupattop",
-      children: "onUpAtTop"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.p, {
-      children: "Fired when user is at the top of the content within the ScrollWrapper and presses up again."
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.h4, {
-      id: "ondownatbottom",
-      children: "onDownAtBottom"
-    }), "\n", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components.p, {
-      children: "Fired when user is at the bottom of the content within the ScrollWrapper and presses down again."
     })]
   });
 }
@@ -1071,7 +1058,7 @@ var ScrollWrapper = /*#__PURE__*/function (_Base) {
           this._updateFadeContainer();
         }
       } else {
-        this.signal('onDownAtBottom');
+        return false;
       }
     }
   }, {
@@ -1098,7 +1085,7 @@ var ScrollWrapper = /*#__PURE__*/function (_Base) {
           this._updateFadeContainer();
         }
       } else {
-        this.signal('onUpAtTop');
+        return false;
       }
     }
   }, {
@@ -1574,4 +1561,4 @@ module.exports = webpackEmptyContext;
 /***/ })
 
 }]);
-//# sourceMappingURL=components-ScrollWrapper-ScrollWrapper-mdx.5de9f842.iframe.bundle.js.map
+//# sourceMappingURL=components-ScrollWrapper-ScrollWrapper-mdx.0c8e88dd.iframe.bundle.js.map

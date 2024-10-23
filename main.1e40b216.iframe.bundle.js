@@ -11928,6 +11928,14 @@ var map = {
 		8527,
 		4433
 	],
+	"./mixins/withLongPress/withLongPress.mdx": [
+		"../../@lightningjs/ui-components/src/mixins/withLongPress/withLongPress.mdx",
+		5600,
+		7679,
+		1930,
+		8527,
+		3195
+	],
 	"./mixins/withMarqueeSync/withMarqueeSync.mdx": [
 		"../../@lightningjs/ui-components/src/mixins/withMarqueeSync/withMarqueeSync.mdx",
 		5600,
@@ -12761,6 +12769,20 @@ var map = {
 		8527,
 		4563
 	],
+	"./mixins/withLongPress/withLongPress.stories": [
+		"../../@lightningjs/ui-components/src/mixins/withLongPress/withLongPress.stories.js",
+		7679,
+		1930,
+		8527,
+		4877
+	],
+	"./mixins/withLongPress/withLongPress.stories.js": [
+		"../../@lightningjs/ui-components/src/mixins/withLongPress/withLongPress.stories.js",
+		7679,
+		1930,
+		8527,
+		4877
+	],
 	"./mixins/withMarqueeSync/withMarqueeSync.stories": [
 		"../../@lightningjs/ui-components/src/mixins/withMarqueeSync/withMarqueeSync.stories.js",
 		1909
@@ -13012,4 +13034,4 @@ module.exports = __STORYBOOK_MODULE_PREVIEW_API__;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.f80f06c1.iframe.bundle.js.map
+//# sourceMappingURL=main.1e40b216.iframe.bundle.js.map

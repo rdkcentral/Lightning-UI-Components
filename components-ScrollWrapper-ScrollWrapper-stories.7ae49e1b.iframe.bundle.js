@@ -558,7 +558,7 @@ var ScrollWrapper = /*#__PURE__*/function (_Base) {
           this._updateFadeContainer();
         }
       } else {
-        this.signal('onDownAtBottom');
+        return false;
       }
     }
   }, {
@@ -585,7 +585,7 @@ var ScrollWrapper = /*#__PURE__*/function (_Base) {
           this._updateFadeContainer();
         }
       } else {
-        this.signal('onUpAtTop');
+        return false;
       }
     }
   }, {
@@ -1046,4 +1046,4 @@ ObjectArray.parameters = {
 /***/ })
 
 }]);
-//# sourceMappingURL=components-ScrollWrapper-ScrollWrapper-stories.074b5b28.iframe.bundle.js.map
+//# sourceMappingURL=components-ScrollWrapper-ScrollWrapper-stories.7ae49e1b.iframe.bundle.js.map
