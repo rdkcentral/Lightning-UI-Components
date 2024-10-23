@@ -76,7 +76,7 @@ describe('withLongPress', () => {
     expect(withLongPressTile.fireAncestors).not.toHaveBeenCalled();
   });
 
-  it('should only fireAncestors $longPressHit once if executeOnce is true', async () => {
+  it('should only fireAncestors $longPressHit once if continuousExecution is false', async () => {
     jest.spyOn(withLongPressTile, 'fireAncestors');
     withLongPressTile.threshold = 1000; // 1 second
     withLongPressTile.continuousExecution = false;
