@@ -1,0 +1,78 @@
+﻿{/* prettier-ignore */}
+{/*
+Copyright 2023 Comcast Cable Communications Management, LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+SPDX-License-Identifier: Apache-2.0
+\*/}
+
+import { Meta } from '@storybook/blocks';
+import * as withLongPressStories from './withLongPress.stories';
+
+<Meta of={withLongPressStories} />
+
+# withLongPress
+
+The `withLongPress` mixin can be wrapped around a parent component to handle key events with a long press to trigger additional behaviors as desired.
+
+## Source
+
+https://github.com/rdkcentral/Lightning-UI-Components/blob/develop/packages/@lightningjs/ui-components/src/mixins/withLongPress/index.js
+
+## Usage
+
+A consumer of this mixin must also supply a threshold property value in milliseconds to the element being wrapped to overwrite the default time of 2000ms.
+
+The threshold property dictates how much time will pass in milliseconds before a secondary behavior gets triggered.
+
+```js
+class Example extends lng.Component {
+  static _template() {
+    return {
+      MyTile: {
+        type: withLongPress(Tile),
+        threshold: 4000
+      }
+    };
+  }
+
+  $longPressHit(keyValue) {
+    console.log(`long press detected on key ${keyValue}`);
+  }
+
+  $longPressEnd(keyValue) {
+    console.log(`long press ended on key ${keyValue}`);
+  }
+}
+```
+
+Take a look at the preview above. Tile component is using the withLongPress mixin.
+If you press any key and hold for the threshold time (2 seconds) on the tile, you should see a text notification that longpress was detected on the given key and a notification when it ends.
+
+### Properties
+
+| name                | type    | required | default | description                                                                                                  |
+| ------------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| continuousExecution | boolean | true     | false   | Will allow continuous execution of long press signal, on interval of threshold value, while keypress is held |
+| threshold           | number  | false    | 2000    | Number in milliseconds to indicate how much time should pass during key down to trigger a long press signal  |
+
+### FireAncestors
+
+#### $longPressHit
+
+Fired when a keydown event lasts longer than the threshold value provided (default 2000ms), it supplies the key value of the peypress event as an argument.
+
+#### $longPressEnd
+
+Fired from a keyup event occurs after a long press.

@@ -53,6 +53,7 @@ function keyPress(elm, key) {
       [`_handle${keyEvt.key}`, '_handleKey'],
       {
         ...pressEvent,
+        timeStamp: Date.now(),
         type: 'keydown',
         ...keyEvt
       }
@@ -71,7 +72,12 @@ function keyRelease(elm, key) {
   ) {
     elm.stage.application.focusBottomUpEvent(
       [`_handle${keyEvt.key}Release`, '_handleKeyRelease'],
-      { ...pressEvent, type: 'keyup', ...keyEvt }
+      {
+        ...pressEvent,
+        timeStamp: Date.now(),
+        type: 'keyup',
+        ...keyEvt
+      }
     );
   }
 }
