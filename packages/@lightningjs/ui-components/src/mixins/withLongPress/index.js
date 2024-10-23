@@ -21,44 +21,50 @@ export default function withLongPress(Base) {
     static get name() {
       return Base.name;
     }
+
     set threshold(value) {
       this._threshold = value;
+    }
+
+    get threshold() {
+      return this._threshold;
     }
 
     set continuousExecution(val) {
       this._continuousExecution = val;
     }
-    _init() {
+
+    _construct() {
       this._pressedTimeStart = null;
       this._hasExecuted = false;
-      super._init();
+      this._threshold = 2000;
+      super._construct();
     }
     /**
      * this will handle only key down events
-     * it will grab a reference start time stamp and compare it to any subsuquent key down events' timestamp values
+     * it will grab a reference start time stamp and compare it to any subsequent key down events' timestamp values
      * when we meet the set threshold time in seconds, we will execute a supplied callback method
      * */
     _handleKey(keyEvent) {
-      // capture the key event time stamp thr first time through to use as a reference.
-      if (!this._pressedTimeStart) {
-        this._pressedTimeStart = keyEvent.timeStamp;
+      // capture the key event time stamp the first time through to use as a reference.
+      if (!this._firstPressed) {
+        this._firstPressed = this._pressedTimeStart = keyEvent.timeStamp;
         super._handleKey(keyEvent);
       }
       // check latest keyEvent time stamp against the start time stamp and see if the difference
       // is greater than the threshold
-
       if (
         // eslint-disable-next-line no-constant-condition
         this._pressedTimeStart &&
-        keyEvent.timeStamp - this._pressedTimeStart >= (this._threshold || 2000)
+        keyEvent.timeStamp - this._pressedTimeStart >= this.threshold
       ) {
-        // shortcircuit here if we only want to execute once before a key up event
+        // short circuit here if we only want to execute once before a key up event
         if (!this._continuousExecution && this._hasExecuted) {
           return;
         }
         this.fireAncestors('$longPressHit', keyEvent.key);
         if (this._continuousExecution) {
-          this._pressedTimeStart = keyEvent.timeStamp;
+          this._pressedTimeStart += this.threshold;
         } else {
           this._hasExecuted = true;
           this._pressedTimeStart = null;
@@ -69,6 +75,10 @@ export default function withLongPress(Base) {
      * this will handle only key up events
      * */
     _handleKeyRelease(keyEvent) {
+      if (keyEvent.timeStamp - this._firstPressed >= this.threshold) {
+        this.fireAncestors('$longPressEnd', keyEvent.key);
+      }
+      this._firstPressed = null;
       this._pressedTimeStart = null;
       this._hasExecuted = false;
       super._handleKeyRelease(keyEvent);

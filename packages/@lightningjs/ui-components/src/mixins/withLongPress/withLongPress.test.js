@@ -54,7 +54,7 @@ describe('withLongPress', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test('should fireAncestors $longPressHit after threshold', async () => {
+  it('should fireAncestors $longPressHit after threshold', async () => {
     jest.spyOn(withLongPressTile, 'fireAncestors');
     // adding in two keypresses to simulate a long press
     testRenderer.keyPress('Enter');
@@ -66,7 +66,7 @@ describe('withLongPress', () => {
     );
   });
 
-  test('should not fireAncestors $longPressHit before threshold', async () => {
+  it('should not fireAncestors $longPressHit before threshold', async () => {
     jest.spyOn(withLongPressTile, 'fireAncestors');
     withLongPressTile.threshold = 2000; // 2 seconds
     testRenderer.keyPress('Enter');
@@ -76,7 +76,7 @@ describe('withLongPress', () => {
     expect(withLongPressTile.fireAncestors).not.toHaveBeenCalled();
   });
 
-  test('should only fireAncestors $longPressHit once if executeOnce is true', async () => {
+  it('should only fireAncestors $longPressHit once if executeOnce is true', async () => {
     jest.spyOn(withLongPressTile, 'fireAncestors');
     withLongPressTile.threshold = 1000; // 1 second
     withLongPressTile.continuousExecution = false;
@@ -92,21 +92,26 @@ describe('withLongPress', () => {
     );
   });
 
-  test('should reset hasExecuted on key release', async () => {
+  it('should reset hasExecuted and fireAncestors $longPressEnd on key release', async () => {
     withLongPressTile.threshold = 1000; // 1 second
     withLongPressTile.continuousExecution = false;
     jest.spyOn(withLongPressTile, 'fireAncestors');
     testRenderer.keyPress('Enter');
     await nextTick(1500);
     testRenderer.keyPress('Enter');
-    expect(withLongPressTile.fireAncestors).toHaveBeenCalledTimes(1);
+    expect(withLongPressTile.fireAncestors).toHaveBeenNthCalledWith(
+      1,
+      '$longPressHit',
+      'Enter'
+    );
 
     testRenderer.keyRelease('Enter');
     await nextTick(2500); // 2.5 seconds later
     testRenderer.keyPress('Enter');
-    expect(withLongPressTile.fireAncestors).toHaveBeenCalledTimes(1);
-    expect(withLongPressTile.fireAncestors).toHaveBeenCalledWith(
-      '$longPressHit',
+    expect(withLongPressTile.fireAncestors).toHaveBeenCalledTimes(2);
+    expect(withLongPressTile.fireAncestors).toHaveBeenNthCalledWith(
+      2,
+      '$longPressEnd',
       'Enter'
     );
   });

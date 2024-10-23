@@ -34,13 +34,12 @@ export const withLongPress = args => {
           src: 'https://image.tmdb.org/t/p/w500/zHdQ6yaqDf3OQO5uhr0auAgwK6O.jpg',
           w: 320,
           h: 180,
-          threshold: args.threshold || 2000,
-          signals: { longPressHit: '_handleLongPress' }
+          threshold: args.threshold,
+          continuousExecution: args.continuousExecution
         },
         Notification: {
           y: 220,
           type: TextBox,
-          content: 'Long Press deteted',
           style: { textStyle: { maxLines: 3 } },
           alpha: 0
         }
@@ -50,15 +49,26 @@ export const withLongPress = args => {
       super._init();
     }
 
+    get _continuousExecution() {
+      return this.tag('Tile')._continuousExecution;
+    }
+
     $longPressHit(data) {
       this.tag('Notification').patch({
         content: `Long Press detected on ${data}`
       });
       this.tag('Notification').setSmooth('alpha', 1);
-      setTimeout(() => {
-        this.tag('Notification').setSmooth('alpha', 0);
-      }, 2000);
+
+      !this._continuousExecution &&
+        setTimeout(() => {
+          this.tag('Notification').setSmooth('alpha', 0);
+        }, 2000);
     }
+
+    $longPressEnd() {
+      this.tag('Notification').setSmooth('alpha', 0);
+    }
+
     _getFocused() {
       return this.tag('Tile');
     }

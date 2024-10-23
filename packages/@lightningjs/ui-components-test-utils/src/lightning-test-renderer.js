@@ -72,7 +72,12 @@ function keyRelease(elm, key) {
   ) {
     elm.stage.application.focusBottomUpEvent(
       [`_handle${keyEvt.key}Release`, '_handleKeyRelease'],
-      { ...pressEvent, type: 'keyup', ...keyEvt }
+      {
+        ...pressEvent,
+        timeStamp: Date.now(),
+        type: 'keyup',
+        ...keyEvt
+      }
     );
   }
 }
