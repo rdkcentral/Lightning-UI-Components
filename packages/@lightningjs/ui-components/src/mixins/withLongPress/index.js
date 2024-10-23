@@ -40,6 +40,7 @@ export default function withLongPress(Base) {
       this._threshold = 2000;
       super._construct();
     }
+
     /**
      * this will handle only key down events
      * it will grab a reference start time stamp and compare it to any subsequent key down events' timestamp values
@@ -71,6 +72,7 @@ export default function withLongPress(Base) {
         }
       }
     }
+
     /**
      * this will handle only key up events
      * */

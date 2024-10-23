@@ -50,21 +50,29 @@ class Example extends lng.Component {
   $longPressHit(keyValue) {
     console.log(`long press detected on key ${keyValue}`);
   }
+
+  $longPressEnd(keyValue) {
+    console.log(`long press ended on key ${keyValue}`);
+  }
 }
 ```
 
 Take a look at the preview above. Tile component is using the withLongPress mixin.
-If you press any key and hold for the threshold time (2 seconds) on the tile, you should see a text notification that longpress was detected on the given key
+If you press any key and hold for the threshold time (2 seconds) on the tile, you should see a text notification that longpress was detected on the given key and a notification when it ends.
 
 ### Properties
 
 | name                | type    | required | default | description                                                                                                  |
 | ------------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------ |
 | continuousExecution | boolean | true     | false   | Will allow continuous execution of long press signal, on interval of threshold value, while keypress is held |
-| threslhold          | number  | false    | 2000    | Number in milliseconds to indicate how much time should pass during key down to trigger a long press signal  |
+| threshold           | number  | false    | 2000    | Number in milliseconds to indicate how much time should pass during key down to trigger a long press signal  |
 
 ### FireAncestors
 
 #### $longPressHit
 
 Fired when a keydown event lasts longer than the threshold value provided (default 2000ms), it supplies the key value of the peypress event as an argument.
+
+#### $longPressEnd
+
+Fired from a keyup event occurs after a long press.
