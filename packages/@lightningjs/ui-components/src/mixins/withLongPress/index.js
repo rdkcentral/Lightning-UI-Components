@@ -25,8 +25,8 @@ export default function withLongPress(Base) {
       this._threshold = value;
     }
 
-    set executeOnce(val) {
-      this._executeOnce = val;
+    set continuousExecution(val) {
+      this._continuousExecution = val;
     }
     _init() {
       this._pressedTimeStart = null;
@@ -53,11 +53,11 @@ export default function withLongPress(Base) {
         keyEvent.timeStamp - this._pressedTimeStart >= (this._threshold || 2000)
       ) {
         // shortcircuit here if we only want to execute once before a key up event
-        if (this._executeOnce && this._hasExecuted) {
+        if (!this._continuousExecution && this._hasExecuted) {
           return;
         }
         this.fireAncestors('$longPressHit', keyEvent.key);
-        if (!this._executeOnce) {
+        if (this._continuousExecution) {
           this._pressedTimeStart = keyEvent.timeStamp;
         } else {
           this._hasExecuted = true;

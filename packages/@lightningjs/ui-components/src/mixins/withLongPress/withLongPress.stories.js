@@ -80,10 +80,10 @@ withLongPress.argTypes = {
     description: 'Time in MS to trigger long press',
     table: { defaultValue: { summary: 2000 } }
   },
-  executeOnce: {
+  continuousExecution: {
     control: { type: 'boolean' },
     description:
-      'execute long press action once or continuously when threshold is met again',
-    table: { defaultValue: { summary: true } }
+      'execute long press action continuously when threshold is met again',
+    table: { defaultValue: { summary: false } }
   }
 };

@@ -58,10 +58,10 @@ If you press any key and hold for the threshold time (2 seconds) on the tile, yo
 
 ### Properties
 
-| name        | type    | required | default | description                                                                                                 |
-| ----------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------- |
-| executeOnce | boolean | true     | false   | Will ensure that the long press dignal fires once per Keydown without interrupting key up                   |
-| threslhold  | number  | false    | 2000    | Number in milliseconds to indicate how much time should pass during key down to trigger a long press signal |
+| name                | type    | required | default | description                                                                                                  |
+| ------------------- | ------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| continuousExecution | boolean | true     | false   | Will allow continuous execution of long press signal, on interval of threshold value, while keypress is held |
+| threslhold          | number  | false    | 2000    | Number in milliseconds to indicate how much time should pass during key down to trigger a long press signal  |
 
 ### FireAncestors
 

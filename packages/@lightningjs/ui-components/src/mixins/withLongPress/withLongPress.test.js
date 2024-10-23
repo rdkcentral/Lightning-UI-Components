@@ -79,7 +79,7 @@ describe('withLongPress', () => {
   test('should only fireAncestors $longPressHit once if executeOnce is true', async () => {
     jest.spyOn(withLongPressTile, 'fireAncestors');
     withLongPressTile.threshold = 1000; // 1 second
-    withLongPressTile.executeOnce = true;
+    withLongPressTile.continuousExecution = false;
     testRenderer.keyPress('Enter');
     await nextTick(1500);
     testRenderer.keyPress('Enter');
@@ -94,7 +94,7 @@ describe('withLongPress', () => {
 
   test('should reset hasExecuted on key release', async () => {
     withLongPressTile.threshold = 1000; // 1 second
-    withLongPressTile.executeOnce = true;
+    withLongPressTile.continuousExecution = false;
     jest.spyOn(withLongPressTile, 'fireAncestors');
     testRenderer.keyPress('Enter');
     await nextTick(1500);
