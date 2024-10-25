@@ -71,7 +71,10 @@ export default class TextBox extends Base {
     ];
   }
 
-  _setDimensions(w, h) {
+  _setDimensions({ w, h }) {
+    // This is where dimensions are looping and causing the component to stretch infinitely.
+    !this._isInlineContent && console.trace(w, h);
+
     let width = w;
     let height = h;
     if (!this._isInlineContent) {
@@ -82,7 +85,8 @@ export default class TextBox extends Base {
     const sizeChanged = this.w !== width || this.h !== height;
 
     if (width && height && sizeChanged) {
-      this.h = height;
+      this.h =
+        height * (this._isInlineContent ? 1 : this.stage.getRenderPrecision());
       if (!this.fixed) {
         this.w = width;
       }
@@ -197,14 +201,30 @@ export default class TextBox extends Base {
     const fontStyle = this._textStyleSet;
 
     if (this._Text) {
-      this._Text.patch({
+      let patchObj = {
+        w: w => w,
         y: this.style.offsetY,
-        x: this.style.offsetX,
-        text: {
-          ...lightningTextDefaults, // order matters this should always be first
-          ...fontStyle
-        }
+        x: this.style.offsetX
+      };
+
+      const textString = JSON.stringify({
+        ...lightningTextDefaults, // order matters this should always be first
+        ...fontStyle
       });
+
+      if (textString !== this._textString) {
+        patchObj = {
+          ...patchObj,
+
+          text: {
+            ...lightningTextDefaults, // order matters this should always be first
+            ...fontStyle
+          }
+        };
+        this._textString = textString;
+      }
+
+      this._Text.patch(patchObj);
     }
   }
 
