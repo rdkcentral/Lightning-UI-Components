@@ -19,7 +19,7 @@
 import React, { memo, useCallback, useEffect } from 'react';
 import { useGlobals, useStorybookApi } from '@storybook/manager-api';
 import { Icons, IconButton } from '@storybook/components';
-import { ADDON_ID, ANNOUNCE_ID } from '../constants';
+import { ADDON_ID, ANNOUNCE_ID, MAGNIFIER_ID } from '../constants';
 
 export const Announce = memo(function MyAddonSelector() {
   const [{ announce }, updateGlobals] = useGlobals();
@@ -47,6 +47,37 @@ export const Announce = memo(function MyAddonSelector() {
       onClick={toggleAnnounce}
     >
       <Icons icon="speaker" />
+    </IconButton>
+  );
+});
+
+export const Magnifier = memo(function MyAddonSelector() {
+  const [{ magnifier }, updateGlobals] = useGlobals();
+  const api = useStorybookApi();
+  const isActive = [true, 'true'].includes(magnifier);
+  const toggleMagnifier = useCallback(() => {
+    console.log('here')
+    updateGlobals({
+      magnifier: !isActive
+    });
+  }, [isActive]);
+
+  useEffect(() => {
+    api.setAddonShortcut(ADDON_ID, {
+      label: 'Magnifier Toggle [0]',
+      actionName: 'Magnifier',
+      action: toggleMagnifier
+    });
+  }, [toggleMagnifier, api]);
+
+  return (
+    <IconButton
+      key={MAGNIFIER_ID}
+      active={isActive}
+      title="Toggle a11y announcing (voice guidance) of components"
+      onClick={toggleMagnifier}
+    >
+      <Icons icon="accessibility" />
     </IconButton>
   );
 });

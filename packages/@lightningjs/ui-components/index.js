@@ -90,6 +90,7 @@ export { default as TitleRow } from './src/components/TitleRow/TitleRow';
 export { default as Toggle } from './src/components/Toggle/Toggle';
 export { default as ToggleSmall } from './src/components/Toggle/ToggleSmall';
 export { default as Tooltip } from './src/components/Tooltip/Tooltip';
+export { default as TextMagnifier } from './src/components/TextMagnifier/TextMagnifier';
 
 // Globals
 export { default as context } from './src/globals/context';
@@ -102,6 +103,7 @@ export {
   generateAbbrevConfig,
   defaultAbbrevConfig
 } from './src/mixins/withAnnouncer';
+export { default as withTextMagnifier } from './src/mixins/withTextMagnifier';
 export { default as Speech } from './src/mixins/withAnnouncer/Speech';
 export { default as withClassCache } from './src/mixins/withClassCache';
 export { default as withHandleKey } from './src/mixins/withHandleKey';

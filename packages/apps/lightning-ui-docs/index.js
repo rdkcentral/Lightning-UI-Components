@@ -19,6 +19,7 @@
 import lng from '@lightningjs/core';
 import 'lightningInspect';
 import {
+  withTextMagnifier,
   withAnnouncer,
   Speech,
   pool,
@@ -62,10 +63,8 @@ export const createApp = parameters => {
 
   window.CONTEXT = context; // Used by addons
 
-  window.APP = new (class LightningUIApp extends withAnnouncer(
-    lng.Application,
-    Speech,
-    announcerOptions
+  window.APP = new (class LightningUIApp extends withTextMagnifier(
+    withAnnouncer(lng.Application, Speech, announcerOptions)
   ) {
     _construct() {
       this.announcerTimeout = 15 * 1000;
@@ -77,6 +76,10 @@ export const createApp = parameters => {
 
     $storyChanged() {
       this.emit('storyChanged');
+    }
+
+    $toggleTextMagnifier(value) {
+      this.textMagnifierEnabled = Boolean(value);
     }
 
     _getFocused() {

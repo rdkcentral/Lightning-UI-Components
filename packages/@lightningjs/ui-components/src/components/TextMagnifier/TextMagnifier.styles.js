@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright 2023 Comcast Cable Communications Management, LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +15,29 @@
  *
  * SPDX-License-Identifier: Apache-2.0
  */
-// for add-on config
-export const ADDON_ID = 'lui-addons';
 
-// specfic add-ons
-export const DOWNLOAD_ID = `${ADDON_ID}/downloadbutton`;
-export const ANNOUNCE_ID = `${ADDON_ID}/announcetoggle`;
-export const MAGNIFIER_ID = `${ADDON_ID}/magnifiertoggle`;
-export const GRIDOVERLAY_ID = `${ADDON_ID}/gridoverlaypanel`;
-export const THEMEPANEL_ID = `${ADDON_ID}/themepanel`;
-export const COMPONENTSTYLES_ID = `${ADDON_ID}/componentstylespanel`;
-export const STAGECOLOR_ID = `${ADDON_ID}/stagecolortoggle`;
-export const THEMEPICKER_ID = `${ADDON_ID}/themepicker`;
+export const base = theme => {
+  return {
+    color: theme.color.fillNeutral,
+    gutterX: theme.layout.gutterX * 2,
+    gutterY: theme.layout.safe,
+    radius: theme.radius.lg,
+    textStyle: theme.typography.display1,
+    zIndex: 9999
+  };
+};
+
+export const tone = theme => ({
+  neutral: {
+    backgroundColor: theme.color.fillNeutral,
+    textStyle: { textColor: theme.color.textInverse }
+  },
+  inverse: {
+    backgroundColor: theme.color.fillInverse,
+    textStyle: { textColor: theme.color.textNeutral }
+  },
+  brand: {
+    backgroundColor: theme.color.fillBrand,
+    textStyle: { textColor: theme.color.textNeutral }
+  }
+});

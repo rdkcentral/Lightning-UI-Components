@@ -21,6 +21,7 @@ import theme from './theme';
 import * as ids from './addons/constants';
 import {
   Announce,
+  Magnifier,
   StageColor,
   ThemeDownload,
   ThemePicker
@@ -44,6 +45,13 @@ addons.register(ids.ADDON_ID, () => {
     title: 'Announce Toggle',
     match: ({ viewMode }) => viewMode === 'story', // show only in story
     render: Announce
+  });
+  // Magnifier toggle
+  addons.add(ids.MAGNIFIER_ID, {
+    type: types.TOOL,
+    title: 'Magnifier Toggle',
+    match: ({ viewMode }) => viewMode === 'story', // show only in story
+    render: Magnifier
   });
   // Theme Picker
   addons.add(ids.THEMEPICKER_ID, {

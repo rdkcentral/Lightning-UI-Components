@@ -118,6 +118,9 @@ const preview = {
     announce: {
       defaultValue: false
     },
+    magnifier: {
+      defaultValue: false
+    },
     stageColor: {
       defaultValue: false
     }
