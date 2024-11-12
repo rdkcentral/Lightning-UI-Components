@@ -1,0 +1,23 @@
+{
+  "name": "@lightningjs/inspector-ext",
+  "version": "1.0.0",
+  "description": "An extension for Lightning's Inspector tool",
+  "main": "src/index.js",
+  "repository": {
+    "url": "https://github.com/rdkcentral/Lightning-UI-Components",
+    "directory": "packages/@lightningjs/inspector-ext"
+  },
+  "type": "module",
+  "files": [
+    "src/**"
+  ],
+  "scripts": {
+    "circular-dep-chk": "madge --circular --extensions js ./src",
+    "prebuild": "npm run circular-dep-chk",
+    "build": "npm pack"
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "madge": "^8.0.0"
+  }
+}
