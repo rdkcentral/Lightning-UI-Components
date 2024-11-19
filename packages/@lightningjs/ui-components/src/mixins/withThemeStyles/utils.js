@@ -623,8 +623,9 @@ export function generateNameFromPrototypeChain(obj, name = '') {
   if (!obj) return name;
   const proto = Object.getPrototypeOf(obj);
   if (!proto || !proto.constructor) return name;
-  const componentName = `${name ? name + '.' : ''}${proto?.constructor?.__componentName || ''
-    }`
+  const componentName = `${name ? name + '.' : ''}${
+    proto?.constructor?.__componentName || ''
+  }`
     .replace(/\.*$/, '')
     .trim();
   const result = generateNameFromPrototypeChain(proto, componentName);
