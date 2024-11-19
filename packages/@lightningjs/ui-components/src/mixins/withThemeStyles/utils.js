@@ -209,15 +209,26 @@ export function removeEmptyObjects(obj) {
   return obj; // Always return obj, even if it's empty
 }
 
-// This map will store hashes of objects to detect duplicates.
-
 export function createSharedReferences(obj = {}) {
   const seenObjects = new Map();
 
   // Generates a hash for an object.
   // Sorting keys ensures consistent hash regardless of property order.
   function hash(object) {
-    return JSON.stringify(object, Object.keys(object).sort());
+    let result = '';
+    if (typeof object !== 'object' || object === null) {
+      // If it's a primitive, return its string representation.
+      return JSON.stringify(object);
+    } else if (Array.isArray(object)) {
+      // If it's an array, we hash each element.
+      result += '[' + object.map(hash).join(',') + ']';
+    } else {
+      // If it's an object, we take sorted keys and include their values.
+      const keys = Object.keys(object).sort();
+      result +=
+        '{' + keys.map(key => `${key}:${hash(object[key])}`).join(',') + '}';
+    }
+    return result;
   }
 
   function process(currentObj) {
@@ -612,9 +623,8 @@ export function generateNameFromPrototypeChain(obj, name = '') {
   if (!obj) return name;
   const proto = Object.getPrototypeOf(obj);
   if (!proto || !proto.constructor) return name;
-  const componentName = `${name ? name + '.' : ''}${
-    proto?.constructor?.__componentName || ''
-  }`
+  const componentName = `${name ? name + '.' : ''}${proto?.constructor?.__componentName || ''
+    }`
     .replace(/\.*$/, '')
     .trim();
   const result = generateNameFromPrototypeChain(proto, componentName);
