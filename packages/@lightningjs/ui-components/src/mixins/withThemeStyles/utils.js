@@ -209,42 +209,45 @@ export function removeEmptyObjects(obj) {
   return obj; // Always return obj, even if it's empty
 }
 
-export function createSharedReferences(obj = {}) {
-  const seenObjects = new Map();
+export function safeStringify(originalObj) {
+  const obj = { ...originalObj };
 
-  // Generates a hash for an object.
-  // Sorting keys ensures consistent hash regardless of property order.
-  function hash(object) {
-    let result = '';
-    if (typeof object !== 'object' || object === null) {
-      // If it's a primitive, return its string representation.
-      return JSON.stringify(object);
-    } else if (Array.isArray(object)) {
-      // If it's an array, we hash each element.
-      result += '[' + object.map(hash).join(',') + ']';
-    } else {
-      // If it's an object, we take sorted keys and include their values.
-      const keys = Object.keys(object).sort();
-      result +=
-        '{' + keys.map(key => `${key}:${hash(object[key])}`).join(',') + '}';
+  const seen = new WeakSet(); // WeakSet is used to store references to objects we've processed
+
+  return JSON.stringify(obj, (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return '[Circular]'; // Replace circular references with a string
+      }
+      seen.add(value); // Mark this object as seen
     }
-    return result;
-  }
+    return value; // Return the value as is
+  });
+}
+
+export function createSharedReferences(obj = {}) {
+  const seenObjects = new Map(); // Store original reference -> shared reference
 
   function process(currentObj) {
-    for (const key in currentObj) {
-      if (currentObj.hasOwnProperty(key)) {
-        const value = currentObj[key];
-        if (typeof value === 'object' && value !== null) {
-          // Ensure it's an object
-          const valueHash = hash(value);
-          if (seenObjects.has(valueHash)) {
-            // If we've seen this object before, replace the current reference
-            // with the original reference.
-            currentObj[key] = seenObjects.get(valueHash);
-          } else {
-            seenObjects.set(valueHash, value);
-            process(value); // Recursively process this object
+    const queue = [currentObj]; // Use a queue for breadth-first traversal
+
+    while (queue.length > 0) {
+      const current = queue.shift();
+
+      for (const key in current) {
+        if (current.hasOwnProperty(key)) {
+          const value = current[key];
+          if (typeof value === 'object' && value !== null) {
+            const cacheKey = safeStringify(value);
+            if (seenObjects.has(cacheKey)) {
+              // Replace duplicate reference with the shared reference
+              current[key] = seenObjects.get(cacheKey);
+
+            } else {
+              // Add child objects to the queue for processing
+              seenObjects.set(cacheKey, value);
+              queue.push(value);
+            }
           }
         }
       }
@@ -252,7 +255,6 @@ export function createSharedReferences(obj = {}) {
   }
 
   process(obj);
-
   return obj;
 }
 
@@ -623,9 +625,8 @@ export function generateNameFromPrototypeChain(obj, name = '') {
   if (!obj) return name;
   const proto = Object.getPrototypeOf(obj);
   if (!proto || !proto.constructor) return name;
-  const componentName = `${name ? name + '.' : ''}${
-    proto?.constructor?.__componentName || ''
-  }`
+  const componentName = `${name ? name + '.' : ''}${proto?.constructor?.__componentName || ''
+    }`
     .replace(/\.*$/, '')
     .trim();
   const result = generateNameFromPrototypeChain(proto, componentName);
