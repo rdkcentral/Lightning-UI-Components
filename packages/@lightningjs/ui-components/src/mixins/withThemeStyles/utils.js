@@ -242,7 +242,6 @@ export function createSharedReferences(obj = {}) {
             if (seenObjects.has(cacheKey)) {
               // Replace duplicate reference with the shared reference
               current[key] = seenObjects.get(cacheKey);
-
             } else {
               // Add child objects to the queue for processing
               seenObjects.set(cacheKey, value);
@@ -625,8 +624,9 @@ export function generateNameFromPrototypeChain(obj, name = '') {
   if (!obj) return name;
   const proto = Object.getPrototypeOf(obj);
   if (!proto || !proto.constructor) return name;
-  const componentName = `${name ? name + '.' : ''}${proto?.constructor?.__componentName || ''
-    }`
+  const componentName = `${name ? name + '.' : ''}${
+    proto?.constructor?.__componentName || ''
+  }`
     .replace(/\.*$/, '')
     .trim();
   const result = generateNameFromPrototypeChain(proto, componentName);
