@@ -212,7 +212,7 @@ describe('isPlainObject', () => {
     expect(isPlainObject('')).toBe(false);
     expect(isPlainObject(42)).toBe(false);
     expect(isPlainObject(true)).toBe(false);
-    expect(isPlainObject(() => { })).toBe(false);
+    expect(isPlainObject(() => {})).toBe(false);
     expect(isPlainObject(/foo/)).toBe(false);
     expect(isPlainObject(new Error())).toBe(false);
   });
@@ -1156,7 +1156,7 @@ describe('generateNameFromPrototypeChain', () => {
   });
 
   it('should handle an object with missing __componentName', () => {
-    class ComponentWithoutName { }
+    class ComponentWithoutName {}
 
     const obj = new ComponentWithoutName();
     const result = generateNameFromPrototypeChain(obj);
@@ -1246,7 +1246,7 @@ class ComponentB extends ComponentA {
   }
 }
 
-class ComponentC extends ComponentB { }
+class ComponentC extends ComponentB {}
 
 describe('getStyleChain', () => {
   it('should return an array of style objects from the prototype chain', () => {
@@ -1481,7 +1481,7 @@ describe('replaceAliasValues', () => {
 
     const aliasStyles = [{ prev: 'testW', curr: 'testWidth', skipWarn: false }];
 
-    const consoleWarnSpy = jest.spyOn(log, 'warn').mockImplementation(() => { });
+    const consoleWarnSpy = jest.spyOn(log, 'warn').mockImplementation(() => {});
 
     const result = replaceAliasValues(styleObject, aliasStyles);
 
@@ -1502,7 +1502,7 @@ describe('replaceAliasValues', () => {
 
     const consoleWarnSpy = jest
       .spyOn(console, 'warn')
-      .mockImplementation(() => { });
+      .mockImplementation(() => {});
 
     const result = replaceAliasValues(styleObject, aliasStyles);
 
