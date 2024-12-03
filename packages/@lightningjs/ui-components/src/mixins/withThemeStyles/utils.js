@@ -209,31 +209,44 @@ export function removeEmptyObjects(obj) {
   return obj; // Always return obj, even if it's empty
 }
 
-// This map will store hashes of objects to detect duplicates.
+export function safeStringify(originalObj) {
+  const obj = { ...originalObj };
+
+  const seen = new WeakSet(); // WeakSet is used to store references to objects we've processed
+
+  return JSON.stringify(obj, (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return '[Circular]'; // Replace circular references with a string
+      }
+      seen.add(value); // Mark this object as seen
+    }
+    return value; // Return the value as is
+  });
+}
 
 export function createSharedReferences(obj = {}) {
-  const seenObjects = new Map();
-
-  // Generates a hash for an object.
-  // Sorting keys ensures consistent hash regardless of property order.
-  function hash(object) {
-    return JSON.stringify(object, Object.keys(object).sort());
-  }
+  const seenObjects = new Map(); // Store original reference -> shared reference
 
   function process(currentObj) {
-    for (const key in currentObj) {
-      if (currentObj.hasOwnProperty(key)) {
-        const value = currentObj[key];
-        if (typeof value === 'object' && value !== null) {
-          // Ensure it's an object
-          const valueHash = hash(value);
-          if (seenObjects.has(valueHash)) {
-            // If we've seen this object before, replace the current reference
-            // with the original reference.
-            currentObj[key] = seenObjects.get(valueHash);
-          } else {
-            seenObjects.set(valueHash, value);
-            process(value); // Recursively process this object
+    const queue = [currentObj]; // Use a queue for breadth-first traversal
+
+    while (queue.length > 0) {
+      const current = queue.shift();
+
+      for (const key in current) {
+        if (current.hasOwnProperty(key)) {
+          const value = current[key];
+          if (typeof value === 'object' && value !== null) {
+            const cacheKey = safeStringify(value);
+            if (seenObjects.has(cacheKey)) {
+              // Replace duplicate reference with the shared reference
+              current[key] = seenObjects.get(cacheKey);
+            } else {
+              // Add child objects to the queue for processing
+              seenObjects.set(cacheKey, value);
+              queue.push(value);
+            }
           }
         }
       }
@@ -241,7 +254,6 @@ export function createSharedReferences(obj = {}) {
   }
 
   process(obj);
-
   return obj;
 }
 

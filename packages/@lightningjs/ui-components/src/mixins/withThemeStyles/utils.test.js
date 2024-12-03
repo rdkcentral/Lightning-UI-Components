@@ -452,6 +452,34 @@ describe('createSharedReferences', () => {
     const result = createSharedReferences(input);
     expect(result.a).not.toBe(result.b);
   });
+
+  it('should preserve circular references', () => {
+    const obj = {};
+    obj.self = obj;
+    const result = createSharedReferences(obj);
+    expect(result.self).toBe(result);
+  });
+
+  it('should preserve nested circular references', () => {
+    const obj = { a: {} };
+    obj.a.self = obj.a;
+    const result = createSharedReferences(obj);
+    expect(result.a.self).toBe(result.a);
+  });
+
+  it('should preserve shared references for the same object', () => {
+    const shared = {};
+    const obj = { a: shared, b: shared };
+    const result = createSharedReferences(obj);
+    expect(result.a).toBe(result.b);
+  });
+
+  it('should preserve deeply nested circular references', () => {
+    const obj = { a: { b: { c: { d: {} } } } };
+    obj.a.b.c.d.self = obj.a.b.c.d;
+    const result = createSharedReferences(obj);
+    expect(result.a.b.c.d.self).toBe(result.a.b.c.d);
+  });
 });
 
 describe('getUniqueProperties', () => {
