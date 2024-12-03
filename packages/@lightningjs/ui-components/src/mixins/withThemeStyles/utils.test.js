@@ -212,7 +212,7 @@ describe('isPlainObject', () => {
     expect(isPlainObject('')).toBe(false);
     expect(isPlainObject(42)).toBe(false);
     expect(isPlainObject(true)).toBe(false);
-    expect(isPlainObject(() => {})).toBe(false);
+    expect(isPlainObject(() => { })).toBe(false);
     expect(isPlainObject(/foo/)).toBe(false);
     expect(isPlainObject(new Error())).toBe(false);
   });
@@ -453,7 +453,6 @@ describe('createSharedReferences', () => {
     expect(result.a).not.toBe(result.b);
   });
 
-  // Test: Circular reference
   it('should preserve circular references', () => {
     const obj = {};
     obj.self = obj;
@@ -461,7 +460,6 @@ describe('createSharedReferences', () => {
     expect(result.self).toBe(result);
   });
 
-  // Test: Nested circular reference
   it('should preserve nested circular references', () => {
     const obj = { a: {} };
     obj.a.self = obj.a;
@@ -469,7 +467,6 @@ describe('createSharedReferences', () => {
     expect(result.a.self).toBe(result.a);
   });
 
-  // Test: Shared references
   it('should preserve shared references for the same object', () => {
     const shared = {};
     const obj = { a: shared, b: shared };
@@ -477,7 +474,6 @@ describe('createSharedReferences', () => {
     expect(result.a).toBe(result.b);
   });
 
-  // Test: Deeply nested circular reference
   it('should preserve deeply nested circular references', () => {
     const obj = { a: { b: { c: { d: {} } } } };
     obj.a.b.c.d.self = obj.a.b.c.d;
@@ -1160,7 +1156,7 @@ describe('generateNameFromPrototypeChain', () => {
   });
 
   it('should handle an object with missing __componentName', () => {
-    class ComponentWithoutName {}
+    class ComponentWithoutName { }
 
     const obj = new ComponentWithoutName();
     const result = generateNameFromPrototypeChain(obj);
@@ -1250,7 +1246,7 @@ class ComponentB extends ComponentA {
   }
 }
 
-class ComponentC extends ComponentB {}
+class ComponentC extends ComponentB { }
 
 describe('getStyleChain', () => {
   it('should return an array of style objects from the prototype chain', () => {
@@ -1485,7 +1481,7 @@ describe('replaceAliasValues', () => {
 
     const aliasStyles = [{ prev: 'testW', curr: 'testWidth', skipWarn: false }];
 
-    const consoleWarnSpy = jest.spyOn(log, 'warn').mockImplementation(() => {});
+    const consoleWarnSpy = jest.spyOn(log, 'warn').mockImplementation(() => { });
 
     const result = replaceAliasValues(styleObject, aliasStyles);
 
@@ -1506,7 +1502,7 @@ describe('replaceAliasValues', () => {
 
     const consoleWarnSpy = jest
       .spyOn(console, 'warn')
-      .mockImplementation(() => {});
+      .mockImplementation(() => { });
 
     const result = replaceAliasValues(styleObject, aliasStyles);
 
