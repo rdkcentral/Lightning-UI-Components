@@ -39,7 +39,7 @@ export default class FocusManager extends Base {
   }
 
   static get properties() {
-    return ['direction', 'wrapSelected'];
+    return ['direction', 'wrapSelected', 'itemPosX', 'itemPosY'];
   }
 
   _construct() {
@@ -87,22 +87,6 @@ export default class FocusManager extends Base {
     this._selectedIndex = 0;
     this.appendItems(items);
     this._checkSkipFocus();
-  }
-
-  set itemPosX(x) {
-    this.Items.x = this._itemPosX = x;
-  }
-
-  get itemPosX() {
-    return this._itemPosX;
-  }
-
-  set itemPosY(y) {
-    this.Items.y = this._itemPosY = y;
-  }
-
-  get itemPosY() {
-    return this._itemPosY;
   }
 
   _resetItems() {
