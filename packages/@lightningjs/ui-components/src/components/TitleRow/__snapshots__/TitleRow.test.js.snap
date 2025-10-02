@@ -282,7 +282,7 @@ exports[`TitleRow renders 1`] = `
       "visible": true,
       "w": 2220,
       "x": 0,
-      "y": 68,
+      "y": 52,
       "zIndex": 0,
     },
     "Title": {
@@ -344,7 +344,7 @@ exports[`TitleRow renders 1`] = `
       "enabled": true,
       "flex": false,
       "flexItem": false,
-      "h": 48,
+      "h": 32,
       "hasFinalFocus": false,
       "hasFocus": false,
       "isComponent": true,

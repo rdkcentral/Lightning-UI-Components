@@ -370,11 +370,10 @@ describe('InlineContent', () => {
       '$loadedInlineContent',
       inlineContent
     );
-    expect(inlineContent.signal).toHaveBeenCalledWith(
-      'loadedInlineContent',
-      inlineContent.finalW,
-      inlineContent.multiLineHeight
-    );
+    expect(inlineContent.signal).toHaveBeenCalledWith('loadedInlineContent', {
+      w: inlineContent.finalW,
+      h: inlineContent.multiLineHeight
+    });
   });
 
   it('should truncate content that exceeds the defined max lines', async () => {
