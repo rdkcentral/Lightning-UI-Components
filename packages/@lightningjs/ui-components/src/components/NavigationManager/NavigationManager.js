@@ -104,7 +104,14 @@ export default class NavigationManager extends FocusManager {
   }
 
   _update() {
+    super._update();
+    this._updateDefaultItemPos();
     this._updateLayout();
+  }
+
+  _updateDefaultItemPos() {
+    const itemPos = this._isRow ? { y: this.itemPosY } : { x: this.itemPosX };
+    this.applySmooth(this.Items, itemPos);
   }
 
   _updateLayout() {

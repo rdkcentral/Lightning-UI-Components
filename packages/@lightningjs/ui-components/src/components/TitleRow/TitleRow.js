@@ -52,14 +52,14 @@ export default class TitleRow extends Row {
   }
 
   _update() {
-    super._update();
     this._updateTitle();
     this._updateRow();
+    super._update();
   }
 
   _autoResize() {
     this.w = this.w || this.style.w;
-    this.h = this.autoResizeHeight ? this.Items.y + this.Items.h : this.h;
+    this.h = this.autoResizeHeight ? this.itemPosY + this.Items.h : this.h;
   }
 
   _updateTitle() {
@@ -94,9 +94,10 @@ export default class TitleRow extends Row {
   }
 
   _updateRow() {
-    this.applySmooth(this.Items, {
-      y: this.title ? this._Title.finalH + this.style.titleMarginBottom : 0
-    });
+    this.itemPosY =
+      this.title && this._Title
+        ? this._Title.finalH + this.style.titleMarginBottom
+        : 0;
   }
 
   set announce(announce) {
